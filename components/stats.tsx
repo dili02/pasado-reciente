@@ -8,64 +8,59 @@ type Props = {};
 
 const stats = [
   {
-    label: "asesinatos",
+    label: "victimas asesinatos",
     count: 50,
-    icon: <Icons.gun className="h-8 w-8 md:w-18 md:h-18 lg:h-20 lg:w-20" />,
+    icon: <Icons.shot className="h-6 w-6" />,
   },
   {
     label: "atentados",
     count: 50,
-    icon: (
-      <Icons.timeDinamite className="h-8 w-8 md:w-18 md:h-18 lg:h-20 lg:w-20" />
-    ),
+    icon: <Icons.timeDinamite className="h-6 w-6" />,
   },
   {
-    label: "robos",
+    label: "robo dinero",
     count: 50,
-    icon: <Icons.heist className="h-8 w-8 md:w-18 md:h-18 lg:h-20 lg:w-20" />,
+    icon: <Icons.heist className="h-6 w-6" />,
+  },
+  {
+    label: "robo armas / dinero",
+    count: 50,
+    icon: <Icons.gun className="h-6 w-6" />,
   },
   {
     label: "secuestros",
     count: 50,
-    icon: (
-      <Icons.prisoner className="h-8 w-8 md:w-18 md:h-18 lg:h-20 lg:w-20" />
-    ),
+    icon: <Icons.prisoner className="h-6 w-6" />,
   },
   {
     label: "otras acciones",
     count: 50,
-    icon: <Icons.punch className="h-8 w-8 md:w-18 md:h-18 lg:h-20 lg:w-20" />,
+    icon: <Icons.punch className="h-6 w-6" />,
   },
 ];
 
 export default function Stats({}: Props) {
   return (
-    <section className="w-full">
-      <div className="p-8 bg-destructive text-red-200">
-        <div className="flex flex-wrap gap-6 mx-auto max-w-[80vh] xl:max-w-none">
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="flex-1 flex gap-4 items-center justify-center xl:justify-start text-primary"
-            >
-              <CountUp
-                end={stat.count}
-                duration={5}
-                delay={1}
-                className="text-red-200 text-4xl xl:text-6xl font-extrabold"
-              />
-              <div className="flex flex-col items-center justify-center">
-                <p className="text-red-200">{stat.icon}</p>
-                {/* <p
-                  className="font-bold uppercase text-red-200"
-                >
-                 {stat.label}
-                </p>  */}
-              </div>
-            </div>
-          ))}
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+      {/* flex flex-wrap gap-6 mx-auto max-w-[80vh] xl:max-w-none text-[#007664] */}
+      {stats.map((stat, index) => (
+        <div
+          key={index}
+          // flex-1 flex gap-4 items-center justify-center xl:justify-start text-primary bg-red-400 p-6 rounded-md
+          className="flex items-center justify-between p-3 border border-primary text-[#f40]  rounded-md transition duration-500 ease-in-out hover:-translate-y-1 bg-orange-100"
+        >
+          <div className="flex items-center gap-3 ">
+            <span>{stat.icon}</span>
+            <CountUp
+              end={stat.count}
+              duration={5}
+              delay={1}
+              className="font-extrabold text-2xl text-[#f40]"
+            />
+          </div>
+          <p className="text-base">{stat.label}</p>
         </div>
-      </div>
-    </section>
+      ))}
+    </div>
   );
 }

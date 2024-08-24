@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 37.079, 75%, 83%; /*240, 10%, 12%;*/
+    --background: 37, 75%, 83%; /*240, 10%, 12%;*/
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -14,9 +14,9 @@
     --primary-foreground: 24.6 95% 53.1%; */
     /* --primary-foreground: 210 40% 98%; */
     /* --primary-foreground: 210 40% 98%; */
-    --primary: 16.8, 17%, 28%; /*24.6 95% 53.1%;*/
-    --primary-foreground: 15.882, 27%, 50%; /*60 9.1% 97.8%;*/
-    --secondary: 210 40% 96.1%;
+    --primary: 36, 100%, 50%; /*24.6 95% 53.1%;*/
+    --primary-foreground: 0, 0%, 10%; /*60 9.1% 97.8%;*/
+    --secondary: 216, 100%, 50%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -69,6 +69,6 @@
   }
   body {
     /* @apply bg-background text-foreground; */
-    @apply bg-[#f90] text-white leading-loose;
+    @apply bg-orange-50 text-white leading-loose;
   }
 }

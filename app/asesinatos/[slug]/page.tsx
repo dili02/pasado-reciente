@@ -37,7 +37,7 @@ export default async function page({ params }: Props) {
   // console.log(action.videos);
 
   return (
-    <section className="container mx-auto text-primary bg-background py-10">
+    <section className="container mx-auto text-primary py-10">
       <div>
         {/* <h1 className="text-center font-extrabold tracking-wide uppercase text-2xl md:text-4xl lg:text-5xl">
           {action.title}
@@ -45,7 +45,9 @@ export default async function page({ params }: Props) {
         <time className="text-lg md:text-2xl text-center text-secondary-foreground font-medium w-full flex items-center justify-center">
           {getFormattedDateToString(action.date)}
         </time> */}
-        <Title>{action.title}</Title>
+        <h1 className="uppercase text-6xl text-primary text-center font-extrabold">
+          {action.title}
+        </h1>
         <TitleDate>
           <time>{getFormattedDateToString(action.date)}</time>
         </TitleDate>
@@ -56,11 +58,9 @@ export default async function page({ params }: Props) {
 
       {/*  1. diarios */}
       {action.notice && <Notice notices={action.notice} />}
-      {/* {action.notice && <NoticeSection notices={action.notice} />} */}
-      {/* {action.notice && <News notices={action.notice} />} */}
 
       {/*  2. ilustraciones */}
-      {action.ilustration && <Ilustration ilustration={action.ilustration} />}
+      {/* {action.ilustration && <Ilustration ilustration={action.ilustration} />} */}
       {action.apologyForCrimeInImages && (
         <ApologyForCrimeInImages
           apologyForCrimeInImages={action.apologyForCrimeInImages}
@@ -411,88 +411,100 @@ type NoticeDefeinition = {
 function Notice({ notices }: NoticeDefeinition) {
   return (
     <div className="py-8">
-      <h2 className="text-center uppercase underline text-2xl md:text-4xl font-bold">
+      <h2 className="text-center uppercase underline text-2xl md:text-4xl font-extrabold">
         noticias publicadas por diarios de la época
       </h2>
 
       <div className="">
         {notices?.map((notice) => (
           <div key={notice.name} className="py-6">
-            <p className="text-center text-xl md:text-3xl font-bold pt-4">
+            <p className="text-center text-xl md:text-3xl font-bold pt-4 text-textPrimary">
               {notice.name}
             </p>
 
             {notice.date && (
-              <p className="text-center text-lg md:text-2xl font-bold">
+              <p className="text-center text-lg md:text-2xl font-bold text-textPrimary">
                 <time>{getFormattedDateToString(notice.date)}</time>
               </p>
             )}
 
             {notice.dateInit && (
-              <p className="text-center text-lg md:text-2xl font-bold">
+              <p className="text-center text-lg md:text-2xl font-bold text-textPrimary">
                 <time>{getFormattedDateToString(notice.dateInit)}</time> al{" "}
                 <time>{getFormattedDateToString(notice.dateEnd!)}</time>
               </p>
             )}
 
             {notice.title && (
-              <h4 className="text-center text-base md:text-xl font-bold">
+              <h4 className="text-center text-base md:text-xl font-bold text-textPrimary">
                 TITULO: {notice.title}
               </h4>
             )}
 
             {notice.description && (
-              <p className="text-base md:text-xl">{notice.description}</p>
+              <p className="text-base md:text-xl text-textSecondary">
+                {notice.description}
+              </p>
             )}
 
             {notice.subtitle && (
-              <h4 className="text-center text-base md:text-xl font-bold">
+              <h4 className="text-center text-base md:text-xl font-bold text-textPrimary">
                 SUB TITULO: {notice.subtitle}
               </h4>
             )}
 
             {notice.subDescription && (
-              <p className="text-base md:text-xl">{notice.subDescription}</p>
+              <p className="text-base md:text-xl text-textSecondary">
+                {notice.subDescription}
+              </p>
             )}
 
             {notice.title1 && (
-              <h4 className="text-center text-base md:text-xl font-bold">
+              <h4 className="text-center text-base md:text-xl font-bold text-textPrimary">
                 TITULO: {notice.title1}
               </h4>
             )}
 
             {notice.description1 && (
-              <p className="text-base md:text-xl">{notice.description1}</p>
+              <p className="text-base md:text-xl text-textSecondary">
+                {notice.description1}
+              </p>
             )}
 
             {notice.subtitle1 && (
-              <h4 className="text-center text-base md:text-xl font-bold">
+              <h4 className="text-center text-base md:text-xl font-bold text-textPrimary">
                 SUB TITULO: {notice.subtitle1}
               </h4>
             )}
 
             {notice.subDescription1 && (
-              <p className="text-base md:text-xl">{notice.subDescription1}</p>
+              <p className="text-base md:text-xl text-textSecondary">
+                {notice.subDescription1}
+              </p>
             )}
 
             {notice.title2 && (
-              <h4 className="text-center text-base md:text-xl font-bold">
+              <h4 className="text-center text-base md:text-xl font-bold text-textPrimary">
                 TITULO: {notice.title2}
               </h4>
             )}
 
             {notice.description2 && (
-              <p className="text-base md:text-xl">{notice.description2}</p>
+              <p className="text-base md:text-xl text-textSecondary">
+                {notice.description2}
+              </p>
             )}
 
             {notice.title3 && (
-              <h4 className="text-center text-base md:text-xl font-bold">
+              <h4 className="text-center text-base md:text-xl font-bold text-textPrimary">
                 TITULO: {notice.title3}
               </h4>
             )}
 
             {notice.description3 && (
-              <p className="text-base md:text-xl">{notice.description3}</p>
+              <p className="text-base md:text-xl text-textSecondary">
+                {notice.description3}
+              </p>
             )}
 
             <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between py-6">
@@ -500,7 +512,7 @@ function Notice({ notices }: NoticeDefeinition) {
                 <Link
                   href={image.src}
                   target="_blank"
-                  className="flex items-center gap-2 font-bold text-[#b98900] py-2"
+                  className="flex items-center gap-2 font-bold text-[#007664] py-2"
                   key={image.src}
                 >
                   <p className=" text-xs md:text-lg lg:text-2xl uppercase underline">
@@ -565,36 +577,37 @@ function Notice({ notices }: NoticeDefeinition) {
   );
 }
 
-type IlustrationeDefeinition = {
-  ilustration: IlustrationActionDefinition;
-};
-function Ilustration({ ilustration }: IlustrationeDefeinition) {
-  return (
-    <div>
-      {/* Apología del delito en imágenes: <time>1964</time> - <time>1972</time> */}
-      <h2 className="text-center uppercase underline text-2xl md:text-4xl font-bold">
-        Apología del delito en imágenes
-      </h2>
+// TODO: chek this is used
+// type IlustrationeDefeinition = {
+//   ilustration: IlustrationActionDefinition;
+// };
+// function Ilustration({ ilustration }: IlustrationeDefeinition) {
+//   return (
+//     <div>
+//       {/* Apología del delito en imágenes: <time>1964</time> - <time>1972</time> */}
+//       <h2 className="text-center uppercase underline text-2xl md:text-4xl font-bold text-primary">
+//         Apología del delito en imágenes
+//       </h2>
 
-      <h3 className="font-bold text-center text-xl md:text-3xl text-primary-foreground mb-4">
-        {ilustration.title}
-      </h3>
+//       <h3 className="font-bold text-center text-xl md:text-3xl text-textPrimary mb-4">
+//         {ilustration.title}
+//       </h3>
 
-      {/* <h5 className="font-bold text-center text-xl md:text-3xl py-2 md:py-3">
-        {ilustration.subTitle}
-      </h5> */}
+//       {/* <h5 className="font-bold text-center text-xl md:text-3xl py-2 md:py-3">
+//         {ilustration.subTitle}
+//       </h5> */}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {ilustration.images.map((image) => (
-          <div key={image.src}>
-            <img src={image.src} alt={image.alt} />
-            <p className="text-base md:text-xl">{image.alt}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+//       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+//         {ilustration.images.map((image) => (
+//           <div key={image.src}>
+//             <img src={image.src} alt={image.alt} />
+//             <p className="text-base md:text-xl">{image.alt}</p>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
 type ApologyForCrimeInImagesProps = {
   apologyForCrimeInImages: ApologyForCrimeInImagesDefinition[];
 };
@@ -603,24 +616,28 @@ function ApologyForCrimeInImages({
 }: ApologyForCrimeInImagesProps) {
   return (
     <div>
-      <h2 className="text-center uppercase underline text-2xl md:text-4xl font-bold">
+      <h2 className="text-center uppercase underline text-2xl md:text-4xl font-extrabold text-primary">
         Apología del delito en imágenes
       </h2>
 
       <div className="py-8">
         {apologyForCrimeInImages.map((apology) => (
           <div key={apology.title}>
-            <h3 className="font-bold text-center text-xl md:text-3xl text-primary-foreground mb-4 uppercase">
+            <h3 className="font-bold text-center text-xl md:text-3xl text-textPrimary uppercase">
               {apology.title}
             </h3>
 
-            <p className="md:text-2xl">{apology.description}</p>
+            <p className="md:text-2xl text-textSecondary">
+              {apology.description}
+            </p>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 py-6">
               {apology.images.map((image) => (
                 <div key={image.src}>
                   <img src={image.src} alt={image.alt} />
-                  <p className="text-base md:text-xl">{image.alt}</p>
+                  <p className="text-base md:text-xl text-textSecondary">
+                    {image.alt}
+                  </p>
                 </div>
               ))}
             </div>
@@ -631,6 +648,7 @@ function ApologyForCrimeInImages({
   );
 }
 
+// TODO: chek this is used
 type PlaceOfOccurrenceDefinition = {
   placeOfOccurrence: ImageDefinition;
 };
@@ -669,37 +687,40 @@ function VirtualMemorial({ virtualMemorial }: VirtualMemorialProps) {
 
 type ActionVindicatedDefinition = {
   actionVidicated: {
-    description: string;
+    description?: string;
     books: Book[];
   };
 };
 function ActionVindicated({ actionVidicated }: ActionVindicatedDefinition) {
   return (
     <div>
-      <h2 className="text-center uppercase underline text-2xl md:text-4xl font-bold">
-        acciones terroristas reinvidicadas por los movimientos terroristas
+      <h2 className="text-center uppercase underline text-2xl md:text-4xl font-extrabold text-primary">
+        acciones reinvidicadas por los movimientos terroristas
       </h2>
 
       {/* {actionVidicated.description.split("\n").map((p) => (
         <p className="text-base md:text-xl py-2">{p}</p>
       ))} */}
 
-      <p className="text-base md:text-xl py-2">
+      <p className="text-base md:text-xl py-6 text-textPrimary">
         Las acciones terroristas del llamado Pasado Reciente son reconocidas y
         reivindicadas por los autores décadas después en libros de circulación
         pública.
       </p>
 
       {actionVidicated.books.map((book) => (
-        <div key={book.name} className="text-base md:text-xl py-2">
+        <div
+          key={book.name}
+          className="text-base md:text-xl py-2 text-textPrimary"
+        >
           {/* <p>{book.fragment}</p> */}
           <div
             className="text-justify pt-8"
             dangerouslySetInnerHTML={{ __html: book.fragment }}
           />
           <p className="">
-            <time>{book.year.getFullYear()}</time> <b>{book.name}</b>{" "}
-            {book.place} {book.pages}
+            {book.author}, <time>{book.year.getFullYear()}</time>,{" "}
+            <b>{book.name}</b>, {book.place}, {book.edition}, {book.pages}
           </p>
         </div>
       ))}
@@ -713,10 +734,10 @@ type TestimonialsDefinition = {
 function Testimonials({ testimonal }: TestimonialsDefinition) {
   return (
     <div>
-      <h2 className="font-extrabold uppercase text-center text-xl md:text-3xl py-2 md:py-3">
+      <h2 className="text-center uppercase underline text-2xl md:text-4xl font-bold text-[#f60]">
         testimonios
       </h2>
-      <h3 className="font-bold text-center text-xl md:text-3xl py-2 md:py-3">
+      <h3 className="font-bold text-center text-xl md:text-2xl py-2 md:py-3 text-[#f60]/60">
         Videos con relatos de familiares de víctimas del terrorismo
         revolucionario
       </h3>
@@ -752,23 +773,26 @@ function Info({ victims }: VictimsDefinition) {
     // flex items-center justify-center md:grid md:grid-cols-2 xl:grid-cols-4
     <div className="py-8 flex flex-wrap justify-center items-center gap-6 mx-auto max-w-[80vh] xl:max-w-none">
       {victims.map((victim) => (
-        <div className="flex items-center gap-2" key={victim.name}>
+        <div
+          className="flex items-center gap-2 text-textPrimary"
+          key={victim.name}
+        >
           <img
             src={victim.avatar?.src}
             alt={victim.avatar?.alt}
-            className="h-32"
+            className="h-60 rounded-2xl"
           />
-          <div>
-            <p>{victim.name}.</p>
-            <p>{victim.age} años.</p>
-            <p>{victim.marital}</p>
+          <div className="text-base md:text-xl">
+            <p className="py-2">{victim.name}.</p>
+            <p className="py-2">{victim.age} años.</p>
+            <p className="py-2">{victim.marital}</p>
             {victim.childs && (
               <p>
                 {victim.childs === 1
                   ? `${victim.childs} hijo`
                   : `${victim.childs} hijos `}
                 {victim.childsDescription && (
-                  <span>{victim.childsDescription}</span>
+                  <span className="py-2">{victim.childsDescription}</span>
                 )}
               </p>
             )}
@@ -778,7 +802,7 @@ function Info({ victims }: VictimsDefinition) {
                   ? `${victim.daughter} hija`
                   : `${victim.daughter} hijas `}
                 {victim.childsDescription && (
-                  <span>{victim.childsDescription}</span>
+                  <span className="py-2">{victim.childsDescription}</span>
                 )}
               </p>
             )}

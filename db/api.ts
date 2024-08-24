@@ -1,5 +1,3 @@
-import { title } from "process";
-
 export type TerroristActionDefinition = {
   // id: string;
   totalOfVictims?: number;
@@ -9,7 +7,7 @@ export type TerroristActionDefinition = {
   type: TypeTerroristActionDefinition;
   videos?: VideosTerroristActionDefinition[];
   vindicated?: {
-    description: string;
+    description?: string;
     books: Book[];
   };
   notice?: NewsPaperDefinition[];
@@ -100,6 +98,7 @@ export type Book = {
   place: string;
   edition: string;
   pages: string;
+  author?: string;
 };
 
 export const api = {
@@ -124,6 +123,21 @@ export const api = {
     // );
 
     return terroristActionsWithVideo;
+  },
+
+  getMemorial: async (): Promise<TerroristActionDefinition[]> => {
+    // const month = new Intl.DateTimeFormat("es-ES", { month: "long" });
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth(); // Mes actual (0-11)
+    // const currentYear = currentDate.getFullYear();
+
+    const currentMonthActions = TerrorActions.filter((action) => {
+      const actionMonth = action.date.getMonth();
+      // const actionYear = action.date.getFullYear();
+      return actionMonth === currentMonth;
+    });
+
+    return currentMonthActions;
   },
 
   getKills: async (): Promise<TerroristActionDefinition[]> => {
@@ -154,8 +168,7 @@ export const TerrorActions: TerroristActionDefinition[] = [
     videos: [
       {
         id: "rdTEayWgJxE",
-        title:
-          "Raquel Morató, hija del Dr. Julio Morató, asesinado por el MLN-Tupamaros.",
+        title: "Raquel Morató, hija del Dr. Julio Morató.",
         src: "https://www.youtube.com/embed/rdTEayWgJxE",
         slug: "asesinato-doctor-julio-morato",
         date: new Date("1972-5-4"),
@@ -188,76 +201,6 @@ export const TerrorActions: TerroristActionDefinition[] = [
     type: "atentado",
   },
   {
-    // id: "3",
-    date: new Date("1972-8-7"),
-    title: "Asesinan en local del Frente Aamplio a Alfonso Aranchet",
-    slug: "asesinan-en-local-del-frente-amplio-a-alfonso-aranchet",
-    type: "asesinato",
-    videos: [
-      {
-        id: "f62DC-0SP38",
-        title:
-          "Nilsa Garcés, madre de Alfonso Arhancet asesinado en un club del Frente Amplio",
-        src: "https://www.youtube.com/embed/f62DC-0SP38",
-        slug: "asesinan-en-local-del-frente-amplio-a-alfonso-aranchet",
-        date: new Date("1972-8-7"),
-      },
-    ],
-  },
-  {
-    //   id: "4",
-    date: new Date("1971-6-22"),
-    title: "Asesinato del Sargento (G.M.) Walter Custodio",
-    slug: "sesinato-sargento-walter-custodio",
-    type: "asesinato",
-    videos: [
-      {
-        id: "ERIuedPriXs",
-        title:
-          "Fanny Custodio, hija del Sargento de la Guardia Metropolitana Walter Custodio.",
-        src: "https://www.youtube.com/embed/ERIuedPriXs",
-        slug: "sesinato-sargento-walter-custodio",
-        date: new Date("1971-6-22"),
-      },
-    ],
-    notice: [
-      {
-        name: 'Diario "El Día"',
-        date: new Date("1971-6-23"),
-        title:
-          "TÍTULO: “POLICÍA Y ESTUDIANTE MUEREN EN NUEVA ACCIÓN EXTREMISTA”",
-        description:
-          "... un funcionario transitaba franco y ropas de civil… advirtió que en la sucursal de la firma Manzanares S.A. se estaba perpetrando un atraco… siendo baleado por los delincuentes resultando con una herida de bala en la espalda ... Aparecen fotos.",
-        imgSrc: [
-          "/walter-custodio/el-dia-1.jpg",
-          "/walter-custodio/el-dia-2.jpg",
-        ],
-      },
-      {
-        name: 'Diario "El Diario"',
-        date: new Date("1971-7-5"),
-        title: "“ATRAPAN A UNA TUPAMARA QUE ASESINÓ A UN POLICÍA”",
-        description:
-          "Cinco sediciosos detenidos recientemente por la Policía, fueron procesados... una de tales personas (concretamente una joven estudiante de Medicina), ha sido identificada como autora de los disparos que causaron la muerte de un funcionario policial... La mujer... fue reconocida como... Además los delincuentes... y... fueron reconocidos también como participantes del referido asalto... Aparecen fotos.",
-        imgSrc: [
-          "/walter-custodio/el-diario-1.jpg",
-          "/walter-custodio/el-diario-2.jpg",
-        ],
-      },
-      {
-        name: 'Diario "Acción"',
-        date: new Date("1971-6-23"),
-        title: "“ASESINARON POR LA ESPALDA AL POLICÍA (TENÍA CINCO HIJOS)”",
-        description:
-          "... Volvía con la leche para sus múltiples hijos cuando vio que un grupo de facciosos asaltaba la vecina sucursal de Manzanares... La responsabilidad y arrojo del Sgto. de la “Metro” Walter Custodio Rodríguez lo encaminaron hacia la muerte al enfrentar solo a varios conspiradores... Aparece foto.",
-        imgSrc: [
-          "/walter-custodio/accion-1.jpg",
-          "/walter-custodio/accion-2.jpg",
-        ],
-      },
-    ],
-  },
-  {
     // id: "5",
     date: new Date("1969-7-7"),
     title: "Agente Germán Garay",
@@ -272,11 +215,12 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
         {
           fragment:
             "'... El 7 de julio, en cinco operativos, los tupamaros lograron desarmar a ocho policías. Si bien en la columna 10 estaba muy presente lo de entrenarse para no herir a nadie, un grupo de otra columna no siguió -o no pudo seguir- las recomendaciones: Germán Garay, un viejo policía, terminó muerto ...'",
-          year: new Date("2017-1-1"),
+          year: new Date("2013-1-1"),
           name: "Comandante Facundo. El revolucionario Pepe Mujica",
           place: "Montevideo - Uruguay",
           edition: "Prisa Ediciones",
           pages: "pág. 397",
+          author: "Pernas",
         },
         {
           fragment:
@@ -286,6 +230,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
           place: "Montevideo - Uruguay",
           edition: "Letraeñe Ediciones",
           pages: "pág. 76",
+          author: "Leicht",
         },
       ],
     },
@@ -361,26 +306,47 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
         ],
       },
     ],
-    ilustration: {
-      title: "Policía es asesinado por Terroristas en la vía pública",
-      subTitle: "Germán Garay, 52 años, casado, cinco hijos",
-      description:
-        "Germán Garay, Agente de la Policía Nacional fue asesinado por Terroristas por la espalda",
-      images: [
-        {
-          src: "/german-garay/ilustration1.jpg",
-          alt: "Agente Germán Garay seguido por tres Terroristas",
-        },
-        {
-          src: "/german-garay/ilustration2.jpg",
-          alt: "Terroristas armados atacan al Agente Germán Garay",
-        },
-        {
-          src: "/german-garay/ilustration3.jpg",
-          alt: "Terroristas armados atacan al Agente Germán Garay",
-        },
-      ],
-    },
+    apologyForCrimeInImages: [
+      {
+        title: "Policía es asesinado por Terroristas en la vía pública.",
+        description:
+          "Germán Garay, Agente de la Policía Nacional fue asesinado por Terroristas por la espalda.",
+        images: [
+          {
+            src: "/german-garay/ilustration1.jpg",
+            alt: "Agente Germán Garay seguido por tres Terroristas",
+          },
+          {
+            src: "/german-garay/ilustration2.jpg",
+            alt: "Terroristas armados atacan al Agente Germán Garay",
+          },
+          {
+            src: "/german-garay/ilustration3.jpg",
+            alt: "Terroristas armados atacan al Agente Germán Garay",
+          },
+        ],
+      },
+    ],
+    // ilustration: {
+    //   title: "Policía es asesinado por Terroristas en la vía pública",
+    //   subTitle: "Germán Garay, 52 años, casado, cinco hijos",
+    //   description:
+    //     "Germán Garay, Agente de la Policía Nacional fue asesinado por Terroristas por la espalda",
+    //   images: [
+    //     {
+    //       src: "/german-garay/ilustration1.jpg",
+    //       alt: "Agente Germán Garay seguido por tres Terroristas",
+    //     },
+    //     {
+    //       src: "/german-garay/ilustration2.jpg",
+    //       alt: "Terroristas armados atacan al Agente Germán Garay",
+    //     },
+    //     {
+    //       src: "/german-garay/ilustration3.jpg",
+    //       alt: "Terroristas armados atacan al Agente Germán Garay",
+    //     },
+    //   ],
+    // },
     virtualMemorial: [
       {
         src: "/german-garay/placeOfOccurrence.jpg",
@@ -542,7 +508,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
         date: new Date("September 26, 1969 03:24:00"),
         title: "LO ACRIBILLARON AL NO ENTREGAR EL ARMAMENTO",
         description:
-          "Un coleccionista de armas… fue acribillado a balazos por un grupo de extremistas cuando intentaban robarle valiosas pistolas, revólveres y municiones… se produjo esta mañana pasada las 6.30 horas en el comercio de la Avda. General Flores 2687 esquina Vilardebó, propiedad de la víctima Rafael César Guidet Piotti. Aparece croquis de...",
+          "Un coleccionista de armas... fue acribillado a balazos por un grupo de extremistas cuando intentaban robarle valiosas pistolas, revólveres y municiones... se produjo esta mañana pasada las 6.30 horas en el comercio de la Avda. General Flores 2687 esquina Vilardebó, propiedad de la víctima Rafael César Guidet Piotti. Aparece croquis de...",
         images: [
           {
             type: "página diario completa",
@@ -606,26 +572,47 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
         },
       },
     ],
-    ilustration: {
-      title: "Sediciosos asesinan a un comerciante y coleccionista de armas",
-      subTitle: "Germán Garay, 52 años, casado, cinco hijos",
-      description:
-        "Rafael Guidet, fue asesinado por integrantes del MLN-T en intento de robo de armas.",
-      images: [
-        {
-          src: "/rafael-guidet/ilustracion_1.jpg",
-          alt: "Rafael Guidet es amenazado por terroristas.",
-        },
-        {
-          src: "/rafael-guidet/ilustracion_2.jpg",
-          alt: "Terroristas exigen a Rafael Guidet entrega de armas.",
-        },
-        {
-          src: "/rafael-guidet/ilustracion_3.jpg",
-          alt: "Terroristas exigen a Rafael Guidet entrega de armas.",
-        },
-      ],
-    },
+    apologyForCrimeInImages: [
+      {
+        title: "Sediciosos asesinan a un comerciante y coleccionista de armas.",
+        description:
+          "Rafael Guidet, fue asesinado por integrantes del MLN-T en intento de robo de armas.",
+        images: [
+          {
+            src: "/rafael-guidet/ilustracion_1.jpg",
+            alt: "Rafael Guidet es amenazado por terroristas.",
+          },
+          {
+            src: "/rafael-guidet/ilustracion_2.jpg",
+            alt: "Terroristas exigen a Rafael Guidet entrega de armas.",
+          },
+          {
+            src: "/rafael-guidet/ilustracion_3.jpg",
+            alt: "Terroristas exigen a Rafael Guidet entrega de armas.",
+          },
+        ],
+      },
+    ],
+    // ilustration: {
+    //   title: "Sediciosos asesinan a un comerciante y coleccionista de armas",
+    //   subTitle: "Germán Garay, 52 años, casado, cinco hijos",
+    //   description:
+    //     "Rafael Guidet, fue asesinado por integrantes del MLN-T en intento de robo de armas.",
+    //   images: [
+    //     {
+    //       src: "/rafael-guidet/ilustracion_1.jpg",
+    //       alt: "Rafael Guidet es amenazado por terroristas.",
+    //     },
+    //     {
+    //       src: "/rafael-guidet/ilustracion_2.jpg",
+    //       alt: "Terroristas exigen a Rafael Guidet entrega de armas.",
+    //     },
+    //     {
+    //       src: "/rafael-guidet/ilustracion_3.jpg",
+    //       alt: "Terroristas exigen a Rafael Guidet entrega de armas.",
+    //     },
+    //   ],
+    // },
     virtualMemorial: [
       {
         src: "/rafael-guidet/placa_virtual.jpg",
@@ -651,6 +638,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
           place: "Montevideo - Uruguay",
           edition: "Prisa Ediciones",
           pages: "pág. 403",
+          author: "Pernas",
         },
       ],
     },
@@ -667,10 +655,10 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
         date: new Date("October 08, 1969 03:24:00"),
         title: "ETREMENDO GOLPE LE ASESTÓ LA POLICÍA AL GRUPO EXTREMISTA",
         description:
-          "...quedaban cinco elementos subversivos prófugos… se encuentran dos mujeres jóvenes, una de las cuales,… hirió accidentalmente a uno de sus compinches extremistas...",
+          "...quedaban cinco elementos subversivos prófugos... se encuentran dos mujeres jóvenes, una de las cuales,... hirió accidentalmente a uno de sus compinches extremistas...",
         subtitle: "Otro Extremista Muerto",
         subDescription:
-          "... eran dos los extremistas muertos y no uno… Con el deceso también de Carlos Burgueño, llegan a tres los fallecidos en las dramáticas instancias de esta tarde... Así mismo se pudo saber que 2 funcionarios policiales... habían resultado heridos de bala..., en el lugar de los hechos, que habían sido incautadas a los extremistas numerosas armas, largas y cortas, así como bombas de mano y uniformes que habían hurtado aparentemente en la comisaría de Pando. Aparece foto de...",
+          "... eran dos los extremistas muertos y no uno... Con el deceso también de Carlos Burgueño, llegan a tres los fallecidos en las dramáticas instancias de esta tarde... Así mismo se pudo saber que 2 funcionarios policiales... habían resultado heridos de bala..., en el lugar de los hechos, que habían sido incautadas a los extremistas numerosas armas, largas y cortas, así como bombas de mano y uniformes que habían hurtado aparentemente en la comisaría de Pando. Aparece foto de...",
         images: [
           {
             type: "noticia",
@@ -781,11 +769,25 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
         ],
       },
       {
+        name: 'Diario "El Popular" (Página 12)',
+        date: new Date("October 09, 1969 03:24:00"),
+        title: "“SANGRIENTO TIROTEO: CUATRO MUERTOS”",
+        description:
+          "Pando: 4 bancos y la Comisaría fueron tomados por asalto, ayer... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/n_25.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
         name: 'Diario "El Diario" (Página 16)',
         date: new Date("October 10, 1969 03:24:00"),
         title: "HUYEN PARA NO CAER EN LAS REDADAS POLICIALES",
         description:
-          "Como consecuencia del operativo de Pando, los extremistas además de haber sufrido tres bajas en sus filas, y más de una veintena de detenciones de los integrantes de los comandos, están experimentando pérdidas millonarias en dinero, por que debieron hacer un abandono de guaridas arrendadas, adelantándose a revelaciones que pudieran hacer los presos… La organización cuando arrienda casas,... no pone garantías al formalizar los contratos. Esto lo sustituye por depósitos de dinero en efectivo...",
+          "Como consecuencia del operativo de Pando, los extremistas además de haber sufrido tres bajas en sus filas, y más de una veintena de detenciones de los integrantes de los comandos, están experimentando pérdidas millonarias en dinero, por que debieron hacer un abandono de guaridas arrendadas, adelantándose a revelaciones que pudieran hacer los presos... La organización cuando arrienda casas,... no pone garantías al formalizar los contratos. Esto lo sustituye por depósitos de dinero en efectivo...",
         title1: "VEINTE KILÓMETROS MINADOS POR BOMBAS",
         description1:
           "... Existe la certeza de que los comandos extremistas portaban dos bombas “per cápita” que, en su desesperada fuga, dejaron abandonadas y sin detonar, por el terreno que transitaron...",
@@ -1001,6 +1003,108 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
         alt: "Aquí, en plena democracia, el 08/10/69 fue asesinado por Terroristas, Enrique Fernández perteneciene a la Policía Nacional, de 44 años de edad, casado, 2 hijos menores de edad",
       },
     ],
+    vindicated: {
+      description: ``,
+      books: [
+        {
+          fragment: `<p>“... Mujica debe salir para encontrarse con un contacto... Al final entra a la casa y espera...</p>
+          <p>Atisba por la ventana y ve a Gallinares…</p>
+          <p>- Tenemos una cosa muy linda para hacer dentro de unos días –le dice Pepe.<p>
+          <p>- ¿Expropiación, copamiento, propaganda?</p>
+          <p>- Todas al mismo tiempo –Pepe se ríe.</p>
+          <p>- ¿Todas?</p>
+          <p>- Sí, agarrá ahí a la derecha y metete por la paralela a 8 de Octubre… Después dale nomás, que vamos hasta Pando.</p>
+          <p>En el camino, Pepe le va contando el plan que ha sido discutido y decidido por el comando del MLN: tomar la pequeña ciudad de Pando. Copar su comisaría, el cuartelillo de Bomberos, el Banco República, el Banco Pan de Azúcar, el Banco de Pando y la central telefónica de UTE.</p>
+          <p>Actuarán cuarenta y nueve tupamaros, divididos en seis equipos…</p>
+          <p>Es una acción de propaganda armada, de pertrechamiento: se piensa obtener dinero de los bancos y armas de la comisaría, instituciones que deberán ser copadas. Y también es un homenaje al guerrillero Ernesto Che Guevara, al cumplirse dos años de su asesinato en Bolivia.</p>
+          <p>Por estos días, en el Centro de Montevideo, un joven elegante y de modales refinados conversa con el encargado de la empresa funeraria Martinelli.</p>
+          <p>- El tío era de Soca –explica el muchacho-. Vivió sesenta años en Buenos Aires,…</p>
+          <p>… Ahora queremos traer sus cenizas… para que descanse en su pueblo.</p>
+          <p>- Una carroza de buena clase, pero no muy ostentosa, y si puede ser cerrada, mejor.</p>
+          <p>- ¿Cuántos remises desearían?- le pregunta.</p>
+          <p>- Estamos pensando en seis...</p>
+          <p>-... Tuvimos un problema mecánico de último momento con la carroza americana y por eso acondicionamos la “Catalina”.</p>
+          <p>La marcha va saliendo de la capital...</p>
+          <p>En la carroza y en los cinco Cadillacs se escucha entonces la misma frase:</p>
+          <p>-¡Somos Tupamaros!</p>
+          <p>Los seis choferes y el encargado son invitados a bajar... los funcionarios son inmovilizados –con esposas caseras– por los tupamaros...</p>
+          <p>... Deciden subir los funcionarios a la Kombi, y permanecen vigilados por tres guerrilleros.</p>
+          <p>El coche de la columna 10 está completo: Pepe, Gallinares, Amilcar, Diana, el Goyo Pérez Lutz y el Gorila Ramos...</p>
+          <p>En la ciudad ya esperan, dispersos más de treinta guerrilleros.</p>
+          <p>Todos están listos, con sus armas...</p>
+          <p>El Cadillac de la 10 marcha hacia el cementerio de Pando...</p>
+          <p>Los deudos salen del auto...</p>
+          <p>Al retornar solo (sic) faltan diez minutos...</p>
+          <p>El auto arranca, despacio. En tres minutos queda frente a la UTE,..., donde bajan sus ocupantes...</p>
+          <p>Por detrás se acercan dos hombres con uniformes de la Fuerza Aérea. Llevan a un tercero detenido… Pasan así el umbral de la Comisaría.</p>
+<p>La señal está dada. La Comisaría de Pando está siendo copada.</p>
+<p>A pocos metros, cuatro tupamaros irrumpen en el Cuartelillo de Bomberos.</p>
+<p>Gallinares sale entonces con las luces prendidas... como señal general.</p>
+<p>Un grupo al Banco Pan de Azúcar, otro al Banco de la República, un tercero al Banco la Caja Obrera de Pando y el cuarto al Banco Ítalo Americano...</p>
+<p>La columna 10 entra en acción.</p>
+<p>En el salón principal, Pepe ya ha dado la orden de subir a la azotea para cortar los cables..., suben Goyo y Gorila y se abocan a destrozar cuanto hilo metálico existe.</p>
+<p>Algunas empleadas que aún quedan en el salón principal de la central gritan despavoridas...</p>
+<p>Abajo, la dama del saco de piel,..., extrae una metralleta del bolso...</p>
+<p>Una de las mujeres, embarazada, parece desvanecerse, pero es atendida por algunas funcionarias y vuelve en sí.</p>
+<p>... De pronto asoma por la esquina un camión que rápidamente para frente a la UTE. Se abre la puerta y salta un policía a la vereda, y luego corre hacia la</p> central telefónica.
+<p>El policía abre la puerta de UTE y entra veloz...</p>
+<p>-¡Un teléfono, un teléfono –grita desesperado-, que los tupamaros están atacando la comisaría!</p>
+<p>-¡Entregá el arma! –le ordena Pepe apuntándole de frente.</p>
+<p>Con el último cable cortado, el operativo dentro de la UTE está por concluir.</p>
+<p>La puerta del local se abre y comienzan a aparecer Pepe, Goyo, Gorila, Amílcar, Diana...</p>
+<p>Apuran el paso hacia el auto. Gallinares los espera, pronto. Y al subir le dice a Pepe:</p>
+<p>-¡Mirá que no pasó la moto del pañuelo!</p>
+<p>-No importa. ¡Nos vamos igual! ¡Acá ya está!- contesta Pepe.</p>
+<p>Pero cuando van a emprender la marcha, ven llegar a otro policía...</p>
+<p>Lo abordan y en unos segundos le quitan el arma, ante el asombro de los estudiantes de la Escuela Industrial del frente...</p>
+<p>Los tupamaros llevan al policía hasta dentro de la UTE...</p>
+<p>Otra vez en el coche, parten hacia el cementerio, lugar fijado para el encuentro a la finalización del operativo...</p>
+<p>Al llegar al cementerio, el Cadillac de la 10 se encuentra con otros coches chamuscados por choques, por los balazos...</p>
+<p>... el cortejo fúnebre que comienza a salir por camino Las Piedritas rumbo a camino del Andaluz.</p>
+<p>El cortejo de salida va guiado por la Catalina. Detrás el Cadillac de la Columna 10. Y luego otros cinco vehículos-...- en los que viajan decenas de tupamaros...</p>
+<p>La Kombi –que aún traslada a los funcionarios de Martinelli– también integra el cortejo.</p>
+<p>Atrás queda Pando, tapizada de volantes...</p>
+<p>Pero también queda un hombre herido de gravedad, un parroquiano del Bar “U”... Su apellido-...- Burgueño.</p>
+<p>A los diez kilómetros se avista un monte, majestuoso. El cortejo se detiene y los tupamaros hacen bajar a los empleados de Martinelli.</p>
+<p>El cortejo avanza por el camino del Andaluz...</p>
+<p>Recorren cinco kilómetros y pasan la ciudad de Suárez... Pero tres kilómetros después, al divisar el llamado cruce de Cassarino, se distinguen dos figuras humanas.</p>
+<p>Al costado de la carretera se ve a un uniformado de la Policía Caminera haciendo señas de “Pare”...</p>
+<p>Gallinares se aferra al volante y a la vez que pisa el acelerador...</p>
+<p>El cortejo continúa otros seis kilómetros por el camino del Andaluz. Allí paran y los coches se dividen.</p>
+<p>El coche de la 10 sigue raudo hacia Cuchilla Grande...</p>
+<p>En la zona de Cuchilla Grande se van bajando del Cadillac. Algunos abordan un auto chico color aceituna, otros... toman un coche blanco.</p>
+<p>Pepe y otros de sus compañeros se bajaron frente al monumento de Luis Alberto de Herrera y se metieron en un bar. Pidieron cerveza y brindaron por la misión cumplida.”</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "págs. 406-423",
+          author: "Pernas",
+        },
+        {
+          fragment: `<p>“Mauricio Rosencof...</p>
+          <p>Hubo otras acciones que nos salieron bien: la toma de Pando fue una acción espectacular. También desde el punto de vista militar, porque consistía en ocupar territorio...</p>
+          <p>... Pero ¿cómo hacemos para llegar a Pando sin control policial? Ahí fue mi aporte –digamos– teatral: “Lo que podemos hacer es enterrar a alguien, contratamos un furgón, seis remises y en cada remise va un comando. Llegado a determinado punto metemos a los choferes en los remises...”.”.</p>`,
+          year: new Date("2009-1-1"),
+          name: "Memorias de insurgencia. Historias de vida y militancia en el MLN-Tupamaros. 1965-1975.",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Banda Oriental S.R.L.",
+          pages: "págs. 23-64",
+          author: "Aldrighi",
+        },
+        {
+          fragment: `<p>“J .M. –Otro nombre: Candán Grajales.</p>
+          <p>H. A. P...</p>
+          <p>En el regreso de la toma de Pando condujo con sangre fría la carroza en que trasladamos a Pucurull, herido por el disparo de una compañera en el Banco República...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "págs. 165-166",
+          author: "Marius",
+        },
+      ],
+    },
   },
   {
     date: new Date("November 12, 1969 03:24:00"),
@@ -1482,6 +1586,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
           place: "Montevideo - Uruguay",
           edition: "Prisa Ediciones",
           pages: "pág. 431",
+          author: "Pernas",
         },
       ],
     },
@@ -1869,7 +1974,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
         name: "Alfredo Pallas",
         age: 25,
         childs: 1,
-        childsDescription: "menor de edad",
+        childsDescription: " menor de edad",
         marital: "casado",
         avatar: {
           src: "/alfredo-pallas/a.png",
@@ -1889,6 +1994,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
           place: "Montevideo - Uruguay",
           edition: "Prisa Ediciones",
           pages: "pág. 441",
+          author: "Pernas",
         },
       ],
     },
@@ -2577,6 +2683,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
           place: "Montevideo - Uruguay",
           edition: "Trilce Ediciones",
           pages: "págs. 233, 234, ,256, 257, 260, 262, y 362-365",
+          author: "Aldrighi",
         },
         {
           fragment: `<p>En la noche de ese domingo 9, los guerrilleros aplicaron un potente sedante al agente estadounidense, que lo durmió. Luego lo metieron en un auto, abrieron las puertas del garaje y subieron la rampa. Se internaron en las calles del muy oscuro barrio Puerto Nuevo: “Por América Latina, por sus muertos y torturados, por su liberación, su independencia”, proclamaron, y lo ejecutaron de cuatro balazos.</p>
@@ -2586,6 +2693,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
           place: "Montevideo - Uruguay",
           edition: "Prisa Ediciones",
           pages: "pág. 472",
+          author: "Pernas",
         },
         {
           fragment: `<p class='font-extrabold'>“LUIS ALEMAÑY</p>
@@ -2596,6 +2704,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
           place: "Montevideo - Uruguay",
           edition: "Ediciones de la Banda Oriental S.R.L.",
           pages: "pág. 317, 319",
+          author: "Aldrighi",
         },
         {
           fragment: `<p>“Pero con Mitrione no hubo acuerdo. Fue ejecutado y abandonado en un auto pocos días después. Su ejecución era parte del Plan Satán, que junto con las cárceles del pueblo implicaba la instalación de un sistema de justicia popular por el MLN en nombre del pueblo asalariado...”.</p>`,
@@ -2604,6 +2713,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
           place: "Montevideo - Uruguay",
           edition: "Letraeñe Ediciones",
           pages: "pág. 93",
+          author: "Leicht",
         },
       ],
     },
@@ -2697,7 +2807,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
         age: 34,
         marital: "casado",
         childs: 4,
-        childsDescription: "menores de edad",
+        childsDescription: "menores de edad (1 de 6 meses)",
         avatar: {
           src: "/nelson-machado/a.png",
           alt: "imagen del Agente Esteban Machado",
@@ -2710,5 +2820,1658 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
         alt: "Aquí, en plena democracia, el 19/08/70 fue asesinado por terroristas, Nelson Machado perteneciente a la Policia Nacional, de 34 años de edad, casado, 4 hijos menores de edad.",
       },
     ],
+  },
+  {
+    date: new Date("January 11, 1971 03:24:00"),
+    title: "Cabo (Ministerio Interior) José Villalba",
+    slug: "jose-villalba",
+    type: "asesinato",
+    totalOfVictims: 1,
+    victims: [
+      {
+        name: "José Villalba",
+        age: 31,
+        marital: "soltero",
+        avatar: {
+          src: "/jose-villalba/a.png",
+          alt: "imagen del Cabo José Villalba",
+        },
+      },
+    ],
+    notice: [
+      {
+        name: "Diario “El Diario” (en Portada)",
+        date: new Date("January 11, 1971 03:24:00"),
+        title: "“LOS TUPAMAROS ASESINARON A MANSALVA UN AGENTE POLICIAL”",
+        description: `... Aparecen fotos en una de las cuales a su pie dice: “... Los círculos y la flecha destacan varios de los impactos de bala...”.`,
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/jose-villalba/n_1.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/jose-villalba/n_2.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 16)",
+        date: new Date("January 11, 1971 03:24:00"),
+        title: "“LO REMATARON EN EL SUELO CON CUATRO TIROS A QUEMARROPA”",
+        description: `Un funcionario administrativo de la sección personal de la Jefatura de Policía de Montevideo, fue acribillado a balazos por un grupo de tupamaros... los sediciosos dejaron en el lugar panfletos con la siguiente inscripción: “Así pagan los delatores”...`,
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/jose-villalba/n_3.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/jose-villalba/n_4.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Día” (Página 3)",
+        date: new Date("January 12, 1971 03:24:00"),
+        title: "“ASOMBRO E INDIGNACIÓN POR EL ASESINATO DEL POLICÍA”",
+        description: `Asombro, indignación y estupor ha causado el bárbaro asesinato de José Leandro Villalba, un modesto y ejemplar funcionario policial, acribillado a balazos... fue obra del grupo autodenominado “tupamaros” que, incluso no vaciló en dejar su huella tras la consumación del cobarde atentado abandonando en el lugar... varios panfletos con la estrella característica y la inscripción “Así pagan los delatores”... se refiere a un episodio ocurrido hace casi un año-el 23 de marzo de 1970- cuando en el café “La Gran Vía”... fueron apresados... Aparecen fotos.`,
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/jose-villalba/n_5.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/jose-villalba/n_6.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: "Diario “Acción” (Página 2)",
+        date: new Date("January 12, 1971 03:24:00"),
+        title:
+          "“GRAN DEMOSTRACIÓN DE DOLOR Y PESAR EN EL SEPELIO DEL POLICÍA MUERTO POR LA ESPALDA POR SEDICIOSOS”",
+        description: `Este mediodía los restos del agente de Investigaciones José Leandro Villalba recibieron sepultura...`,
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/jose-villalba/n_7.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/jose-villalba/n_8.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Día” (Página 3)",
+        date: new Date("January 13, 1971 03:24:00"),
+        // title: "“ASOMBRO E INDIGNACIÓN POR EL ASESINATO DEL POLICÍA”",
+        subtitle: " “Dolor Colectivo por el Asesinato del Joven Policía”",
+        description: `... Aparecen fotos.`,
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/jose-villalba/n_9.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/jose-villalba/n_10.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+        ],
+      },
+    ],
+    apologyForCrimeInImages: [
+      {
+        title:
+          "Agente policial asesinado en venganza por denunciar reunión clandestina de sediciosos",
+        description:
+          "El Cabo José Villalba fue ejecutado en la vía pública por cuatro sediciosos.",
+        images: [
+          {
+            src: "/jose-villalba/i_1.jpg",
+            alt: "Cabo Villalba perseguido por cuatro sediciosos.",
+          },
+          {
+            src: "/jose-villalba/i_2.jpg",
+            alt: "Cabo Villalba es atacado por sediciosos armados.",
+          },
+          {
+            src: "/jose-villalba/i_3.jpg",
+            alt: "Cabo Villalba es asesinado por cuatro sediciosos armados.",
+          },
+          {
+            src: "/jose-villalba/i_4.jpg",
+            alt: "Sediciosos dejan panfletos junto al cuerpo del Cabo Villalba.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/jose-villalba/memorial.jpg",
+        alt: "Aquí, en plena democracia, el 11/01/71 fue asesinado por integrantes del MLN-T, José Villalba, Cabo de la Policia Nacional, de 31 años de edad.",
+      },
+    ],
+    vindicated: {
+      description: `Medios periodísticos destacaron este episodio aportando la noticia del momento. Nuevamente un policía fue la víctima de un ataque terrorista, el asesinato del Agente Germán Garay se produjo en momentos que los subversivos protagonizaban cinco operativos, este documento dice que este agente, próximo a su retiro, fue ultimado el 7 de julio de 1969, y fueron 76 los policías, militares y civiles víctimas mortales de las acciones terroristas en este período de la llamada historia reciente.
+Los protagonistas, participantes y/o autores brindan mayor información confirmando los registros periodísticos de la época, entre ellas se señalan:
+      `,
+      books: [
+        {
+          fragment: `<p>“El lunes 23 de marzo, Pepe llegó al bar de Larrañaga y Monte Caseros junto con Antonio Hermida, uno de sus compañeros que cumplía tareas de apoyo para ciertas acciones del MLN.</p>
+          <p>Al ingresar, Mujica divisó un lugar bastante discreto, en un rincón del local, al lado de la peluquería. Allí se sentaron.
+          ... Luego ingresaron otros dos militantes de logística, Walter Sanzo –responsable de la columna de servicios de la 10– y Tabaré Curbelo...</p>
+          <p>El teléfono sonó en la mesa central de Jefatura de Policía de Montevideo... El hombre, que no se identificó, denunció:
+          -¡Hay cuatro subversivos en el bar La Vía, en la esquina de Larrañaga y Monte Caseros! Están en la mesa del fondo, a la izquierda...”.<p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 447",
+          author: "Pernas",
+        },
+        {
+          fragment: `<p>“Setenta y dos horas después del secuestro de Jackson, a Mujica le llegó la noticia de que la columna 10, luego de meses de planificación, vigilancia y seguimiento, ejecutó de varios balazos a José Leandro Villalba, el cabo de policía que lo había delatado en el bar La Vía.</p>
+          <p>A la medianoche del domingo 10, Villalba, de 31 años de edad, se despidió de sus amigos y se retiró de ese mismo bar de la calle Larrañaga. Caminó una cuadra por Monte Caseros, y al llegar a la esquina de Echeandía escuchó una voz:</p>
+          <p>-¡Leandro Villalba!</p>
+          <p>Al darse vuelta, recibió descargas desde varias pistolas de 45 milímetros. Y cayó muerto.</p>
+          <p>Los tupamaros tiraron volantes sobre el cuerpo del policía. <em>“Así pagan los delatores”</em>, advertía bajo la estrella de cinco puntas con la “T” en el centro...”.</p>
+          `,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 482",
+          author: "Pernas",
+        },
+        {
+          fragment: `<p>“También la persona que reconoció a José Mujica y otros integrantes del MLN en un bar y avisó a la Policía fue luego asesinada, como escarmiento.</p>
+          <p>Mujica lo cuenta en la biografía que escribió Miguel Ángel Campodónico</p>
+          <p>“Y bueno, estando en ese boliche preparando el operativo, de pronto entró una patrulla de la Republicana. Después, supimos que alguien había llamado por teléfono... Tiempo después, la organización supo quién había llamado y fue ajusticiado en la calle”...”.</p>`,
+          year: new Date("2008-1-1"),
+          name: "Historias tupamaras. Nuevos testimonios sobre los mitos del MLN",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Fin de Siglo",
+          pages: "pág. 119.",
+          author: "Haberkorn",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("April 21, 1971 03:24:00"),
+    title: "Agente Gilberto Carballo",
+    slug: "gilberto-carballo",
+    type: "asesinato",
+    totalOfVictims: 1,
+    victims: [
+      {
+        name: "Gilberto Carballo",
+        age: 35,
+        marital: "soltero",
+        avatar: {
+          src: "/gilberto-carballo/a.png",
+          alt: "imagen del Agente Gilberto Carballo",
+        },
+      },
+    ],
+    notice: [
+      {
+        name: "Diario “El Diario” (en Portada)",
+        date: new Date("April 22, 1971 03:24:00"),
+        title: "“LOS ASESINOS DEL POLICÍA SEMBRARON SANGRE Y TERROR”",
+        description: `... Aparecen fotos.`,
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/gilberto-carballo/n_1.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/gilberto-carballo/n_2.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 16)",
+        date: new Date("April 22, 1971 03:24:00"),
+        title: "“UN NIÑO QUE JUGABA ESCAPÓ POR MILAGRO DE LA LLUVIA DE BALAS”",
+        description: `Un grupo de conspiradores sembró muerte, sangre y terror ayer a media tarde, cuando desde una camioneta en marcha ametralló... un funcionario de 35 años muerto... otro gravemente herido y dos particulares seriamente lesionados. Un niño de tres años salvó milagrosamente su vida... Aparece foto.`,
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/gilberto-carballo/n_3.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/gilberto-carballo/n_4.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Día” (en Portada)",
+        date: new Date("April 22, 1971 03:24:00"),
+        title: "“INDEFENSO FUE ASESINADO UN POLICÍA; OTRO MUY GRAVE”",
+        description: `...`,
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/gilberto-carballo/n_5.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/gilberto-carballo/n_6.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Día” (Página 3)",
+        date: new Date("April 22, 1971 03:24:00"),
+        title:
+          "“POR AZAR NO HUBO OTRAS VÍCTIMAS EN EL BÁRBARO ATAQUE TERRORISTA”",
+        description: `... el vil y criminal atentado contra tres funcionarios de la Policía Metropolitana se produjo a las 16 y 20... un modesto funcionario de la Metropolitana- agente que se desempeñaba como chofer-... Según vecinos del lugar una ráfaga de metralleta hizo impacto en la pared de una casa a muy pocos centímetros de una niña de seis años... Aparecen fotos.`,
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/gilberto-carballo/n_7.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/gilberto-carballo/n_8.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+        ],
+      },
+    ],
+    apologyForCrimeInImages: [
+      {
+        title: "Policía es asesinado por Terroristas en acto de servicio.",
+        description:
+          "Gilberto Carballo, Agente de la Policía Nacional fue asesinado por Terroristas durante el patrullaje en la vía pública.",
+        images: [
+          {
+            src: "/gilberto-carballo/i_1.jpg",
+            alt: "Sediciosos en camioneta se aproximan a vehículo policial en marcha.",
+          },
+          {
+            src: "/gilberto-carballo/i_2.jpg",
+            alt: "Sediciosos disparan contra los Agentes Gilberto Carballo, conductor y Lisandro López.",
+          },
+          {
+            src: "/gilberto-carballo/i_3.jpg",
+            alt: "Vehículo policial con agentes heridos, impacta contra otro vehículo lesionando a sus ocupantes.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/gilberto-carballo/memorial.jpg",
+        alt: "Aquí, en plena democracia, el 21/014/1971 fue asesinado por terroristas, Gilberto Carballo perteneciene a la Policia Nacional, de 35 años de edad.",
+      },
+    ],
+  },
+  {
+    date: new Date("June 03, 1971 03:24:00"),
+    title: "Agente Aides Pérez",
+    slug: "aides-perez",
+    type: "asesinato",
+    totalOfVictims: 1,
+    victims: [
+      {
+        name: "Aides Pérez",
+        age: 42,
+        childs: 5,
+        childsDescription: "(3 menores de edad)",
+        // marital: "soltero",
+        avatar: {
+          src: "/aides-perez/a.png",
+          alt: "imagen del Agente Aides Pérez",
+        },
+      },
+    ],
+    notice: [
+      {
+        name: "Diario “Acción” (en Portada)",
+        date: new Date("June 03, 1971 03:24:00"),
+        title: "“BRUTAL CRIMEN: ACRIBILLAN AUTO Y MATAN A UN POLICÍA”",
+        description: `El guardia de la Metropolitana Aidis Pérez fue bárbaramente asesinado esta mañana. Dos ráfagas de metralleta fueron disparadas desde una motoneta ocupada por dos hombres jóvenes,... Saravia resultó herido de entidad y corre el riesgo que se le ampute el brazo izquierdo. Aparece foto.`,
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/aides-perez/n_1.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/aides-perez/n_2.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+        ],
+      },
+      {
+        name: "Diario “Acción” (Página 8)",
+        date: new Date("June 03, 1971 03:24:00"),
+        title: "“BRUTAL ASESINATO DE UN POLICÍA”",
+        description: `... Tenía 42 años y cinco hijos... El mayor tiene, en suma, 20 años y el más pequeño siete. Aparece foto.`,
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/aides-perez/n_3.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/aides-perez/n_4.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Día” (en Portada)",
+        date: new Date("June 04, 1971 03:24:00"),
+        title: "“POLICÍA MUERTO Y JEFE DE LA METRO HERIDO”",
+        description: `...`,
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/aides-perez/n_9.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/aides-perez/n_10.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Día” (en Portada)",
+        date: new Date("June 04, 1971 03:24:00"),
+        title:
+          "“VIL ASESINATO DE UN MODESTO AGENTE: HIEREN AL SUBJEFE DE LA METRO”",
+        description: `Un modesto chofer de la Guardia Metropolitana fue muerto ayer de varios balazos en el transcurso de un atentado dirigido a su superior... Aparecen fotos.`,
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/aides-perez/n_5.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/aides-perez/n_6.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 3)",
+        date: new Date("June 04, 1971 03:24:00"),
+        title:
+          "“EN LOS ÚLTIMOS CUATRO AÑOS CAEN 12 POLICÍAS CUMPLIENDO SU DEBER”",
+        description: `Entre el 27 de diciembre de 1966 y la víspera, los hombres que integran los cuadros de la Policía uruguaya han sufrido como en carne propia las heridas que troncharon las vidas de doce de sus compañeros, caídos bajo las balas de los conspiradores...`,
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/aides-perez/n_7.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/aides-perez/n_8.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+        ],
+      },
+    ],
+    apologyForCrimeInImages: [
+      {
+        title: "Policía en acto de servicio es asesinado por Terroristas.",
+        description:
+          "Aídes Pérez, Agente de la Policía Nacional fue asesinado por Terroristas dentro de un vehículo.",
+        images: [
+          {
+            src: "/aides-perez/i_1.jpg",
+            alt: "Policía acercándose para ascender a un vehículo. Una motoneta se aproxima.",
+          },
+          {
+            src: "/aides-perez/i_2.jpg",
+            alt: "Terroristas se aproximan para atentar contra los policías.",
+          },
+          {
+            src: "/aides-perez/i_3.jpg",
+            alt: "Terrorista asesina al Agente Aídes Pérez y es herido el Mayor Saravia de la Guardia Metropolitana.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/aides-perez/memorial.jpg",
+        alt: "Aquí, en plena democracia, el 03/06/1971 fue asesinado por terroristas, Aides Pérez perteneciene a la Policia Nacional, de 41 años de edad, casado 5 hijos (4 menores de edad).",
+      },
+    ],
+  },
+  {
+    date: new Date("June 22, 1971 03:24:00"),
+    title: "Sargento (G.M.) Walter Custodio",
+    slug: "walter-custodio",
+    type: "asesinato",
+    totalOfVictims: 1,
+    videos: [
+      {
+        id: "ERIuedPriXs",
+        title:
+          "Fanny Custodio, hija del Sargento de la Guardia Metropolitana Walter Custodio.",
+        src: "https://www.youtube.com/embed/ERIuedPriXs",
+        slug: "sesinato-sargento-walter-custodio",
+        date: new Date("1971-6-22"),
+      },
+    ],
+    victims: [
+      {
+        name: "Walter Custodio",
+        age: 37,
+        marital: "casado",
+        childs: 5,
+        childsDescription: "menores de edad",
+        // marital: "soltero",
+        avatar: {
+          src: "/walter-custodio/a.png",
+          alt: "imagen del Sargento (G.M.) Walter Custodioz",
+        },
+      },
+    ],
+    notice: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("June 23, 1971 03:24:00"),
+        title: "“POLICÍA Y ESTUDIANTE MUEREN EN NUEVA ACCIÓN EXTREMISTA”",
+        description:
+          "... un funcionario transitaba franco y ropas de civil... advirtió que en la sucursal de la firma Manzanares S.A. se estaba perpetrando un atraco… siendo baleado por los delincuentes resultando con una herida de bala en la espalda ... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/walter-custodio/n_1.jpg",
+            alt: "portada publicada por el diario el diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/walter-custodio/n_2.jpg",
+            alt: "noticia publicada por el diario el diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 8)',
+        date: new Date("June 23, 1971 03:24:00"),
+        title: "“ASESINARON POR LA ESPALDA AL POLICÍA (TENÍA CINCO HIJOS)”",
+        description:
+          "... Volvía con la leche para sus múltiples hijos cuando vio que un grupo de facciosos asaltaba la vecina sucursal de Manzanares... La responsabilidad y arrojo del Sgto. de la “Metro” Walter Custodio Rodríguez lo encaminaron hacia la muerte al enfrentar solo a varios conspiradores... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/walter-custodio/n_3.jpg",
+            alt: "portada publicada por el diario el Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/walter-custodio/n_4.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 18)",
+        date: new Date("July 05, 1971 03:24:00"),
+        title: "“ATRAPAN A UNA TUPAMARA QUE ASESINÓ A UN POLICÍA”",
+        description:
+          "Cinco sediciosos detenidos recientemente por la Policía, fueron procesados... una de tales personas (concretamente una joven estudiante de Medicina), ha sido identificada como autora de los disparos que causaron la muerte de un funcionario policial... La mujer... fue reconocida como... Además los delincuentes... y... fueron reconocidos también como participantes del referido asalto... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/walter-custodio/n_5.jpg",
+            alt: "portada publicada por el diario el “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/walter-custodio/n_6.jpg",
+            alt: "noticia publicada por el diario“El Diario”",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/walter-custodio/memorial.jpg",
+        alt: "Aquí, en plena democracia, el 22/06/1971 fue asesinado por terroristas, el Sargento Walter Custodio perteneciene a la Policia Nacional, de 37 años de edad, casado 5 hijos menores de edad.",
+      },
+    ],
+    apologyForCrimeInImages: [
+      {
+        title:
+          "Walter Custodio es asesinado por Terroristas que asaltaban un comercio.",
+        description:
+          "Walter Custodio, Sargento de la Policía Nacional fuera de su horario de Servicio intenta impedir un robo a un comercio y es asesinado por Terroristas que asaltaban un comercio.",
+        images: [
+          {
+            src: "/walter-custodio/i_1.jpg",
+            alt: "Sargento Walter Custodio se traba en lucha con dos Terroristas, un hombre y una mujer, en el exterior de un comercio de alimentos donde se estaba cometiendo un robo.",
+          },
+          {
+            src: "/walter-custodio/i_2.jpg",
+            alt: "Un tercer Terrorista dispara por la espalda al Sargento Walter Custodio.",
+          },
+          {
+            src: "/walter-custodio/i_3.jpg",
+            alt: "Sargento Walter Custodio herido, reacciona disparando su arma contra un Terrorista y los demás huyen en un vehículo con la mercancía robada.",
+          },
+          {
+            src: "/walter-custodio/i_4.jpg",
+            alt: "Sargento Walter Custodio queda herido de muerte junto a un Terrorista. Los otros Terroristas huyen.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("June 22, 1971 03:24:00"),
+    title: "Juan Bentancur, sereno de Nibo Plast S.A.",
+    slug: "juan-bentancur",
+    type: "asesinato",
+    totalOfVictims: 1,
+    victims: [
+      {
+        name: "Juan Bentancur",
+        age: 37,
+        marital: "casado",
+        daughter: 1,
+        childsDescription: " menor de edad",
+        avatar: {
+          src: "/juan-bentancur/a.png",
+          alt: "imagen de Juan Bentancur",
+        },
+      },
+    ],
+    notice: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("June 23, 1971 03:24:00"),
+        title: "“SEDICIOSOS ASESINAN A UN EMPLEADO DE “NIBOPLAST”",
+        description:
+          "... Juan Andrés Bentancur Carrión, casado de 37 años, capataz de la fábrica Nibo Plast S.A.... fue interceptado por dos desconocidos... que le dispararon con armas de fuego... que provocó su fallecimiento… N. de R.-... Alguien llamó a Radiopatrulla...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/juan-bentancur/n_1.jpg",
+            alt: 'portada publicada por el diario "El Día"',
+          },
+          {
+            type: "página diario completa",
+            src: "/juan-bentancur/n_2.jpg",
+            alt: 'noticia publicada por el diario "El Día"',
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 7)',
+        date: new Date("June 23, 1971 03:24:00"),
+        title: "“ULTIMARON A CAPATAZ DE NIBOPLAST S.A.”",
+        description:
+          "Anoche fue ultimado de un balazo en la cabeza un capataz de la firma Nibo Plast S.A., en acción que la policía relaciona escuetamente con el frustrado intento de una organización...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/juan-bentancur/n_3.jpg",
+            alt: 'portada publicada por el diario "El Popular"',
+          },
+          {
+            type: "página diario completa",
+            src: "/juan-bentancur/n_4.jpg",
+            alt: 'noticia publicada por el diario "El Popular"',
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 18)",
+        date: new Date("June 23, 1971 03:24:00"),
+        title: "“MATARON ALEVOSAMENTE A SERENO DE NIBOPLAST”",
+        description:
+          "Dos conspiradores ultimaron ayer alevosamente a un capataz de la fábrica Niboplast, haciéndolo víctima de una insólita venganza urdida por quienes ven en los amigos del orden en sus enemigos... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/juan-bentancur/n_5.jpg",
+            alt: "portada publicada por el diario el “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/juan-bentancur/n_6.jpg",
+            alt: "noticia publicada por el diario“El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “Acción” (Página 8)",
+        date: new Date("June 23, 1971 03:24:00"),
+        title: "TÍTULO: “MATARON A TRAICIÓN A UN HUMILDE OBRERO”",
+        description:
+          "Nueva acción de los terroristas… Algunos volantes abandonados en el lugar permiten sindicar a los autores del atentado como integrantes de la organización clandestina y vincular este caso al fallido copamiento... Esta presunta venganza,... deja al desamparo a la esposa de Bentancur y a su pequeña hija de pocos años de edad... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/juan-bentancur/n_7.jpg",
+            alt: "portada publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/juan-bentancur/n_8.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+        ],
+      },
+    ],
+    apologyForCrimeInImages: [
+      {
+        title: "Obrero asesinado por organización terrorista.",
+        description:
+          "Juan Bentancur, fue asesinado por venganza. Integrantes del MLN-T lo ejecutan cuando se retiraba de su lugar de trabajo.",
+        images: [
+          {
+            src: "/juan-bentancur/i_1.jpg",
+            alt: "Juan Bentancur camina hacia su domicilio. Lo persiguen dos sediciosos.",
+          },
+          {
+            src: "/juan-bentancur/i_2.jpg",
+            alt: "El obrero, Juan Bentancur, es asesinado por dos sediciosos.",
+          },
+          {
+            src: "/juan-bentancur/i_3.jpg",
+            alt: "Sediciosos dejan panfletos sobre el cadáver.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/juan-bentancur/memorial.jpg",
+        alt: "Aquí, en plena democracia, el 22/06/1971 fue asesinado por terroristas, Juan Bentancur, de 37 años de edad, casado, 1 hija menor de edad.",
+      },
+    ],
+  },
+  {
+    date: new Date("August 07, 1971 03:24:00"),
+    title: "Alfonso Arhancet en local del Frente Amplio",
+    slug: "alfonso-arhancet",
+    type: "asesinato",
+    totalOfVictims: 1,
+    videos: [
+      {
+        id: "f62DC-0SP38",
+        title:
+          "Nilsa Garcés, madre de Alfonso Arhancet asesinado en un club del Frente Amplio",
+        src: "https://www.youtube.com/embed/f62DC-0SP38",
+        slug: "asesinan-en-local-del-frente-amplio-a-alfonso-aranchet",
+        date: new Date("1972-8-7"),
+      },
+    ],
+    // victims: [
+    //   {
+    //     name: "Alfonso Arhancet",
+    //     age: 16,
+    //     marital: "soltero",
+    //     avatar: {
+    //       src: "/alfonso-arhancet/a.png",
+    //       alt: "imagen de Alfonso Arhancet",
+    //     },
+    //   },
+    // ],
+    notice: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("August 07, 1971 03:24:00"),
+        title:
+          "“EN UN LOCAL POLÍTICO MATARON DE UN BALAZO A UN MENOR DE 16 AÑOS”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/alfonso-arhancet/n_1.jpg",
+            alt: 'portada publicada por el diario "El Diario"',
+          },
+          {
+            type: "página diario completa",
+            src: "/alfonso-arhancet/n_2.jpg",
+            alt: 'noticia publicada por el diario "El Diario"',
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("August 07, 1971 03:24:00"),
+        title: "SE REALIZÓ LA RECONSTRUCCIÓN EN EL CLUB DEL FRENTE AMPLIO”",
+        description:
+          "... se reconstruía el hecho de sangre ocurrido anoche en el Prado, cuando un menor de edad-hijo de un Coronel del Ejército-fue mortalmente herido de bala en el interior de un club perteneciente al Frente Amplio... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/alfonso-arhancet/n_3.jpg",
+            alt: 'portada publicada por el diario "El Diario"',
+          },
+          {
+            type: "página diario completa",
+            src: "/alfonso-arhancet/n_4.jpg",
+            alt: 'noticia publicada por el diario "El Diario"',
+          },
+        ],
+      },
+      {
+        name: "Diario “El Día” (Página 9)",
+        date: new Date("August 08, 1971 03:24:00"),
+        title: "“TRAGEDIA EN EL CLUB: NO HUBO INTENCIÓN DE MATAR”",
+        description:
+          "...después de la reconstrucción, el Juez de Instrucción de 2º. Turno, Dr...resolvió que el encargado del club..., fuera procesado por “homicidio culposo...”. Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/alfonso-arhancet/n_5.jpg",
+            alt: "portada publicada por el diario el “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/alfonso-arhancet/n_6.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+        ],
+      },
+    ],
+    apologyForCrimeInImages: [
+      {
+        title: "Militante asesina a menor de edad en club político.",
+        description:
+          "Alfonso Arhancet, fue asesinado por el responsable de un club político del Frente Amplio.",
+        images: [
+          {
+            src: "/alfonso-arhancet/i_1.jpg",
+            alt: "Alfonso Arhancet y su amigo son obligados a entrar a un local político del Frente Amplio.",
+          },
+          {
+            src: "/alfonso-arhancet/i_2.jpg",
+            alt: "Alfonso Arhancet y su amigo amenazados por militantes del Frente Amplio.",
+          },
+          {
+            src: "/alfonso-arhancet/i_3.jpg",
+            alt: "Alfonso Arhancet es asesinado en el interior de un club político del Frente Amplio.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/alfonso-arhancet/memorial.jpg",
+        alt: "Aquí, en plena democracia, el 07/08/1971 fue asesinado por un militante de un club del Frente Amplio, Alfonso Arhancet, de 16 años de edad.",
+      },
+    ],
+  },
+  {
+    date: new Date("August 11, 1971 03:24:00"),
+    title: "Agente Juan Álvarez",
+    slug: "juan-alvarez",
+    type: "asesinato",
+    totalOfVictims: 1,
+    victims: [
+      {
+        name: "Juan Álvarez",
+        age: 54,
+        marital: "casado",
+        childs: 3,
+        childsDescription: "1 menor de edad",
+        avatar: {
+          src: "/juan-alvarez/a.png",
+          alt: "imagen de Juan Álvarez",
+        },
+      },
+    ],
+    notice: [
+      {
+        name: "Diario “El Día” (Página 13)",
+        date: new Date("August 12, 1971 03:24:00"),
+        title: "“UN VALIENTE AGENTE POLICIAL FUE ASESINADO POR ASALTANTES”",
+        description:
+          "Un modesto agente policial..., padre de tres hijos, fue vilmente asesinado... Juan Francisco Álvarez, de 54 años, cayó en el cumplimiento de su deber baleado por dos bárbaros sujetos... impidió que consumaran el atraco contra el camión remesero de “Manzanares”... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/juan-alvarez/n_1.jpg",
+            alt: "portada publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/juan-alvarez/n_2.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 8)',
+        date: new Date("August 12, 1971 03:24:00"),
+        title:
+          "“MATARON DE 5 BALAZOS A UN POLICÍA CUANDO INTENTÓ EVITAR EL ASALTO”",
+        description:
+          "Una gavilla de delincuentes mató alevosamente a un agente policial que custodiaba un camión remesero al que pretendían robar... ese vehículo... el agente de 2ª de la seccional 15ª Juan Francisco Álvarez Alvez, casado de 54 años... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/juan-alvarez/n_3.jpg",
+            alt: 'portada publicada por el diario "Acción"',
+          },
+          {
+            type: "página diario completa",
+            src: "/juan-alvarez/n_4.jpg",
+            alt: 'noticia publicada por el diario "Acción"',
+          },
+        ],
+      },
+    ],
+    apologyForCrimeInImages: [
+      {
+        title: "Agente policial asesinado por terroristas.",
+        description:
+          "Juan Álvarez, Agente de la Policía Nacional, fue asesinado por Terroristas al impedir el robo a una remesa de dinero.",
+        images: [
+          {
+            src: "/juan-alvarez/i_1.jpg",
+            alt: "Vehículo con remesa de dinero de empresa Manzanares es interceptado por Terroristas en otro vehículo. Agente Juan Álvarez cumple funciones de custodia.",
+          },
+          {
+            src: "/juan-alvarez/i_2.jpg",
+            alt: "Terroristas con sus armas destrozan el parabrisas del camión. Agente Álvarez reacciona.",
+          },
+          {
+            src: "/juan-alvarez/i_3.jpg",
+            alt: "Los Terroristas asesinan al Agente Álvarez dentro de la cabina del vehículo.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/juan-alvarez/memorial.jpg",
+        alt: "Aquí, en plena democracia, el 11/08/1971 fue asesinado por terroristas, el Agente Juan Álvarez, de 54 años de edad, casado, tres hijos (uno menor de edad).",
+      },
+    ],
+  },
+  {
+    date: new Date("September 09, 1971 03:24:00"),
+    title: "Wilder Soto y Nelson Lima Coraceros",
+    slug: "wilder-soto-y-nelson-lima",
+    type: "asesinato",
+    totalOfVictims: 2,
+    notice: [
+      {
+        name: "Diario “El Día” (en Portada)",
+        date: new Date("September 03, 1971 03:24:00"),
+        title: "ALEVOSO CRIMEN",
+        description:
+          "Los coraceros de la Guardia Republicana Wilder Daniel Soto Romero (izq.) de 24 años de edad y Nelson Lima Gutiérrez de 27 años fueron asesinados a mansalva por cuatro maleantes que portaban túnicas blancas... En su acción los criminales pusieron en peligro la vida de varios empleados del nosocomio... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/wilder-soto-y-nelson-lima/n_1.jpg",
+            alt: "portada publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/wilder-soto-y-nelson-lima/n_2.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Día” (Página 3)",
+        date: new Date("September 03, 1971 03:24:00"),
+        title:
+          "“MATARON DE 5 BALAZOS A UN POLICÍA CUANDO INTENTÓ EVITAR EL ASALTO”",
+        description:
+          "... El hecho tuvo lugar en la Sala de Administración del Hospital Pedro Visca a la hora 12.20... “Los dos policías-explicó- estaban inmediatos al mostrador... noté que entraban tres personas al local. Unas tenían túnica puesta,... De pronto, el estruendo de disparos llenó el local... Uno de los coraceros ni gritó... El otro atinó a huir hacia el corredor sólo para ser abatido de dos balazos en la cabeza... Aparecen fotos y croquis.",
+        images: [
+          // {
+          //   type: "noticia publicada",
+          //   src: "/wilder-soto-y-nelson-lima/n_3.jpg",
+          //   alt: 'portada publicada por el diario “El Día”',
+          // },
+          {
+            type: "página diario completa",
+            src: "/wilder-soto-y-nelson-lima/n_3.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 19)",
+        date: new Date("September 04, 1971 03:24:00"),
+        title:
+          "“DIERON SEPULTURA A LOS RESTOS DE LOS CORACEROS ASESINADOS EN PEDRO VISCA”",
+        description:
+          "El sepelio de los dos coraceros asesinados el jueves... causó indignación y dolor en las ciudades de las cuales eran oriundos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/wilder-soto-y-nelson-lima/n_4.jpg",
+            alt: "portada publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/wilder-soto-y-nelson-lima/n_5.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+        ],
+      },
+    ],
+    apologyForCrimeInImages: [
+      {
+        title:
+          "Terroristas asesinan a Agentes policiales dentro de un Hospital de Niños.",
+        description:
+          "Wilder Soto y Nelson Lima, Agentes de la Guardia Republicana de la Policía Nacional, fueron asesinados por integrantes del MLN-T mientras custodiaban pago de sueldos a funcionarios de un Hospital.",
+        images: [
+          {
+            src: "/wilder-soto-y-nelson-lima/i_1.jpg",
+            alt: "Agentes Nelson Lima y Wilder Soto custodian el pago de sueldos a funcionarios del Hospital de Niños Pedro Visca.",
+          },
+          {
+            src: "/wilder-soto-y-nelson-lima/i_2.jpg",
+            alt: "Terroristas vistiendo túnicas médicas sorpresivamente atacan y asesinan a los Agentes Nelson Lima y Wilder Soto.",
+          },
+          {
+            src: "/wilder-soto-y-nelson-lima/i_3.jpg",
+            alt: "Agente Nelson Lima es rematado por los Terroristas.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/wilder-soto-y-nelson-lima/memorial.jpg",
+        alt: "Aquí, actual ubicación de la Facultad de Ciencias Económicas y Administración, el 02/09/1971 en plena democracia fueron asesinados por terroristas, Nelson Lima 27 años, casado, un hijo menor de edad y Wilder Soto, 24 años, perteneciente a la Policia Nacional.",
+      },
+    ],
+    victims: [
+      {
+        name: "Wilder Soto",
+        age: 24,
+        // marital: "casado",
+        // childs: 3,
+        // childsDescription: "1 menor de edad",
+        avatar: {
+          src: "/wilder-soto-y-nelson-lima/a_1.png",
+          alt: "imagen de Wilder Soto",
+        },
+      },
+      {
+        name: "Nelson Lima",
+        age: 27,
+        marital: "casado",
+        childs: 1,
+        childsDescription: " menor de edad",
+        avatar: {
+          src: "/wilder-soto-y-nelson-lima/a_2.png",
+          alt: "imagen de Nelson Lima",
+        },
+      },
+    ],
+  },
+  {
+    date: new Date("December 21, 1971 03:24:00"),
+    title: "Pascasio Baéz peon rural, macabro hallazgo",
+    slug: "pascasio-baez",
+    type: "asesinato",
+    totalOfVictims: 1,
+    victims: [
+      {
+        name: "Pascasio Baéz",
+        age: 44,
+        marital: "casado",
+        // childs: 3,
+        // childsDescription: "1 menor de edad",
+        avatar: {
+          src: "/pascasio-baez/a_1.png",
+          alt: "imagen de Pascasio Baéz",
+        },
+      },
+    ],
+    notice: [
+      {
+        name: "Diario “El Diario” (Página 20)",
+        date: new Date("June 21, 1972 03:24:00"),
+        title: "“CÁRCEL DEL PUEBLO, CUBA O SIMPLEMENTE ULTIMARLO”",
+        description:
+          "... exhumaron esta mañana el cadáver de un peón rural de 45 años, ejecutado a fines del pasado año por los Tupamaros en la estancia Spartacus, diez días después de sorprenderlo en las inmediaciones de una de las tatuceras.... Por decisión de la dirección nacional del movimiento sedicioso, el changador -Pascasio Ramón Báez Mena, que residía en Pan de Azúcar -fue asesinado el 21 de diciembre último, suministrándole una dosis de cuatro gramos de pentotal, según narraron los propios sediciosos.... El 21 de diciembre, en presencia del miembro de la Dirección Nacional del MLN y el jefe del grupo.... se cumplió el designio.... fue.... quien se encargó de la eliminación de Baéz Mena.... le inyectó 4 gramos de pentotal.... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/pascasio-baez/n_1.jpg",
+            alt: "portada publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_2.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El País” (en Portada)",
+        date: new Date("June 22, 1972 03:24:00"),
+        title: "“BRUTAL CRIMEN DEL PEÓN RURAL”",
+        description:
+          "Comando faccioso ordenó ejecutarlo. Aparece foto a cuyo pie dice.”... quien administró la droga fatal fue el aventajado estudiante de Medicina... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/pascasio-baez/n_3.jpg",
+            alt: "portada publicada por el diario “El País”",
+          },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_4.jpg",
+            alt: "noticia publicada por el diario “El País”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El País” (Página 19)",
+        date: new Date("June 22, 1972 03:24:00"),
+        title: "“CABECILLAS FACCIOSOS PRESENCIAN EL CRIMEN”",
+        description:
+          "... fue el conspirador que inyectó los cuatro gramos de Pentotal, al peón rural, Pascasio Ramón Báez Mena... Presenciaron la trágica ejecución... y... Aparecen fotos y plano.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/pascasio-baez/n_5.jpg",
+            alt: "portada publicada por el diario “El País”",
+          },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_6.jpg",
+            alt: "noticia publicada por el diario “El País”",
+          },
+        ],
+      },
+      {
+        name: "Diario 'El Día' (en Portada)",
+        date: new Date("June 22, 1972 03:24:00"),
+        title: "“FRÍAMENTE SE DECIDIÓ EL ASESINATO DEL PEÓN”",
+        description:
+          "Utilizaron una dosis mortal de pentotal. En uno de los potreros de la estancia “Spartacus”..., fueron exhumados ayer..., los restos del peón Pascasio Ramón Báez Mena... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/pascasio-baez/n_7.jpg",
+            alt: "portada publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_8.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: "Diario 'El Día' (Página 2)",
+        date: new Date("June 22, 1972 03:24:00"),
+        title:
+          "“UN MODESTO PEÓN, DIABÓLICAMENTE ASESINADO POR TUPAMAROS EN MALDONADO HACE 6 MESES”",
+        description:
+          "Otro espeluznante crimen de los tupamaros, planeado con una frialdad inconcebible y ejecutado por mentes evidentemente enfermas por su obsesión asesina… Desarrollo de los hechos... Aparecen fotos.",
+        title1: "“EL ASESINO,...”",
+        description1:
+          "... el sedicioso... admitió plenamente haber sido quien inyectó la dosis de pentotal al peón Pascasio Ramón Baéz Mena, ocasionándole la muerte...",
+        title2: "“LA HUMILDE Y TRÁGICA INTIMIDAD DE PASCASIO BÁEZ”",
+        description2:
+          "... La mujer de Báez venía sufriendo desde tiempo atrás diversas dolencias... Cuando el 11 de diciembre Báez salió... para hacer una changa y fue secuestrado por los sediciosos, los males de la Sra. Garrido se agravaron... Lamentablemente... Alejandrina Garrido dejó de existir en el Hospital de Pan de Azúcar el 23 de diciembre... Pascasio Báez... fue salvajemente asesinado por quienes pretextan luchar por la erradicación de las injusticias sociales.",
+        images: [
+          // {
+          //   type: "noticia publicada",
+          //   src: "/pascasio-baez/n_7.jpg",
+          //   alt: "portada publicada por el diario “El Día”",
+          // },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_9.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: "Diario 'El Día' (Página 3)",
+        date: new Date("June 22, 1972 03:24:00"),
+        title: "“AQUÍ ULTIMARON AL INFELIZ TRABAJADOR”",
+        description: "Aparecen fotos y plano.",
+        images: [
+          // {
+          //   type: "noticia publicada",
+          //   src: "/pascasio-baez/n_10.jpg",
+          //   alt: "portada publicada por el diario “El Día”",
+          // },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_10.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: "Diario 'El Popular' (Página 2)",
+        date: new Date("June 22, 1972 03:24:00"),
+        title: "“EL CADÁVER DEL PEÓN BÁEZ MENA FUE EXHUMADO AYER”",
+        description:
+          "El cadáver de un trabajador rural, cuya muerte es atribuida a una ejecución resuelta por la Dirección del M.L.N., diez días después que aquel descubriera uno de los escondites rurales subterráneos,... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/pascasio-baez/n_11.jpg",
+            alt: "portada publicada por el diario “El Popular”",
+          },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_12.jpg",
+            alt: "noticia publicada por el diario “El Popular”",
+          },
+        ],
+      },
+      {
+        name: "Diario 'El País' (Página 6)",
+        date: new Date("August 14, 1972 03:24:00"),
+        title: "“CAPTURAN AL ASESINO DEL PEÓN RURAL”",
+        description:
+          "Es un conspirador que había fugado del Penal. Un peligroso terrorista que había fugado del Penal de Punta Carretas... fue recapturado... El sujeto-...-participó en el asesinato del peón rural que descubriera la “tatucera” de las cercanías de Pan de Azúcar... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/pascasio-baez/n_13.jpg",
+            alt: "portada publicada por el diario “El País”",
+          },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_14.jpg",
+            alt: "noticia publicada por el diario “El País”",
+          },
+        ],
+      },
+      {
+        name: "Diario 'Acción' (Página 7)",
+        date: new Date("September 22, 1972 03:24:00"),
+        title:
+          "“PROCESARON A UNO DE LOS MATADORES DEL PEÓN RURAL PASCASIO MENA BÁEZ”",
+        description: "... se trata del ex funcionario bancario...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/pascasio-baez/n_15.jpg",
+            alt: "portada publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_16.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+        ],
+      },
+    ],
+    apologyForCrimeInImages: [
+      {
+        title: "Peón rural asesinado y enterrado por sediciosos.",
+        description:
+          "Pascasio Baéz Mena, fue asesinado el 21 de diciembre de 1971 con una dosis de pentotal administrada por un estudiante de Medicina. Este humilde peón rural fue secuestrado en los días previos al haber avistado fortuitamente una “tatucera” en Maldonado. El comando sedicioso también evaluó la posibilidad de mantenerlo en una “Cárcel del Pueblo” o llevarlo a Cuba. Pascasio Báez, primer detenido desaparecido de la historia reciente, tenía 45 años. Su compañera Alejandra Garrido falleció el 23 de diciembre de 1971 en medio de la incertidumbre del paradero de Pascasio Baéz.",
+        images: [
+          {
+            src: "/pascasio-baez/i_1.jpg",
+            alt: "Pascasio Báez descubre accidentalmente una 'Tatucera'.",
+          },
+          {
+            src: "/pascasio-baez/i_2.jpg",
+            alt: "Es capturado y hecho prisionero en celda de 'Tatucera'.",
+          },
+          {
+            src: "/pascasio-baez/i_3.jpg",
+            alt: "Dirigentes sediciosos deciden “Pena de Muerte” de Pascasio Báez.",
+          },
+          {
+            src: "/pascasio-baez/i_4.jpg",
+            alt: "Sediciosos ejecuta “Pena de Muerte” con inyección de Pentotal.",
+          },
+          {
+            src: "/pascasio-baez/i_5.jpg",
+            alt: " Es enterrado.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/pascasio-baez/memorial.jpg",
+        alt: "Aquí, en plena democracia, 21/12/1971  fue ejecutado y sepultado por Terroristas, el peón rural Pascasio Baéz, casado, 45 años de edad.",
+      },
+    ],
+    vindicated: {
+      description: ``,
+      books: [
+        {
+          fragment: `<p>““Observa Jorge Zabalza con relación a este tema: <em>“Cuando ocurrió lo del peón del Caraguatá hubo una gran discusión. Me encontré en un berretín con un compañero, quien venía de Pan de Azúcar espantado de lo que había pasado. Acerca de como (sic) se tomó esa decisión hay distintas versiones, lo real es que Píriz Budes fue con la orden de hacerlo. También es cierto que hubo compañeros que insistieron en la necesidad de tomar esa decisión. Creo que se optó por la vía más simple y menos humana, en lugar de elegir la otra posibilidad: sacarlo para el exterior. Se debía haber hecho ese esfuerzo, aun corriendo riesgo nosotros. En ese momento lo discutimos, no es cada una de esas cosas pasara desapercibida. Pienso que es esto hubo una trasgresión de los derechos humanos. Un delito...”</em>.”.</p>`,
+          year: new Date("2001-1-1"),
+          name: "La izquierda armada. Ideología, ética e identidad en el MLN-Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Trilce",
+          pages: "págs. 158-159",
+          author: "Aldrighi",
+        },
+        {
+          fragment: `<p>“Hugo Wilkins</p>
+          <p>“... Incluso en el caso de la muerte del peón (Báez), muy mal muerto, se le inyectó pentotal justamente para que no sufriera. No hubo desprecio por el dolor del hombre...”.”.</p>`,
+          year: new Date("2009-1-1"),
+          name: "Memorias de insurgencia. Historias de vida y militancia en el MLN-Tupamaros. 1965-1975.",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Banda Oriental S.R.L.",
+          pages: "págs. 245,260-261",
+          author: "Aldrighi",
+        },
+        {
+          fragment: `<p>“... J .M. -¿Sobre el libro Sendic del periodista Blixen, que piensa?</p>
+          <p>H. A. P.... se pretende dejarlo fuera del asesinato de Pascasio Báez Mena, ocultando que la tatucera era de la columna que él dirigía...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "págs. 144-145",
+          author: "Marius",
+        },
+        {
+          fragment: `<p>“... J .M. –Otro nombre que estimo es, sin dudas, el más polémico: Mario Píriz Budes.</p>
+          <p>H. A. P. -... Su mayor enfrentamiento se produjo cuando la muerte de Pascasio Báez, propuesta desde el Caraguatá y aceptada por el Ejecutivo sin haber tenido en cuenta su oposición, a tal punto que fue Engler quien se desplazó a Maldonado para comunicar la ejecución...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "pág. 187",
+          author: "Marius",
+        },
+        {
+          fragment: `<p>“Aunque el tema no se trata en forma abierta, a Rosencof le pesa haber dado vía libre –al igual que el resto de la dirección – a que sus compañeros reunidos en la estancia Espartaco decidieran, a fines de 1971, la suerte de Pascasio Baéz. Se trataba de un peón que había descubierto una tatucera en aquel campo. Píriz Budes, responsable del interior desde la dirección, impulsó la decisión de dar muerte al peón. Engler, otro de los integrantes del Ejecutivo, pudo haberse negado pero no lo hizo, Wasen tampoco. El hombre fue asesinado con una inyección de pentotal...”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 516",
+          author: "Pernas",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("January 19, 1972 03:24:00"),
+    title: "Heber Castiglioni Cadete de la Escuela Nacional de Policía",
+    slug: "heber-castiglioni",
+    type: "asesinato",
+    totalOfVictims: 1,
+    victims: [
+      {
+        name: "Heber Castiglioni",
+        age: 19,
+        marital: "soltero",
+        // childs: 3,
+        // childsDescription: "1 menor de edad",
+        avatar: {
+          src: "/heber-castiglioni/a_1.png",
+          alt: "imagen de Heber Castiglioni",
+        },
+      },
+    ],
+    notice: [
+      {
+        name: "Diario “Acción” (en Portada)",
+        date: new Date("January 19, 1972 03:24:00"),
+        title: "“ACRIBILLARON A UN POLICÍA”",
+        description:
+          "Criminal atentado de los Tupamaros. El cadete Heber Washington Castiglioni Castro,... soltero de 20 años de edad... Un joven cadete de la Escuela de Policía acribillado a balazos y..., es el saldo de un cruento enfrentamiento... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/heber-castiglioni/n_1.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 16)",
+        date: new Date("January 19, 1972 03:24:00"),
+        title: "“HALLAN DOS BOLSONES, ESPOSAS Y UN ARMA EN LA KOMBI ROBADA”",
+        description:
+          "... Un joven cadete de la Policía..., fue muerto a balazos por un grupo de tupamaros en Pocitos... Aparecen fotos.",
+        title1:
+          "“SON VEINTE LOS POLICÍAS CAÍDOS EN LA LUCHA CONTRA LA SEDICIÓN”",
+        description1:
+          "Con la muerte del cadete Heber Washington Castiglioni Castro, de veinte años, ocurrida hoy de mañana a manos de sediciosos, son veinte los policías caídos en acciones con elementos subversivos en cinco años...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/heber-castiglioni/n_2.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El País” (en Portada)",
+        date: new Date("January 20, 1972 03:24:00"),
+        title: "“UN POLICÍA DE 19 AÑOS ACRIBILLADO”",
+        description:
+          "... Mientras tres sediciosos distraían al Oficial y al Cadete, otros dos terroristas ocultos en la camioneta salieron sorpresivamente por la puerta trasera accionando sus metralletas... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/heber-castiglioni/n_3.jpg",
+            alt: "noticia publicada por el diario “El País”",
+          },
+        ],
+      },
+      {
+        name: "Diario 'El País' (Página 13)",
+        date: new Date("January 20, 1972 03:24:00"),
+        title: "“EL VIOLENTO TIROTEO SE REGISTRÓ AYER”",
+        description:
+          "(viene de Portada) Reclutado por la sedición. El herido fue llevado al Hospital Militar... Se le identificó como... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/heber-castiglioni/n_4.jpg",
+            alt: "portada publicada por el diario “El País”",
+          },
+          {
+            type: "página diario completa",
+            src: "/heber-castiglioni/n_5.jpg",
+            alt: "noticia publicada por el diario “El País”",
+          },
+        ],
+      },
+      {
+        name: "Diario 'Acción' (Página 8)",
+        date: new Date("January 20, 1972 03:24:00"),
+        title: "“SALVAN AL TUPAMARO HERIDO QUE ERA EL JEFE DEL GRUPO”",
+        description:
+          "Los médicos del Hospital Militar salvaron la vida del extremista herido en el trágico enfrentamiento de la víspera... Aparecen fotos.",
+        title1: " “EL CADETE FUE ACRIBILLADO A QUEMARROPA: NO PODÍA SALVARSE”",
+        description1:
+          "El joven cadete Heber Washington Castiglioni Castro fue fulminado por una certera ráfaga de metralleta disparada por uno de los dos sediciosos... El infortunado cadete..., cayó mortalmente herido...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/heber-castiglioni/n_6.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+        ],
+      },
+      {
+        name: "Diario 'El Día' (Página 2)",
+        date: new Date("January 20, 1972 03:24:00"),
+        title: "“COBARDÍA Y SAÑA QUE ESTREMECEN”",
+        description:
+          "Trágico tiroteo -en el que corrieron peligro las vidas de inocentes vecinos -protagonizaron cinco conspiradores... el cadete Heber Washington Castiglioni Castro,... soltero de 20 años de edad - murió a consecuencia de varios impactos de bala... Aparecen fotos y croquis.",
+        title1: "“EVIDENCIAS: IBAN A CONSUMAR UN NUEVO SECUESTRO”",
+        description1:
+          "La heroica acción de los dos funcionarios policiales logró desbaratar -a costa de la vida del cadete Castiglioni -la consumación de otro secuestro...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/heber-castiglioni/n_7.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+        ],
+      },
+    ],
+    apologyForCrimeInImages: [
+      {
+        title:
+          "Cadete de la Escuela Nacional de Policía asesinado por sediciosos.",
+        description:
+          "Heber Castiglioni, Cadete de la Escuela Nacional de Policía, fue asesinado en acto de servicio por Terroristas.",
+        images: [
+          {
+            src: "/heber-castiglioni/i_1.jpg",
+            alt: "Un Oficial de Policía, acompañado por Heber Castiglioni, Cadete de la Escuela Nacional de Policía, proceden a detener un vehículo en un control rutinario de documentos.",
+          },
+          {
+            src: "/heber-castiglioni/i_2.jpg",
+            alt: "El cadete Heber Castiglioni, es asesinado por dos Terroristas.",
+          },
+          {
+            src: "/heber-castiglioni/i_3.jpg",
+            alt: "Un Terrorista en su huida, toma de rehén a una señora y su hijo. El Cadete Castiglioni herido de muerte en la vía pública.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/heber-castiglioni/memorial.jpg",
+        alt: "Aquí, en plena democracia, 19/01/1972 fue asesinado por Terroristas, Heber Castiglini, de 19 años de edad, Cadete de la Escuela Nacional de Policía.",
+      },
+    ],
+    vindicated: {
+      description: ``,
+      books: [
+        {
+          fragment: `<p>“... También se incluían secuestros dentro de la línea de Justicia Revolucionaria, como el de Juan Carlos Peirano Facio...</p>
+          <p>… el secuestro de Peirano Facio fracasó porque el chofer de uno de los vehículos no controló y venía siendo seguido por un coche policial (en el tiroteo murió el cadete Castiglioni)...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "pág. 302",
+          author: "Marius",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("January 27, 1972 03:24:00"),
+    title: "Inspector Rodolfo Leoncino",
+    slug: "rodolfo-leoncino",
+    type: "asesinato",
+    totalOfVictims: 1,
+    victims: [
+      {
+        name: "Rodolfo Leoncino",
+        age: 50,
+        marital: "casado",
+        childs: 2,
+        childsDescription: " menores de edad",
+        avatar: {
+          src: "/rodolfo-leoncino/a.png",
+          alt: "imagen de Rodolfo Leoncino",
+        },
+      },
+    ],
+    notice: [
+      {
+        name: "Diario “El Diario” (en Portada)",
+        date: new Date("January 27, 1972 03:24:00"),
+        title: "“LOS FACCIOSOS AMETRALLARON AL GUARDIA CUANDO IBA AL TRABAJO”",
+        description:
+          "... fue asesinado esta mañana..., Rodolfo Leoncino... 50 años... atacado sorpresivamente a balazos,... Leoncino había sido amenazado, luego de que lo intentaran sobornar los conspiradores sin lograr sus propósitos... Aparecen fotos.",
+        title1: "“LE HABÍAN ENVIADO UNA BOMBA A SU CASA COMO “REGALO”",
+        description1:
+          "... había sido amenazado de muerte meses atrás por los sediciosos y hace varias semanas-...- dejaron en su domicilio un artefacto explosivo... El inspector... lo sacó presuroso a la calle, donde después estalló...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/rodolfo-leoncino/n_1.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “Acción” (Página 8)",
+        date: new Date("January 27, 1972 03:24:00"),
+        title: "“ASESINARON A TRAICIÓN A UN INDEFENSO FUNCIONARIO”",
+        description:
+          "Monstruosa acción de Tupamaros:... El Jefe de Seguridad Interna del Penal de Punta Carreta, Inspector de 2ª Clase Rodolfo Leoncino (..., casado de 50 años) fue acribillado a balazos... por un grupo de tupamaros que le tendió una sangrienta emboscada... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/rodolfo-leoncino/n_2.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/rodolfo-leoncino/n_3.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El País” (en Portada)",
+        date: new Date("January 28, 1972 03:24:00"),
+        title: "“BRUTAL ASESINATO DE JEFE DEL PENAL”",
+        description: "Facciosos lo ametrallan desde un auto... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/rodolfo-leoncino/n_4.jpg",
+            alt: "noticia publicada por el diario “El País”",
+          },
+        ],
+      },
+      {
+        name: "Diario 'El País' (Página 2)",
+        date: new Date("January 28, 1972 03:24:00"),
+        title: "“TERRORISTAS ASESINAN A UN JEFE DEL PENAL”",
+        description:
+          "... el Jefe de Seguridad de la Penitenciaría fue acribillado a balazos por un grupo de extremistas que le tendieron una emboscada... Para perpetrar el crimen se utilizaron...: un revólver calibre 38 y dos armas automáticas  -diferentes - calibre 45... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/rodolfo-leoncino/n_4.jpg",
+            alt: "portada publicada por el diario “El País”",
+          },
+          {
+            type: "página diario completa",
+            src: "/rodolfo-leoncino/n_5.jpg",
+            alt: "noticia publicada por el diario “El País”",
+          },
+        ],
+      },
+      {
+        name: "Diario 'El País' (Página 3)",
+        date: new Date("January 28, 1972 03:24:00"),
+        title: "“POR CARTAS Y TELEFÓNICAMENTE LEONCINO ERA AMENAZADO”",
+        description:
+          "Los alevosos extremistas, al no lograr vulnerar su honorabilidad, optaron por matarlo a mansalva. Rodolfo Leoncino... se retiró del instituto Policial para acogerse a los beneficios de una bien ganada jubilación... llamado por superiores para reintegrarse no trepidó en hacerlo... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/rodolfo-leoncino/n_6.jpg",
+            alt: "portada publicada por el diario “El País”",
+          },
+          {
+            type: "página diario completa",
+            src: "/rodolfo-leoncino/n_7.jpg",
+            alt: "noticia publicada por el diario “El País”",
+          },
+        ],
+      },
+      {
+        name: "Diario 'Acción' (Página 7)",
+        date: new Date("January 28, 1972 03:24:00"),
+        title: "“INDIGNACIÓN POR EL NUEVO CRIMEN TUPAMARO”",
+        description:
+          "Escenas de profundo dolor se vivieron hoy durante el sepelio... de Rodolfo Leoncino quien fuera cobarde y salvajemente ultimado ayer por elementos del Movimiento de Liberación Nacional... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/rodolfo-leoncino/n_8.jpg",
+            alt: "portada publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/rodolfo-leoncino/n_9.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+        ],
+      },
+    ],
+    apologyForCrimeInImages: [
+      {
+        title:
+          "Policía asesinado por rehusarse a un acto de corrupción en la Cárcel de Punta Carretas.",
+        description:
+          "Rodolfo Leoncino, Inspector de la Policía Nacional, fue asesinado por Terroristas del MLN-T.",
+        images: [
+          {
+            src: "/rodolfo-leoncino/i_1.jpg",
+            alt: "Cabecillas sediciosos en prisión, deciden ejecución del Inspector Rodolfo Leoncino.",
+          },
+          {
+            src: "/rodolfo-leoncino/i_2.jpg",
+            alt: "Inspector Leoncino es asesinado por Terroristas.",
+          },
+          {
+            src: "/rodolfo-leoncino/i_3.jpg",
+            alt: "Inspector Leoncino ya caído, es ejecutado por un Terrorista.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/rodolfo-leoncino/memorial.jpg",
+        alt: "Aquí, en plena democracia, 27/01/1972 fue asesinado por integrantes del MLN-T, Rodolfo Leoncino, Inspector de la Policía Nacional, de 50 años de edad, casasdo, 2 hijos menores de edad.",
+      },
+    ],
+    vindicated: {
+      description: ``,
+      books: [
+        {
+          fragment: `<p>
+          “A mediados de enero, en Punta Carretas se reeditó un clásico de clásicos: el plan de fuga denominado Gallo se puso de nuevo en el tapete. Si bien los tupamaros tenían una relativa influencia en el penal, había un obstáculo para restablecer el funcionamiento que tenían antes; se llamaba Rodolfo Leoncino, jefe de la guardia de Punta Carretas... Jorge Zabalza, Efraín Martínez Platero y José Mujica (que bautizó el plan con el nombre de Corcho) decidieron que era tiempo de ejecutarlo sin más trámite, Muerto Leoncino a manos de un comando de la columna quince que lo baleó en su casa, cambió la interna del penal...”.</p>`,
+          year: new Date("2007-1-1"),
+          name: "Cero a la izquierda. Una biografía de Jorge Zabalza",
+          place: "Montevideo - Uruguay",
+          edition: "Letraeñe Ediciones de la Banda Oriental S.R.L.",
+          pages: "págs. 107-108",
+          author: "Leicht",
+        },
+        {
+          fragment: `<p>De allí surgieron las bases del “Plan Corcho”, una operación de represalia.</p>
+          <p>La mañana del 27 de enero, un comando de la columna 15 cumplió la orden de la dirección: esperó en la puerta de la casa de Leoncino y lo mató a balazos.</p>
+          <p>Esta ejecución se enmarcaba en los planes de represalia que adoptó el MLN en los primeros meses de 1972...</p>
+          <p>La ejecución de Leoncino instaló un aire de respeto y temor de parte de la guardia hacia los tupamaros, que ahora tenían mayor libertad de movimiento dentro del predio de la cárcel”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "págs. 514-516",
+          author: "Pernas",
+        },
+      ],
+    },
   },
 ];

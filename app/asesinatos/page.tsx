@@ -29,7 +29,7 @@ export default async function page({}: Props) {
   // console.log(endDate);
 
   return (
-    <section className="container mx-auto bg-background">
+    <section className="container mx-auto py-8">
       <h1 className="uppercase text-5xl text-primary text-center font-extrabold">
         asesinatos
         <span className="text-destructive hidden md:inline-block px-4">
@@ -38,40 +38,33 @@ export default async function page({}: Props) {
         </span>
       </h1>
 
-      <p className="text-primary-foreground text-center font-bold text-xl">
+      <p className="text-textSecondary text-center font-bold text-xl">
         entre el <time dateTime={initDate}>{initDate}</time> y el{" "}
         <time dateTime={endDate}>{endDate}</time>{" "}
       </p>
       {/* <p className="text-primary-foreground text-center font-bold text-md md:text-3xl"></p> */}
 
+      {/*
+flex w-full h-full max-w-sm mx-auto overflow-hidden transition duration-500 ease-in-out shadow-lg bg-slate-950 rounded-xl hover:-translate-y-2 hover:shadow-2xl relative text-white after:absolute after:inset-0 after:bg-gradient-to-t after:from-black after:via-slate-900 after:to-transparent focus-within:outline focus-within:outline-pink-600
+*/}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-8">
         {terroristActionKills.map((action) => (
           <Link
             href={`/asesinatos/${action.slug}`}
             key={action.slug}
-            className="shadow-[4px_4px] shadow-primary flex flex-col justify-start gap-2.5 p-5 rounded-[5px] border-2 border-solid border-primary h-36 bg-[#f90]"
+            // shadow-[4px_4px] shadow-primary flex flex-col justify-start gap-2.5 p-5 rounded-[5px] border-2 border-solid border-primary h-36 bg-[#f60]
+            className="shadow-[4px_4px] shadow-black flex flex-col justify-start gap-2.5 p-5 rounded-[5px] border-2 border-solid border-primary h-36 bg-primary overflow-hidden transition duration-500 ease-in-out hover:-translate-y-2 hover:bg-[#f90]"
           >
-            {/* <div>
-              {action.victims?.map((victim) => (
-                <Avatar>
-                  <AvatarImage
-                    src={victim.avatar?.src}
-                    alt={victim.avatar?.alt}
-                  />
-                  <AvatarFallback>No Image</AvatarFallback>
-                </Avatar>
-              ))}
-            </div> */}
             <div className="flex items-center gap-2">
-              <Icons.calendar className="w-6 h-6 text-primary" />
-              <time className="font-medium text-primary">
+              <Icons.calendar className="w-6 h-6 text-textPrimary" />
+              <time className="font-medium text-textPrimary">
                 {/* md:w-28 */}
                 {getFormattedDateToString(action.date)}
               </time>
               {/* <span>
               </span> */}
             </div>
-            <p className="font-bold text-primary">{action.title}</p>
+            <p className="font-bold text-textPrimary">{action.title}</p>
           </Link>
         ))}
       </div>
