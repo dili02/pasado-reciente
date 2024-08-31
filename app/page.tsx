@@ -4,9 +4,7 @@ import { Button } from "@/components/ui/button";
 import { api } from "@/db/api";
 import Link from "next/link";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronRight, PlayCircle } from "lucide-react";
-import Tab from "@/components/tab";
+import { ChevronRight } from "lucide-react";
 
 export default async function Home() {
   const month = new Intl.DateTimeFormat("es-ES", { month: "long" });
@@ -27,14 +25,16 @@ export default async function Home() {
 
   return (
     <section className="min-h-screen">
+      <Stats />
+
       <div className="text-textPrimary container">
-        <div className="grid grid-cols-1 md:grid-cols-2 min-h-[650px] relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 min-h-[650px] md:gap-4 relative">
           <div className="flex flex-col justify-center py-14 md:py-0">
-            <div className="text-center md:text-left space-y-6">
-              <h1 className="text-5xl lg:text-6xl font-bold leading-relaxed xl:leading-normal uppercase text-[#f40]">
+            <div className="text-center md:text-left space-y-4">
+              <h1 className="text-5xl xl:text-6xl font-extrabold leading-relaxed xl:leading-tight uppercase text-[#f40]">
                 nunca más terrorismo
               </h1>
-              <p className="text-gray-600 xl:max-w-[850px]">
+              <p className="text-textSecondary xl:max-w-[850px]">
                 La presente hemeroteca fue confeccionada exclusivamente con
                 noticias periodísticas de las décadas del 60 y 70 escaneadas de
                 las páginas originales de los diarios. De esta manera se podrá
@@ -72,14 +72,12 @@ export default async function Home() {
               className="bg-[#f60] hover:bg-[#f90]/90 w-full xl:w-80"
               asChild
             >
-              <Link href="/efemerides">
+              <Link href="/efemerides" className="text-orange-50">
                 Ver Efemérides <ChevronRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </div>
         </div>
-
-        <Stats />
 
         {/* <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="py-12 md:py-20">
@@ -172,9 +170,9 @@ export default async function Home() {
       </div> */}
       </div>
 
-      <div className="bg-orange-200 mt-8">
+      <div className="bg-[#f90]/60 mt-8">
         <div className="container">
-          <h2 className="text-3xl capitalize font-extrabold py-2 text-textPrimary">
+          <h2 className="text-3xl capitalize font-extrabold py-8 text-textPrimary">
             testimonios
           </h2>
           <p className="text-textSecondary text-xl">

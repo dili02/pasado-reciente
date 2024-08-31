@@ -2,7 +2,8 @@ import { Icons } from "@/components/icons";
 import { Title, TitleDate } from "@/components/typograpy";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { api } from "@/db/api";
+// import { api } from "@/db/api";
+import { api } from "@/db/data";
 import Link from "next/link";
 import React from "react";
 
@@ -15,57 +16,82 @@ function getFormattedDateToString(date: Date): string {
 }
 
 export default async function page({}: Props) {
-  const terroristActionKills = await api.getKills();
+  // const terroristActionKills = await api.getKills();
   // console.log(terroristActionKills);
 
-  const terroristActionDates = terroristActionKills.map((date) => date.date);
+  const terroristActionMurders = await api.getAllMurders();
+
+  const terroristActionMurdersDates = terroristActionMurders.map(
+    (date) => date.date
+  );
   const initDate = new Intl.DateTimeFormat("es-UY", {
     dateStyle: "medium",
-  }).format(terroristActionDates[0]);
-  // console.log(initDate);
+  }).format(terroristActionMurdersDates[0]);
   const endDate = new Intl.DateTimeFormat("es-UY", {
     dateStyle: "medium",
-  }).format(terroristActionDates[terroristActionDates.length - 1]);
+  }).format(
+    terroristActionMurdersDates[terroristActionMurdersDates.length - 1]
+  );
+
+  // const terroristActionDates = terroristActionKills.map((date) => date.date);
+  // const initDate = new Intl.DateTimeFormat("es-UY", {
+  //   dateStyle: "medium",
+  // }).format(terroristActionDates[0]);
+  // console.log(initDate);
+  // const endDate = new Intl.DateTimeFormat("es-UY", {
+  //   dateStyle: "medium",
+  // }).format(terroristActionDates[terroristActionDates.length - 1]);
   // console.log(endDate);
 
   return (
     <section className="container mx-auto py-8">
-      <h1 className="uppercase text-5xl text-primary text-center font-extrabold">
+      <h1 className="uppercase text-2xl md:text-4xl 2xl:text-5xl text-center font-extrabold text-[#f40]">
         asesinatos
-        <span className="text-destructive hidden md:inline-block px-4">
-          {/* rounded-full bg-primary text-secondary px-6 */}(
-          {terroristActionKills.length})
-        </span>
+        {/* <span className="text-destructive hidden md:inline-block px-4">
+          (
+          {terroristActionMurders.length})
+        </span> */}
       </h1>
 
       <p className="text-textSecondary text-center font-bold text-xl">
         entre el <time dateTime={initDate}>{initDate}</time> y el{" "}
         <time dateTime={endDate}>{endDate}</time>{" "}
       </p>
-      {/* <p className="text-primary-foreground text-center font-bold text-md md:text-3xl"></p> */}
 
-      {/*
-flex w-full h-full max-w-sm mx-auto overflow-hidden transition duration-500 ease-in-out shadow-lg bg-slate-950 rounded-xl hover:-translate-y-2 hover:shadow-2xl relative text-white after:absolute after:inset-0 after:bg-gradient-to-t after:from-black after:via-slate-900 after:to-transparent focus-within:outline focus-within:outline-pink-600
-*/}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-8">
-        {terroristActionKills.map((action) => (
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 py-8"> */}
+      <div className="grid grid-cols-1 py-8 gap-6">
+        {terroristActionMurders.map((action) => (
           <Link
             href={`/asesinatos/${action.slug}`}
             key={action.slug}
-            // shadow-[4px_4px] shadow-primary flex flex-col justify-start gap-2.5 p-5 rounded-[5px] border-2 border-solid border-primary h-36 bg-[#f60]
-            className="shadow-[4px_4px] shadow-black flex flex-col justify-start gap-2.5 p-5 rounded-[5px] border-2 border-solid border-primary h-36 bg-primary overflow-hidden transition duration-500 ease-in-out hover:-translate-y-2 hover:bg-[#f90]"
+            className={`border border-primary text-[#f40] p-4 rounded-md transition duration-500 ease-in-out hover:-translate-y-1 bg-orange-100 flex flex-col items-center justify-center md:flex-row md:justify-start md:items-start`}
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 md:min-w-[200px]">
               <Icons.calendar className="w-6 h-6 text-textPrimary" />
-              <time className="font-medium text-textPrimary">
-                {/* md:w-28 */}
+              <time className="text-textPrimary xl:text-lg 2xl:text-xl">
                 {getFormattedDateToString(action.date)}
               </time>
-              {/* <span>
-              </span> */}
             </div>
-            <p className="font-bold text-textPrimary">{action.title}</p>
+            <p className="font-bold text-textPrimary xl:text-lg 2xl:text-xl text-center md:text-left">
+              {action.title}
+            </p>
+            <div className="flex flex-col md:flex-row items-center gap-4"></div>
           </Link>
+          // <Link
+          //   href={`/asesinatos/${action.slug}`}
+          //   key={action.slug}
+          //   className={`shadow-[4px_4px] shadow-black flex flex-col justify-start gap-2.5 p-5 rounded-[5px] border-2 border-solid border-primary md:h-48 bg-primary overflow-hidden transition duration-500 ease-in-out hover:-translate-y-2 hover:bg-[#f90]`}
+          // >
+          //   <div className="flex items-center gap-2">
+          //     <Icons.calendar className="w-6 h-6 2xl:w-7 2xl:h-7 text-textPrimary" />
+          //     <time className="font-medium text-textPrimary xl:text-lg 2xl:text-xl">
+          //       {getFormattedDateToString(action.date)}
+          //     </time>
+          //   </div>
+          //   <p className="font-bold text-textPrimary xl:text-lg 2xl:text-xl">
+          //     {action.title}
+          //   </p>
+          // </Link>
         ))}
       </div>
 

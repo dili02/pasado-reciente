@@ -11,17 +11,17 @@ type Props = {};
 const navItems = [
   {
     name: "Asesinatos",
-    icon: <Icons.shot className="w-5 h-5" />,
+    icon: <Icons.shot className="w-7 h-7" />,
     href: "/asesinatos",
   },
-  { name: "Secuestros", icon: <Icons.prisoner className="w-4 h-4" /> },
-  { name: "Atentados", icon: <Icons.timeDinamite className="w-4 h-4" /> },
-  { name: "Robos Dinero", icon: <Icons.heist className="w-5 h-5" /> },
+  { name: "Secuestros", icon: <Icons.prisoner className="w-7 h-7" /> },
+  { name: "Atentados", icon: <Icons.timeDinamite className="w-7 h-7" /> },
+  { name: "Robo Dinero", icon: <Icons.heist className="w-7 h-7" /> },
   {
-    name: "Robos Armas / Explosivos",
-    icon: <Icons.gun className="w-5 h-5" />,
+    name: "Robo Armas/Explosivos",
+    icon: <Icons.gun className="w-6 h-6" />,
   },
-  { name: "Otras Acciones", icon: <Icons.punch className="w-5 h-5" /> },
+  { name: "Otras Acciones", icon: <Icons.punch className="w-7 h-7" /> },
 ];
 
 export default function Header({}: Props) {
@@ -30,12 +30,12 @@ export default function Header({}: Props) {
 
   return (
     <>
-      <header className="text-textPrimary bg-orange-50 py-4">
+      <header className="text-textPrimary md:bg-[#f90]/60 lg:bg-orange-50 py-4">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center lg:justify-center">
             <Link
               href={`/`}
-              className="hidden lg:flex flex-col justify-center items-center"
+              className="hidden md:flex flex-col justify-center items-center"
             >
               <h1 className="font-extrabold text-xl">
                 Museo de la Memoria del Pasado Reciente
@@ -49,12 +49,10 @@ export default function Header({}: Props) {
 
             <button
               onClick={() => setIsNavOpen(!isNavOpen)}
-              className="xl:hidden p-2"
+              className="lg:hidden p-2"
               aria-label="Toggle navigation menu"
             >
-              {isNavOpen === false && (
-                <Menu className="w-6 h-6 text-background" />
-              )}
+              {isNavOpen === false && <Menu className="w-6 h-6 text-black" />}
               {isNavOpen === true && <X className="w-6 h-6 text-background" />}
             </button>
           </div>
@@ -62,15 +60,15 @@ export default function Header({}: Props) {
       </header>
 
       <nav
-        className={`bg-[#f90]/60 ${isNavOpen ? "block" : "hidden"} xl:block`}
+        className={`bg-[#f90]/60 ${isNavOpen ? "block" : "hidden"} lg:block`}
       >
         <div className="container mx-auto px-4">
-          <ul className="flex flex-col xl:flex-row justify-center py-2">
+          <ul className="flex flex-col lg:flex-row justify-center py-2">
             {navItems.map((item, index) => (
               <li key={index} className="my-1 md:my-0 md:mx-2">
                 <Link
                   href={`${item.href}`}
-                  className={`flex items-center font-bold text-xl lg:text-lg text-textPrimary hover:text-textPrimary/60 transition-colors duration-200 py-4 lg:py-1 ${
+                  className={`flex items-center font-bold text-xl lg:text-sm xl:text-xl text-textPrimary hover:text-textPrimary/60 transition-colors duration-200 py-4 lg:py-1 ${
                     item.href?.split("/")[1] === pathname.split("/")[1] &&
                     "textPrimary/40"
                   }`}

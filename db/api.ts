@@ -214,7 +214,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
       books: [
         {
           fragment:
-            "'... El 7 de julio, en cinco operativos, los tupamaros lograron desarmar a ocho policías. Si bien en la columna 10 estaba muy presente lo de entrenarse para no herir a nadie, un grupo de otra columna no siguió -o no pudo seguir- las recomendaciones: Germán Garay, un viejo policía, terminó muerto ...'",
+            '"... El 7 de julio, en cinco operativos, los tupamaros lograron desarmar a ocho policías. Si bien en la columna 10 estaba muy presente lo de entrenarse para no herir a nadie, un grupo de otra columna no siguió -o no pudo seguir- las recomendaciones: Germán Garay, un viejo policía, terminó muerto ..."',
           year: new Date("2013-1-1"),
           name: "Comandante Facundo. El revolucionario Pepe Mujica",
           place: "Montevideo - Uruguay",
@@ -224,7 +224,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
         },
         {
           fragment:
-            "'... En las primeras horas de la mañana del 7 de julio, y en el lapso de una hora, se hicieron cinco desarmes, de los cuales fueron víctimas ocho agentes de Policía. En todos los casos los atacantes actuaron en grupos de tres o cuatro personas. En uno de los ataques dieron muerte a un veterano agente llamado Germán Garay ...'",
+            '"... En las primeras horas de la mañana del 7 de julio, y en el lapso de una hora, se hicieron cinco desarmes, de los cuales fueron víctimas ocho agentes de Policía. En todos los casos los atacantes actuaron en grupos de tres o cuatro personas. En uno de los ataques dieron muerte a un veterano agente llamado Germán Garay ..."',
           year: new Date("2007-1-1"),
           name: "Cero a la izquierda. Una biografía de Jorge Zabalza",
           place: "Montevideo - Uruguay",
@@ -322,7 +322,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
           },
           {
             src: "/german-garay/ilustration3.jpg",
-            alt: "Terroristas armados atacan al Agente Germán Garay",
+            alt: "Terrorista asesina por la espalda al Agente Germán Garay al intentar resistirse.",
           },
         ],
       },
@@ -369,9 +369,22 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
   {
     date: new Date("December 27, 1966 03:24:00"),
     title: "Comisario Antonio Silveira Regalado",
-    slug: "comisario-antonio-silveira-regalado",
+    slug: "antonio-silveira-regalado",
     type: "asesinato",
     totalOfVictims: 1,
+    victims: [
+      {
+        name: "Antonio Silveira Regalado",
+        age: 40,
+        childs: 2,
+        childsDescription: " menores de edad",
+        marital: "casado",
+        avatar: {
+          src: "/antonio-silveira-regalado/avatar.png",
+          alt: "imagen de Antonio Silveira Regalado",
+        },
+      },
+    ],
     notice: [
       {
         name: 'Diario "El Diario" en Portada',
@@ -511,14 +524,14 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
           "Un coleccionista de armas... fue acribillado a balazos por un grupo de extremistas cuando intentaban robarle valiosas pistolas, revólveres y municiones... se produjo esta mañana pasada las 6.30 horas en el comercio de la Avda. General Flores 2687 esquina Vilardebó, propiedad de la víctima Rafael César Guidet Piotti. Aparece croquis de...",
         images: [
           {
-            type: "página diario completa",
-            src: "/rafael-guidet/noticia_3.jpg",
-            alt: "pagina publicada por el diario el diario",
-          },
-          {
             type: "noticia publicada",
             src: "/rafael-guidet/noticia_4.jpg",
             alt: "noticia publicada por el diario el diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/rafael-guidet/noticia_3.jpg",
+            alt: "pagina publicada por el diario el diario",
           },
         ],
       },
@@ -530,14 +543,14 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
           "Un hombre fue ultimado en el interior de su florería en plena barriada de Goes, al enfrentarse con cuatro desconocidos que portando armas de fuego habían penetrado al comercio...",
         images: [
           {
-            type: "página diario completa",
-            src: "/rafael-guidet/noticia_6.jpg",
-            alt: "portada publicada por el diario el popular",
-          },
-          {
             type: "noticia publicada",
             src: "/rafael-guidet/noticia_5.jpg",
             alt: "noticia publicada por el diario el diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/rafael-guidet/noticia_6.jpg",
+            alt: "portada publicada por el diario el popular",
           },
         ],
       },
@@ -588,7 +601,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
           },
           {
             src: "/rafael-guidet/ilustracion_3.jpg",
-            alt: "Terroristas exigen a Rafael Guidet entrega de armas.",
+            alt: "Rafael Guidet es asesinado por terroristas.",
           },
         ],
       },
@@ -653,7 +666,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
       {
         name: 'Diario "El Diario" (Página 16)',
         date: new Date("October 08, 1969 03:24:00"),
-        title: "ETREMENDO GOLPE LE ASESTÓ LA POLICÍA AL GRUPO EXTREMISTA",
+        title: "TREMENDO GOLPE LE ASESTÓ LA POLICÍA AL GRUPO EXTREMISTA",
         description:
           "...quedaban cinco elementos subversivos prófugos... se encuentran dos mujeres jóvenes, una de las cuales,... hirió accidentalmente a uno de sus compinches extremistas...",
         subtitle: "Otro Extremista Muerto",
@@ -661,7 +674,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
           "... eran dos los extremistas muertos y no uno... Con el deceso también de Carlos Burgueño, llegan a tres los fallecidos en las dramáticas instancias de esta tarde... Así mismo se pudo saber que 2 funcionarios policiales... habían resultado heridos de bala..., en el lugar de los hechos, que habían sido incautadas a los extremistas numerosas armas, largas y cortas, así como bombas de mano y uniformes que habían hurtado aparentemente en la comisaría de Pando. Aparece foto de...",
         images: [
           {
-            type: "noticia",
+            type: "noticia publicada",
             src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_1.jpg",
             alt: "noticia publicada por el diario el diario",
           },
@@ -682,13 +695,13 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
           {
             type: "noticia publicada",
             src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_3.jpg",
-            alt: "pagina publicada por el diario el dia",
+            alt: "noticia publicada por el diario el dia",
           },
-          // {
-          //   type: "noticia",
-          //   src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_4.jpg",
-          //   alt: "noticia publicada por el diario el dia",
-          // },
+          {
+            type: "página diario completa",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_3.jpg",
+            alt: "página diario completa publicada por el diario el dia",
+          },
         ],
       },
       {
@@ -743,7 +756,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
             alt: "noticia publicada por el diario el diario",
           },
           {
-            type: "página diraio completa",
+            type: "página diario completa",
             src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_7.jpg",
             alt: "pagina diario completa publicada por el diario el diario",
           },
@@ -762,7 +775,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
             alt: "noticia publicada por el diario El Popular",
           },
           {
-            type: "página diraio completa",
+            type: "página diario completa",
             src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_9.jpg",
             alt: "pagina diario completa publicada por el diario El Popular",
           },
@@ -779,6 +792,11 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
             type: "noticia publicada",
             src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/n_25.jpg",
             alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/n_25.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
           },
         ],
       },
@@ -804,7 +822,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
             alt: "noticia publicada por el diario El Diario",
           },
           {
-            type: "página diraio completa",
+            type: "página diario completa",
             src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_12.jpg",
             alt: "pagina diario completa publicada por el diario El Diario",
           },
@@ -826,7 +844,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
             alt: "noticia publicada por el diario El Diario",
           },
           {
-            type: "página diraio completa",
+            type: "página diario completa",
             src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_14.jpg",
             alt: "pagina diario completa publicada por el diario El Diario",
           },
@@ -972,9 +990,10 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
     victims: [
       {
         name: "Carlos Burgueño",
-        age: 29,
+        age: 27,
+        marital: "casado",
         childs: 2,
-        childsDescription: "menores de edad (uno de tan solo un día).",
+        childsDescription: "menores de edad (uno de tan solo un día)",
         // marital: "casado",
         avatar: {
           src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/avatar_1.png",
@@ -985,7 +1004,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
         name: "Enrique Fernández",
         age: 44,
         childs: 2,
-        childsDescription: "menores de edad.",
+        childsDescription: "menores de edad",
         marital: "casado",
         avatar: {
           src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/avatar_2.png",
@@ -1281,7 +1300,7 @@ Los protagonistas, participantes y/o autores brindan mayor información confirma
         name: "Juan Viera",
         age: 26,
         childs: 2,
-        childsDescription: "menores de edad.",
+        childsDescription: "menores de edad",
         marital: "casado",
         avatar: {
           src: "/juan-viera/avatar.png",

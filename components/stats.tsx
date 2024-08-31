@@ -41,26 +41,39 @@ const stats = [
 
 export default function Stats({}: Props) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
-      {/* flex flex-wrap gap-6 mx-auto max-w-[80vh] xl:max-w-none text-[#007664] */}
-      {stats.map((stat, index) => (
-        <div
-          key={index}
-          // flex-1 flex gap-4 items-center justify-center xl:justify-start text-primary bg-red-400 p-6 rounded-md
-          className="flex items-center justify-between p-3 border border-primary text-[#f40]  rounded-md transition duration-500 ease-in-out hover:-translate-y-1 bg-orange-100"
-        >
-          <div className="flex items-center gap-3 ">
-            <span>{stat.icon}</span>
-            <CountUp
-              end={stat.count}
-              duration={5}
-              delay={1}
-              className="font-extrabold text-2xl text-[#f40]"
-            />
-          </div>
-          <p className="text-base">{stat.label}</p>
-        </div>
-      ))}
+    <div className="col-span-2 self-center p-4 mt-8 lg:mt-8 border border-primary text-[#f40]  rounded-md transition duration-500 ease-in-out hover:-translate-y-1 bg-orange-100">
+      <div className="flex justify-center items-center gap-8">
+        <CountUp
+          end={193}
+          duration={2}
+          delay={1}
+          className="font-extrabold text-6xl text-[#f40]"
+        />
+        <p className="font-extrabold text-xl xl:text-4xl text-[#f40]">
+          ACCIONES TERRORISTAS DESDE 1963 HASTA 1976
+        </p>
+      </div>
     </div>
+    // <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+    //   {/* flex flex-wrap gap-6 mx-auto max-w-[80vh] xl:max-w-none text-[#007664] */}
+    //   {stats.map((stat, index) => (
+    //     <div
+    //       key={index}
+    //       // flex-1 flex gap-4 items-center justify-center xl:justify-start text-primary bg-red-400 p-6 rounded-md
+    //       className="flex items-center justify-between p-3 border border-primary text-[#f40]  rounded-md transition duration-500 ease-in-out hover:-translate-y-1 bg-orange-100"
+    //     >
+    //       <div className="flex items-center gap-3 ">
+    //         <span>{stat.icon}</span>
+    //         <CountUp
+    //           end={stat.count}
+    //           duration={5}
+    //           delay={1}
+    //           className="font-extrabold text-2xl text-[#f40]"
+    //         />
+    //       </div>
+    //       <p className="text-base">{stat.label}</p>
+    //     </div>
+    //   ))}
+    // </div>
   );
 }
