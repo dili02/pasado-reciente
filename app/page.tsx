@@ -3,11 +3,15 @@ import Stats from "@/components/stats";
 import { Button } from "@/components/ui/button";
 import { api } from "@/db/api";
 import Link from "next/link";
-
+// import { unstable_noStore as noStore } from "next/cache";
 import { ChevronRight } from "lucide-react";
+import Memorial from "@/components/memorial";
+
+// export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const month = new Intl.DateTimeFormat("es-ES", { month: "long" });
+  // noStore();
+  // const month = new Intl.DateTimeFormat("es-ES", { month: "long" });
   // console.log(month);
 
   const terroristActionWithVideos = await api.getAllWithVideo();
@@ -25,11 +29,12 @@ export default async function Home() {
 
   return (
     <section className="min-h-screen">
-      <Stats />
+      {/* <Stats /> */}
 
       <div className="text-textPrimary container">
-        <div className="grid grid-cols-1 md:grid-cols-2 min-h-[650px] md:gap-4 relative">
-          <div className="flex flex-col justify-center py-14 md:py-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4 relative py-8">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 min-h-[650px] md:gap-4 relative"> */}
+          <div className="flex flex-col justify-center">
             <div className="text-center md:text-left space-y-4">
               <h1 className="text-5xl xl:text-6xl font-extrabold leading-relaxed xl:leading-tight uppercase text-[#f40]">
                 nunca más terrorismo
@@ -50,7 +55,8 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col justify-center items-center">
+          {/* MEMORIal */}
+          {/* <div className="flex flex-col justify-center items-center">
             <div className="flex items-center justify-center gap-3 py-2">
               <Icons.museum className="w-6 h-6 hidden lg:block" />
               <h2 className="text-2xl uppercase text-center font-extrabold text-textPrimary">
@@ -76,8 +82,11 @@ export default async function Home() {
                 Ver Efemérides <ChevronRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-          </div>
+          </div> */}
+          <Memorial />
         </div>
+
+        {/* <Stats /> */}
 
         {/* <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="py-12 md:py-20">
@@ -170,13 +179,15 @@ export default async function Home() {
       </div> */}
       </div>
 
+      <Stats />
+
       <div className="bg-[#f90]/60 mt-8">
         <div className="container">
           <h2 className="text-3xl capitalize font-extrabold py-8 text-textPrimary">
             testimonios
           </h2>
           <p className="text-textSecondary text-xl">
-            Relatos de familiares de víctimas del terrorismo revolucionario.
+            Relatos de familiares de víctimas del terrorismo.
           </p>
 
           <div className="grid grid-cols-1 gap-3 lg:grid-cols-3 py-4">

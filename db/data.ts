@@ -32,6 +32,7 @@ export type VictimsInfoDefinition = {
   childsDescription?: string;
   otherDescription?: string;
   marital?: string;
+  nationality?: string;
   avatar?: {
     src: string;
     alt: string;
@@ -98,7 +99,8 @@ export type VideosTerroristActionDefinition = {
 
 export const api = {
   getAllMurders: async (): Promise<TerroristActionDefinition[]> => {
-    return TerroristActions;
+    return TerroristActions.filter((action) => action.type === "asesinato") // Filtrar acciones por tipo
+      .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
   },
 
   getActionBySlug: async (slug: string): Promise<TerroristActionDefinition> => {
@@ -155,14 +157,14 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
         images: [
           {
-            type: "página diario completa",
-            src: "/german-garay/14A-1-2-3-4-18-Jul-69-port,1001.jpg",
-            alt: "portada publicada por el diario el día",
-          },
-          {
             type: "noticia publicada",
             src: "/german-garay/14A-1-2-3-4-18-Jul-69-port,1001B.jpg",
             alt: "noticia publicada por el diario el día",
+          },
+          {
+            type: "página diario completa",
+            src: "/german-garay/14A-1-2-3-4-18-Jul-69-port,1001.jpg",
+            alt: "portada publicada por el diario el día",
           },
         ],
       },
@@ -177,14 +179,14 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
         images: [
           {
-            type: "página en diario completa",
-            src: "/german-garay/14B-1-2-3-4-07-Jul-69-port,1001.jpg",
-            alt: "portada publicada por el diario el diario",
-          },
-          {
             type: "noticia publicada",
             src: "/german-garay/14B-1-2-3-4-07-Jul-69-port,1001B.jpg",
             alt: "noticia publicada por el diario el diario",
+          },
+          {
+            type: "página en diario completa",
+            src: "/german-garay/14B-1-2-3-4-07-Jul-69-port,1001.jpg",
+            alt: "portada publicada por el diario el diario",
           },
         ],
       },
@@ -200,14 +202,14 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
         images: [
           {
-            type: "página de dairio completa",
-            src: "/german-garay/14C-1-2-3-4-07-Jul-69-port,1002.jpg",
-            alt: "portada publicada por el diario la accion",
-          },
-          {
             type: "noticia publicada",
             src: "/german-garay/14C-1-2-3-4-07-Jul-69-port,1002B.jpg",
             alt: "noticia publicada por el diario la accion",
+          },
+          {
+            type: "página de dairio completa",
+            src: "/german-garay/14C-1-2-3-4-07-Jul-69-port,1002.jpg",
+            alt: "portada publicada por el diario la accion",
           },
         ],
       },
@@ -559,231 +561,284 @@ export const TerroristActions: TerroristActionDefinition[] = [
     ],
     newsPapers: [
       {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("October 08, 1969 03:24:00"),
+        title: "TREMENDO GOLPE LE ASESTÓ LA POLICÍA AL GRUPO EXTREMISTA",
+        description:
+          "...quedaban cinco elementos subversivos prófugos... se encuentran dos mujeres jóvenes, una de las cuales,... hirió accidentalmente a uno de sus compinches extremistas...",
+        subtitle: "Otro Extremista Muerto",
+        subDescription:
+          "... eran dos los extremistas muertos y no uno... Con el deceso también de Carlos Burgueño, llegan a tres los fallecidos en las dramáticas instancias de esta tarde... Así mismo se pudo saber que 2 funcionarios policiales... habían resultado heridos de bala..., en el lugar de los hechos, que habían sido incautadas a los extremistas numerosas armas, largas y cortas, así como bombas de mano y uniformes que habían hurtado aparentemente en la comisaría de Pando. Aparece foto de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_1.jpg",
+            alt: "noticia publicada por el diario el diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_2.jpg",
+            alt: "noticia publicada por el diario el diario",
+          },
+        ],
+      },
+      {
         name: 'Diario "El Día" (en Portada)',
-        date: new Date("November 16, 1969 03:24:00"),
-        title: "SALVAJE CRIMEN EN UN ÓMNIBUS",
-        description: `En el interior de un ómnibus repleto de pasajeros, fue ultimado anoche de tres balazos un modesto funcionario policial. Un soldado, que iba a su lado, recibió también dos heridas y se halla grave, en el Hospital Militar. El hecho fue cometido por una banda que realizó esta espectacular y cruel acción, sin explicación lógica hasta esta madrugada. El muerto, Carlos Ruben Zembrano Rivero, soltero, de 24 años era policía... Aparece foto a cuyo pie dice: “Asesinato...”.`,
+        date: new Date("October 09, 1969 03:24:00"),
+        title: "EXTREMISTAS PROMUEVEN TRÁGICO ENFRENTAMIENTO: 4 MUERTOS",
+        description:
+          "Un grupo de más de treinta extremistas promovieron un espectacular y trágico episodio. Simulando integrar un cortejo fúnebre, se apoderaron de cinco autos “remises” y con ellos y una camioneta,... divididos en tres comandos, asaltaron tres bancos... la Comisaría, Cuartelillo de Bomberos y la Central Telefónica... Aparecen fotos de...",
         images: [
           {
             type: "noticia publicada",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_1.jpg",
-            alt: "noticia publicada por el diario El Día",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_3.jpg",
+            alt: "noticia publicada por el diario el dia",
           },
           {
             type: "página diario completa",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_2.jpg",
-            alt: "noticia publicada por el diario El Día",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_3.jpg",
+            alt: "página diario completa publicada por el diario el dia",
           },
         ],
       },
       {
-        name: 'Diario "El Día" (Página 10)',
-        date: new Date("November 16, 1969 03:24:00"),
-        title: "SALVAJE CRIMEN...",
-        description: `... El vil asesinato... El funcionario de la Metropolitana, Zembrano, había sido sorprendido por la acción de los atacantes y, en ningún momento-según testigos-intentó usar la metralleta que llevaba. Fue alcanzado por tres disparos. Uno en el cuello y dos en el tórax... el soldado Barboza alcanzado por dos balazos, uno de los cuales le penetró sobre el abdomen y salió junto a la columna vertebral... Aparece foto a cuyo pie dice: “Carlos Ruben Zembrano Rivero, el joven funcionario de la Metropolitana, ultimado ferozmente en un ómnibus”.`,
-        images: [
-          {
-            type: "noticia publicada",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_3.jpg",
-            alt: "noticia publicada por el diario El Día",
-          },
-          {
-            type: "página diario completa",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_4.jpg",
-            alt: "noticia publicada por el diario El Día",
-          },
-        ],
-      },
-      {
-        name: 'Diario "Acción" (en Portada)',
-        date: new Date("November 16, 1969 03:24:00"),
-        title: "JOVEN POLICÍA FUSILADO EN UN BUS POR EXTREMISTAS.",
-        description: `Lo acribillaron cobardemente en la plataforma de un coche de la línea 71; también hirieron a un soldado; peligró la vida de otros pasajeros... Aparecen fotos...`,
-        images: [
-          {
-            type: "noticia publicada",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_5.jpg",
-            alt: "noticia publicada por el diario Acción",
-          },
-          {
-            type: "página diario completa",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_6.jpg",
-            alt: "noticia publicada por el diario Acción",
-          },
-        ],
-      },
-      {
-        name: 'Diario "El Diario" (en Portada)',
-        date: new Date("November 16, 1969 03:24:00"),
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("October 09, 1969 03:24:00"),
         title:
-          "SANGRIENTA ACCIÓN CUMPLIÓ UN COMANDO. ACRIBILLÓ A UN GUARDIA EN UN ÓMNIBUS REPLETO DE PASAJEROS.",
-        description: `Aparecen fotos con el siguiente comentario: “...”. Otra con el título de “Ultimado” a cuyo pie dice: “Carlos Ruben Zembrano...”`,
+          "SE LLEVARON CERCA DE 50 MILLONES DE PESOS HABIÉNDOSE RECUPERADO UNA CIERTA CANTIDAD",
+        description:
+          "Un grupo de extremistas intentó... inmovilizar-...-la ciudad de Pando... Lograron, en un término de quince minutos, apoderarse de... Pero la operación fracasó, al fin, por la valiente oposición de algunos policías, la sagacidad de vecinos, y la rapidez y decisión con que-...-actuaron los efectivos de la policía... se convirtió en desesperada fuga... Pese al fuerte armamento que poseían tres resultaron muertos; un cuarto está gravemente herido y dieciséis fueron capturados... un joven y querido vecino de Pando, resultó muerto y un sargento de Patrulleros gravemente herido...",
         images: [
           {
             type: "noticia publicada",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_7.jpg",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_4.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_4.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 3)',
+        date: new Date("October 09, 1969 03:24:00"),
+        subtitle:
+          "Simularon Un Sepelio a Fin de que sus Movimientos no Despertaran Sospechas",
+        subDescription: "Aparecen fotos y croquis de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_5.jpg",
+            alt: "noticia publicada por el diario el diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("October 09, 1969 03:24:00"),
+        title: "VENDAVAL DE SANGRE Y FUEGO SE ABATIÓ AYER SOBRE PANDO",
+        description:
+          "Durante veinticinco minutos un vendaval de fuego se abatió ayer sobre Pando... es el relato cronológico... en el que se consumó “el asalto a la ciudad”. Pando...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_6.jpg",
+            alt: "noticia publicada por el diario el diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_7.jpg",
+            alt: "pagina diario completa publicada por el diario el diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (en Portada)',
+        date: new Date("October 09, 1969 03:24:00"),
+        title: "SANGRIENTO TIROTEO: 4 MUERTOS, VARIOS HERIDOS",
+        description:
+          "PANDO: 4 bancos y la comisaría fueron tomados ayer por asalto... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_8.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_9.jpg",
+            alt: "pagina diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 12)',
+        date: new Date("October 09, 1969 03:24:00"),
+        title: "“SANGRIENTO TIROTEO: CUATRO MUERTOS”",
+        description:
+          "Pando: 4 bancos y la Comisaría fueron tomados por asalto, ayer... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/n_25.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/n_25.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("October 10, 1969 03:24:00"),
+        title: "HUYEN PARA NO CAER EN LAS REDADAS POLICIALES",
+        description:
+          "Como consecuencia del operativo de Pando, los extremistas además de haber sufrido tres bajas en sus filas, y más de una veintena de detenciones de los integrantes de los comandos, están experimentando pérdidas millonarias en dinero, por que debieron hacer un abandono de guaridas arrendadas, adelantándose a revelaciones que pudieran hacer los presos... La organización cuando arrienda casas,... no pone garantías al formalizar los contratos. Esto lo sustituye por depósitos de dinero en efectivo...",
+        title1: "VEINTE KILÓMETROS MINADOS POR BOMBAS",
+        description1:
+          "... Existe la certeza de que los comandos extremistas portaban dos bombas “per cápita” que, en su desesperada fuga, dejaron abandonadas y sin detonar, por el terreno que transitaron...",
+        title2: "VAN AL CINE",
+        description2:
+          "Un cine céntrico exhibe en estos días (“por 4ª semana consecutiva”) una producción norteamericana titulada “Sociedad para el Crimen”. Sobre el final del film, el protagonista (Steve Mc Queen) se vale de un truco para despistar a los policías que le tendieron una celada donde debía guardar el botín de un asalto: una carroza fúnebre desfila ante los agentes, seguida por una lenta procesión de “remises” negros. Así mismo, dos meses atrás, la serial televisiva “Misión Imposible” mostró un ardid similar...",
+        title3: "15 AUTOS UTILIZARON EN PANDO",
+        description3:
+          "Por los menos quince vehículos fueron utilizados por los terroristas en su “asalto a Pando”...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_11.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
-          // {
-          //   type: "página diario completa",
-          //   src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_6.jpg",
-          //   alt: "noticia publicada por el diario Acción",
-          // },
+          {
+            type: "página diario completa",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_12.jpg",
+            alt: "pagina diario completa publicada por el diario El Diario",
+          },
         ],
       },
       {
         name: 'Diario "El Diario" (Página 19)',
-        date: new Date("November 16, 1969 03:24:00"),
-        title: "TRAS LOS EXTREMISTAS.",
-        description: `Sembraron terror y muerte en el ómnibus y después huyeron... Aparece foto de...`,
-        images: [
-          {
-            type: "noticia publicada",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_8.jpg",
-            alt: "noticia publicada por el diario El Diario",
-          },
-          {
-            type: "página diario completa",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_9.jpg",
-            alt: "noticia publicada por el diario El Diario",
-          },
-        ],
-      },
-      {
-        name: 'Diario "El Popular" (Página 5)',
-        date: new Date("November 16, 1969 03:24:00"),
-        title: "POLICÍA MUERTO Y SOLDADO HERIDO.",
-        description: `... Un guardia de la metropolitana fue ultimado de tres balazos a quemarropa y despojado de su metralleta y un soldado fue alcanzado de dos balazos...`,
-        images: [
-          {
-            type: "noticia publicada",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_10.jpg",
-            alt: "noticia publicada por el diario El Popular",
-          },
-          {
-            type: "página diario completa",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_11.jpg",
-            alt: "noticia publicada por el diario El Popular",
-          },
-        ],
-      },
-      {
-        name: 'Diario "El Diario" (Página 22)',
-        date: new Date("November 17, 1969 03:24:00"),
-        title: "CRIMEN DEL GUARDIA: FUERON IDENTIFICADOS SEIS HOMBRES.",
-        description: `Seis extremistas vinculados a graves sucesos de notoriedad, entre ellos el secuestro de Dr. Gaetano Pellegrini Giampetro y el asalto al Casino del Hotel Carrasco fueron reconocidos como integrantes del comando que ultimó dentro de un ómnibus al guardia de la Metropolitana Carlos Ruben Cembrano Rivero, e hirieron al soldado... Aparecen fotos con la siguiente leyenda: “Estos son los extremistas que según la policía y de acuerdo a testigos, participaron en el crimen...”. Aparece foto de...`,
-        title1: "CHEQUES FALSOS",
+        date: new Date("October 11, 1969 03:24:00"),
+        title: "LIMPIARON” LAS CHACRAS MINADAS",
+        description:
+          "Efectivos policiales concretaron en las últimas una “limpieza” completa de un rectángulo de 20 kilómetros cuadrados en donde los extremistas dejaron en su huida armas y bombas,...",
+        title1: "70 HOMBRES PARTICIPARON EN EL OPERATIVO PANDO",
         description1:
-          "Integrantes de una organización subversiva, están incursionando en un delito nuevo para ellos, destinado a llegar fondos a su movimiento. Utilizando cheques falsos han logrado cobrar importantes sumas en algunos bancos de la capital. Hasta el momento lograron apoderarse por este medio de unos tres millones de pesos...",
-        subtitle1: "PRESUNTO EXTREMISTA DETENIDO.",
-        subDescription1:
-          "... se encuentra detenido en la Comisaría de la localidad 25 de Agosto... un profesor de la Escuela Industrial de Canelones... Esta persona figuraba en la libreta de anotaciones que hallaron en poder del sacerdote saleciano... muerto con el agente Viera Piazza, durante el tiroteo días atrás entre este funcionario y extremistas...",
+          "Alrededor de 70 terroristas intervinieron... los 21 detenidos... La lista se completa con los dos extremistas que se atienden en el Hospital Militar. Uno de ellos es... El otro herido es...",
         images: [
           {
             type: "noticia publicada",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_12.jpg",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_13.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_13.jpg",
-            alt: "noticia publicada por el diario El Diario",
-          },
-        ],
-      },
-      {
-        name: 'Diario "Acción" (en Portada)',
-        date: new Date("November 17, 1969 03:24:00"),
-        title: "IDENTIFICARON A LOS ASESINOS DEL GUARDIA.",
-        description: `...`,
-        title1: "CHEQUES FALSOS",
-        description1:
-          "Integrantes de una organización subversiva, están incursionando en un delito nuevo para ellos, destinado a llegar fondos a su movimiento. Utilizando cheques falsos han logrado cobrar importantes sumas en algunos bancos de la capital. Hasta el momento lograron apoderarse por este medio de unos tres millones de pesos...",
-        title2: "ASESINOS Y NADA MÁS.",
-        description2:
-          "... No son revolucionarios porque la ideología en ellos no importa y bueno esto es decirlo y repetirlo para que nadie se llame a engaño: no son jóvenes proletarios golpeados por la injusticia social; al revés, hijos de familias acomodadas, a quienes el país nada ha negado, sus frustraciones personales, normalmente su fracaso en la vida, los ha identificado en esta triste misión de querer destruir la organización institucional de la República... Aparece foto de...",
-        images: [
-          {
-            type: "noticia publicada",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_14.jpg",
-            alt: "noticia publicada por el diario Acción",
-          },
-          {
-            type: "página diario completa",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_15.jpg",
-            alt: "noticia publicada por el diario Acción",
-          },
-        ],
-      },
-      {
-        name: 'Diario "Acción" (Página 6)',
-        date: new Date("November 17, 1969 03:24:00"),
-        title: "FUE ALGO HORRIBLE.",
-        description: `Hablan testigos del fusilamiento... Aparece foto de...`,
-        images: [
-          {
-            type: "noticia publicada",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_16.jpg",
-            alt: "noticia publicada por el diario Acción",
-          },
-          {
-            type: "página diario completa",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_17.jpg",
-            alt: "noticia publicada por el diario Acción",
-          },
-        ],
-      },
-      {
-        name: 'Diario "El Día" (Página 6)',
-        date: new Date("November 17, 1969 03:24:00"),
-        title: "IDENTIFICARON A LOS ASESINOS DEL GUARDIA.",
-        description: `Todos ellos son terroristas ya conocidos. Seis extremistas conocidos, varios de ellos notoriamente implicados en gravísimas actividades terroristas, fueron identificados ayer por los pasajeros del ómnibus de AMDET recorrido 71, en el que el sábado fuera vilmente asesinado el agente de la “Metro” Carlos Ruben Zembrano Rivero y herido el soldado Cipriano Altanar Morales Barboza... Aparecen fotos a cuyo pie menciona los nombres...`,
-        images: [
-          {
-            type: "noticia publicada",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_18.jpg",
-            alt: "noticia publicada por el diario El Día",
-          },
-          {
-            type: "página diario completa",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_19.jpg",
-            alt: "noticia publicada por el diario El Día",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_14.jpg",
+            alt: "pagina diario completa publicada por el diario El Diario",
           },
         ],
       },
       {
         name: 'Diario "El Día" (en Portada)',
-        date: new Date("November 19, 1969 03:24:00"),
-        title: "IDENTIFICAN A LA MUJER DE LA BANDA QUE ULTIMÓ AL CORACERO.",
-        description: `... la mujer que integró la banda de extremistas que dio muerte alevosa al guardia de la Metropolitana Carlos R. Cembrano, es... Estaba calificada como extremista desde hace dos años...`,
+        date: new Date("October 14, 1969 03:24:00"),
+        title:
+          "DECLARARON AYER 17 DE LOS EXTREMISTAS Y CASI TODOS ADMITEN SU CULPABILIDAD",
+        description:
+          "... Es decir: 16 detenidos en Pando... los tres detenidos posteriormente en la calle Santiago Gadea... Casi todos los detenidos en Pando... admitieron... su intervención en los hechos. Los más claros fueron… enumeraron los episodios como “secuencias de una batalla”... Otros... incluidos los que fueron apresados en la calle Santiago Gadea admitieron... ser integrantes de grupos de células extremistas... Aparecen fotos de...",
         images: [
           {
             type: "noticia publicada",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_20.jpg",
-            alt: "noticia publicada por el diario El Día",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_15.jpg",
+            alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_21.jpg",
-            alt: "noticia publicada por el diario El Día",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_16.jpg",
+            alt: "pagina diario completa publicada por el diario El Diario",
           },
         ],
       },
       {
-        name: 'Diario "El Día" (Página 7)',
-        date: new Date("November 19, 1969 03:24:00"),
-        title: "TRÁGICA DERIVACIÓN DEL ASESINATO DEL GUARDIA.",
-        description: `... el Sr. Julio Techera Castillo, uruguayo de 56 años, que era el guarda del ómnibus de AMDET dentro del cual fue asesinado el agente-a un metro suyo-sufrió entonces, por la violenta emoción, una crisis nerviosa. Logró reponerse en los primeros momentos y fue, incluso, uno de los testigos más importantes con que contó la policía. Pero, luego su salud se quebrantó... sufrió una crisis cardíaca y fue transportado por una ambulancia de Salud Pública al Hospital de Clínicas donde llegó sin vida...`,
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("October 15, 1969 03:24:00"),
+        title: "16 EXTREMISTAS FUERON PROCESADOS AYER",
+        description: "Ellos son...",
         images: [
           {
             type: "noticia publicada",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_22.jpg",
-            alt: "noticia publicada por el diario El Día",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_17.jpg",
+            alt: "noticia publicada por el diario El Dia",
           },
           {
             type: "página diario completa",
-            src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_23.jpg",
-            alt: "noticia publicada por el diario El Día",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_18.jpg",
+            alt: "pagina diario completa publicada por el diario El Dia",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El País" (en Portada)',
+        date: new Date("October 16, 1969 03:24:00"),
+        title: "VARIOS DE LOS TERRORISTAS APRESADOS EN TOLEDO CHICO",
+        description:
+          "Aparecen fotos a cuyo pie dicen: “... algunos de los extremistas capturados en Toledo Chico y en actuaciones posteriores en Montevideo y ya procesados por la Justicia. Por su orden:...”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_19.jpg",
+            alt: "noticia publicada por el diario El Dia",
+          },
+          {
+            type: "página diario completa",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_20.jpg",
+            alt: "pagina diario completa publicada por el diario El Dia",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 12)',
+        date: new Date("October 16, 1969 03:24:00"),
+        title: "EXTREMISTAS PROCESADOS",
+        description:
+          "Aparecen fotos, una de las cuales a cuyo pie dice: “... el procesamiento de estos extremistas, detenidos en ocasión de los luctuosos sucesos en la localidad de Pando. De izq. a derecha... ”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_21.jpg",
+            alt: "noticia publicada por el diario El Dia",
+          },
+          {
+            type: "página diario completa",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_22.jpg",
+            alt: "pagina diario completa publicada por el diario El Dia",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("October 20, 1969 03:24:00"),
+        title: "OTRA MUERTE SUMA CULPAS A LOS “INVASORES” DE PANDO",
+        description:
+          "Peritaje balístico dirá cual de los delincuentes asesinó al Sargento Enrique Fernández Díaz. A una nueva masiva demostración de pesar dio lugar el velatorio de los restos de Enrique Fernández Díaz, el Sargento de Radio Patrulla fallecido...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_23.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/noticia_24.jpg",
+            alt: "pagina diario completa publicada por el diario Acción",
           },
         ],
       },
@@ -1396,7 +1451,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     victims: [
       {
         info: {
-          name: "Agente Carlos Ruben Zembrano Rivero",
+          name: "Agente Carlos Zembrano",
           age: 24,
           marital: "soltero",
           avatar: {
@@ -1443,11 +1498,11 @@ export const TerroristActions: TerroristActionDefinition[] = [
             src: "/antonio-fernandez/n_1.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
-          // {
-          //   type: "página diario completa",
-          //   src: "/agente-ruben-zembrano-y-chofer-julio-techera/n_2.jpg",
-          //   alt: "noticia publicada por el diario El Día",
-          // },
+          {
+            type: "página diario completa",
+            src: "/antonio-fernandez/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
         ],
       },
       {
@@ -1481,11 +1536,11 @@ export const TerroristActions: TerroristActionDefinition[] = [
             src: "/antonio-fernandez/n_4.jpg",
             alt: "noticia publicada por el diario El Día",
           },
-          // {
-          //   type: "página diario completa",
-          //   src: "/antonio-fernandez/n_3.jpg",
-          //   alt: "noticia publicada por el diario El Día",
-          // },
+          {
+            type: "página diario completa",
+            src: "/antonio-fernandez/n_4.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
         ],
       },
       {
@@ -1714,11 +1769,11 @@ export const TerroristActions: TerroristActionDefinition[] = [
             src: "/alfredo-pallas/n_3.jpg",
             alt: "noticia publicada por el diario El Día",
           },
-          // {
-          //   type: "página diario completa",
-          //   src: "/alfredo-pallas/n_2.jpg",
-          //   alt: "noticia publicada por el diario El Día",
-          // },
+          {
+            type: "página diario completa",
+            src: "/alfredo-pallas/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
         ],
       },
       {
@@ -2315,11 +2370,11 @@ export const TerroristActions: TerroristActionDefinition[] = [
             src: "/dan-mitrione/n_1.jpg",
             alt: "noticia publicada por el diario El Día",
           },
-          // {
-          //   type: "página diario completa",
-          //   src: "/armando-leses/n_2.jpg",
-          //   alt: "noticia publicada por el diario El Día",
-          // },
+          {
+            type: "página diario completa",
+            src: "/dan-mitrione/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
         ],
       },
       {
@@ -2335,11 +2390,11 @@ export const TerroristActions: TerroristActionDefinition[] = [
             src: "/dan-mitrione/n_2.jpg",
             alt: "noticia publicada por el diario El Día",
           },
-          // {
-          //   type: "página diario completa",
-          //   src: "/armando-leses/n_2.jpg",
-          //   alt: "noticia publicada por el diario El Día",
-          // },
+          {
+            type: "página diario completa",
+            src: "/dan-mitrione/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
         ],
       },
       {
@@ -2353,11 +2408,11 @@ export const TerroristActions: TerroristActionDefinition[] = [
             src: "/dan-mitrione/n_3.jpg",
             alt: "noticia publicada por el diario El Día",
           },
-          // {
-          //   type: "página diario completa",
-          //   src: "/armando-leses/n_2.jpg",
-          //   alt: "noticia publicada por el diario El Día",
-          // },
+          {
+            type: "página diario completa",
+            src: "/dan-mitrione/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
         ],
       },
       {
@@ -2371,11 +2426,11 @@ export const TerroristActions: TerroristActionDefinition[] = [
             src: "/dan-mitrione/n_4.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
-          // {
-          //   type: "página diario completa",
-          //   src: "/armando-leses/n_2.jpg",
-          //   alt: "noticia publicada por el diario El Diario",
-          // },
+          {
+            type: "página diario completa",
+            src: "/dan-mitrione/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
         ],
       },
       {
@@ -2389,11 +2444,11 @@ export const TerroristActions: TerroristActionDefinition[] = [
             src: "/dan-mitrione/n_5.jpg",
             alt: "noticia publicada por el diario El Día",
           },
-          // {
-          //   type: "página diario completa",
-          //   src: "/armando-leses/n_2.jpg",
-          //   alt: "noticia publicada por el diario El Diario",
-          // },
+          {
+            type: "página diario completa",
+            src: "/dan-mitrione/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
         ],
       },
       {
@@ -3042,7 +3097,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
       {
-        name: "Diario “El Día” (en Portada)",
+        name: "Diario “El Día” (Página 7)",
         date: new Date("June 04, 1971 03:24:00"),
         title:
           "“VIL ASESINATO DE UN MODESTO AGENTE: HIEREN AL SUBJEFE DE LA METRO”",
@@ -3061,7 +3116,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
       {
-        name: "Diario “El Diario” (Página 3)",
+        name: "Diario “El Diario” (Página 16)",
         date: new Date("June 04, 1971 03:24:00"),
         title:
           "“EN LOS ÚLTIMOS CUATRO AÑOS CAEN 12 POLICÍAS CUMPLIENDO SU DEBER”",
@@ -3691,7 +3746,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     victims: [
       {
         info: {
-          name: "Pascasio Baéz, peón rural",
+          name: "Pascasio Báez",
           age: 44,
           marital: "concubino",
           // childs: 3,
@@ -4354,8 +4409,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
   },
   {
     date: new Date("January 28, 1972 03:24:00"),
-    title:
-      "Agente Francisco Godoy, acción terrorista contra Seccional 27a. de Policía",
+    title: "Agente Francisco Godoy",
     slug: "francisco-godoy",
     type: "asesinato",
     victims: [
@@ -4447,6 +4501,25 @@ export const TerroristActions: TerroristActionDefinition[] = [
           {
             type: "página diario completa",
             src: "/francisco-godoy/n_7.jpg",
+            alt: 'página diario completa publicada por el diario "El Día"',
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("January 30, 1973 03:24:00"),
+        title: "“A UN AÑO DEL ASESINATO DE JUAN GODOY”",
+        description:
+          "... “... un grupo integrante de la mafia criminal... En el alevoso ataque tomaron parte...:...”. Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/francisco-godoy/n_8.jpg",
+            alt: 'noticia publicada por el diario “"El Día"',
+          },
+          {
+            type: "página diario completa",
+            src: "/francisco-godoy/n_9.jpg",
             alt: 'página diario completa publicada por el diario "El Día"',
           },
         ],
@@ -5313,7 +5386,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           },
           {
             type: "página diario completa",
-            src: "/wilfredo-busconi/n_1.jpg",
+            src: "/wilfredo-busconi/n_2.jpg",
             alt: "página diario completa publicada por el diario El País",
           },
         ],
@@ -5843,7 +5916,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     newsPapers: [
       {
         name: 'Diario "El Diario" (en Portada)',
-        date: new Date("June 18, 1975 03:24:00"),
+        date: new Date("June 18, 1972 03:24:00"),
         title:
           "“ATACARON UNA PATRULLA EN ARTIGAS DANDO MUERTE A UN SOLDADO EN ARROYO ÑAQUINÁ”",
         description: "...",
@@ -5862,7 +5935,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
       },
       {
         name: 'Diario "El Diario" (Página 11)',
-        date: new Date("June 18, 1975 03:24:00"),
+        date: new Date("June 18, 1972 03:24:00"),
         title: "“LOS DELINCUENTES ASESINARON CON ARMAS AUTOMÁTICAS AL SOLDADO”",
         description:
           "... “... perdieron un joven soldado en un reciente enfrentamiento con un grupo sedicioso, en la región del arroyo Ñaquiná, en la Ruta 3... fueron agredidos a balazos... El infortunado soldado -Eusebio Godoy de 24 años, casado -...”.",
@@ -5881,7 +5954,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
       },
       {
         name: 'Diario "El Día" (Página 9)',
-        date: new Date("June 19, 1975 03:24:00"),
+        date: new Date("June 19, 1972 03:24:00"),
         title: "“ARTIGAS: ASESINAN A UN SOLDADO Y HUYEN”",
         description:
           "... El parte oficial señala: “...  - El día 15 de junio, una patrulla... integrada por un Cabo y tres Soldados, avistó en las proximidades del puente sobre el Arroyo Ñaquiná, en la Ruta 3, a 4 desconocidos... procedió a darles la voz de alto... los desconocidos en forma sorpresiva y alevosa abrieron de inmediato nutrido fuego con armas automáticas... fue alcanzado el soldado Eusebio Godoy, cayendo su cuerpo a las aguas del arroyo y siendo arrastrado por la corriente...”.",
@@ -5965,7 +6038,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     newsPapers: [
       {
         name: 'Diario "El Día" (Página 2)',
-        date: new Date("June 24, 1975 03:24:00"),
+        date: new Date("June 24, 1972 03:24:00"),
         title:
           "“Pudo ser más Trágico, pues el Rodado Militar iba a Recoger otros oficiales”",
         description:
@@ -5985,7 +6058,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
       },
       {
         name: 'Diario "El Día" (Página 3)',
-        date: new Date("June 24, 1975 03:24:00"),
+        date: new Date("June 24, 1972 03:24:00"),
         title: "“TAMBIÉN HICIERON FUEGO DESDE UNA CAMIONETA ROJA”",
         description:
           "... Uno de los pocos testigos... es un vecino... Dice... a eso de las 7 y 10 recibió a una persona... vio venir por... Anzani... una camioneta... llevaba encendido, únicamente, los faros chicos... segundos después oyeron... una sucesión de disparos... Aparecen fotos.",
@@ -6010,7 +6083,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
       },
       {
         name: 'Diario "El Popular" (Página 8)',
-        date: new Date("June 24, 1975 03:24:00"),
+        date: new Date("June 24, 1972 03:24:00"),
         title:
           "“MATARON A 2 SOLDADOS E HIRIERON A UN OFICIAL DEL COMANDO GENERAL”",
         description:
@@ -6030,7 +6103,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
       },
       {
         name: 'Diario "El País" (en Portada)',
-        date: new Date("June 24, 1975 03:24:00"),
+        date: new Date("June 24, 1972 03:24:00"),
         title: "“SAÑA SEDICIOSA: AMETRALLARON A DOS SOLDADOS”",
         description: "... Aparece foto.",
         images: [
@@ -6048,7 +6121,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
       },
       {
         name: 'Diario "El País" (Página 2)',
-        date: new Date("June 24, 1975 03:24:00"),
+        date: new Date("June 24, 1972 03:24:00"),
         title: "“INSANIA FACCIOSA: DOS SOLDADOS MUERTOS”",
         description:
           "Ametrallaron un vehículo militar y huyeron: un Oficial Superior herido. Otro ataque contra las fuerzas del orden... ametrallaron despiadadamente una camioneta... Dos soldados de 1ª. Víctor Ademir Aguilar Acosta y Eduardo Delgado, murieron a consecuencia de los impactos recibidos... Aparecen fotos.",
@@ -6102,8 +6175,9 @@ export const TerroristActions: TerroristActionDefinition[] = [
     victims: [
       {
         info: {
-          name: "Vicente Orosa (Español), chofer de CUTCSA",
-          age: 50,
+          name: "Vicente Orosa",
+          nationality: "(Español)",
+          age: 49,
           marital: "casado",
           childs: 2,
           childsDescription: " menores de edad",
@@ -6224,19 +6298,19 @@ export const TerroristActions: TerroristActionDefinition[] = [
   },
   {
     date: new Date("July 02, 1972 03:24:00"),
-    title: "Luis Barbizón",
-    slug: "luis-barbizon",
+    title: "Agente (Retirado) Luis Barbizán",
+    slug: "luis-barbizan",
     type: "asesinato",
     victims: [
       {
         info: {
-          name: "Luis Barbizón (Comerciante - Agente (Retirado))",
+          name: "Agente (Retirado) Luis Barbizán",
           age: 43,
           marital: "casado",
           childs: 3,
           childsDescription: " menores de edad",
           avatar: {
-            src: "/luis-barbizon/a_1.png",
+            src: "/luis-barbizan/a_1.png",
             alt: "imagen de Luis Barbizón",
           },
         },
@@ -6249,16 +6323,15 @@ export const TerroristActions: TerroristActionDefinition[] = [
         title: "“ALEVOSO ASESINATO DE UN COMERCIANTE, EX POLICÍA”",
         description:
           "Un comerciante fue asesinado alevosamente anoche en presencia de su esposa y un amigo, por un individuo joven, que acompañado por una mujer,... le descerrajó cuatro tiros... Aparece foto.",
-        title1: "“OMNIBUSEROS: “MÁS QUE NUNCA PACIFICACIÓN CON SOLUCIONES””",
         images: [
           {
             type: "noticia publicada",
-            src: "/luis-barbizon/n_1.jpg",
+            src: "/luis-barbizan/n_1.jpg",
             alt: "noticia publicada por el diario El Popular",
           },
           {
             type: "página diario completa",
-            src: "/luis-barbizon/n_2.jpg",
+            src: "/luis-barbizan/n_2.jpg",
             alt: "página diario completa publicada por el diario El Popular",
           },
         ],
@@ -6272,12 +6345,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/luis-barbizon/n_3.jpg",
+            src: "/luis-barbizan/n_3.jpg",
             alt: "noticia publicada por el diario El Día",
           },
           {
             type: "página diario completa",
-            src: "/luis-barbizon/n_4.jpg",
+            src: "/luis-barbizan/n_4.jpg",
             alt: "página diario completa publicada por el diario El Día",
           },
         ],
@@ -6290,15 +6363,15 @@ export const TerroristActions: TerroristActionDefinition[] = [
           "Luis Barbizán, Retirado Policial y comerciante, es asesinado por Terroristas en su negocio. Su esposa presenció el homicidio.",
         images: [
           {
-            src: "/luis-barbizon/i_1.jpg",
+            src: "/luis-barbizan/i_1.jpg",
             alt: "Terroristas ingresan apuntando con sus armas en el comercio de Luis Barbizán.",
           },
           {
-            src: "/luis-barbizon/i_2.jpg",
+            src: "/luis-barbizan/i_2.jpg",
             alt: "Luis Barbizán intenta proteger a su esposa y un Terrorista le dispara en la espalda.",
           },
           {
-            src: "/luis-barbizon/i_3.jpg",
+            src: "/luis-barbizan/i_3.jpg",
             alt: "Luis Barbizán yace herido de muerte. Su esposa llora angustiada.",
           },
         ],
@@ -6306,7 +6379,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     ],
     virtualMemorial: [
       {
-        src: "/luis-barbizon/m.jpg",
+        src: "/luis-barbizan/m.jpg",
         alt: "Aquí, en plena democracia, 02/07/1972 fue asesinado por terroristas, Luis Barbizón.",
       },
     ],
@@ -6326,7 +6399,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           childsDescription: " 1 menor de edad",
           avatar: {
             src: "/artigas-alvarez/a_1.png",
-            alt: "imagen de Luis Barbizón",
+            alt: "imagen de Coronel Artigas Álvarez",
           },
         },
       },
@@ -6449,7 +6522,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     apologyForCrimeInImages: [
       {
         title:
-          "Oficial del Ejército Nacional asesinado frente a su frente a su hija y esposa.",
+          "Oficial del Ejército Nacional asesinado frente a su hija y esposa.",
         description:
           "Artigas Álvarez, Coronel del Ejército Nacional, fue asesinado por Terroristas del MLN-T.",
         images: [

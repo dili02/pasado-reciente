@@ -115,6 +115,12 @@ function VictimInfo({
           <time>{getFormattedDateToString(date)}</time>
         </p>
 
+        {info.nationality && (
+          <p className="text-xl md:text-2xl flex flex-col gap-1 pt-2">
+            {info.nationality}
+          </p>
+        )}
+
         <div className="text-xl md:text-2xl flex flex-col gap-1 py-2">
           {info.age && <p>{info.age} años</p>}
           <p>{info.marital}</p>
