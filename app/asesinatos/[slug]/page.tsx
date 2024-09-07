@@ -111,9 +111,24 @@ function VictimInfo({
         <h1 className="uppercase text-2xl md:text-4xl 2xl:text-5xl text-center font-extrabold">
           {info.name}
         </h1>
-        <p className="text-center text-2xl 2xl:text-4xl font-bold">
+        {/* <p className="text-center text-2xl 2xl:text-4xl font-bold">
           <time>{getFormattedDateToString(date)}</time>
-        </p>
+        </p> */}
+
+        {!info.kidnapping && (
+          <p className="text-center text-2xl 2xl:text-4xl font-bold">
+            <time>{getFormattedDateToString(date)}</time>
+          </p>
+        )}
+
+        {info.kidnapping && (
+          <p>
+            <time>{getFormattedDateToString(info.kidnapping.init)}</time>
+            <span>al</span>
+            <time>{getFormattedDateToString(info.kidnapping.end)}</time>
+            <span>{info.kidnapping.days} en cuativerio</span>
+          </p>
+        )}
 
         {info.nationality && (
           <p className="text-xl md:text-2xl flex flex-col gap-1 pt-2">

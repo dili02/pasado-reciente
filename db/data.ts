@@ -1,4 +1,4 @@
-interface TerroristActionDefinition {
+export interface TerroristActionDefinition {
   date: Date;
   title: string;
   slug: string;
@@ -11,12 +11,13 @@ interface TerroristActionDefinition {
     books: Book[];
   };
   videos?: VideosTerroristActionDefinition[];
+  fact?: string;
 }
 
 export type TypeTerroristActionDefinition =
-  | "asesinato"
+  | "asesinatos"
   | "atentado"
-  | "secuestro"
+  | "secuestros"
   | "robo"
   | "otras acciones";
 
@@ -33,6 +34,11 @@ export type VictimsInfoDefinition = {
   otherDescription?: string;
   marital?: string;
   nationality?: string;
+  kidnapping?: {
+    init: Date;
+    end: Date;
+    days: number;
+  };
   avatar?: {
     src: string;
     alt: string;
@@ -60,6 +66,7 @@ export type NewsPaperDefinition = {
   description4?: string;
   imgSrc?: string[];
   images?: NewPapeImageDefinition[];
+  fact?: string;
 };
 
 export type NewPapeImageDefinition = {
@@ -99,7 +106,7 @@ export type VideosTerroristActionDefinition = {
 
 export const api = {
   getAllMurders: async (): Promise<TerroristActionDefinition[]> => {
-    return TerroristActions.filter((action) => action.type === "asesinato") // Filtrar acciones por tipo
+    return TerroristActions.filter((action) => action.type === "asesinatos") // Filtrar acciones por tipo
       .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
   },
 
@@ -110,14 +117,19 @@ export const api = {
 
     return action;
   },
+
+  getAllKidnappings: async (): Promise<TerroristActionDefinition[]> => {
+    return TerroristActions.filter((action) => action.type === "secuestros") // Filtrar acciones por tipo
+      .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
+  },
 };
 
 export const TerroristActions: TerroristActionDefinition[] = [
   {
     date: new Date("July 07, 1969 03:24:00"),
     title: "Agente Germán Garay",
-    slug: "asesinato-agente-german-garay",
-    type: "asesinato",
+    slug: "agente-german-garay",
+    type: "asesinatos",
     vindicatedActions: {
       books: [
         {
@@ -260,7 +272,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("December 27, 1966 03:24:00"),
     title: "Comisario Antonio Silveira Regalado",
     slug: "antonio-silveira-regalado",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -386,7 +398,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("September 26, 1969 03:24:00"),
     title: "Rafael Guidet",
     slug: "comerciante-rafael-guidet",
-    type: "asesinato",
+    type: "asesinatos",
     newsPapers: [
       {
         name: 'Diario "El Diario" (en Portada)',
@@ -529,7 +541,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("October 08, 1969 03:24:00"),
     title: "Carlos Burgueño y Sargento Radio Patrulla Enrique Fernández",
     slug: "acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -1000,7 +1012,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("November 12, 1969 03:24:00"),
     title: "Agente Juan Viera",
     slug: "agente-juan-viera",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -1191,7 +1203,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("November 15, 1969 03:24:00"),
     title: "Agente Ruben Zembrano y Chofer Julio Techera",
     slug: "agente-ruben-zembrano-y-chofer-julio-techera",
-    type: "asesinato",
+    type: "asesinatos",
     newsPapers: [
       {
         name: 'Diario "El Día" (en Portada)',
@@ -1485,7 +1497,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("November 26, 1969 03:24:00"),
     title: "Agente Antonio Fernández",
     slug: "antonio-fernandez",
-    type: "asesinato",
+    type: "asesinatos",
     newsPapers: [
       {
         name: 'Diario "El Diario" (Página 19)',
@@ -1647,7 +1659,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("December 29, 1969 03:24:00"),
     title: "Manuel Tejera",
     slug: "manuel-tejera",
-    type: "asesinato",
+    type: "asesinatos",
     newsPapers: [
       {
         name: 'Diario "El Día" (en Portada)',
@@ -1738,7 +1750,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("February 12, 1970 03:24:00"),
     title: "Agente Alfredo Pallas",
     slug: "alfredo-pallas",
-    type: "asesinato",
+    type: "asesinatos",
     newsPapers: [
       {
         name: 'Diario "El Día" (en Portada)',
@@ -1893,7 +1905,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("April 13, 1970 03:24:00"),
     title: "Inspector Héctor Morán Charquero",
     slug: "hector-moran-charquero",
-    type: "asesinato",
+    type: "asesinatos",
     newsPapers: [
       {
         name: 'Diario "El Diario" (Página 13)',
@@ -2056,7 +2068,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("June 11, 1970 03:24:00"),
     title: "Agente Nelson Sosa",
     slug: "nelson-sosa",
-    type: "asesinato",
+    type: "asesinatos",
     newsPapers: [
       {
         name: 'Diario "El Día" (en Portada)',
@@ -2177,7 +2189,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("July 04, 1970 03:24:00"),
     title: "Agente Armando Leses",
     slug: "armando-leses",
-    type: "asesinato",
+    type: "asesinatos",
     newsPapers: [
       {
         name: 'Diario "El Día" (en Portada)',
@@ -2356,7 +2368,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("August 09, 1970 03:24:00"),
     title: "Dan Mitrione",
     slug: "dan-mitrione",
-    type: "asesinato",
+    type: "asesinatos",
     newsPapers: [
       {
         name: 'Diario "El Día" (en Portada)',
@@ -2613,7 +2625,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("August 19, 1970 03:24:00"),
     title: "Agente Nelson Machado",
     slug: "nelson-machado",
-    type: "asesinato",
+    type: "asesinatos",
     newsPapers: [
       {
         name: 'Diario "El Día" (en Portada)',
@@ -2717,7 +2729,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("January 11, 1971 03:24:00"),
     title: "Cabo (Ministerio Interior) José Villalba",
     slug: "jose-villalba",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -2904,7 +2916,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("April 21, 1971 03:24:00"),
     title: "Agente Gilberto Carballo",
     slug: "gilberto-carballo",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -3025,7 +3037,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("June 03, 1971 03:24:00"),
     title: "Agente Aides Pérez",
     slug: "aides-perez",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -3167,7 +3179,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("June 22, 1971 03:24:00"),
     title: "Sargento (G.M.) Walter Custodio",
     slug: "walter-custodio",
-    type: "asesinato",
+    type: "asesinatos",
     videos: [
       {
         id: "ERIuedPriXs",
@@ -3290,7 +3302,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("June 22, 1971 03:24:00"),
     title: "Juan Bentancur",
     slug: "juan-bentancur",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -3416,7 +3428,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("August 07, 1971 03:24:00"),
     title: "Alfonso Arhancet",
     slug: "alfonso-arhancet",
-    type: "asesinato",
+    type: "asesinatos",
     videos: [
       {
         id: "f62DC-0SP38",
@@ -3531,7 +3543,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("August 11, 1971 03:24:00"),
     title: "Agente Juan Álvarez",
     slug: "juan-alvarez",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -3620,7 +3632,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("September 09, 1971 03:24:00"),
     title: "Wilder Soto y Nelson Lima Coraceros",
     slug: "wilder-soto-y-nelson-lima",
-    type: "asesinato",
+    type: "asesinatos",
     newsPapers: [
       {
         name: "Diario “El Día” (en Portada)",
@@ -3742,7 +3754,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("December 21, 1971 03:24:00"),
     title: "Pascasio Báez",
     slug: "pascasio-baez",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -4029,7 +4041,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("January 19, 1972 03:24:00"),
     title: "Heber Castiglioni Cadete de la Escuela Nacional de Policía",
     slug: "heber-castiglioni",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -4218,7 +4230,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("January 27, 1972 03:24:00"),
     title: "Inspector Rodolfo Leoncino",
     slug: "rodolfo-leoncino",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -4411,7 +4423,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("January 28, 1972 03:24:00"),
     title: "Agente Francisco Godoy",
     slug: "francisco-godoy",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -4558,7 +4570,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("February 13, 1972 03:24:00"),
     title: "Oficial Ayudante Juan Sánchez y Agente Segundo Fernández",
     slug: "accion-terrorista-a-comisaria-de-soca",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -4785,7 +4797,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     title:
       "Profesor Armando Acosta y Lara, Capitán de Corbeta Ernesto Motto, Sub Comisiario Óscar Delega, Agentes Carlos Leites y Segundo Goñi",
     slug: "actos-terroristas-14-de-abril",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -5356,7 +5368,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("April 17, 1972 03:24:00"),
     title: "Capitán Wilfredo Busconi",
     slug: "wilfredo-busconi",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -5454,7 +5466,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("May 04, 1972 03:24:00"),
     title: "Doctor Julio Morató",
     slug: "julio-morato",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -5556,7 +5568,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     title:
       "Soldados Gaudencio Núñez, Saúl Correa, Osiris Núñez y Ramón Ferrerira",
     slug: "acto-terrorista-de-cuatro-integrantes-del-ejercito",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -5899,7 +5911,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("June 15, 1972 03:24:00"),
     title: "Soldado Eusebio Godoy",
     slug: "eusebio-godoy",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -6008,7 +6020,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("June 23, 1972 03:24:00"),
     title: "Soldados Eduardo Delgado y Victor Aguilar",
     slug: "eduardo-delgado-y-victor-aguilar",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -6171,7 +6183,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("June 28, 1972 03:24:00"),
     title: "Vicente Orosa",
     slug: "vicente-orosa",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -6300,7 +6312,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("July 02, 1972 03:24:00"),
     title: "Agente (Retirado) Luis Barbizán",
     slug: "luis-barbizan",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -6388,7 +6400,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("July 25, 1972 03:24:00"),
     title: "Coronel Artigas Álvarez",
     slug: "artigas-alvarez",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -6552,7 +6564,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("August 17, 1972 03:24:00"),
     title: "Inspector Darwin Fernández",
     slug: "darwin-fernandez",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -6659,7 +6671,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("August 19, 1972 03:24:00"),
     title: "Teniente Segundo Ricardo Braida",
     slug: "ricardo-braida",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -6881,7 +6893,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("April 01, 1974 03:24:00"),
     title: "Soldado Nelson Vique y Manuel Tobio",
     slug: "nelson-vique-y-manuel-tobio",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -7019,7 +7031,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("April 21, 1974 03:24:00"),
     title: "Capitán Julio Gutiérrez",
     slug: "julio-gutierrez",
-    type: "asesinato",
+    type: "asesinatos",
     victims: [
       {
         info: {
@@ -7142,5 +7154,406 @@ export const TerroristActions: TerroristActionDefinition[] = [
     //     alt: "Aquí, en plena democracia, 01/04/1974 fueron asesinados por terroristas, Soldado Nelson Vique y Manuel Tobio.",
     //   },
     // ],
+  },
+  {
+    date: new Date("August 07, 1968 03:24:00"),
+    title: "Doctor Ulysses Pereira Reverbel",
+    slug: "ulysses-pereira-reverbel",
+    type: "secuestros",
+    victims: [
+      {
+        info: {
+          name: "Doctor Ulysses Pereira Reverbel",
+          age: 50,
+          // marital: "casado",
+          // childs: 3,
+          // childsDescription: " menores de edad (1 de 11 meses)",
+          avatar: {
+            src: "/ulysses-pereira-reverbel/a.png",
+            alt: "imagen de Doctor Ulysses Pereira Reverbe",
+          },
+          kidnapping: {
+            init: new Date("August 07, 1968 03:24:00"),
+            end: new Date("August 11, 1968 03:24:00"),
+            days: 4,
+          },
+        },
+      },
+    ],
+    fact: "HECHO: SECUESTRAN Y LIBERAN AL PRESIDENTE INTERVENTOR DE UTE DOCTOR ULYSSES PEREIRA REVERBEL CAUSANDO HERIDAS DE BALA A SU CHOFER Y SECRETARIO",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("August 07, 1968 03:24:00"),
+        title:
+          "“PEREIRA REVERBEL FUE SECUESTRADO POR LOS TUPAMAROS”. “APARECIERON EL AUTO OFICIAL Y LA CAMIONETA; AMBOS VACÍOS”. “ESTÁ SIENDO UTILIZADO COMO REHÉN”",
+        description:
+          "Aparecen fotos y dibujos describiendo el secuestro que dice: “Fue herido el chofer y el secretario privado”. “El hecho ocurrió en la puerta de su casa”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-reverbel/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-reverbel/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 7)',
+        date: new Date("August 07, 1968 03:24:00"),
+        title:
+          "“TUPAMAROS: ASUMEN LA RESPONSABILIDAD. Distribuyeron Comunicado”",
+        description:
+          "Cerca de las diez de la mañana, varias radioemisoras de la capital recibieron un sobre azul conteniendo un comunicado del llamado Movimiento de Liberación Nacional (Tupamaros) en el que explican las razones del secuestro del Presidente de UTE, Dr. Ulysses Pereira Reverbel. El comunicado está mimeografiado y firmado por el Comando ”Mario Robaina Méndez”, teniendo como distintivo una estrella que a su vez contiene una gran T con la sigla MLN. Hasta el momento, se conocían las acciones del Comando Carlos Flores grupo que llevaba el nombre del tupamaro muerto, a fines de 1966, en un violento tiroteo con la policía, a la altura de Burgues y Br Artigas. Ese comando fue responsable del hurto de una gran cantidad de gelinita en Pan de Azúcar en enero de este año. Aparece una galería de fotos de los principales comandos tupamaros...",
+        title1: "“ESTARÍA HERIDO UN RAPTOR”",
+        description1:
+          "Según declaraciones de Rey a la policía, escuchó un diálogo entre dos miembros del “Comando” luego de haber sido herido:- “Si se resiste tirále, pegále un tiro.- No, yo no puedo, estoy herido-”. Según la impresión de Rey, en consecuencia una de las personas del grupo estaría herida.",
+        title2: "VARIOS GRAVES DELITOS HAN SIDO CONFIGURADOS”",
+        description2:
+          "Hace referencia la configuración de varios y graves delitos que se habrían cometido en el episodio del rapto y circunstancia que lo rodea.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-reverbel/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-reverbel/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("August 07, 1968 03:24:00"),
+        title: "“GUARDAN DE REHÉN A PEREIRA REVERBEL LOS TUPAMAROS”",
+        description:
+          "Hacen una descripción de los hechos y aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-reverbel/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-reverbel/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("August 08, 1968 03:24:00"),
+        title: "“DRAMÁTICO SUSPENSO POR LA SUERTE DE PEREIRA REVERBEL”",
+        description: "...",
+        subtitle: "“Huellas de Arena Blanca”",
+        subDescription:
+          "El hallazgo de dos vehículos utilizados… en la camioneta se hallaron huellas de arena blanca...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-reverbel/n_7.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-reverbel/n_8.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 2)',
+        date: new Date("August 08, 1968 03:24:00"),
+        title: "“TUPAMAROS”",
+        description:
+          "Hasta ahora... y curiosamente, las informaciones aparentemente más documentadas sobre la vida y milagro de los Tupamaros, han provenido del exterior. Recientemente se distribuyó en Montevideo, un suplemento de la revista chilena “Punto Final”, caracterizada por la difusión de documentos sobre movimientos revolucionarios en América Latina, que con el título “Tupamaros: germen de la lucha armada en el Uruguay” suministra no solamente información de tipo político sino que recoge un decálogo...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-reverbel/n_9.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-reverbel/n_10.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("August 08, 1968 03:24:00"),
+        title: "“SIN PISTAS DEL DOCTOR PEREIRA REVERBEL NI DE SUS RAPTORES”",
+        description:
+          "Aparecen fotos a cuyo pie dicen: “El Doctor Pereira Reverbel cuyas recias convicciones ideológicas hicieran que los extremistas lo eligieran como víctima de un hecho sin precedentes en el país”.",
+        subtitle: "“Golpe Criminal Gestado a Punta de Metralletas”",
+        subDescription:
+          "Hasta esta madrugada continuaba la incertidumbre acerca del paradero del Presidente del Directorio Interventor de UTE, Dr. Ulysses Pereira Reverbel, secuestrado ayer a las 9 de la mañana por cuatro terroristas. En la emergencia fueron heridos de bala... el secretario y el chofer del Dr. Pereira Reverbel... los cuatro portaban revólveres y metralletas. Detalles reveladores de un golpe fría y criminalmente planeado hasta en sus más mínimos detalles. Los testigos identificaron a dos de los “tupamaros”...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-reverbel/n_11.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-reverbel/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("August 08, 1968 03:24:00"),
+        title:
+          "“TENSA BÚSQUEDA EN TODO EL PAÍS DEL PRESIDENTE DE UTE DR. PEREIRA REVERBEL”",
+        description:
+          "... El rapto se produjo frente su domicilio, en la Rambla Wilson, y fue precedido de una brevísima y dramática escena ya que, por su enérgica y valiente resistencia, dos funcionarios de UTE que le habían ido a buscar e intentaron oponerse al secuestro, resultaron heridos de bala...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-reverbel/n_13.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-reverbel/n_14.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 3)',
+        date: new Date("August 08, 1968 03:24:00"),
+        title: "“SÓLO DOS RAPTORES A LOS CUALES NO PUDE RECONOCER”",
+        description:
+          "Relato del chofer del auto, Nicolás Galdós García, en que fue secuestrado el Presidente de UTE...",
+        title1: "“A.F.U.T.E. ASOCIACIÓN DE FUNCIONARIOS DE UTE”",
+        description1:
+          "“Frente al incalificable hecho en que fuesen objeto el Presidente del Directorio Interventor de UTE Doctor Ulysses Pereira Reverbel y los funcionarios del Instituto Sres. Miguel Angel Rey y Nicolás Galdós García, la Asociación de Funcionarios de UTE (A.F.U.T.E.) condena y repudia tal censurable forma de lucha y alerta a los compañeros y a la opinión pública en general sobre tales prácticas desconocidas hasta ahora en nuestro ámbito exhortándolos a estrechar filas en defensa de nuestras instituciones democráticas y de nuestra forma tradicional de convivencia”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-reverbel/n_15.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-reverbel/n_16.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 4)',
+        date: new Date("August 08, 1968 03:24:00"),
+        title: "“EL VOLANTE DE LOS TERRORISTAS”",
+        description:
+          "...-Como advertencia de que nada quedará impune y de que la justicia popular sabrá ejercerse por los canales y de la forma que corresponda y convenga, es que hemos detenido al Sr. Ulysses Pereira Reverbel... Advertimos a las fuerzas represivas: 1) El Sr. Pereira Reverbel en nuestro poder, garantizará con su persona la integridad física de nuestros compañeros y de todos cuantos hoy son perseguidos. 2) La seguridad e integridad física de Pereira Reverbel dependerá de la conducta de las fuerzas represivas y de los grupos fascistas a su servicio, por lo tanto estaremos muy atentos a los métodos que utilicen. 3) En consecuencia, no intenten buscarlo por que comprometen la seguridad e integridad física del detenido...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-reverbel/n_17.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-reverbel/n_18.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 12)',
+        date: new Date("August 08, 1968 03:24:00"),
+        title: "“LOS TUPAMAROS SON UNA ORGANIZACIÓN FANTASMA”",
+        description:
+          "Organización fantasma en nuestro país, el Movimiento de Liberación Nacional, “Tupamaros”, ha motivado interés en naciones limítrofes, hasta el extremo de procurarse en ellas una difusión de documentos de MLN que en Uruguay han tenido escasa circulación. Los “Tupamaros” se manejan con un documento básico rotulado “30 Preguntas a un Tupamaro”, que se distribuye clandestinamente y en el que, bajo la forma de un cuestionario, se posibilita la emisión de los postulados del movimiento.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-reverbel/n_19.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-reverbel/n_20.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("August 08, 1968 03:24:00"),
+        title: "“TUPAMAROS: ACTÚAN DISPUESTOS A TODO AFIRMAN LAS VÍCTIMAS”",
+        description:
+          "Aparecen declaraciones de Miguel Ángel Rey Núñez y de Nicolás Galdós García secretario del Presidente de UTE y chofer respectivamente.",
+        title1: "“UNÁNIME REPUDIO DE TODOS LOS SECTORES”",
+        description1:
+          "Diversos sectores políticos reaccionaron inmediatamente después de tomarse conocimiento oficial del secuestro del Presidente Interventor de UTE Dr. Ulysses Pereira Reverbel. En declaraciones públicas se manifestó unánimemente el repudio al insólito acto y a la filosofía de quienes lo concibieron. Aparecen declaraciones del Comité Ejecutivo de la Unión Colorada y Batllista, del Senador Zelmar Michelini condenando el secuestro en su audición de CX 18 Radio Sport..., legisladores del Partido Colorado repudiando al acto de violencia cometido contra la persona del Sr. Presidente de UTE rubricado por Alba Roballo, y otros legisladores colorados y grupos políticos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-reverbel/n_21.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-reverbel/n_22.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 11)',
+        date: new Date("August 09, 1968 03:24:00"),
+        title: "“SEIS IMÁGENES DEL SECUESTRO”",
+        description:
+          'En bosquejos aparece una secuencia de dibujos a cuyo pie dice: "Tupamaros rodean el coche de Pereira Reverbel”. “Caen heridos el chofer y el secretario”. “Un coche choca al que va tras los raptores”. “El chofer pide auxilio por el intercomunicador”. “Los secuestradores abandonan al secretario”. “El jerarca de UTE redacta una nota a Pacheco".',
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-reverbel/n_23.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-reverbel/n_24.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 3)',
+        date: new Date("August 12, 1968 03:24:00"),
+        title: "“LO ENCONTRÉ SUCIO, BARBUDO Y DOPADO, AFIRMÓ GRACIELA PÉREZ”",
+        description:
+          "... Calle Vidal y Fuentes 3141 casi Manuel Alonso... era de noche, era el punto de reunión obligado de todos los cronistas y vecindario. No era para menos. Allí se había registrado a la hora 21.10 la aparición del presidente de UTE Dr. Ulysses Pereira Reverbel, luego del sensacional rapto de que fuera objeto el último miércoles... Se veía muy cansado, los ojos desorbitados e inyectados en sangre, muy barbudo, la camisa blanca muy sucia, el traje de color marrón arrugado y con restos de briznas de paja y una corbata color roja a lunares blancos algo floja sobre el cuello. Dijo que tenía mucha sed y manifestó algo de que había sido “dopado”. Se quejaba de un pinchazo en el muslo y otro que tenía en la mano derecha la cual se frotaba constantemente.",
+        subtitle: "“Como Apareció”",
+        subDescription:
+          "... La primera noticia sobre su aparición se debió a un llamado anónimo recibido en la “Radio El Espectador”...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-reverbel/n_27.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-reverbel/n_28.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("August 12, 1968 03:24:00"),
+        title: "“FUE LIBERADO AYER PEREIRA REVERBEL”",
+        description:
+          "Aparece dibujo a cuyo pie dice: “Cubierto por capuchas cada vez que aparecieron a la vista de Pereira Reverbel, los Tupamaros preservaron así su identidad ante quien, una vez en libertad, podía llegar a ubicarlos. Esta precaución puede hacer creer que la organización terrorista no pensó seriamente en ultimarlo, ya que en este caso la precaución habría sido inútil. Así reconstruyó CENT el instante en que narcotizan a Pereira Reverbel antes de conducirlo a un jeep y abandonarlo.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-reverbel/n_29.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-reverbel/n_30.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 10)',
+        date: new Date("August 12, 1968 03:24:00"),
+        title:
+          '"MUY AGOTADO APARECIÓ AYER PEREIRA REVERBEL. Hubo Un Aviso por Teléfono..."',
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-reverbel/n_31.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-reverbel/n_32.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("June 17, 1969 03:24:00"),
+        title:
+          "“GUARIDA DESCUBIERTA. AQUÍ SECUESTRARON AL DR. PEREIRA REVERBEL”",
+        description:
+          "Ayer fue ubicada la casa donde los “tupamaros” tuvieron secuestrado, durante cinco días, en setiembre pasado, al Presidente de UTE Dr. Ulysses Pereira Reverbel... Aparecen fotos de la mencionada finca.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-reverbel/n_25.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-reverbel/n_26.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“A las siete de la mañana del miércoles 7 de agosto, siete tupamaros -entre ellos Pepe- están prontos para la acción...</p>
+          <p>Unos minutos antes de las 9:00 cuatro tupamaros se encuentran en la vereda: Rivero Cedrés y Coquito Rodríguez</p>
+          <p>Recalde en la parada del ómnibus, Mujica y Marenales a unos metros de distancia enfrascados en una discusión: el que lleva el uniforme quiere detener al civil...<p>
+          <p>Todos, de reojo, observan hacia la puerta del lujoso edificio de ocho pisos ubicado en Rambla Wilson 517...</p>
+          <p>A las 9:08 llega el Chevrolet azul... El chofer, Nicolás Galdós, estaciona frente al edificio... Del auto baja Miguel Ángel Rey, el secretario de Pereira Reverbel...</p>
+          <p>A las 9:10 sale Pereira Reverbel...</p>
+          <p>... Rivero Cedrés va por la puerta delantera y encañona al chofer, Rodríguez Recalde por la trasera hace lo mismo con el secretario... mientras el policía Marenales y el civil renegado Mujica interceptan a Pereira Reverbel.</p>
+          <p>... -¡Acompáñenos por favor!- le dice Mujica, y lo toma de un brazo pistola en mano</p>
+          <p>... el chofer Galdós... y el decidido secretario Rey enfrentan a los otros dos tupamaros dentro del auto.</p>
+          <p>... Rivero Cedrés advierte que el pulpejo carnoso de la mano del chofer oficial ha quedado sobre el caño y aprieta el gatillo de su 45...</p>
+          <p>... La bala hiere al chofer en la mano, rebota en el volante...</p>
+          <p>Con Rivero Cedrés al volante, el Chevrolet azul arranca... Pero atrás, el secretario del presidente de UTE, sigue aferrado al asiento luchando ahora contra Marenales, Rodríguez Recalde y Mujica...</p>
+          <p>...-¡Pegale un tiro! – grita Rivero Cedrés...p>
+          <p>... Rey puede zafarse, logra manotear su pistola...</p>
+          <p>... Rodríguez Recalde se ve en la mira y grita de dolor...</p>
+          <p>Han sonado dos estampidos: uno, de la bala que hiere al tupamaro, y otro, de la pistola de Mujica... le pega un tiro entre pecho y abdomen al secretario de Pereira Reverbel.</p>
+          <p>... El secretario Rey se encuentra tirado en el piso del auto,...</p>
+          <p>... Detrás a menos de cincuenta metros, marcha la Chevrolet verde en la que se ve asomar la cabeza de Rodríguez Ducós...</p>
+          <p>Cerca del rancho de los pescadores..., los revolucionarios abren la puerta trasera del auto e intentan bajar a Rey,..</p>
+          <p>... Rey cae y luego se recuesta contra un montículo de tierra...</p>
+          <p>... sale de la empresa constructora un Fusca con dos personas... bajan para ayudarlo y lo suben al Volkswagen.</p>
+          <p>No, les digo que sigan al auto. Soy el secretario el Presidente de UTE. Lo están secuestrando en ese auto...</p>
+          <p>... el Fusca sale a su alcance. Pero detrás del escarabajo se ubica la camioneta verde de los guerrilleros.</p>
+          <p>–¡Ahí vamos! –responde Martínez Platero</p>
+          <p>... el conductor del Fusca ve como la Chevrolet verde se sitúa al lado...</p>
+          <p>... el parachoques de la camioneta se incrusta en el lateral trasero del escarabajo,...</p>
+          <p>Los tupamaros siguen su camino en un Land Rover...</p>
+          <p>Al pasar frente el monumento a José Batlle y Ordóñez, le aplicaron un somnífero a Pereira Reverbel y éste sufrió un ahogo... Uno de los tupamaros debió asistirlo con respiración boca a boca, hasta que recuperó el aire.</p>
+          <p>... el lugar en el que se encerraría al Presidente de UTE se ubicaba a siete kilómetros de la casa de Pepe.</p>
+          <p>Era un local semirrural, a pocos metros de la planta emisora de radio El Espectador.</p>
+          <p>Pereira Reverbel es llevado a una habitación interior, aislada, a la que los tupamaros llaman “jaula”.</p>
+          <p>La pickup verde,... fue hallada en la avenida Garzón... Tenía barro y arena blanca adheridos al guardabarros.”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "págs. 348-355",
+          author: "Pernas",
+        },
+      ],
+    },
   },
 ];

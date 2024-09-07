@@ -14,7 +14,11 @@ const navItems = [
     icon: <Icons.shot className="w-7 h-7" />,
     href: "/asesinatos",
   },
-  { name: "Secuestros", icon: <Icons.prisoner className="w-7 h-7" /> },
+  {
+    name: "Secuestros",
+    icon: <Icons.prisoner className="w-7 h-7" />,
+    href: "/secuestros",
+  },
   { name: "Atentados", icon: <Icons.timeDinamite className="w-7 h-7" /> },
   { name: "Robo Dinero", icon: <Icons.heist className="w-7 h-7" /> },
   {
