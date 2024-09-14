@@ -426,7 +426,7 @@ function ActionVindicated({
             dangerouslySetInnerHTML={{ __html: book.fragment }}
           />
           <p className="bg-orange-100">
-            {book.author}, <time>{book.year.getFullYear()}</time>,{" "}
+            {book.author}, <time>{book.year?.getFullYear()}</time>,{" "}
             <b>{book.name}</b>, {book.place}, {book.edition}, {book.pages}
           </p>
         </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { AlignJustify, Apple } from "lucide-react";
@@ -15,7 +15,6 @@ import { Icons } from "@/components/icons";
 import TailwindIndicator from "@/components/tailwind-inicator";
 import Header from "@/components/header";
 
-const inter = Inter({ subsets: ["latin"] });
 const jetBrainsMono = JetBrains_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -38,108 +37,5 @@ export default function RootLayout({
         <TailwindIndicator />
       </body>
     </html>
-  );
-}
-
-const links = [
-  {
-    label: "asesinatos",
-    href: "/asesinatos",
-    icon: <Icons.gun className="h-6 w-6" />,
-  },
-  {
-    label: "atentados",
-    href: "/atentados",
-    icon: <Icons.timeDinamite className="h-6 w-6" />,
-  },
-  { label: "robos", href: "/robos", icon: <Icons.heist className="h-6 w-6" /> },
-  {
-    label: "secuestros",
-    href: "/secuestros",
-
-    icon: <Icons.prisoner className="h-6 w-6" />,
-  },
-  {
-    label: "otras acciones",
-    href: "/otras-acciones",
-    icon: <Icons.punch className="h-6 w-6" />,
-  },
-];
-
-// function Header() {
-//   return (
-//     <header className="container mx-auto py-4 flex justify-between items-center text-accent">
-//       <div className="items-center justify-between hidden lg:flex">
-//         <Link href={`/`} className="flex items-center justify-between gap-4">
-//           <Icons.uruguay className="flex items-center h-14 w-14" />
-//           <div className="">
-//             <p className="uppercase tracking-[0.15em] font-extrabold ">
-//               Museo de la Memoria del Pasado Reciente
-//             </p>
-//             <p className="italic">Uruguay</p>
-//           </div>
-//         </Link>
-//       </div>
-
-//       <MainNav />
-
-//       <MobileNav />
-//     </header>
-//   );
-// }
-
-function MobileNav() {
-  return (
-    <div className="lg:hidden">
-      <Sheet>
-        <SheetTrigger>
-          <AlignJustify className="w-12 h-12" />
-        </SheetTrigger>
-        <SheetContent side="left" className="pt-20">
-          <Link href={`/`} className="flex flex-col">
-            <p className="uppercase tracking-[0.15em] font-medium text-center">
-              Museo de la Memoria del Pasado Reciente
-            </p>
-            <div className="flex justify-center items-center gap-3">
-              <Icons.uruguay className="flex items-center h-8 w-8" />
-              <p className="italic">Uruguay</p>
-            </div>
-          </Link>
-          <nav className="flex flex-col gap-8 lg:gap-8 mt-10 text-2xl uppercase">
-            {links.map((link) => (
-              <Link
-                href={link.href}
-                className="flex items-center gap-4 text-xl"
-                key={link.href}
-              >
-                <span>{link.icon}</span>
-                <span>{link.label}</span>
-              </Link>
-            ))}
-            {/* <Link href="/project">Project</Link>
-            <Link href="/about">About</Link>
-            <Link href="/contact">Contact</Link> */}
-          </nav>
-        </SheetContent>
-      </Sheet>
-    </div>
-  );
-}
-
-function MainNav() {
-  return (
-    <nav className="hidden lg:flex gap-6">
-      {links.map((link) => (
-        <Link
-          href={link.href}
-          className="font-medium flex items-center gap-1"
-          key={link.href}
-        >
-          {/* bg-primary text-primary-foreground rounded-md h-7 w-7  */}
-          <span className="flex items-center justify-center">{link.icon}</span>
-          <span className="font-bold">{link.label}</span>
-        </Link>
-      ))}
-    </nav>
   );
 }

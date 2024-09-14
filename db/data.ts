@@ -38,6 +38,7 @@ export type VictimsInfoDefinition = {
     init: Date;
     end: Date;
     days: number;
+    description?: string;
   };
   avatar?: {
     src: string;
@@ -88,7 +89,7 @@ export type ImageDefinition = {
 
 export type Book = {
   fragment: string;
-  year: Date;
+  year?: Date;
   name: string;
   place: string;
   edition: string;
@@ -105,6 +106,10 @@ export type VideosTerroristActionDefinition = {
 };
 
 export const api = {
+  countTotalTerroristActions: async (): Promise<number> => {
+    return TerroristActions.length;
+  },
+
   getAllMurders: async (): Promise<TerroristActionDefinition[]> => {
     return TerroristActions.filter((action) => action.type === "asesinatos") // Filtrar acciones por tipo
       .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
@@ -765,7 +770,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
         title:
           "DECLARARON AYER 17 DE LOS EXTREMISTAS Y CASI TODOS ADMITEN SU CULPABILIDAD",
         description:
-          "... Es decir: 16 detenidos en Pando... los tres detenidos posteriormente en la calle Santiago Gadea... Casi todos los detenidos en Pando... admitieron... su intervención en los hechos. Los más claros fueron… enumeraron los episodios como “secuencias de una batalla”... Otros... incluidos los que fueron apresados en la calle Santiago Gadea admitieron... ser integrantes de grupos de células extremistas... Aparecen fotos de...",
+          "... Es decir: 16 detenidos en Pando... los tres detenidos posteriormente en la calle Santiago Gadea... Casi todos los detenidos en Pando... admitieron... su intervención en los hechos. Los más claros fueron... enumeraron los episodios como “secuencias de una batalla”... Otros... incluidos los que fueron apresados en la calle Santiago Gadea admitieron... ser integrantes de grupos de células extremistas... Aparecen fotos de...",
         images: [
           {
             type: "noticia publicada",
@@ -910,18 +915,18 @@ export const TerroristActions: TerroristActionDefinition[] = [
       books: [
         {
           fragment: `<p>“... Mujica debe salir para encontrarse con un contacto... Al final entra a la casa y espera...</p>
-          <p>Atisba por la ventana y ve a Gallinares…</p>
+          <p>Atisba por la ventana y ve a Gallinares...</p>
           <p>- Tenemos una cosa muy linda para hacer dentro de unos días –le dice Pepe.<p>
           <p>- ¿Expropiación, copamiento, propaganda?</p>
           <p>- Todas al mismo tiempo –Pepe se ríe.</p>
           <p>- ¿Todas?</p>
-          <p>- Sí, agarrá ahí a la derecha y metete por la paralela a 8 de Octubre… Después dale nomás, que vamos hasta Pando.</p>
+          <p>- Sí, agarrá ahí a la derecha y metete por la paralela a 8 de Octubre... Después dale nomás, que vamos hasta Pando.</p>
           <p>En el camino, Pepe le va contando el plan que ha sido discutido y decidido por el comando del MLN: tomar la pequeña ciudad de Pando. Copar su comisaría, el cuartelillo de Bomberos, el Banco República, el Banco Pan de Azúcar, el Banco de Pando y la central telefónica de UTE.</p>
-          <p>Actuarán cuarenta y nueve tupamaros, divididos en seis equipos…</p>
+          <p>Actuarán cuarenta y nueve tupamaros, divididos en seis equipos...</p>
           <p>Es una acción de propaganda armada, de pertrechamiento: se piensa obtener dinero de los bancos y armas de la comisaría, instituciones que deberán ser copadas. Y también es un homenaje al guerrillero Ernesto Che Guevara, al cumplirse dos años de su asesinato en Bolivia.</p>
           <p>Por estos días, en el Centro de Montevideo, un joven elegante y de modales refinados conversa con el encargado de la empresa funeraria Martinelli.</p>
-          <p>- El tío era de Soca –explica el muchacho-. Vivió sesenta años en Buenos Aires,…</p>
-          <p>… Ahora queremos traer sus cenizas… para que descanse en su pueblo.</p>
+          <p>- El tío era de Soca –explica el muchacho-. Vivió sesenta años en Buenos Aires,...</p>
+          <p>... Ahora queremos traer sus cenizas... para que descanse en su pueblo.</p>
           <p>- Una carroza de buena clase, pero no muy ostentosa, y si puede ser cerrada, mejor.</p>
           <p>- ¿Cuántos remises desearían?- le pregunta.</p>
           <p>- Estamos pensando en seis...</p>
@@ -938,7 +943,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           <p>Los deudos salen del auto...</p>
           <p>Al retornar solo (sic) faltan diez minutos...</p>
           <p>El auto arranca, despacio. En tres minutos queda frente a la UTE,..., donde bajan sus ocupantes...</p>
-          <p>Por detrás se acercan dos hombres con uniformes de la Fuerza Aérea. Llevan a un tercero detenido… Pasan así el umbral de la Comisaría.</p>
+          <p>Por detrás se acercan dos hombres con uniformes de la Fuerza Aérea. Llevan a un tercero detenido... Pasan así el umbral de la Comisaría.</p>
 <p>La señal está dada. La Comisaría de Pando está siendo copada.</p>
 <p>A pocos metros, cuatro tupamaros irrumpen en el Cuartelillo de Bomberos.</p>
 <p>Gallinares sale entonces con las luces prendidas... como señal general.</p>
@@ -1053,7 +1058,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
         date: new Date("November 13, 1969 03:24:00"),
         title: "RECONOCEN AL RELIGIOSO",
         description:
-          "... Entre las ropas del herido que quedó en Clínicas, apareció un plano, muy completo de una residencia de Carrasco donde vive un conocido coleccionista de armas que tiene comercio en… Es evidente que se planeaba asaltar esta casa y, posiblemente, las palabras del que habló por teléfono (suspendida operación Bentancur), se refieren, justamente, al asalto a la casa del coleccionista… El cura párroco... fue reconocido en el Hospital de Clínicas por Monseñor Rubio quien concurrió especialmente para establecer su identidad. Como dijimos, al ingresar había dado un nombre falso...",
+          "... Entre las ropas del herido que quedó en Clínicas, apareció un plano, muy completo de una residencia de Carrasco donde vive un conocido coleccionista de armas que tiene comercio en... Es evidente que se planeaba asaltar esta casa y, posiblemente, las palabras del que habló por teléfono (suspendida operación Bentancur), se refieren, justamente, al asalto a la casa del coleccionista... El cura párroco... fue reconocido en el Hospital de Clínicas por Monseñor Rubio quien concurrió especialmente para establecer su identidad. Como dijimos, al ingresar había dado un nombre falso...",
         images: [
           {
             type: "noticia publicada",
@@ -1324,7 +1329,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           "Integrantes de una organización subversiva, están incursionando en un delito nuevo para ellos, destinado a llegar fondos a su movimiento. Utilizando cheques falsos han logrado cobrar importantes sumas en algunos bancos de la capital. Hasta el momento lograron apoderarse por este medio de unos tres millones de pesos...",
         subtitle1: "PRESUNTO EXTREMISTA DETENIDO.",
         subDescription1:
-          "... se encuentra detenido en la Comisaría de la localidad 25 de Agosto… un profesor de la Escuela Industrial de Canelones… Esta persona figuraba en la libreta de anotaciones que hallaron en poder del sacerdote saleciano… muerto con el agente Viera Piazza, durante el tiroteo días atrás entre este funcionario y extremistas...",
+          "... se encuentra detenido en la Comisaría de la localidad 25 de Agosto... un profesor de la Escuela Industrial de Canelones... Esta persona figuraba en la libreta de anotaciones que hallaron en poder del sacerdote saleciano... muerto con el agente Viera Piazza, durante el tiroteo días atrás entre este funcionario y extremistas...",
         images: [
           {
             type: "noticia publicada",
@@ -1343,9 +1348,6 @@ export const TerroristActions: TerroristActionDefinition[] = [
         date: new Date("November 17, 1969 03:24:00"),
         title: "IDENTIFICARON A LOS ASESINOS DEL GUARDIA.",
         description: `...`,
-        title1: "CHEQUES FALSOS",
-        description1:
-          "Integrantes de una organización subversiva, están incursionando en un delito nuevo para ellos, destinado a llegar fondos a su movimiento. Utilizando cheques falsos han logrado cobrar importantes sumas en algunos bancos de la capital. Hasta el momento lograron apoderarse por este medio de unos tres millones de pesos...",
         title2: "ASESINOS Y NADA MÁS.",
         description2:
           "... No son revolucionarios porque la ideología en ellos no importa y bueno esto es decirlo y repetirlo para que nadie se llame a engaño: no son jóvenes proletarios golpeados por la injusticia social; al revés, hijos de familias acomodadas, a quienes el país nada ha negado, sus frustraciones personales, normalmente su fracaso en la vida, los ha identificado en esta triste misión de querer destruir la organización institucional de la República... Aparece foto de...",
@@ -2539,6 +2541,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
       {
         info: {
           name: "Daniel (Dan) A. Mitrione",
+          nationality: "Norteamericano",
           age: 50,
           marital: "casado",
           childs: 9,
@@ -6188,7 +6191,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
       {
         info: {
           name: "Vicente Orosa",
-          nationality: "(Español)",
+          nationality: "Español",
           age: 49,
           marital: "casado",
           childs: 2,
@@ -7126,39 +7129,11 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
-    // apologyForCrimeInImages: [
-    //   {
-    //     title:
-    //       "Soldado del Ejército Nelson Vique y Manuel Tobio asesinados por Terroristas.",
-    //     description:
-    //       "Nelson Vique, fue asesinado en cumplimiento del servicio militar por terroristas. Manuel Tobio, el propietario del comercio, falleció días después producto de las graves heridas.",
-    //     images: [
-    //       {
-    //         src: "/julio-gutierrez/i_1.jpg",
-    //         alt: "Un Oficial y el Soldado Nelson Vique, integrantes del Ejército Nacional en servicio, se aprestan a solicitar documentos a sospechosos en un bar.",
-    //       },
-    //       {
-    //         src: "/julio-gutierrez/i_2.jpg",
-    //         alt: "Los terroristas disparan contra el Oficial, el Soldado Nelson Vique y Manuel Tobio, dueño del bar.",
-    //       },
-    //       {
-    //         src: "/julio-gutierrez/i_3.jpg",
-    //         alt: "Terroristas huyen. Yacen el en el piso heridos de muerte el Soldado Vique y el Señor Tobio. El Oficial queda gravemente herido.",
-    //       },
-    //     ],
-    //   },
-    // ],
-    // virtualMemorial: [
-    //   {
-    //     src: "/nelson-vique-y-manuel-tobio/m.jpg",
-    //     alt: "Aquí, en plena democracia, 01/04/1974 fueron asesinados por terroristas, Soldado Nelson Vique y Manuel Tobio.",
-    //   },
-    // ],
   },
   {
     date: new Date("August 07, 1968 03:24:00"),
-    title: "Doctor Ulysses Pereira Reverbel",
-    slug: "ulysses-pereira-reverbel",
+    title: "Doctor Ulysses Pereira Reverbel - primer secuestro",
+    slug: "ulysses-pereira-reverbel-primer-secuestro",
     type: "secuestros",
     victims: [
       {
@@ -7169,18 +7144,19 @@ export const TerroristActions: TerroristActionDefinition[] = [
           // childs: 3,
           // childsDescription: " menores de edad (1 de 11 meses)",
           avatar: {
-            src: "/ulysses-pereira-reverbel/a.png",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/a.png",
             alt: "imagen de Doctor Ulysses Pereira Reverbe",
           },
           kidnapping: {
             init: new Date("August 07, 1968 03:24:00"),
             end: new Date("August 11, 1968 03:24:00"),
             days: 4,
+            description: " días en cautiverio",
           },
         },
       },
     ],
-    fact: "HECHO: SECUESTRAN Y LIBERAN AL PRESIDENTE INTERVENTOR DE UTE DOCTOR ULYSSES PEREIRA REVERBEL CAUSANDO HERIDAS DE BALA A SU CHOFER Y SECRETARIO",
+    fact: "SECUESTRAN Y LIBERAN AL PRESIDENTE INTERVENTOR DE UTE DOCTOR ULYSSES PEREIRA REVERBEL CAUSANDO HERIDAS DE BALA A SU CHOFER Y SECRETARIO",
     newsPapers: [
       {
         name: 'Diario "El Diario" (en Portada)',
@@ -7192,12 +7168,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/ulysses-pereira-reverbel/n_1.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_1.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/ulysses-pereira-reverbel/n_2.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_2.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -7218,12 +7194,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/ulysses-pereira-reverbel/n_3.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_3.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/ulysses-pereira-reverbel/n_4.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_4.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -7237,12 +7213,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/ulysses-pereira-reverbel/n_5.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_5.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/ulysses-pereira-reverbel/n_6.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_6.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -7258,12 +7234,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/ulysses-pereira-reverbel/n_7.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_7.jpg",
             alt: "noticia publicada por el diario Acción",
           },
           {
             type: "página diario completa",
-            src: "/ulysses-pereira-reverbel/n_8.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_8.jpg",
             alt: "página diario completa publicada por el diario Acción",
           },
         ],
@@ -7277,12 +7253,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/ulysses-pereira-reverbel/n_9.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_9.jpg",
             alt: "noticia publicada por el diario Acción",
           },
           {
             type: "página diario completa",
-            src: "/ulysses-pereira-reverbel/n_10.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_10.jpg",
             alt: "página diario completa publicada por el diario Acción",
           },
         ],
@@ -7299,12 +7275,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/ulysses-pereira-reverbel/n_11.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_11.jpg",
             alt: "noticia publicada por el diario El Día",
           },
           {
             type: "página diario completa",
-            src: "/ulysses-pereira-reverbel/n_12.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_12.jpg",
             alt: "página diario completa publicada por el diario El Día",
           },
         ],
@@ -7319,12 +7295,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/ulysses-pereira-reverbel/n_13.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_13.jpg",
             alt: "noticia publicada por el diario El Día",
           },
           {
             type: "página diario completa",
-            src: "/ulysses-pereira-reverbel/n_14.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_14.jpg",
             alt: "página diario completa publicada por el diario El Día",
           },
         ],
@@ -7341,12 +7317,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/ulysses-pereira-reverbel/n_15.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_15.jpg",
             alt: "noticia publicada por el diario El Día",
           },
           {
             type: "página diario completa",
-            src: "/ulysses-pereira-reverbel/n_16.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_16.jpg",
             alt: "página diario completa publicada por el diario El Día",
           },
         ],
@@ -7360,12 +7336,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/ulysses-pereira-reverbel/n_17.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_17.jpg",
             alt: "noticia publicada por el diario El Día",
           },
           {
             type: "página diario completa",
-            src: "/ulysses-pereira-reverbel/n_18.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_18.jpg",
             alt: "página diario completa publicada por el diario El Día",
           },
         ],
@@ -7379,12 +7355,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/ulysses-pereira-reverbel/n_19.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_19.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/ulysses-pereira-reverbel/n_20.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_20.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -7401,12 +7377,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/ulysses-pereira-reverbel/n_21.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_21.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/ulysses-pereira-reverbel/n_22.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_22.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -7420,12 +7396,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/ulysses-pereira-reverbel/n_23.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_23.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/ulysses-pereira-reverbel/n_24.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_24.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -7442,12 +7418,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/ulysses-pereira-reverbel/n_27.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_27.jpg",
             alt: "noticia publicada por el diario El Día",
           },
           {
             type: "página diario completa",
-            src: "/ulysses-pereira-reverbel/n_28.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_28.jpg",
             alt: "página diario completa publicada por el diario El Día",
           },
         ],
@@ -7461,12 +7437,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/ulysses-pereira-reverbel/n_29.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_29.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/ulysses-pereira-reverbel/n_30.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_30.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -7480,12 +7456,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/ulysses-pereira-reverbel/n_31.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_31.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/ulysses-pereira-reverbel/n_32.jpg",
+            src: "/ulysses-pereira-reverbel-priimer-secuestro/n_32.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -7500,12 +7476,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/ulysses-pereira-reverbel/n_25.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_25.jpg",
             alt: "noticia publicada por el diario El Día",
           },
           {
             type: "página diario completa",
-            src: "/ulysses-pereira-reverbel/n_26.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_26.jpg",
             alt: "página diario completa publicada por el diario El Día",
           },
         ],
@@ -7552,6 +7528,3404 @@ export const TerroristActions: TerroristActionDefinition[] = [
           edition: "Prisa Ediciones",
           pages: "págs. 348-355",
           author: "Pernas",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("September 10, 1969"),
+    title: "Doctor Gaetano Pellegrini Giampietro",
+    slug: "doctor-gaetano-pellegrini-giampietro",
+    type: "secuestros",
+    fact: "SECUESTRO DEL DR. GAETANO PELLEGRINI GIAMPIETRO",
+    victims: [
+      {
+        info: {
+          name: "Doctor Gaetano Pellegrini Giampietro",
+          age: 44,
+          marital: "casado",
+          childs: 3,
+          childsDescription: " menores de edad",
+          nationality: "Italiano",
+          avatar: {
+            src: "/doctor-gaetano-pellegrini-giampietro/a.png",
+            alt: "imagen de Gaetano Pellegrini Giampietro",
+          },
+          kidnapping: {
+            init: new Date("September 09, 1969"),
+            end: new Date("November 21, 1969"),
+            days: 73,
+            description: " días en cautiverio",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("September 11, 1969"),
+        title: "“CUATRO BUSCADOS POR DESAPARICIÓN DEL BANQUERO”",
+        description:
+          "“... comunicado: “En horas de la mañana de ayer, en circunstancias que llegaba a un rotativo capitalino, fue secuestrado el Director de un Banco de Plaza, Dr. Gaetano Pellegrini Giampietro, casado de 44 años de edad, padre de tres niños de 13, 11 y 7 años de edad... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/doctor-gaetano-pellegrini-giampietro/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/doctor-gaetano-pellegrini-giampietro/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 20)',
+        date: new Date("September 11, 1969"),
+        title: "“BUSCAN A CUATRO INVOLUCRADOS EN EL SECUESTRO DE PELLEGRINI”",
+        description:
+          "... solicita información que permita ubicar a las personas cuya foto se acompaña, las que se encuentran involucradas en el hecho... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/doctor-gaetano-pellegrini-giampietro/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/doctor-gaetano-pellegrini-giampietro/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("November 21, 1969"),
+        title:
+          "“EN EL PUERTO DEL BUCEO, LIBERARON ESTA MADRUGADA AL DR. PELLEGRINI”",
+        description: "... Aparecen fotos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/doctor-gaetano-pellegrini-giampietro/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/doctor-gaetano-pellegrini-giampietro/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 15)',
+        date: new Date("November 21, 1969"),
+        title: "“UN COMANDO FUERTEMENTE ARMADO CONSUMÓ EL OPERATIVO SECUESTRO”",
+        description:
+          "Raptado en su propio auto desde El Diario... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/doctor-gaetano-pellegrini-giampietro/n_6.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/doctor-gaetano-pellegrini-giampietro/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("November 29, 1969"),
+        title: "“FUE HALLADO AYER EL SEGUNDO ENTERRADERO DE PELLEGRINI”",
+        description: "... Aparecen fotos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/doctor-gaetano-pellegrini-giampietro/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/doctor-gaetano-pellegrini-giampietro/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("November 29, 1969"),
+        title: "“LA ÚLTIMA VEZ QUE LOS VI FUE HACE 15 DÍAS” DIJO EL JARDINERO”",
+        description: "...",
+        title1:
+          "“VECINO: “TODOS EN EL BARRIO DECÍAN QUE AQUÍ VIVÍAN LOS EXTREMISTAS”",
+        description1: "...",
+        title2: "“IMPORTANTE DATO BRINDARON DOS EXTREMISTAS APRESADOS”",
+        description2:
+          "Uno cuidó al Dr. Pellegrini... Aparecen fotos y croquis de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/doctor-gaetano-pellegrini-giampietro/n_8.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/doctor-gaetano-pellegrini-giampietro/n_9.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Fernando González Guyer se siente responsable por las bombas, los ajusticiamientos, los secuestros, los muertos del MLN.</p>
+          <p>A mí me tocó custodiar en la Cárcel del Pueblo a Pellegrini Giampietro, el hijo de un banquero... una cosa patética, era un banquero italiano que estaba acá... para nosotros ser banquero ya era suficiente mérito como para secuestrarlo.</p>
+          <p>El tipo lloraba, se angustiaba, claro: no entendía. Lo teníamos encerrado en una carpa adentro de una pieza. Teníamos prohibido hablarle... era un muchacho...”.</p>
+          <p>Pellegrini Giampietro estuvo setenta y tres días secuestrado por el MLN”.</p>`,
+          year: new Date("2008-1-1"),
+          name: "Historias tupamaras. Nuevos testimonios sobre los mitos del MLN",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Fin de Siglo",
+          pages: "pág. 129",
+          author: "Haberkorn",
+        },
+        {
+          fragment: `<p>“... H. A. P. -... Del Banco Francés e Italiano, ya habíamos secuestrado a su presidente, Gaetano Pellegrini Giampietro, en setiembre de 1969... Lo esperamos en las cercanías del diario La Mañana de cuya empresa, SEUSA, creo que también era presidente. Fuimos Candán, Wassen, Blanco Katras y yo, con un grupo de apoyo que ahora no puedo identificar. Lo trasbordamos a otro vehículo que nos esperaba en el Cementerio Central, que se encargó de llevar el taxi utilizado hasta el Parque Rodó y lo entregamos a un grupo del interior de Lagomar, que en un carro de caballos lo llevó a otro sitio donde estuvo unos días, a la espera de trasladarlo a Montevideo...”</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "pág. 194",
+          author: "Marius",
+        },
+        {
+          fragment: `<p>“J. M. –Cuénteme del secuestro de Gaetano Pellegrini Giampietro.</p>
+          <p>H. A. P. -... en uno de esos locales estaba Pellegrini, custodiado por gente con un bajísimo nivel de integración... bajo unas (sic) carpa instalada en el comedor de una casa en la que realizaban reuniones de estudiantes para organizar volanteadas y pegatinas, el MLN-T mantenía secuestrado a uno de los jefes de la patronal bancaria...</p>
+          <p>... cuando me entrevisté con Pellegrini para comunicarle su pronta liberación, supe que en el local anterior se había discutido su ejecución...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "pág. 212",
+          author: "Marius",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("July 25, 1970"),
+    title: "Doctor Daniel Pereira Manelli",
+    slug: "daniel-pereira-manelli",
+    type: "secuestros",
+    fact: "SECUESTRAN AL JUEZ LETRADO DE INSTRUCCIÓN DR. DANIEL PEREIRA MANELLI, LIBERACIÓN",
+    victims: [
+      {
+        info: {
+          name: "Doctor Daniel Pereira Manelli",
+          age: 40,
+          marital: "casado",
+          childs: 2,
+          childsDescription: " menores de edad",
+          nationality: "Argentino, nacionalizado Uruguayo",
+          avatar: {
+            src: "/daniel-pereira-manelli/a.png",
+            alt: "imagen de Daniel Pereira Manelli",
+          },
+          kidnapping: {
+            init: new Date("July 28, 1970"),
+            end: new Date("August 05, 1970"),
+            days: 7,
+            description: " días en cautiverio",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("July 28, 1970"),
+        title:
+          "“ES EL TERCER SECUESTRO PERPETRADO EN DOS AÑOS POR GRUPOS SEDICIOSOS”",
+        description:
+          "Otro golpe criminal. El secuestro del Dr. Daniel Pereira Manelli que conmueve hoy a la opinión pública, sucede cuando está a punto de cumplirse el segundo aniversario de la aciaga jornada en la que el Uruguay conoció por primera vez las alternativas de esta forma de terrorismo político. Quienes emprendieron la lucha clandestina, en efecto, se apoderaron el 7 de Agosto de 1968 del Dr. Ulisses Pereira Reverbel... reincidiendo el 9 de Setiembre del pasado año cuando secuestraron al Dr, Gaetano Pellegrini Giampetro...",
+        title1: "“EL JUEZ RAPTADO ACTUÓ EN VARIAS CAUSAS SEDICIOSAS”",
+        description1:
+          "... Casi un centenar de sediciosos fueron procesados por su decisión en los últimos cuatro años... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/daniel-pereira-manelli/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/daniel-pereira-manelli/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 20)',
+        date: new Date("July 28, 1970"),
+        title: "“LO SECUESTRARON PARA LUEGO NEGOCIAR POR OTRAS LIBERTADES”",
+        description:
+          "Propondrían el canje de diez presos por Pereira Manelli... Aparecen fotos a cuyo pie dicen: “... reconocida como una de las sediciosas que intervino en el secuestro...” y “... otra de la mujeres reconocidas como participante en el secuestro...”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/daniel-pereira-manelli/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/daniel-pereira-manelli/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("July 29, 1970"),
+        title: "“COMO SE LLEVÓ A CABO EL TERCER SECUESTRO”",
+        description:
+          "... una noticia que trascendió a todos los ámbitos con la velocidad del rayo causó conmoción: se había consumado aparentemente por parte de elementos asociados para atentar contra la Constitución, el secuestro del Dr. Daniel Pereira Manelli... Aparecen fotos.",
+        title1: "“PERSONALIDAD Y CARRERA DEL JUEZ”",
+        description1:
+          "Larga y meritoria es la carrera del Dr. Daniel Pereyra Manelli que tiene, ahora, 40 años de edad. De condición económica modesta, poco después de los 22 años ingresó en el Poder Judicial, como administrativo del más modesto grado. Era, por entonces estudiante de Derecho. Su carrera estudiantil la hizo...",
+        title2: "“SACADO DE SU PROPIO LECHO POR EL GRUPO SEDICIOSO”",
+        description2: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/daniel-pereira-manelli/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/daniel-pereira-manelli/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 4)',
+        date: new Date("July 29, 1970"),
+        title: "“CAMIONETA ABANDONADA CON 2 GRANADAS CREÓ GRAN RIESGO”",
+        description:
+          "Entre todos los vehículos que... estuvieron directa o indirectamente vinculados al secuestro del Juez Letrado de Instrucción, Dr. Daniel Pereira Manelli, el abandono por parte de los presuntos conspiradores de la camioneta International tipo pick-up,... presenta características singulares. En el interior de la caja descubierta y al alcance de los numerosos niños que pululan por el lugar y que sólo por azar no entraron en contacto con los poderosos explosivos, se encontraron dos granadas... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/daniel-pereira-manelli/n_6.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/daniel-pereira-manelli/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 5)',
+        date: new Date("July 29, 1970"),
+        title: "“UTILIZARON EN EL SECUESTRO MUCHOS VEHÍCULOS HURTADOS”",
+        description:
+          "... muchos de los siete vehículos hurtados en diferentes circunstancias, fueron utilizados para confundir la acción policial y facilitar los propósitos delictivos del grupo que finalmente consumó la audaz acción contra el magistrado... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/daniel-pereira-manelli/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/daniel-pereira-manelli/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("August 05, 1970"),
+        title: "“PEREIRA MANELLI ENTREGÓ UN NUEVO MENSAJE DE SEDICIOSOS”",
+        description:
+          "Estuvo recluido siempre en una pieza muy chica. Aparecen fotos a cuyo pie dicen: “... el Juez De Instrucción Daniel Pereira Manelli se encuentra entre los suyos, liberado que fue por los sediciosos en pleno Parque Batlle y Ordóñez...” y “El Dr. Pereira Manelli...”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/daniel-pereira-manelli/n_9.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/daniel-pereira-manelli/n_9.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“El 28 de julio se secuestra al juez de Instrucción Pereira Manelli,... Pereira Manelli permanece secuestrado varios días, luego de lo cual es liberado. Antes de abandonar la Cárcel del Pueblo...”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Autobiografía de Amodio Pérez",
+          place: "Montevideo - Uruguay",
+          edition: " Editorial Arca",
+          pages: "pág. 47",
+          author: "Pérez",
+        },
+        {
+          fragment: `<p>“... También intervine en algunos desarmes y en el secuestro de Pereyra Manelli.”</p>
+          <p>-¿El Juez?</p>
+          <p>-Sí, lo sacamos de la cama donde dormía con la mujer, lo llevamos y lo tuvimos cinco o seis días”.</p>`,
+          year: new Date("2004-1-1"),
+          name: "El Cholo González. Un cañero de Bella Unión",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Trilce",
+          pages: "pág. 82",
+          author: "Gilio",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("July 31, 1970"),
+    title: "Daniel Anthony Mitrione",
+    slug: "dan-mitrione-secuestro",
+    type: "secuestros",
+    fact: "SECUESTRAN A MITRIONE, ESCAPAN JONES Y ROSENFELD",
+    victims: [
+      {
+        info: {
+          name: "Daniel Anthony Mitrione",
+          age: 50,
+          marital: "casado",
+          childs: 9,
+          childsDescription: "(5 menores de edad)",
+          nationality: "Norteamericano",
+          avatar: {
+            src: "/dan-mitrione/a.png",
+            alt: "imagen de Daniel Anthony Mitrione",
+          },
+          kidnapping: {
+            init: new Date("July 31, 1970"),
+            end: new Date("August 09, 1970"),
+            days: 9,
+            description: "días secuestrado. Ejecutado en cautiverio",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("July 31, 1970"),
+        title: "“OLA DE SECUESTROS”",
+        description:
+          "Se llevan al cónsul de Brasil y a un funcionario del F.B.I. Otro pudo escapar arrojándose del auto en que era conducido... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/dan-mitrione-secuestro/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/dan-mitrione-secuestro/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("August 01, 1970"),
+        title: "“CRÓNICA DE UNA MAÑANA VIOLENTA”",
+        description:
+          "... los sediciosos desataron en la mañana de ayer una nueva oleada de violencia. Intentaron, en efecto, un total de cuatro secuestros, aunque finalmente consiguieron sus propósitos en sólo dos de los casos. En efecto, lograron raptar al Cónsul General de Brasil en nuestro País Sr. Aloiso Días y al “empleado de la Embajada de los Estados Unidos de América”... Sr. Dan Mitrione. Otros dos funcionarios diplomáticos norteamericanos-Gordon Jones, Segundo Secretario de la Embajada y Nathan Rosenfeld, Agregado Cultural-resistieron a sus captores y en circunstancias distintas... lograron liberarse. El siguiente es un resumen cronológico de los hechos protagonizados. Aparece plano.",
+        title1: "“MITRIONE HERIDO”",
+        description1:
+          "... “El funcionario de U.S.A. recibió una herida de bala durante la acción...”...",
+        title2: "“RÉCORD: DIECISÉIS HURTOS DE VEHÍCULOS”",
+        description2:
+          "... Concretamente, las denuncias de hurtos o de participación de vehículos en procedimientos, llegaron a un total de 16, según se enumeran:...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/dan-mitrione-secuestro/n_2.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/dan-mitrione-secuestro/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 3)',
+        date: new Date("August 01, 1970"),
+        title: "“TRAS EL SECUESTRO Y PESE A ESTAR MANIATADO, PUDO HUIR”",
+        description:
+          "El secuestro del Segundo Secretario de la embajada de EE.UU. en nuestro país, Sr. Michael Gordon Jones, tuvo contornos realmente dramáticos,... cuando haciendo alarde de una destreza física admirable pudo huir de sus captores al saltar desde una camioneta tipo “pick-up” en marcha, sin, prácticamente, ninguna posibilidad de mover brazos y piernas...",
+        title1: "“ATADO Y HERIDO MR. JONES HUYÓ DE SUS RAPTORES”",
+        description1:
+          "...Estaba envuelto en una frazada y atado con varias vueltas de una cuerda. Tenía la cabeza ensangrentada... Aparecen fotos.",
+        title2: "“PENSARON QUE SE TRATABA DE UN DEMENTE”",
+        description2:
+          "...Aparecen fotos... “...vio cuando Michael Gordon Jones se arrojó de la caja de la camioneta “Morris”...”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/dan-mitrione-secuestro/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/dan-mitrione-secuestro/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 4)',
+        date: new Date("August 01, 1970"),
+        title: "“EL TÉCNICO MITRIONE NO PUDO EVITAR EL SECUESTRO”",
+        description:
+          "... el secuestro del Sr. Dan Anthony Mitrione, norteamericano, de 50 años de edad, funcionario de la Agencia Internacional para el Desarrollo (AID) y agregado de la Misión de Asistencia Técnica de EE.UU. en nuestro país... Aparecen fotos.",
+        title1: "“DOS PROFESIONALES ENVUELTOS EN LAS DRAMÁTICAS ESCENAS”",
+        description1:
+          "Varias personas, ajenas totalmente a los hechos, vivieron momentos de hondo dramatismo ayer, mientras se desarrollaba el secuestro del Segundo Secretario de la Embajada Norteamericana Mr. Gordon Jones..., se vieron, durante varios minutos amenazados por las armas de los sediciosos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/dan-mitrione-secuestro/n_4.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/dan-mitrione-secuestro/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 8)',
+        date: new Date("August 01, 1970"),
+        title: "“... GUIÓ EL AUTO DEL QUE SE ARROJÓ GORDON JONES”",
+        description: "Secuestrador capturado. Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/dan-mitrione-secuestro/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/dan-mitrione-secuestro/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 15)',
+        date: new Date("August 07, 1970"),
+        title: "“ESTA NOCHE A LAS 24 VENCE EL PLAZO: CRECE LA ANGUSTIA”",
+        description:
+          "Esta medianoche vence el siniestro plazo dado por los conspiradores...",
+        title1: "“LA ESPOSA DEL CÓNSUL ESTÁ AL BORDE DEL SHOCK”",
+        description1:
+          "... la esposa del cónsul brasilero, María Apparecida de Días Gomide, sufría hoy una profunda crisis de imprevistas proyecciones, como consecuencia de la agravación de la situación... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/dan-mitrione-secuestro/n_7.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/dan-mitrione-secuestro/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p class="font-bold">“Viernes 31 de julio Los secuestros de Mitrione, Días Gomide y Gordon Jones</p>
+
+          <p class="font-bold mt-4">7.00 horas. Rambla de Pocitos</p>
+          <p>Amanece. Una Tupamara de 28 años, “Beatriz”, responsable del grupo militar que debe secuestrar a Mitrione, se apresta a salir de su casa en la rambla de Pocitos, donde vive con otro militante clandestino, Andrés Cultelli... Beatriz había caído presa en octubre de 1969... el 8 de marzo de 1970 logró fugar de la cárcel de mujeres...</p>
+          <p>La indicación de secuestrar a Mitrione se la entregó personalmente Héctor Amodio el 30 de junio de 1970...</p>
+
+          <p class="font-bold mt-4">8.15 Malvín Este</p>
+          <p>Como todas las mañanas, el sargento Manuel Emilio González, chofer de Mitrione, partió de la Jefatura de Policía de Montevideo, conduciendo el Opel Rekord... al llegar encontró a Mitrione aguardando en la puerta de su casa...</p>
+          <p>Mitrione se sentó junto a González en el asiento delantero... doblaron a la izquierda por Alejandro Gallinal...</p>
+          <p>Antes de llegar a la intersección con Aconcagua, una camioneta pick-up International que se encontraba estacionada junto a la vereda este de Alejandro Gallinal, emprendió la marcha en sentido sur-norte hacia el automóvil policial, chocándolo violentamente del lado del conductor y desviándolo hacia la vereda. La conducía Andrés Cultelli. A su lado Jorge Torres, funcionario del Ministerio de Educación y Cultura.</p>
+          <p>En la vereda oeste de Alejandro Gallinal... una pareja aparentaba esperar el ómnibus: Beatriz armada con una metralleta que ocultaba bajo un poncho de lana, y “Darío” que portaba un revólver calibre 38.</p>
+          <p>Inmediatamente después del impacto, el sargento González los vio aparecer por el lado derecho de su automóvil. Seguida por Darío, Beatriz se acercó sin titubeos, rompió el vidrio con la metralleta, encañonó a Mitrione y le ordenó salir del auto.</p>
+          <p>Mirando hacia el sur por Alejandro Gallinal,..., se hallaba estacionada una camioneta Ford con toldo, ocupada por Hugo Dermit y Carlos Julián Hernández Machado...</p>
+          <p>Mientras Torres desarmaba al sargento González, Beatriz, acompañada por Darío condujo a Mitrione hasta la Ford, que se había acercado al lugar de los hechos. Le ordenó subir a la caja y tenderse en el piso. Tras el subió Darío; pero en ese momento, tal vez por la brusquedad del salto, se le escapó accidentalmente un disparo que hirió a Mitrione en la parte superior del pecho...</p>
+
+          <p class="font-bold mt-4">9.00 horas. Rambla de Pocitos y barrio de la Unión</p>
+          <p>Entretanto, aproximadamente a las 9.00 de la mañana, otros grupos del MLN secuestraban en el garaje de su vivienda a Michael Gordon Jones, segundo secretario de la embajada de Estados Unidos... En el mismo lugar vivía el agregado cultural Nathan Rosenfeld...</p>
+          <p>El secuestro fue ejecutado por la columna Cuarenta...</p>
+          <p>En el secuestro de Jones participaron siete tupamaros...</p>
+          <p>El chofer del vehículo oficial se aprestaba a recoger en su vivienda de Juan Benito Blanco 1255 al ministro de Obras Públicas Walter Pintos Risso. Cuando encendió el motor dos hombres y una mujer lo encañonaron... Lo obligaron a descender del vehículo y lo dejaron en compañía de un tercer tupamaro...</p>
+          <p>Dentro de esta camioneta se apostaría el “grupo de apoyo”, tres hombres con armas largas...</p>
+          <p>Poco antes de la hora en que los dos funcionarios estadounidenses acostumbraban salir para el trabajo, cuatro tupamaros ingresaron al garaje... Bajaron del ascensor algunos habitantes del edificio...: los tupamaros los agruparon contra una pared...</p>
+          <p>Cuando apareció Nathan Rosenfeld, dos integrantes del comando lo sujetaron...</p>
+          <p>A los pocos minutos apareció Gordon Jones... El responsable le preguntó si era Jones. Al responder que sí, le pegó con el caño de la pistola en la nuca. Cayó al suelo, le atamos las manos con alambre y lo metimos en una gran bolsa... Le dimos un fierrazo también a Rosenfeld, metimos a Jones en el Impala y nos fuimos los cinco.</p>
+          <p>En un descampado Jones fue trasladado a la caja de una camioneta Austin de color verde, sin toldo... “Fernando” y “Jorge” se dirigieron hacia el lugar donde los esperaba el vehículo de la “cárcel del pueblo”: la esquina de Gauna y Rafael Pérez...</p>
+          <p>Pero el automóvil de la cárcel del pueblo nunca llegó... Jorge bajó de la caja de la Austin...</p>
+          <p>En ese momento Jones advirtió que había quedado solo... comenzó a gritar pidiendo auxilio, Jorge volvió a la caja, le dio un golpe en la cabeza con el caño de la pistola y subió a la cabina. Jones se fingió inconsciente.</p>
+          <p>Los dos tupamaros se preguntaron que hacer... En el instante que la Austin se puso en movimiento, Jones decidió arriesgarse: tomó impulso y se arrojó al suelo...</p>
+
+          <p class="font-bold mt-4">8.50 horas Carrasco Norte</p>
+          <p>Poco antes de las 9.00 de la mañana, un hombre que se identificó como técnico de UTE llamó a la puerta de un chalet ubicado en Potosí 2031..., donde vivía Aloysio Días Gomide, cónsul y primer secretario de la embajada de Brasil... La mucama le abrió la puerta y en ese momento se introdujeron cinco tupamaros –cuatro hombres y una mujer– armados con pistolas y una metralleta. Integraban el comando el estudiante de Derecho Adolfo Wassen y el obrero Luis Heber Correa Díaz... En una camioneta estacionada sobre Potosí esperaban otros cuatro tupamaros: tres estudiantes avanzados de Medicina (entre ellos Aurelio Sergio Fernández Peña) y el cuarto un conocido intelectual. Portaban armas largas que escondían en la funda de una máquina de tejer.</p>
+          <p>En la lujosa residencia se encontraban la esposa del cónsul María Aparecida Leal y los seis hijos de la pareja, cuyas edades oscilaban entre los dos y quince años...</p>
+          <p>Días Gomide, que aún se encontraba en piyama, fue obligado a acompañarlos en su propio automóvil... Wassen condujo hasta el lugar del trasbordo...</p>
+          <p>... El grupo que realizó este secuestro pertenecía a la columna Quince. La acción fue planificada y supervisada por Alicia Rey, que no participó.</p>
+
+          <p class="font-bold mt-4">9.15 horas. Curva de Maroñas</p>
+          <p>A varios kilómetros de Malvín, en la Curva de Maroñas, Mitrione fue trasladado a una camioneta Volkswagen Kombi de color morado. En la parte trasera se hallaba “Felipe”, un estudiante avanzado de Medicina de 25 años, encargado de asistir e inyectar un sedante a los secuestrados... Felipe fue el responsable de la custodia de Mitrione durante los diez días de su cautiverio.</p>
+
+          <p class="font-bold mt-4">9.30 horas. Cárcel del Pueblo</p>
+          <p>Aunque el secuestro lo hizo la Uno, fue la Quince la columna encargada de mantener en cautiverio a Mitrione. La casa de Espinosa estaba ubicada en la Avenida Centenario 4115, entre las calles Juan Sebastián Elcano y El Cairo...</p>
+          <p>Espinosa y su mujer eran enfermeros del Hospital de Clínicas y tenían una hija de dos años... Durante un breve período Fly estuvo en la misma habitación que había permanecido Mitrione...</p>
+
+          <p class="font-bold mt-4">16.00 Barrio de la Unión</p>
+          <p>Pese a estar atado y envuelto en una frazada, Gordon Jones no había perdido detalle de lo que sucedía a su alrededor.</p>
+          <p>Logró describir a la policía tan precisamente la camioneta Austin..., que poco después una patrulla la reconoció estacionada en el mismo lugar de la Unión donde había sido dejada... los investigadores concluyeron que su propietario debía ser un guerrillero... la camioneta había sido comprada con documento falso por Manuel Marx Menéndez...</p>
+          <p>... Por la tarde Sergio Emigidio da Rosa decidió arriesgarse y pasar a recuperarla. Desde la ventana de una casa en la que se hallaban ocultos, los policías lo vieron llegar... Cuando estaba por subir al automóvil cayeron sobre él y lo arrestaron...”.</p>
+          `,
+          year: new Date("2007-1-1"),
+          name: "El caso Mitrione,",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Trilce",
+          pages: "págs. 37-44, 47-48, 53-54",
+          author: "Aldrighi",
+        },
+        {
+          fragment: `<p>“... El 31 de julio –tres días después de haber secuestrado al juez Pereira Manelli–, los tupamaros esperaban a Mitrione muy cerca de su casa..., una camioneta pick-up Internacional –conducida por Andrés Cultelli, quien iba acompañado por Jorge Torres– se fue de frente contra el auto de Mitrione y lo chocó con violencia del lado de la puerta del conductor.</p>
+          <p>Otros dos tupamaros, “Beatriz” y “Darío”, estaban parados en la esquina y se fueron encima del vehículo chocado. Beatriz rompió el vidrio con la metralleta, encañonó a Mitrione y lo hizo salir. Torres redujo al Sargento González y lo desarmó... Mitrione fue conducido hasta una camioneta Ford con toldo-donde esperaban Hugo Dermit y Carlos Hernández Machado-, que se encontraba estacionada a pocos metros. Le ordenaron subirse a la caja y acostarse bocarriba. Y en ese momento a Darío se le escapó un tiro que dio en el pecho del agente estadounidense...</p>
+          <p>En la Curva de Maroñas -...- trasladaron a Mitrione a una camioneta Kombi camuflada como ambulancia, donde “Felipe”, estudiante de Medicina, le prestó los primeros auxilios al herido. Recorrieron otros cuatro kilómetros... donde levantaron a otro secuestrado: el cónsul brasileño Aloysio Marés Días Gomide,..., sorprendido en su casa del barrio Carrasco Norte por un comando de la columna 15, en el que participaban el Nepo Adolfo Wasem, y Henry Engler, alias Octavio...</p>
+          <p>La “ambulancia” se dirigió entonces a un local del barrio Pérez Castellano.</p>
+          <p>La Kombi con los secuestrados bajó por la rampa y se introdujo en el garaje hasta quedar dentro de la vivienda... Mitrione y Días Gomide permanecieron cautivos en el apartamento de Centenario 4115, entre Juan Sebastián Elcano y El Cairo...”. ”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "págs. 466-467",
+          author: "Pernas",
+        },
+        {
+          fragment: `<p>“... El 31 de julio varios comandos del MLN, en una operación combinada, capturaron a Dan A. Mitrione..., y a Aloysio Mares Días Gomide...</p>
+          <p>Michael Gordon Jones..., logró fugar mientras que... fracasaba el operativo destinado a capturar a Nathan Rosenfeld...”.</p>`,
+          // year: new Date("1990-1-1"),
+          name: "La tregua armada",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "págs. 466-467",
+          author: "Fernández Huidobro",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("July 31, 1970"),
+    title: "Aloysio Días Gomide",
+    slug: "aloysio-dias-gomide",
+    type: "secuestros",
+    fact: "SECUESTRAN Y LIBERAN AL CÓNSUL BRASILEÑO ALOYSIO DÍAS GOMIDE",
+    victims: [
+      {
+        info: {
+          name: "Aloysio Días Gomide",
+          age: 49,
+          // marital: "casado",
+          childs: 4,
+          childsDescription: "menores de edad",
+          nationality: "Brasileño",
+          avatar: {
+            src: "/aloysio-dias-gomide/a.png",
+            alt: "imagen de Aloysio Días Gomide",
+          },
+          kidnapping: {
+            init: new Date("July 31, 1970"),
+            end: new Date("February 21, 1971"),
+            days: 205,
+            description: "días en cautiverio",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("July 31, 1970"),
+        title: "“OLA DE SECUESTROS”",
+        description:
+          "Se llevan al cónsul de Brasil y a un funcionario del F.B.I. Otro pudo escapar arrojándose del auto en que era conducido... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/dan-mitrione-secuestro/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/dan-mitrione-secuestro/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("August 01, 1970"),
+        title: "“CRÓNICA DE UNA MAÑANA VIOLENTA”",
+        description:
+          "... los sediciosos desataron en la mañana de ayer una nueva oleada de violencia. Intentaron, en efecto, un total de cuatro secuestros, aunque finalmente consiguieron sus propósitos en sólo dos de los casos. En efecto, lograron raptar al Cónsul General de Brasil en nuestro País Sr. Aloiso Días y al “empleado de la Embajada de los Estados Unidos de América”... Sr. Dan Mitrione. Otros dos funcionarios diplomáticos norteamericanos-Gordon Jones, Segundo Secretario de la Embajada y Nathan Rosenfeld, Agregado Cultural-resistieron a sus captores y en circunstancias distintas... lograron liberarse. El siguiente es un resumen cronológico de los hechos protagonizados. Aparece plano.",
+        title1: "“MITRIONE HERIDO”",
+        description1:
+          "... “El funcionario de U.S.A. recibió una herida de bala durante la acción...”...",
+        title2: "“RÉCORD: DIECISÉIS HURTOS DE VEHÍCULOS”",
+        description2:
+          "... Concretamente, las denuncias de hurtos o de participación de vehículos en procedimientos, llegaron a un total de 16, según se enumeran:...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/dan-mitrione-secuestro/n_2.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/dan-mitrione-secuestro/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 15)',
+        date: new Date("August 07, 1970"),
+        title: "“ESTA NOCHE A LAS 24 VENCE EL PLAZO: CRECE LA ANGUSTIA”",
+        description:
+          "Esta medianoche vence el siniestro plazo dado por los conspiradores...",
+        title1: "“LA ESPOSA DEL CÓNSUL ESTÁ AL BORDE DEL SHOCK”",
+        description1:
+          "... la esposa del cónsul brasilero, María Apparecida de Días Gomide, sufría hoy una profunda crisis de imprevistas proyecciones, como consecuencia de la agravación de la situación... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/dan-mitrione-secuestro/n_7.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/dan-mitrione-secuestro/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("February 22, 1971"),
+        title: "“EL DÍA QUE RAPTARON AL CÓNSUL DÍAS GOMIDE”",
+        description:
+          "La mañana del 31 de julio de 1970 estaba destinada a inscribirse en los anales del terrorismo como la “mañana violenta”. En ella fueron secuestrados el entonces Cónsul del Brasil en el Uruguay Aloysio Mares Días Gomide...",
+        title1: "“GEOFFREY JACKSON Y CLAUDE FLY AÚN EN PODER DE SUS RAPTORES”",
+        description1:
+          "Con la liberación del Cónsul brasileño Días Gomide son dos ahora los ciudadanos que permanecen en manos de los secuestradores: Claude Fly... y Geoffrey Jackson... Fly hacen 199 días que su familia fue sumida en la desesperación... Aparecen foto",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/aloysio-dias-gomide/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/aloysio-dias-gomide/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("February 22, 1971"),
+        title:
+          "“DEMACRADO, DELGADO Y VESTIDO CON TRAJE DE ALPACA GRIS, SIN CORBATA”",
+        description:
+          "A las 23.07 se reencontró con su abnegada esposa... tras una separación de exactamente 203 días... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/aloysio-dias-gomide/n_2.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/aloysio-dias-gomide/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("February 23, 1971"),
+        title:
+          "“DÍAS GOMIDE SE ENTERÓ DE QUE LO LIBERARÍAN SÓLO 10 MINUTOS ANTES”",
+        description:
+          "...ANSA...Días Gomide habría sido envuelto en una sábana momentos después del secuestro,... permaneció-sostiene ANSA-durante los casi siete meses de su cautiverio sin ver la luz del sol... suponiéndose estuvo escondido “en corredores o subterráneos”... no sabía si iba a vivir o no”...",
+        title1: "“PERÚ: UNÁNIME CONDENA PARA LOS SEDICIOSOS”",
+        description1: "Días Gomide y la prensa...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/aloysio-dias-gomide/n_4.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/aloysio-dias-gomide/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("February 26, 1971"),
+        title: "“TRAS SU SECUESTRO FUE DROGADO Y MANTENIDO EN “UN CUBÍCULO”",
+        description:
+          "Días Gomide... El diplomático condenó los métodos de los tupamaros uruguayos, a los que calificó de “minorías desesperadas” y que en “nombre de un supuesto deseo de justicia, pretenden imponer sus convicciones a través de los medios violentos...”... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/aloysio-dias-gomide/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/aloysio-dias-gomide/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p class="font-bold">“Viernes 31 de julio Los secuestros de Mitrione, Días Gomide y Gordon Jones</p>
+
+          <p class="font-bold mt-4">7.00 horas. Rambla de Pocitos</p>
+          <p>Amanece. Una Tupamara de 28 años, “Beatriz”, responsable del grupo militar que debe secuestrar a Mitrione, se apresta a salir de su casa en la rambla de Pocitos, donde vive con otro militante clandestino, Andrés Cultelli... Beatriz había caído presa en octubre de 1969... el 8 de marzo de 1970 logró fugar de la cárcel de mujeres...</p>
+          <p>La indicación de secuestrar a Mitrione se la entregó personalmente Héctor Amodio el 30 de junio de 1970...</p>
+
+          <p class="font-bold mt-4">8.15 Malvín Este</p>
+          <p>Como todas las mañanas, el sargento Manuel Emilio González, chofer de Mitrione, partió de la Jefatura de Policía de Montevideo, conduciendo el Opel Rekord... al llegar encontró a Mitrione aguardando en la puerta de su casa...</p>
+          <p>Mitrione se sentó junto a González en el asiento delantero... doblaron a la izquierda por Alejandro Gallinal...</p>
+          <p>Antes de llegar a la intersección con Aconcagua, una camioneta pick-up International que se encontraba estacionada junto a la vereda este de Alejandro Gallinal, emprendió la marcha en sentido sur-norte hacia el automóvil policial, chocándolo violentamente del lado del conductor y desviándolo hacia la vereda. La conducía Andrés Cultelli. A su lado Jorge Torres, funcionario del Ministerio de Educación y Cultura.</p>
+          <p>En la vereda oeste de Alejandro Gallinal... una pareja aparentaba esperar el ómnibus: Beatriz armada con una metralleta que ocultaba bajo un poncho de lana, y “Darío” que portaba un revólver calibre 38.</p>
+          <p>Inmediatamente después del impacto, el sargento González los vio aparecer por el lado derecho de su automóvil. Seguida por Darío, Beatriz se acercó sin titubeos, rompió el vidrio con la metralleta, encañonó a Mitrione y le ordenó salir del auto.</p>
+          <p>Mirando hacia el sur por Alejandro Gallinal,..., se hallaba estacionada una camioneta Ford con toldo, ocupada por Hugo Dermit y Carlos Julián Hernández Machado...</p>
+          <p>Mientras Torres desarmaba al sargento González, Beatriz, acompañada por Darío condujo a Mitrione hasta la Ford, que se había acercado al lugar de los hechos. Le ordenó subir a la caja y tenderse en el piso. Tras el subió Darío; pero en ese momento, tal vez por la brusquedad del salto, se le escapó accidentalmente un disparo que hirió a Mitrione en la parte superior del pecho...</p>
+
+          <p class="font-bold mt-4">9.00 horas. Rambla de Pocitos y barrio de la Unión</p>
+          <p>Entretanto, aproximadamente a las 9.00 de la mañana, otros grupos del MLN secuestraban en el garaje de su vivienda a Michael Gordon Jones, segundo secretario de la embajada de Estados Unidos... En el mismo lugar vivía el agregado cultural Nathan Rosenfeld...</p>
+          <p>El secuestro fue ejecutado por la columna Cuarenta...</p>
+          <p>En el secuestro de Jones participaron siete tupamaros...</p>
+          <p>El chofer del vehículo oficial se aprestaba a recoger en su vivienda de Juan Benito Blanco 1255 al ministro de Obras Públicas Walter Pintos Risso. Cuando encendió el motor dos hombres y una mujer lo encañonaron... Lo obligaron a descender del vehículo y lo dejaron en compañía de un tercer tupamaro...</p>
+          <p>Dentro de esta camioneta se apostaría el “grupo de apoyo”, tres hombres con armas largas...</p>
+          <p>Poco antes de la hora en que los dos funcionarios estadounidenses acostumbraban salir para el trabajo, cuatro tupamaros ingresaron al garaje... Bajaron del ascensor algunos habitantes del edificio...: los tupamaros los agruparon contra una pared...</p>
+          <p>Cuando apareció Nathan Rosenfeld, dos integrantes del comando lo sujetaron...</p>
+          <p>A los pocos minutos apareció Gordon Jones... El responsable le preguntó si era Jones. Al responder que sí, le pegó con el caño de la pistola en la nuca. Cayó al suelo, le atamos las manos con alambre y lo metimos en una gran bolsa... Le dimos un fierrazo también a Rosenfeld, metimos a Jones en el Impala y nos fuimos los cinco.</p>
+          <p>En un descampado Jones fue trasladado a la caja de una camioneta Austin de color verde, sin toldo... “Fernando” y “Jorge” se dirigieron hacia el lugar donde los esperaba el vehículo de la “cárcel del pueblo”: la esquina de Gauna y Rafael Pérez...</p>
+          <p>Pero el automóvil de la cárcel del pueblo nunca llegó... Jorge bajó de la caja de la Austin...</p>
+          <p>En ese momento Jones advirtió que había quedado solo... comenzó a gritar pidiendo auxilio, Jorge volvió a la caja, le dio un golpe en la cabeza con el caño de la pistola y subió a la cabina. Jones se fingió inconsciente.</p>
+          <p>Los dos tupamaros se preguntaron que hacer... En el instante que la Austin se puso en movimiento, Jones decidió arriesgarse: tomó impulso y se arrojó al suelo...</p>
+
+          <p class="font-bold mt-4">8.50 horas Carrasco Norte</p>
+          <p>Poco antes de las 9.00 de la mañana, un hombre que se identificó como técnico de UTE llamó a la puerta de un chalet ubicado en Potosí 2031..., donde vivía Aloysio Días Gomide, cónsul y primer secretario de la embajada de Brasil... La mucama le abrió la puerta y en ese momento se introdujeron cinco tupamaros –cuatro hombres y una mujer– armados con pistolas y una metralleta. Integraban el comando el estudiante de Derecho Adolfo Wassen y el obrero Luis Heber Correa Díaz... En una camioneta estacionada sobre Potosí esperaban otros cuatro tupamaros: tres estudiantes avanzados de Medicina (entre ellos Aurelio Sergio Fernández Peña) y el cuarto un conocido intelectual. Portaban armas largas que escondían en la funda de una máquina de tejer.</p>
+          <p>En la lujosa residencia se encontraban la esposa del cónsul María Aparecida Leal y los seis hijos de la pareja, cuyas edades oscilaban entre los dos y quince años...</p>
+          <p>Días Gomide, que aún se encontraba en piyama, fue obligado a acompañarlos en su propio automóvil... Wassen condujo hasta el lugar del trasbordo...</p>
+          <p>... El grupo que realizó este secuestro pertenecía a la columna Quince. La acción fue planificada y supervisada por Alicia Rey, que no participó.</p>
+
+          <p class="font-bold mt-4">9.15 horas. Curva de Maroñas</p>
+          <p>A varios kilómetros de Malvín, en la Curva de Maroñas, Mitrione fue trasladado a una camioneta Volkswagen Kombi de color morado. En la parte trasera se hallaba “Felipe”, un estudiante avanzado de Medicina de 25 años, encargado de asistir e inyectar un sedante a los secuestrados... Felipe fue el responsable de la custodia de Mitrione durante los diez días de su cautiverio.</p>
+
+          <p class="font-bold mt-4">9.30 horas. Cárcel del Pueblo</p>
+          <p>Aunque el secuestro lo hizo la Uno, fue la Quince la columna encargada de mantener en cautiverio a Mitrione. La casa de Espinosa estaba ubicada en la Avenida Centenario 4115, entre las calles Juan Sebastián Elcano y El Cairo...</p>
+          <p>Espinosa y su mujer eran enfermeros del Hospital de Clínicas y tenían una hija de dos años... Durante un breve período Fly estuvo en la misma habitación que había permanecido Mitrione...</p>
+
+          <p class="font-bold mt-4">16.00 Barrio de la Unión</p>
+          <p>Pese a estar atado y envuelto en una frazada, Gordon Jones no había perdido detalle de lo que sucedía a su alrededor.</p>
+          <p>Logró describir a la policía tan precisamente la camioneta Austin..., que poco después una patrulla la reconoció estacionada en el mismo lugar de la Unión donde había sido dejada... los investigadores concluyeron que su propietario debía ser un guerrillero... la camioneta había sido comprada con documento falso por Manuel Marx Menéndez...</p>
+          <p>... Por la tarde Sergio Emigidio da Rosa decidió arriesgarse y pasar a recuperarla. Desde la ventana de una casa en la que se hallaban ocultos, los policías lo vieron llegar... Cuando estaba por subir al automóvil cayeron sobre él y lo arrestaron...”.</p>
+          `,
+          year: new Date("2007-1-1"),
+          name: "El caso Mitrione,",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Trilce",
+          pages: "págs. 37-44, 47-48, 53-54",
+          author: "Aldrighi",
+        },
+        {
+          fragment: `<p>“... El 31 de julio –tres días después de haber secuestrado al juez Pereira Manelli–, los tupamaros esperaban a Mitrione muy cerca de su casa..., una camioneta pick-up Internacional –conducida por Andrés Cultelli, quien iba acompañado por Jorge Torres– se fue de frente contra el auto de Mitrione y lo chocó con violencia del lado de la puerta del conductor.</p>
+          <p>Otros dos tupamaros, “Beatriz” y “Darío”, estaban parados en la esquina y se fueron encima del vehículo chocado. Beatriz rompió el vidrio con la metralleta, encañonó a Mitrione y lo hizo salir. Torres redujo al Sargento González y lo desarmó... Mitrione fue conducido hasta una camioneta Ford con toldo-donde esperaban Hugo Dermit y Carlos Hernández Machado-, que se encontraba estacionada a pocos metros. Le ordenaron subirse a la caja y acostarse bocarriba. Y en ese momento a Darío se le escapó un tiro que dio en el pecho del agente estadounidense...</p>
+          <p>En la Curva de Maroñas -...- trasladaron a Mitrione a una camioneta Kombi camuflada como ambulancia, donde “Felipe”, estudiante de Medicina, le prestó los primeros auxilios al herido. Recorrieron otros cuatro kilómetros... donde levantaron a otro secuestrado: el cónsul brasileño Aloysio Marés Días Gomide,..., sorprendido en su casa del barrio Carrasco Norte por un comando de la columna 15, en el que participaban el Nepo Adolfo Wasem, y Henry Engler, alias Octavio...</p>
+          <p>La “ambulancia” se dirigió entonces a un local del barrio Pérez Castellano.</p>
+          <p>La Kombi con los secuestrados bajó por la rampa y se introdujo en el garaje hasta quedar dentro de la vivienda... Mitrione y Días Gomide permanecieron cautivos en el apartamento de Centenario 4115, entre Juan Sebastián Elcano y El Cairo...”. ”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "págs. 466-467",
+          author: "Pernas",
+        },
+        {
+          fragment: `<p>“... El 31 de julio varios comandos del MLN, en una operación combinada, capturaron a Dan A. Mitrione..., y a Aloysio Mares Días Gomide...</p>
+          <p>Michael Gordon Jones..., logró fugar mientras que... fracasaba el operativo destinado a capturar a Nathan Rosenfeld...”.</p>`,
+          // year: new Date("1990-1-1"),
+          name: "La tregua armada",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "pág. 28",
+          author: "Fernández Huidobro",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("August 07, 1970"),
+    title: "Claude Fly",
+    slug: "claude-fly",
+    type: "secuestros",
+    fact: "SECUESTRO Y LIBERACIÓN DEL TÉCNICO AGRARIO CLAUDE FLY",
+    victims: [
+      {
+        info: {
+          name: "Ingeniero Agrónomo Claude Fly",
+          age: 65,
+          marital: "casado",
+          childs: 3,
+          // childsDescription: "5 menores de edad",
+          nationality: "Norteamericano",
+          avatar: {
+            src: "/claude-fly/a.png",
+            alt: "imagen de Claude Fly",
+          },
+          kidnapping: {
+            init: new Date("August 07, 1970"),
+            end: new Date("March 02, 1971"),
+            days: 207,
+            description: "días en cautiverio",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("August 07, 1970"),
+        title: "“SECUESTRARON HOY A OTRO AMERICANO”",
+        description: "... Aparecen fotos de ...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/claude-fly/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/claude-fly/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("August 08, 1970"),
+        title: "“GRAN CONMOCIÓN: FUE SECUESTRADO OTRO NORTEAMERICANO”",
+        description:
+          "... elementos conspiradores habían vuelto a secuestrar a un ciudadano norteamericano. Se trataba, esta vez, de  un calificado técnico agrario, ajeno por completo a cualquier tipo de vinculaciones o connotaciones políticas, contratado por el Ministerio de Ganadería y Agricultura y que apenas llevaba tres meses de radicación en el Uruguay. Su nombre es Claude L. Fly, tiene 65 años de edad y actúa como especialista en investigaciones de suelos... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/claude-fly/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/claude-fly/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 8)',
+        date: new Date("August 08, 1970"),
+        title:
+          "“EN AUDAZ OPERACIÓN TUVIERON INMOVILIZADO A UN TÉCNICO AGRÓNOMO”",
+        description:
+          "... El Ing. Agr. Luis De León, uno de los más destacados técnicos del Departamento de Investigación de suelos del Ministerio de Ganadería relataba así a nuestros cronistas las alternativas del secuestro...",
+        title1: "“EL SECUESTRADO DR. FLY ERA UN TÉCNICO AGRARIO”",
+        description1:
+          "... llegó al Uruguay el 15 de enero del corriente año... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/claude-fly/n_4.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/claude-fly/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (en Portada)',
+        date: new Date("August 08, 1970"),
+        title: "“OTRO FUNCIONARIO NORTEAMERICANO DE LA AID FUE SECUESTRADO”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/claude-fly/n_5.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/claude-fly/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 4)',
+        date: new Date("August 08, 1970"),
+        title: "“OTRO FUNCIONARIO YANKI DE LA AID FUE SECUESTRADO”",
+        description:
+          "... la organización llevó a cabo exitosamente otro operativo: el secuestro del norteamericano Claude L. Fly. Este funcionario, también de AID, se encontraba trabajando como asesor del Ministerio de Ganadería y Agricultura... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/claude-fly/n_7.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/claude-fly/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("March 03, 1971"),
+        title:
+          "“VÍCTIMA DE UN INFARTO ABANDONARON HOY A FLY ANTE EL HOSPITAL BRITÁNICO”",
+        description:
+          "... El anciano está bajo carpa de oxígeno y seguirá en observación por varios días... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/claude-fly/n_8.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/claude-fly/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("March 03, 1971"),
+        title: "“LIBERADO A LAS 23:15”",
+        description:
+          "Claude Fly, sabio norteamericano secuestrado por los “tupamaros” el 7 de agosto del año pasado, fue liberado anoche en sorpresivas y dramáticas circunstancias... Aparece foto.",
+        title1: "“TAMBIÉN ESTE FINAL ES IGNOMINIOSO”",
+        description1:
+          "... Días Gomide pagó su actual libertad con dinero. Fly lo pagó con salud...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/claude-fly/n_9.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/claude-fly/n_9.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 5)',
+        date: new Date("March 03, 1971"),
+        title: "“208 DÍAS INSUMIÓ EL BÁRBARO SECUESTRO”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/claude-fly/n_10.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/claude-fly/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("March 03, 1971"),
+        title: "“SUFRIÓ EL INFARTO 10 DÍAS ANTES QUE LO LIBERARAN”",
+        description:
+          "A tiempo que el Dr. Claude Fly permanece bajo rigurosa atención médica... un inesperado comunicado de la organización sediciosa señala... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/claude-fly/n_12.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/claude-fly/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 22)',
+        date: new Date("March 03, 1971"),
+        title: "“FUE UNA LOCURA TENERLO EN ESE ESTADO”, AFIRMÓ DIGHIERO”",
+        description:
+          "... El diálogo fue mantenido en inglés, anoche..., por el agrónomo... Claude Fly, y el Dr. Jorge Dighiero... Ambos estaban con los ojos vendados,... estaban secuestrados por los tupamaros... Aparecen fotos y croquis...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/claude-fly/n_13.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/claude-fly/n_14.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 2)',
+        date: new Date("March 03, 1971"),
+        title:
+          "“SORPRESIVA LIBERACIÓN DE C. FLY TRAS HABER SUFRIDO UN INFARTO”",
+        description:
+          "Sorpresivamente los Tupamaros liberaron anoche a las 22 y 55 horas al norteamericano Claude Fly, de 65 años-después de 208 días-... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/claude-fly/n_15.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/claude-fly/n_16.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p class="font-bold">“9.15 horas Sayago</p>
+          <p>En la periferia de la ciudad, en el barrio obrero de Sayago, un comando formado por cuatro tupamaros de la columna Uno ingresó a la Dirección de Suelos y Fertilizantes del Ministerio de Ganadería y Agricultura en Garzón y Carlos María de Pena. Se identificaron como policías y secuestraron a Claude L. Fly, ciudadano estadounidense especialista en agricultura... contratado por el gobierno uruguayo con fondos de la AID.</p>
+          <p>En el momento del secuestro Fly estaba conversando con el ingeniero agrónomo Luis de León... Uno de los secuestradores, Jorge Torres describe la dinámica del episodio: “En una camioneta entramos a la explanada... Éramos cuatro hombres, el que conducía era Andrés Cultelli. Bajamos tres: dos se adelantaron y entraron a la oficina mientras yo me acercaba. En eso Cultelli hace marcha atrás con la camioneta y embiste unos tubos de oxígeno... Mientras tanto los compañeros le explicaban a Fly que eran policías y que por su seguridad debía acompañarlos. Fly respondió que no entendía bien el español y que debía llamar a su secretaria... Entonces entré y saqué el arma: “Señores, basta de conversaciones, somos tupamaros, esto es un secuestro y usted debe acompañarnos”.</p>
+          <p>Torres, Cultelli y los otros dos integrantes del comando subieron con Fly a una camioneta Chevrolet Apache de 1962 robada y con chapas falsas...</p>
+          <p>Fuera de la explanada, en otro automóvil, aguardaban “Beatriz” y Jorge Blanco, que como se recordará también habían participado, junto a Cultelli y Torres, en el secuestro de Mitrione. Los dos vehículos partieron hacia el lugar de trasbordo, donde los esperaban Candán y una mujer de la columna Uno.</p>
+          <p>Beatriz llevó transitoriamente al secuestrado a una vivienda donde se estaban realizando reformas. “Resultó ser un sótano sin puerta, sin cama, si nada. Lo dejamos ahí al pobre viejo vendado, sentado y atado a una silla con un compañero que esperaba el relevo. Después de algunas horas y viendo que no llegaba nadie y que los dos estaban muertos de hambre, el compañero le dijo: “quédese aquí que ya vuelvo”. Fue al almacén de la esquina y compró fiambre, pan y Coca Cola. Lo desató y merendaron unos refuerzos.</p>
+          <p>Durante su cautiverio –que se prolongó hasta el 2 de marzo de 1971– Fly fue llevado a otras dos casas del MLN, entre ellas la de Espinosa... Cuando le dijimos que lo íbamos a liberar, pidió una torta con cerezas y vino. De la emoción, al otro día de madrugada, le vino un infarto.”</p>
+          `,
+          year: new Date("2007-1-1"),
+          name: "El caso Mitrione,",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Trilce",
+          pages: "págs. 188-190",
+          author: "Aldrighi",
+        },
+        {
+          fragment: `<p>“En la mañana del viernes 7, los guerrilleros secuestraron a Claude Fly, un estadounidense asesor del Ministerio de Ganadería”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 470",
+          author: "Pernas",
+        },
+        {
+          fragment: `<p>“7 de agosto. Día decisivo. Por la mañana -...- el MLN toma un nuevo prisionero: Claude Fly, técnico agrícola norteamericano”.</p>`,
+          // year: new Date("1990-1-1"),
+          name: "La tregua armada",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "págs. 35-36",
+          author: "Fernández Huidobro",
+        },
+        {
+          fragment: `<p>“... El 21, el MLN libera a Días Gomide; el 1o. de marzo, a Fly, quien había tenido un problema cardíaco. Fly fue dejado por un comando del MLN dentro del Hospital Británico, acompañado por un médico detenido a esos efectos y con una historia clínica...”.</p>`,
+          // year: new Date("1990-1-1"),
+          name: "La tregua armada",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "págs. 81-82",
+          author: "Fernández Huidobro",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("January 08, 1971"),
+    title: "Geoffrey Jackson",
+    slug: "geoffrey-jackson",
+    type: "secuestros",
+    fact: "SECUESTRAN Y LIBERAN AL EMBAJADOR BRITÁNICO GEOFFREY JACKSON",
+    victims: [
+      {
+        info: {
+          name: "Embajador Británico Geoffrey Jackson",
+          age: 55,
+          marital: "casado",
+          childs: 1,
+          // childsDescription: "5 menores de edad",
+          nationality: "Británico",
+          avatar: {
+            src: "/geoffrey-jackson/a.png",
+            alt: "imagen de Geoffrey Jackson",
+          },
+          kidnapping: {
+            init: new Date("January 08, 1971"),
+            end: new Date("September 09, 1971"),
+            days: 244,
+            description: "días en cautiverio",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("January 08, 1971"),
+        title: "“TUPAMAROS RAPTAN EMBAJADOR INGLÉS”",
+        description:
+          "El chofer y dos custodias heridos al resistir. Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/geoffrey-jackson/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/geoffrey-jackson/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("January 08, 1971"),
+        title:
+          "“EL EMBAJADOR FUE LLEVADO EN SU AUTO Y TRASBORDADO LUEGO A OTRO VEHÍCULO”",
+        description:
+          "En el barrio Sur, los conspiradores trasbordaron al embajador de su propio automóvil-...- a otro vehículo (robado)... Aparece croquis.",
+        title1: "“EL OCTAVO SECUESTRO QUE SE REALIZA EN NUESTRO MEDIO”",
+        description1:
+          "Entre los meses de agosto de los dos últimos años, en el Uruguay fueron secuestrados ocho hombres, dos de los cuales, Jones y Rosenfeld, lograron frustrar la acción de sus captores...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/geoffrey-jackson/n_2.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/geoffrey-jackson/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 17)',
+        date: new Date("January 08, 1971"),
+        title:
+          "“TENSOS INSTANTES VIVIÓ UNA FAMILIA A LA QUE LE ROBARON EL PEUGEOT VERDE”",
+        description:
+          "Cuando estaban en pleno operativo para concretar el secuestro del embajador inglés Mr. Geoffrey Holt Seymour Jackson, fueron capturados dos tupamaros que habían quedado de custodia en una finca de Carrasco... el hurto del vehículo... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/geoffrey-jackson/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/geoffrey-jackson/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("January 08, 1971"),
+        title: "“DOS COCHES CORTARON EL PASO DEL DIPLOMÁTICO BRITÁNICO”",
+        description:
+          "Cayeron dos ladrones del auto usado en el secuestro. Emboscándolo en una concurrida esquina de la Ciudad Vieja,... comandos tupamaros armados hasta los dientes secuestraron esta mañana al embajador de la Reina... casi medio centenar de hombres participó en el operativo destinado a lograr para la organización... Aparece dibujo y foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/geoffrey-jackson/n_4.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/geoffrey-jackson/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("January 08, 1971"),
+        title: "“SECUESTRARON AL EMBAJADOR INGLÉS”",
+        description:
+          "Terroristas que apoyan al Frente Amplio. Capturaron a dos terroristas que participaron en el rapto. Aparecen fotos.",
+        title1: "“LA PRUEBA”",
+        description1:
+          "“Mantenemos nuestras diferencias de método con las organizaciones que forman el frente y con la valoración táctica del evidente objetivo del mismo:...”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/geoffrey-jackson/n_6.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/geoffrey-jackson/n_6.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("January 09, 1971"),
+        title:
+          "“CASI MEDIO CENTENAR DE TUPAMAROS SECUESTRA AL EMBAJADOR BRITÁNICO”",
+        description: "... Aparecen fotos.",
+        title1: "“ESTUPOR ANTE OTRO ACTO QUE LESIONA LA DIGNIDAD HUMANA”",
+        description1:
+          "Ante el estupor de testigos presenciales... fue secuestrado ayer de mañana en plena zona céntrica, el Embajador de Gran Bretaña, Sr. Geoffrey Jackson. La vituperable acción fue perpetrada por un grupo de individuos pertenecientes al autodenominado M.L.N. “Tupamaros” que,...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/geoffrey-jackson/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/geoffrey-jackson/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("January 09, 1971"),
+        title: "“ACTUARON CERCA DE 50 FACCIOSOS”",
+        description:
+          "... por los menos veinte personas intervinieron en el robo, manejo y ocupación de los autos; otras diez por lo menos en la custodia de los dueños de los vehículos... y otras quince cumplieron funciones de “vigilancia” y enlace. En total, aparte de los “cerebros”... cerca de 50 personas entre hombres y mujeres son los que intervinieron...",
+        title1:
+          "“LOS EXTREMISTAS APROVECHARON EL RUTINARIO RECORRIDO DEL EMBAJADOR”",
+        description1:
+          "... Cuando los dos custodias-...- se apearon de sus vehículos... fueron taimadamente golpeados por los dos terroristas, quedando semidesvanecidos... Aparecen croquis.",
+        title2: "“UN MENSAJE”",
+        description2:
+          "... en el interior de la camioneta VW que los secuestradores abandonaron... figura el símbolo del grupo sedicioso... y finalizaría con las palabras “Hasta la victoria siempre”...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/geoffrey-jackson/n_8.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/geoffrey-jackson/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 2)',
+        date: new Date("January 09, 1971"),
+        title:
+          "“EL EMBAJADOR BRITÁNICO JACKSON FUE LLEVADO EN SU PROPIO COCHE”",
+        description:
+          "... El Embajador de Gran Bretaña, Geoffrey Molt Seymour Jackson, 55 años, fue secuestrado... Los dos choferes y un custodio, que opusieron resistencia, fueron reducidos a golpes de cachiporras de madera... Aparecen fotos.",
+        title1: "“SÉPTIMO DE UNA SERIE DE SECUESTROS”",
+        description1:
+          "... es el séptimo realizado por comandos tupamaros desde que Pereira Reverbel estuvo retenido entre el 7 y el 11 de agosto de 1968...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/geoffrey-jackson/n_9.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/geoffrey-jackson/n_9.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 3)',
+        date: new Date("January 09, 1971"),
+        title: "“PARTICIPARON TREINTA COMANDOS “TUPAMAROS”",
+        description:
+          "Viene de página 2... La policía calcula que en ese lugar actuaron directamente unos diez miembros del M.L.N... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/geoffrey-jackson/n_10.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/geoffrey-jackson/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 4)',
+        date: new Date("September 10, 1971"),
+        title: "“CAUTIVO, CUMPLIÓ 56 AÑOS”",
+        description:
+          "Cuando llevaba 59 días en poder de los tupamaros, el Embajador de Gran Bretaña en el Uruguay, Sr. Geoffrey Jackson, cumplía 56 años de edad... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/geoffrey-jackson/n_13.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/geoffrey-jackson/n_13.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 6)',
+        date: new Date("September 10, 1971"),
+        title: "“CINCO PERSONAS PERMANECEN EN PODER DE LOS SEDICIOSOS”",
+        description:
+          "Concretada anoche la liberación del embajador británico Geoffrey Jackson, permanecen aún sufriendo el ominoso cautiverio, en manos de los integrantes de la criminal organización de antisociales, cinco ciudadanos... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/geoffrey-jackson/n_14.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/geoffrey-jackson/n_15.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 27)',
+        date: new Date("September 10, 1971"),
+        title: "“JACKSON FUE LIBERADO DESPUÉS DE 244 DÍAS EN EL CAUTIVERIO”",
+        description:
+          "... con el triste privilegio de ser el hombre que más ha estado en cautiverio, quedó libre anoche en el barrio Nuevo París, el embajador de Su Majestad Británica Sir Geoffrey Jackson... Doscientos cuarenta y cuatro días y once horas después de ser secuestrado por un comando de tupamaros... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/geoffrey-jackson/n_16.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/geoffrey-jackson/n_17.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El País" (Página 6)',
+        date: new Date("June 16, 1972"),
+        title: "“LA JUSTICIA MILITAR REMITIÓ A UN CANCERBERO DE SECUESTRADOS”",
+        description:
+          "... el procesamiento y remisión a la cárcel de uno de los cancerberos del ex embajador británico en nuestro país Geoffrey Jackson, del ex Fiscal de Corte Dr. Guido Berro Oribe... y Ricardo Ferrés Terra... El sujeto aludido de nombre... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/geoffrey-jackson/n_11.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/geoffrey-jackson/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p class="font-bold">“Custodios</p>
+          <p>Pocas semanas después de instalarnos en nuestro nuevo hogar de Carrasco, la Orga nos informó que habíamos sido designados como custodios de la cárcel del pueblo... El movimiento intentó crear una justicia paralela a la del Estado, la Justicia Revolucionaria, y como expresión de ese objetivo se construyeron varias cárceles del pueblo donde se encerraban a los secuestrados,...</p>
+          <p>... No recuerdo exactamente las dimensiones del sótano pero creo que debía tener unos ocho metros por cuatro. Las tres cuartas partes del espacio estaban ocupadas por las camas y utensillos de los guardias y en uno de los extremos, contra la pared, se habían construido dos jaulas de hierro y malla metálica, cada una no más de cuatro metros cuadrados, ubicadas en forma de ele y rodeadas por cortinas... entre ambas quedaba el espacio suficiente para un guardia sentado. En cada una de estas jaulas estaba encerrado un hombre. Uno se llamaba Ricardo Ferrés y el otro Sir Geoffrey Jakcson...</p>
+          <p>... No había ni excusado ni ducha, aquella gente debía hacer sus necesidades en un tobo y asearse en una batea metálica... La luz del espacio de guardia debía estar siempre encendida, incluso cuando los prisioneros dormían... Una música permanente ocultaba los sonidos exteriores.</p>
+          <p>... A esa alarma debíamos responder ipso facto apagando los extractores y las luces, acostando a los prisioneros boca abajo en sus camastros con las cabezas cubiertas por capuchas con orejeras, guardar total silencio y empuñar las armas... aproveché una de las misteriosas visitas del misterioso compañero que había dado la charla inicial a quien suponíamos del comando de Columna o de la Dirección Nacional y, sin mirar su rostro, lo consulté al respecto.</p>
+          <p>-Hay que resistirse a la entrega y enfrentar la cana con las armas –respondió-. La cárcel del pueblo no puede entregarse sin resistencia –agregó enfáticamente.</p>
+          <p>-¿Y los prisioneros? –pregunté con cierto temor.</p>
+          <p>-Los chanchos no pueden ser entregados vivos –respondió ya molesto por tanta insistencia...<p>
+          <p>... ante los prisioneros utilizábamos permanentemente una capucha que, por razones obvias de seguridad, solo (sic) dejaba los ojos al descubierto...</p>
+          <p>Aquellos hombres no veían nunca la luz el sol durante sus meses o años de encierro...</p>
+          `,
+          year: new Date("2015-1-1"),
+          name: "Un ex tupamaro en el trópico, Memorias,",
+          place: "Montevideo - Uruguay",
+          edition: "Penguin Randon House Grupo Editorial",
+          pages: "págs. 87, 90-92",
+          author: "Cabrera",
+        },
+        {
+          fragment: `<p>“... “Como siempre, me sentí aliviado cuando abandonando la Corniche (rambla) abierta, nos internamos por las estrechas y atestadas calles laterales (Ciudad Vieja)... no le presté especial atención a un gran furgón rojo -...- hasta que se separó de la orilla en el momento que lo alcanzábamos. Había poco espacio como para que mi chófer (sic) se desviara bruscamente, pero sí mucho tiempo para que el conductor del camión advirtiera su error y retrocediera... a pesar de las señales de mi chófer (sic) hundió implacablemente nuestro guardabarro delantero izquierdo... Hugo abrió la puerta y se bajó para tomar datos.</p>
+          <p>Mientras se abría la puerta de la cabina y el conductor se bajaba de un salto, un hombre joven se adelantó y golpeó a Hugo salvajemente en la cabeza. Simultáneamente se produjo un violento tableteo de armas automáticas...; uno de los principales componentes provenía de una metralleta escondida en una cesta de frutas que llevaba un espectador aparentemente inofensivo...”.</p>
+          <p>Así cuenta el embajador británico Jackson, en su libro Secuestrado por el pueblo, el momento concreto de su captura por el Comando Roberto Rohn del MLN”.</p>`,
+          // year: new Date("1990-1-1"),
+          name: "La tregua armada",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "pág. 77",
+          author: "Fernández Huidobro",
+        },
+        {
+          fragment: `<p>“El 5 de enero estaban prontos los secuestros de los embajadores inglés, francés y argentino. El golpe iba a ser decisivo, y si bien la situación había cambiado con relación a la que se dio cuando se secuestró a Días Gomide, Mitrione y Fly -las elecciones le creaba un respiro al gobierno- ... Pero el secuestro falló en el caso de los embajadores argentino y francés, y sólo se capturó a Geoffrey Jackson,...,. Pero el secuestro de Jackson se encabalga con los de Frick Davis y Pereira Reverbel, y también el del fiscal Berro Oribe, cuando se pone en marcha el plan de “Justicia Revolucionaria”.”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Autobiografía de Amodio Pérez",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Arca",
+          pages: "pág. 59",
+          author: "Pérez",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("March 10, 1971"),
+    title: "Doctor Guido Berro",
+    slug: "guido-berro",
+    type: "secuestros",
+    fact: "SECUESTRAN AL FISCAL DE CORTE DR. GUIDO BERRO ORIBE",
+    victims: [
+      {
+        info: {
+          name: "Fiscal de Corte Dr. Guido Berro",
+          age: 58,
+          marital: "casado",
+          childs: 4,
+          // childsDescription: "5 menores de edad",
+          // nationality: "Británico",
+          avatar: {
+            src: "/guido-berro/a.png",
+            alt: "imagen de Dr. Guido Berro",
+          },
+          kidnapping: {
+            init: new Date("March 10, 1971"),
+            end: new Date("March 23, 1971"),
+            days: 13,
+            description: "días en cautiverio",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("March 10, 1971"),
+        title: "“SECUESTRARON AL FISCAL DE CORTE”",
+        description:
+          "La esposa de Berro Oribe vio, con terror, el rapto. Lo soltamos esta tarde afirmaron... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/guido-berro/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/guido-berro/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El País" (en Portada)',
+        date: new Date("March 11, 1971"),
+        title: "“FUE SECUESTRADO EL FISCAL BERRO”",
+        description:
+          "Los facciosos anuncian insólito juicio. Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/guido-berro/n_3.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/guido-berro/n_3.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("March 11, 1971"),
+        title: "“EL SECUESTRO DEL “FISCAL” ES UNA AFRENTA PARA EL PAÍS”",
+        description:
+          "Comunicado 18: Berro Oribe: ... interrogado. Ayer,..., el Fiscal de Corte, Dr. Guido Berro Oribe fue secuestrado por tres hombres y una mujer, que a punta de revólver lo hicieron abandonar su residencia... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/guido-berro/n_4.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/guido-berro/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 5)',
+        date: new Date("March 11, 1971"),
+        title: "“OCTAVO SECUESTRO SÓLO EN 20 MESES”",
+        description:
+          "Con el de ayer, es el octavo secuestro que en el corto lapso de 20 meses consumaron en forma hasta ahora impune, los conspiradores... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/guido-berro/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/guido-berro/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 7)',
+        date: new Date("March 11, 1971"),
+        title: "“PROLONGARÍASE SECUESTRO DEL FISCAL DE CORTE”",
+        description:
+          "... el MLN divulgó su comunicado Nº 18, responsabilizándose de la acción... 4) La Justicia Revolucionaria dará a conocer, a través de las actuaciones del Tribunal del Pueblo... Habrá patria para todos o no habrá patria para nadie. Libertad o muerte... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/guido-berro/n_6.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/guido-berro/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 15)',
+        date: new Date("March 12, 1971"),
+        title: "“REPUDIO UNÁNIME ANTE SECUESTRO DE BERRO”",
+        description: "... ",
+        title1:
+          "“JUNTA: LOS EDILES DEL FRENTE AMPLIO NO CONDENARON EL SECUESTRO DEL FISCAL”",
+        description1:
+          "Los ediles del Frente Amplio se retiraron de sala ayer para no votar una moción de rechazo ante el secuestro... días atrás esos mismos ediles se negaron a votar un pedido de clemencia ante el anuncio de que algunos condenados serían fusilados por el régimen de Fidel Castro...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/guido-berro/n_8.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/guido-berro/n_9.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("March 24, 1971"),
+        title: "“CREE QUE ESTUVO EN UNA ZONA RURAL OCULTO BAJO TIERRA”",
+        description:
+          "El Fiscal conversó con Jackson: el Embajador vestía tan sólo un slip... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/guido-berro/n_10.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/guido-berro/n_11.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 20)',
+        date: new Date("March 24, 1971"),
+        title: "“HACÍA MUCHO CALOR EN EL LOCAL Y FALTABA EL AIRE”",
+        description:
+          "“Estuve con el embajador inglés toda una semana, en el segundo lugar de secuestro que los tupamaros llaman la cárcel del pueblo. Ocupamos celdas contiguas separados por un tejido de alambre... el señor Jackson... tenía sólo in slip que era una especie de taparrabo”... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/guido-berro/n_12.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/guido-berro/n_13.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("March 24, 1971"),
+        title:
+          "“LLORANDO, EL DOCTOR BERRO ORIBE PREGUNTÓ ANOCHE QUE DÍA VIVÍA”",
+        description:
+          "Con las ropas sucias de tierra y maniatado dentro de un taxímetro fue abandonado en el colegio “San Carlos” don Orione, en Millán. Anoche… Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/guido-berro/n_14.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/guido-berro/n_14.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“El 10 de marzo el MLN captura al Procurador General de la Nación y Fiscal de Corte, Guido Berro Oribe, quien se había manifestado partidario de la justicia militar para los tupamaros.”.</p>`,
+          // year: new Date("1990-1-1"),
+          name: "La tregua armada",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "pág. 82",
+          author: "Fernández Huidobro",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("March 30, 1971"),
+    title: "Doctor Ulysses Pereira Reverbel - segundo secuestro",
+    slug: "ulysses-pereira-segundo-secuestro",
+    type: "secuestros",
+    fact: "SECUESTRAN NUEVAMENTE AL DR. ULYSSES PEREIRA REVERBEL",
+    victims: [
+      {
+        info: {
+          name: "Doctor Ulysses Pereira Reverbel",
+          age: 54,
+          // marital: "casado",
+          // childs: 3,
+          // childsDescription: " menores de edad (1 de 11 meses)",
+          avatar: {
+            src: "/ulysses-pereira-reverbel-primer-secuestro/a.png",
+            alt: "imagen de Doctor Ulysses Pereira Reverbe",
+          },
+          kidnapping: {
+            init: new Date("March 31, 1971"),
+            end: new Date("May 27, 1972"),
+            days: 424,
+            description: " días en cautiverio",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 3)',
+        date: new Date("March 30, 1971"),
+        title:
+          "“PEREIRA REVERBEL HABÍA SIDO RAPTADO ANTERIORMENTE EL 7 DE AGOSTO DE 1968”",
+        description:
+          "A las 9 y 5 horas del 7 de agosto de 1968, un comando tupamaro secuestró al Dr. Ulysses Pereira Reverbel... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-segundo-secuestro/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-segundo-secuestro/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 20)',
+        date: new Date("March 30, 1971"),
+        title: "“EN MENOS DE TRES AÑOS FUE SECUESTRADO DOS VECES”",
+        description:
+          "... Pereira Reverbel, que fue secuestrado por primera vez, el miércoles 7 de agosto de 1968...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-segundo-secuestro/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-segundo-secuestro/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("March 31, 1971"),
+        title:
+          "“BRUTALIDAD Y ENSAÑAMIENTO SIN PAR. REPITEN VERGONZOSO SECUESTRO TRAS CRUEL AGRESIÓN A PEREIRA REVERBEL”",
+        description: "Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-segundo-secuestro/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-segundo-secuestro/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 3)',
+        date: new Date("March 31, 1971"),
+        title: "“30 SEDICIOSOS Y 6 VEHÍCULOS”",
+        description: "... Aparecen fotos.",
+        title1: "“REPUDIO”",
+        description1:
+          "Ante el cobarde atentado de que fuera objeto el Presidente del Directorio de UTE, Dr. Ulysses Pereira Reverbel… la Asociación de Funcionarios de UTE (AFUTE) hace público su más profundo repudio… Montevideo, marzo 30/971-Comité Ejecutivo Nacional de AFUTE.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-segundo-secuestro/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-segundo-secuestro/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 4)',
+        date: new Date("March 31, 1971"),
+        title: "“DURANTE EL SECUESTRO DE 1968 DOS HOMBRES RESULTARON HERIDOS”",
+        description: "...",
+        title1: "RELATO DE PEREIRA REVERBEL SOBRE SU PRIMER CAUTIVERIO”",
+        description1: "Refinada crueldad... Aparecen fotos",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-segundo-secuestro/n_8.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-segundo-secuestro/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 20)',
+        date: new Date("March 31, 1971"),
+        title: "“PEREIRA REVERBEL RESISTIÓ A LOS TUPAMAROS HASTA QUE CAYÓ”",
+        description:
+          "... Lo que más llamó la atención fue la existencia de un impresionante charco de sangre en el lugar de la agresión... Aparece foto y dibujo.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-segundo-secuestro/n_9.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-segundo-secuestro/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (en Portada)',
+        date: new Date("March 31, 1971"),
+        title: "“SIN RASTROS DE PEREIRA REVERBEL”",
+        description:
+          "Fue herido en la cabeza al resistirse y quedó sangre en tres coches... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-segundo-secuestro/n_11.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-segundo-secuestro/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 7)',
+        date: new Date("March 31, 1971"),
+        title: "“PEREIRA REVERBEL YA HABÍA SIDO SECUESTRADO EN AGOSTO DE 1968”",
+        description: "... Aparece foto.",
+        title1: "“TUPAMAROS MANTIENEN DOS SECUESTRADOS”",
+        description1:
+          "Desde ayer, son dos los secuestrados por los tupamaros, uno de ellos desde hace 82 días. Al Embajador de Gran Bretaña Geoffrey Jackson... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-segundo-secuestro/n_13.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-segundo-secuestro/n_14.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("April 02, 1971"),
+        title:
+          "“TRAS EL CRUEL GOLPE HABRÍAN DROGADO AL DR. PEREIRA REVERBEL; VARIAS DUDAS”",
+        description:
+          "... La versión dada por el odontólogo, Dr. Bontempi ratifica la información... uno de los intrusos lo golpeó en la cabeza con un hierro... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-segundo-secuestro/n_15.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-segundo-secuestro/n_16.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 7)',
+        date: new Date("April 02, 1971"),
+        title: "“PEREIRA REVERBEL SUFRIÓ LESIONES LEVES”",
+        description:
+          "“SUFRIÓ heridas leves al intentar ofrecer resistencia. Fue atendido en el Hospital del Pueblo Nº 2,... términos del “Comunicado Nº 21” que anoche... hizo llegar el MLN a El Popular...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-segundo-secuestro/n_17.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-segundo-secuestro/n_18.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("June 21, 1971"),
+        title: "“SOLIDARIDAD CON PEREIRA REVERBEL”",
+        description:
+          "Artigas. En un fervoroso acto realizado ayer en la plaza principal de esta capital,... la ocasión fue propicia para que, pueblo y autoridades nacionales ratificaran su adhesión y solidaridad con el Dr. Ulysses Pereira Reverbel... Aparece foto",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ulysses-pereira-segundo-secuestro/n_19.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ulysses-pereira-segundo-secuestro/n_20.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“–Fui a dar a la que sería más tarde la Cárcel del Pueblo... Al otro día nomás me puse a trabajar con dos compañeros para dejar pronto ese lugar, donde pocos días más tarde, sería encerrado Pereyra Reverbel. Entre otros y yo la construimos, bien construida, con tejido, con varilla y todo eso. Allí estuvo Pereyra Reverbel dos veces. Entre uno y otro secuestro estuvo Días Gomide.”.</p>`,
+          year: new Date("2004-1-1"),
+          name: "El Cholo González. Un cañero de Bella Unión",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Trilce",
+          pages: "pág. 87",
+          author: "Gilio",
+        },
+        {
+          fragment: `<p>“... El 30 de marzo... Pocas horas después, otro comando del MLN captura y encarcela por segunda vez, a Ulises Pereira Reverbel...”.</p>`,
+          // year: new Date("1990-1-1"),
+          name: "La tregua armada",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "pág. 82",
+          author: "Fernández Huidobro",
+        },
+      ],
+    },
+    apologyForCrimeInImages: [
+      {
+        title: "Presidente de UTE secuestrado por sediciosos.",
+        description:
+          "El Dr. Ulysses Pereira Reverbel fue llevado por la fuerza del consultorio odontológico donde se atendía.",
+        images: [
+          {
+            src: "/ulysses-pereira-segundo-secuestro/i_1.jpg",
+            alt: "Sediciosos copan consultorio odontológico.",
+          },
+          {
+            src: "/ulysses-pereira-segundo-secuestro/i_2.jpg",
+            alt: "El Dr. Pereira Reverbel es reducido violentamente por los sediciosos.",
+          },
+          {
+            src: "/ulysses-pereira-segundo-secuestro/i_3.jpg",
+            alt: "El Dr. Pereira Reverbel es golpeado en la cabeza y sedado",
+          },
+          {
+            src: "/ulysses-pereira-segundo-secuestro/i_4.jpg",
+            alt: "El Dr. Pereira Reverbel es conducido a un cautiverio envuelto en una frazada.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/ulysses-pereira-segundo-secuestro/placa_virtual.jpg",
+        alt: "Aquí, en plena democracia, el 30/03/71 fue secuestrado violentamente por un comando del MLN-T, el Dr. Ulysses Pereira Reverbel, Presidente de la Usina y Teléfonos del Estado (UTE) de 54 años de edad.",
+      },
+    ],
+  },
+  {
+    date: new Date("April 13, 1971"),
+    title: "Ricardo Ferrés",
+    slug: "ricardo-ferres",
+    type: "secuestros",
+    fact: "SECUESTRAN Y LIBERAN A RICARDO FERRÉS",
+    victims: [
+      {
+        info: {
+          name: "Ricardo Ferrés",
+          age: 52,
+          marital: "casado",
+          childs: 9,
+          // childsDescription: " menores de edad (1 de 11 meses)",
+          avatar: {
+            src: "/ricardo-ferres/a.png",
+            alt: "imagen de Ricardo Ferrés",
+          },
+          kidnapping: {
+            init: new Date("April 13, 1971"),
+            end: new Date("January 27, 1972"),
+            days: 289,
+            description: " días en cautiverio",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("April 13, 1971"),
+        title: "“SECUESTRARON A RICARDO FERRÉS”",
+        description:
+          "El conocido industrial viajaba solo en su auto que apareció en Burdeos y Camino Ferrés. Aparece foto.",
+        title1: "“ENCUENTRAN 2 BALAS JUNTO AL AUTOMÓVIL”",
+        description1: "... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ricardo-ferres/n_1.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/ricardo-ferres/n_2.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 7)',
+        date: new Date("April 13, 1971"),
+        title: "“FERRÉS IBA SOLO Y DESARMADO; ENCUENTRAN BALAS EN EL AUTO”",
+        description:
+          "Esta mañana cuando se dirigía a una reunión del Directorio de “Molinos Arroceros del Uruguay”,..., fue secuestrado por un conocido comando extremista... Aparecen fotos.",
+        title1: "“EL DÉCIMO SECUESTRO”",
+        description1:
+          "Con el secuestro del Sr. Ricardo Ferrés Terra, llega a diez el número de secuestros concretados por los conspiradores... La triste historia comenzó con uno de los hombres que precisamente está ahora en poder de los terroristas, luego de ser capturado por segunda vez. El 7 de agosto de 1968 un comando sedicioso secuestró...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ricardo-ferres/n_3.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/ricardo-ferres/n_3.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("January 28, 1972"),
+        title: "“LIBERAN A FERRÉS”",
+        description:
+          "Después de 289 días de horroroso cautiverio. Perdió más de 15 kilos de peso;... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ricardo-ferres/n_4.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/ricardo-ferres/n_5.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 17)',
+        date: new Date("January 28, 1972"),
+        title:
+          "“LO HABÍAN SECUESTRADO EL 13 DE ABRIL DE 1971, HACE 289 DÍAS, SIN TESTIGOS”",
+        description:
+          "Hace hoy 289 días la población se conmovía a temprana hora con el secuestro del industrial Ricardo Ferrés Terra... Durante su prolongado cautiverio... perdió un hijo en un accidente de tránsito y en esa aciaga ocasión fracasaron los desesperados intentos de sus familiares para que lo dejaran en libertad... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ricardo-ferres/n_6.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ricardo-ferres/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("May 15, 1971"),
+    title: "Doctor Carlos Frick Davie",
+    slug: "carlos-frick",
+    type: "secuestros",
+    fact: "SECUESTRAN A CARLOS FRICK DAVIE",
+    victims: [
+      {
+        info: {
+          name: "Doctor Carlos Frick Davie",
+          age: 63,
+          marital: "casado",
+          childs: 1,
+          // childsDescription: " menores de edad (1 de 11 meses)",
+          avatar: {
+            src: "/carlos-frick/a.png",
+            alt: "imagen de Doctor Carlos Frick Davie",
+          },
+          kidnapping: {
+            init: new Date("May 15, 1971"),
+            end: new Date("May 27, 1972"),
+            days: 378,
+            description: " días en cautiverio",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("May 15, 1971"),
+        title: "“FRICK FUE DESVANECIDO A GOLPES”",
+        description:
+          "... Carlos Frick Davie..., de 63 años,... le fue interceptado el paso por dos hombres y una mujer..., le golpearon para reducirlo... Un testigo-...- ... Vio frente a su casa-calle por medio- a un hombre que sangraba profusamente de la cabeza... era Frick Davie, un antiguo vecino suyo... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/carlos-frick/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/carlos-frick/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Acción" (Página 8)',
+        date: new Date("May 15, 1971"),
+        title:
+          "“FRICK, 63 AÑOS, FUE BRUTALMENTE GOLPEADO; SANGRE EN SU VEHÍCULO”",
+        description:
+          "Brutalmente golpeado en la cabeza por varios de sus captores, desvanecido a culatazos y posiblemente herido de un balazo, el Dr. Carlos Frick Davie se transformó ayer en la décimo primera personalidad secuestrada por los sediciosos y cuarta que mantienen en su poder... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/carlos-frick/n_2.jpg",
+            alt: "noticia publicada por el diario El Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/carlos-frick/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 2)',
+        date: new Date("May 15, 1971"),
+        title: "“FRICK DAVIE FUE SECUESTRADO”",
+        description: "... Frick Davies...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/carlos-frick/n_4.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/carlos-frick/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“... El 14 de mayo el MLN captura y encarcela al ex-ministro de Ganadería y Agricultura, Carlos Frick Davies...”.</p>`,
+          // year: new Date("1990-1-1"),
+          name: "La tregua armada",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "pág. 82",
+          author: "Fernández Huidobro",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("June 23, 1971"),
+    title: "Doctor Alfredo Cambón",
+    slug: "alfredo-cambon",
+    type: "secuestros",
+    fact: "SECUESTRAN AL DR. ALFREDO CAMBÓN",
+    victims: [
+      {
+        info: {
+          name: "Doctor Alfredo Cambón",
+          age: 47,
+          marital: "casado",
+          childs: 1,
+          // childsDescription: " menores de edad (1 de 11 meses)",
+          avatar: {
+            src: "/alfredo-cambon/a.png",
+            alt: "imagen de Alfredo Cambón",
+          },
+          kidnapping: {
+            init: new Date("June 23, 1971"),
+            end: new Date("June 25, 1971"),
+            days: 2,
+            description: " días en cautiverio",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("June 23, 1971"),
+        title: "“SECUESTRAN A CONOCIDO ABOGADO”",
+        description:
+          "El Dr. Alfredo Cambón en manos facciosas... cuatro personas, tres del sexo masculino y una femenina concurren a la finca de la calle Guayaquí 3337, domicilio de Alfredo Cambón Porto,... proceden a llevarse consigo al principal habitante de la finca...Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/alfredo-cambon/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/alfredo-cambon/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("June 25, 1971"),
+        title:
+          "“ALFREDO CAMBÓN FUE INTERROGADO POR SUJETOS DE LARGAS CAPUCHAS”",
+        description:
+          "... miembros de la autodenominada “Organización Popular Revolucionaria 33”, liberaron al abogado Alfredo Cambón... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/alfredo-cambon/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/alfredo-cambon/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 8)',
+        date: new Date("June 25, 1971"),
+        title: "“FUE LIBERADO ESTA MAÑANA EL ABOGADO ALFREDO CAMBÓN”",
+        description:
+          "4 encapuchados lo vigilaban en un sótano inhóspito. Esta mañana... fue liberado por sus captores el Dr. Alfredo Cambón Porto... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/alfredo-cambon/n_5.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/alfredo-cambon/n_6.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Era el 23 de junio de 1971, la Organización decide secuestrar al Dr. Alfredo Cambón Porto...</p>
+          <p>En Fomento se plantea la posibilidad de levantar a Cambón. Llega la resolución a Aguilar...</p>
+          <p>El trasbordo de Cambón hay que hacerlo en la calle...</p>
+          <p>... llamaría la atención de cualquiera que transitara por el lugar el pasaje de un hombre atado y amordazado de un coche a otro...</p>
+          <p>Aguilar mandó confeccionar un cajón como de mudanza, con buenas piolas en los extremos...</p>
+          <p>El equipo estaba integrado por Juan, Vargas y Seferino. Martín estaría en la camioneta para el trasbordo. Rogelio y Arturo esperarían en la casa para <p>arreglar el inmediato traslado al lugar donde estaba el “pozo”.</p?
+          <p>Cuando los compañeros entraron a la casa, Cambón estaba en cama... La mucama entró con el desayuno y un poco más atrás... aparecieron los caños de una <p>escopeta recortada y una pistola 9 mm...</p>
+          <p>Se le ubica en el “pozo”... ”.</p>`,
+          // year: new Date("1990-1-1"),
+          name: "Acción directa anarquista. Una historia de FAU",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Recortes",
+          pages: "págs. 381-383",
+          author: "Mechoso",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("July 12, 1971"),
+    title: "Jorge Berenbau",
+    slug: "jorge-berenbau",
+    type: "secuestros",
+    fact: "SECUESTRAN Y LIBERAN A JORGE BERENBAU",
+    victims: [
+      {
+        info: {
+          name: "Jorge Berenbau",
+          age: 23,
+          marital: "soltero",
+          nationality: "Argentino",
+          // childs: 1,
+          // childsDescription: " menores de edad (1 de 11 meses)",
+          avatar: {
+            src: "/jorge-berenbau/a.png",
+            alt: "imagen de Jorge Berenbau",
+          },
+          kidnapping: {
+            init: new Date("July 12, 1971"),
+            end: new Date("November 26, 1971"),
+            days: 137,
+            description: " días en cautiverio",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("July 13, 1971"),
+        title: "“SECUESTRARON A JORGE BEREMBAU”",
+        description:
+          "“... el señor Jorge Berembau Méndez... fue interceptado el paso por dos vehículos que habían sido rapiñados horas antes... lo obligaron a ascender a uno de estos vehículos... otros efectivos policiales localizaban en la Rambla Costanera a la altura de la calle Reyes a una pareja... comprobando que uno de ellos era un ciudadano al que le habían rapiñado el vehículo... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/jorge-berenbau/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/jorge-berenbau/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 8)',
+        date: new Date("July 13, 1971"),
+        title: "“HACE CINCO MESES INTENTARON DESTRUIR LA CASA DE BEREMBAU”",
+        description:
+          "La familia Berembau ya había sido víctima de un atentado por parte de elementos conspiradores... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/jorge-berenbau/n_3.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/jorge-berenbau/n_4.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("November 27, 1971"),
+        title: "“BERENBAU LIBRE, SEGÚN AFIRMAN TRES TESTIGOS”",
+        description:
+          "Jorge Berenbau, el industrial llevado a humillante encierro el 12 de julio del corriente año, fue liberado... tenía los ojos cubiertos con vendas aseguradas a la nuca en tanto una cinta adhesiva sellaba sus labios... se trataba de Jorge Berenbau. Con gruesa barba, sucio y cansado... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/jorge-berenbau/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/jorge-berenbau/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 3)',
+        date: new Date("November 27, 1971"),
+        title: "“HABÍA SIDO SECUESTRADO CON DESPLIEGUE VIOLENTO”",
+        description:
+          "Al mediodía del lunes 12 de julio de este año fue secuestrado Jorge Berenbau, argentino de 24 años... tres meses después de haber llegado desde Francia... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/jorge-berenbau/n_6.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/jorge-berenbau/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("April 28, 1972"),
+        title: "“CAYÓ UN SEDICIOSO IMPLICADO EN EL SECUESTRO DE BEREMBAU”",
+        description:
+          "Un sedicioso evadido del penal de Punta Carretas, que estuvo directamente involucrado en el secuestro del industrial Berembau... intervino en el secuestro de Jorge Berembau Méndez, siendo el encargado del robo de uno de los vehículos utilizados...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/jorge-berenbau/n_7.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/jorge-berenbau/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("August 18, 1971"),
+    title: "Luis Fernández Lladó",
+    slug: "luis-fernandez",
+    type: "secuestros",
+    fact: "SECUESTRAN AL DR. LUIS FERNÁNDEZ LLADÓ",
+    victims: [
+      {
+        info: {
+          name: "Luis Fernández Lladó",
+          age: 54,
+          marital: "casado",
+          // nationality: "Argentino",
+          childs: 6,
+          childsDescription: " (4 menores de edad)",
+          avatar: {
+            src: "/luis-fernandez/a.png",
+            alt: "imagen de Luis Fernández Lladó",
+          },
+          kidnapping: {
+            init: new Date("August 18, 1971"),
+            end: new Date("October 08, 1971"),
+            days: 51,
+            description: " días en cautiverio",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("August 19, 1971"),
+        title:
+          "“... LUIS FERNÁNDEZ LLADÓ SE HALLA EN PODER DE UN GRUPO DELICTIVO”",
+        description:
+          "El Vicepresidente del Frigorífico Modelo, Sr. Luis Fernández Lladó, fue secuestrado por cinco desconocidos... de 54 años, padre de seis hijos... se retiraba en su auto..., que apenas arrancó fue interceptado por un coche “remise”... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/luis-fernandez/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/luis-fernandez/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("August 19, 1971"),
+        title: "“RAPTARON AL VICEPRESIDENTE DEL FRIGORÍFICO MODELO AYER”",
+        description:
+          "Otra canallesca acción... N. de R... El secuestro se produjo a las 15 horas... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/luis-fernandez/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/luis-fernandez/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("August 19, 1971"),
+        title: "“EN FULMINANTE ACCIÓN SECUESTRAN A JERARCA”",
+        description:
+          "Luis Fernández Lladó (... casado de 54 años, padre de seis hijos, Vicepresidente del Frigorífico Modelo...) pasó a ser ayer de tarde la sexta persona en poder de los conspiradores... la denominada “Organización Popular Revolucionaria 33” se atribuyó el golpe... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/luis-fernandez/n_4.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/luis-fernandez/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("October 09, 1971"),
+        title: "“LIBERARON A FERNÁNDEZ LLADÓ; CRISIS CARDÍACA”",
+        description:
+          "Después de 51 días del más cruel e inhumano cautiverio al que lo sometiera un tenebroso grupo de sediciosos, fue liberado anoche, hallándose al borde de una crisis cardíaca... el Señor Luis Fernández Lladó... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/luis-fernandez/n_6.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/luis-fernandez/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("October 09, 1971"),
+        title:
+          "“EL INDUSTRIAL FUE LIBERADO EN LA ESQUINA DE LA IGLESIA DEL CERRITO, A LA HORA 20,05”",
+        description:
+          "... fue liberado ayer a las 20.15 aproximadamente... Demacrado... y sufriendo un principio de ataque cardíaco, fue liberado en la esquina de Bruno Méndez y Basilio Araújo en el Cerrito de la Victoria... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/luis-fernandez/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/luis-fernandez/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 8)',
+        date: new Date("October 09, 1971"),
+        title: "“VÍCTIMA DE UNA CRISIS CARDÍACA LIBERARON A FERNÁNDEZ LLADÓ”",
+        description:
+          "Con la salud seriamente quebrantada y profundamente abatido tras enterarse del deceso de su madre-que le fue comunicado esta madrugada-... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/luis-fernandez/n_8.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/luis-fernandez/n_9.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 8)',
+        date: new Date("October 14, 1971"),
+        title: "“CAUTIVO EN UN HÚMEDO SÓTANO”",
+        description:
+          "Fernández Lladó: detallado relato de un penoso cautiverio... Ratificó que no le explicaron los motivos por los que fue privado de su libertad,... que tuvo ante sí sólo encapuchados, y que la inhóspita “habitación” que le sirvió de prisión por 51 días estaría bajo tierra por la humedad reinante y sus escasas dimensiones... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/luis-fernandez/n_10.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/luis-fernandez/n_11.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“El 18 de agosto de 1971 se realiza el levante de Fernández Lladó...</p>
+        <p>Se había resuelto mantenerlo en la pollería. Era éste un lugar apartado con buena cobertura. Se trataba de un galpón con casa donde se había montado un criadero de pollos...</p>
+        <p>La prioridad económica de este objetivo era para asegurar buenas finanzas por un tiempo...</p>
+        <p>... Esta vez se pedirían 200 mil dólares...</p>
+        <p>La etapa inicial, la del levante en sí, correría a cargo de 4 compañeros. Se hizo prolijamente y sin dificultades...</p>
+        <p>Tenía problemas cardíacos y precisaba medicamentos permanentes... Incluso un técnico lo examinó más de una vez.</p>
+        <p>Martín estaba parte del tiempo en la pollería... Gallo, Lola entre otros estaban también casi todo el tiempo cubriendo el cuidado de Fernández Lladó en la pollería.</p>
+        <p>La boca de la pieza-pozo se mantenía semi-abierta para que hubiese más aire. Se estaba alerta, ante cualquier movimiento raro en la zona, se cerraba.</p>
+        <p>En una de esas cerradas a Luis Fernández le faltó un poco el aire... llamaron inmediatamente a Marcelo, que vino y le dio una inyección, un tranquilizante.</p>
+        <p>En el medio de la retención de Fernández Lladó se dieron dos hechos. Uno de ellos fue la muerte de la madre del retenido...</p>
+        <p>El hombre tenía problemas cardíacos... Se resolvió finalmente no comunicarle esta ingrata noticia...</p>
+        <p>Se montó el cobro, tres compañeros participaron directamente... Campos es el responsable del operativo. El (sic) recepciona el dinero...</p>
+        <p>... Ahora hay que largar al hombre.</p>
+        <p>Se tomaron las precauciones correspondientes para realizar el traslado y largada del retenido... Ahí quedó Fernández Lladó quien en conferencia de prensa y en los interrogatorios con la policía se mantuvo discreto. Ya lo había dicho en oportunidad de que se le advirtiera que pusiera cuidado en lo que decía... ”.</p>`,
+          // year: new Date("1990-1-1"),
+          name: "Acción directa anarquista. Una historia de FAU",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Recortes",
+          pages: "págs. 383-389",
+          author: "Mechoso",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("October 22, 1971"),
+    title: "José Pereyra",
+    slug: "jose-pereyra",
+    type: "secuestros",
+    fact: "SECUESTRAN A JOSÉ PEREYRA, REDACTOR DE EL DÍA",
+    victims: [
+      {
+        info: {
+          name: "José Pereyra",
+          age: 66,
+          marital: "casado",
+          // nationality: "Argentino",
+          childs: 2,
+          // childsDescription: " (4 menores de edad)",
+          avatar: {
+            src: "/jose-pereyra/a.png",
+            alt: "imagen de José Pereyra",
+          },
+          kidnapping: {
+            init: new Date("October 22, 1971"),
+            end: new Date("October 28, 1971"),
+            days: 6,
+            description: " días en cautiverio",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("October 23, 1971"),
+        title: "“SECUESTRAN A NUESTRO REDACTOR RESPONSABLE”",
+        description:
+          "El Sr. José Pereyra González víctima del vandalismo... Co-Director, Redactor Responsable y Secretario de Redacción de El Día, fue secuestrado... por integrantes de uno de los grupos sediciosos... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/jose-pereyra/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/jose-pereyra/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("October 23, 1971"),
+        title: "“TRES HOMBRES Y UNA MUJER CONSUMARON LA ACCIÓN VANDÁLICA”",
+        description:
+          "Sobre la hora 13 de ayer fue secuestrado en la puerta de su residencia en... Rambla Mahatma Ghandi 517... Previamente habían amenazado a otra persona, que salía del mismo edificio, pero, ante una orden de su jefe, (“...”) cambiaron de objetivo... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/jose-pereyra/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/jose-pereyra/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 8)',
+        date: new Date("October 23, 1971"),
+        title:
+          "“EL SECUESTRO DEL PERIODISTA FUE COPIA FIEL DEL DE PEREIRA REVERBEL”",
+        description:
+          "Criminal acción de la auto-denominada “Organización Popular Revolucionaria 33”. La misma organización anarquista que secuestró al doctor Alfredo Cambón y al industrial Luis Fernández Lladó, se atribuye la autoría del secuestro del periodista José Pereyra González... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/jose-pereyra/n_4.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/jose-pereyra/n_5.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("October 29, 1971"),
+        title: "“LIBERARON A PEREYRA GONZÁLEZ LUEGO DE 6 DÍAS DE SECUESTRO”",
+        description: "... Aparecen fotos y plano.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/jose-pereyra/n_6.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/jose-pereyra/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Pereyra González, redactor responsable del diario “El Día” fue levantado por nuestra Organización el 23 de octubre de 1971.</p>
+          <p>Este diario había estado atacando alevosamente a la OPR por el levante y retención de Fernández Lladó...</p>
+          <p>-Hay que hacer un escarmiento... se comentó...</p>
+          <p>Aguilar comenzó la preparación de este operativo apenas se dejó en libertad a Fernández Lladó...</p>
+          <p>El operativo se concretó el día 23 de octubre, 15 días después de la largada de Fernández Lladó.</p>
+          <p>... La acción de levante no resultó complicada...</p>
+          <p>Llegó la camioneta con Pereyra González a la casa que usaba regularmente Aguilar, la casa donde vivía uno de sus integrantes: Campos. Se le condujo a la pieza-pozo... ”.</p>`,
+          // year: new Date("1990-1-1"),
+          name: "Acción directa anarquista. Una historia de FAU",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Recortes",
+          pages: "págs. 383-389",
+          author: "Mechoso",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("November 29, 1971"),
+    title: "Michelle Ray",
+    slug: "michelle-ray",
+    type: "secuestros",
+    fact: "SECUESTRAN A LA PERIODISTA FRANCESA MICHELLE RAY",
+    victims: [
+      {
+        info: {
+          name: "Michelle Ray",
+          age: 34,
+          marital: "casada",
+          nationality: "Francesa",
+          // childs: 6,
+          // childsDescription: " (4 menores de edad)",
+          avatar: {
+            src: "/michelle-ray/a.png",
+            alt: "imagen de Michelle Ray",
+          },
+          kidnapping: {
+            init: new Date("November 29, 1971"),
+            end: new Date("December 01, 1971"),
+            days: 2,
+            description: " días secuestro simulado",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("November 30, 1971"),
+        title: "“SIN NOTICIAS DE LA SECUESTRADA”",
+        description:
+          "... “De acuerdo a lo denunciado en la mañana de hoy por la señora Ester Gilio de Quegeiro,... a la hora a las 10 y 30 aproximadamente, en su domicilio de Golfarini Nº 4029 irrumpieron tres hombres y una mujer que se llevaron secuestrada a su huésped... eran integrantes de la “OPR 33”... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/michelle-ray/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/michelle-ray/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 11)',
+        date: new Date("December 02, 1971"),
+        title: "“MICHELEN RAY EN LIBERTAD”",
+        description:
+          "A las 36 horas de ser secuestrada, fue liberada el martes a las 22.30 en el Parque Batlle la periodista francesa Michele Ray. Sus captores, miembros del “OPR 33”, la llevaron en un automóvil hasta la puerta del Sanatorio Americano...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/michelle-ray/n_3.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/michelle-ray/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“... Fomento decide hacer una declaración pública sobre la problemática electoral... el levante de periodistas para publicar nuestra posición al respecto. Se acuerda invitar-retener a dos periodistas. Uno nacional y uno internacional.</p>
+          <p>El de acá sería Antonio Mercader... El internacional sería, Michelle Ray que estaba de visita en Uruguay y que antes había estado secuestrada por el Viet Cong, también con la intención de difundir ideas...</p>
+          <p>... Sin embargo en el momento de la operación Mercader no aparece en el lugar...</p>
+          <p>... el levante de Michelle Ray ya está en marcha. Se golpea la casa donde está parando... La dueña de casa, María Ester Gilio, se enoja un poco... </p>
+          <p>Los compañeros, en especial el “Gaucho” Idilio, amplían las explicaciones y acto seguido se hacen acompañar por la periodista.</p>
+          <p>... Ray fue encapuchada, trasladada al lugar establecido donde se le mantiene todo el tiempo: en el (sic) “pieza-pozo”...</p>
+          <p>... La conversación la realizarán Nando y Rogelio.</p>
+          <p>Michelle Ray fue una secuestrada de lujo. Se retuvo a esta elegante y simpática periodista sólo un par de días. Después de lo que formalmente era la declaración de prensa se conversó con ella por varias horas... se interesó por detalles acerca de la militancia, de cómo transcurría nuestra vida en estas condiciones especiales... ”.</p>`,
+          // year: new Date("1990-1-1"),
+          name: "Acción directa anarquista. Una historia de FAU",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Recortes",
+          pages: "págs. 402-405",
+          author: "Mechoso",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("Febrary 12, 1972"),
+    title: "Homero Fariña",
+    slug: "homero-farina",
+    type: "secuestros",
+    fact: "SECUESTRAN A HOMERO FARIÑA, REDACTOR DEL DIARIO ACCIÓN",
+    victims: [
+      {
+        info: {
+          name: "Homero Fariña",
+          age: 45,
+          marital: "casado",
+          // nationality: "Francesa",
+          childs: 4,
+          childsDescription: " (1 hijo menore de edad)",
+          avatar: {
+            src: "/homero-farina/a.png",
+            alt: "imagen de Homero Fariña",
+          },
+          kidnapping: {
+            init: new Date("Febrary 12, 1972"),
+            end: new Date("March 03, 1972"),
+            days: 20,
+            description: " días en cautiverio",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "Acción" (Página 8)',
+        date: new Date("Febrary 12, 1972"),
+        title: "“UN GRUPO DE TUPAMAROS LO SACÓ POR LA FUERZA DE SU DOMICILIO”",
+        description:
+          "... Un comando sedicioso, cuyos integrantes se identificaron como tupamaros, secuestró esta mañana al Redactor Responsable de ACCIÓN y..., Sr. Homero Fariña, a quien se llevaron de su domicilio tras copar su residencia... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/homero-farina/n_1.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/homero-farina/n_1.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("Febrary 13, 1972"),
+        title: "“DISFRAZADOS DE MILITARES CONSUMARON EL SECUESTRO”",
+        description:
+          "..., un grupo tupamaro secuestró al Sr. Homero Fariña Gianecchini (Redactor Responsable de nuestro colega “Acción” y...)... Para ello los sediciosos inmovilizaron a la esposa del periodista y una empleada, así como al jardinero de una finca vecina... Aparecen fotos.",
+        title1: "“CONSECUENCIAS DE LOS ATENTADOS CRIMINALES”",
+        description1:
+          "... el comisario José Pedro Macchi... sufrirá el resto de sus días la terrible secuela del bestial atentado... perdió el ojo izquierdo y una parte de la lengua... Esas lesiones, las más graves, le fueron provocadas por los dos proyectiles que le atravesaron el cráneo...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/homero-farina/n_2.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/homero-farina/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 2)',
+        date: new Date("March 03, 1972"),
+        title: "“ESTOY EN PRINCIPIO CONTRA LA VIOLENCIA”",
+        description:
+          "Homero Fariña relató su secuestro y cautiverio... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/homero-farina/n_3.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/homero-farina/n_4.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("May 11, 1972"),
+    title: "Sergio Molaguero",
+    slug: "sergio-molaguero",
+    type: "secuestros",
+    fact: "SECUESTRAN Y LIBERAN A SERGIO MOLAGUERO",
+    victims: [
+      {
+        info: {
+          name: "Sergio Molaguero",
+          age: 23,
+          marital: "soltero",
+          // nationality: "Francesa",
+          // childs: 4,
+          // childsDescription: " (1 hijo menore de edad)",
+          avatar: {
+            src: "/sergio-molaguero/a.png",
+            alt: "imagen de Sergio Molaguero",
+          },
+          kidnapping: {
+            init: new Date("May 11, 1972"),
+            end: new Date("July 19, 1972"),
+            days: 69,
+            description: " días en cautiverio",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 9)',
+        date: new Date("May 12, 1972"),
+        title: "“SECUESTRAN AL HIJO DE CONOCIDO INDUSTRIAL”",
+        description:
+          "... fue secuestrado por integrantes de la organización delictiva el Sr. Sergio Hugo Molaguero Brescia... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/sergio-molaguero/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/sergio-molaguero/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 11)',
+        date: new Date("May 13, 1972"),
+        title:
+          "“¿EL SECUESTRO DE MOLAGUERO ES UNA ACCIÓN DIRECTA DE APOYATURA?”",
+        description:
+          "Para los conspiradores los paros, huelgas y ocupaciones, no son suficientes... “Acción violenta de apoyatura conflictos gremiales y movilizaciones de masas”... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/sergio-molaguero/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/sergio-molaguero/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El País" (en Portada)',
+        date: new Date("July 21, 1972"),
+        title: "“MOLAGUERO: “ESTUVE UN MES ENCADENADO Y HAMBRIENTO...”",
+        description:
+          "En deplorable estado habló ayer para los periodistas... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/sergio-molaguero/n_5.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/sergio-molaguero/n_6.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 19)',
+        date: new Date("July 21, 1972"),
+        title:
+          "“MOLAGUERO: SUS RAPTORES LE ANUNCIARON QUE SU CONDENA ERA A CADENA PERPETUA”",
+        description: "Sergio Molaguero fue liberado...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/sergio-molaguero/n_7.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/sergio-molaguero/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 20)',
+        date: new Date("July 21, 1972"),
+        title: "“EL JOVEN MOLAGUERO FUE TORTURADO CON SADISMO”",
+        description:
+          "En un sillón de ruedas, con doce quilos y un diente de menos, numerosas cicatrices en el cuerpo, “un estado de confusión mental” y la dolorosa convicción de haber sido torturado con increíble sadismo, Sergio Molaguero Brescia, de 23 años... relató ayer...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/sergio-molaguero/n_9.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/sergio-molaguero/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 13)',
+        date: new Date("July 30, 1972"),
+        title: "“EL MÉDICO CERTIFICÓ TORTURAS A MOLAGUERO”",
+        description: "... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/sergio-molaguero/n_11.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/sergio-molaguero/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El País" (Página 3)',
+        date: new Date("August 07, 1972"),
+        title: "“DESCUBRIERON UN CUBIL DONDE ESTUVO MOLAGUERO”",
+        description:
+          "En un húmedo y asfixiante subterráneo en la zona del Cerro lo estuvieron cautivo 50 días... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/sergio-molaguero/n_13.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/sergio-molaguero/n_14.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 6)',
+        date: new Date("August 07, 1972"),
+        title: "“UBICAN LA “CÁRCEL” DEL OPR 33 DONDE FUE TORTURADO MOLAGUERO”",
+        description:
+          "La “cárcel del pueblo” donde estuvo recluido 50 días el Sr. Sergio Hugo Molaguero y en la que fuera objeto de un tratamiento brutal por parte de la “O.P.R.33”, fue descubierta... Aparecen fotos.",
+        title1: "“TRATAMIENTO INFRAHUMANO”",
+        description1:
+          "... En ese lugar -... -fue donde Molaguero estuvo amarrado a un palo, con alambre de púas, durante 17 días... cuando le daban de comer -lo que como se sabe, no ocurría todos los días -el menú consistía en arroz mezclado con yerba...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/sergio-molaguero/n_15.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/sergio-molaguero/n_16.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El País" (en Portada)',
+        date: new Date("August 22, 1972"),
+        title: "“CAEN SECUESTRADORES DE SERGIO MOLAGUERO”",
+        description:
+          "Se descubre todo el plan: habían fracasado 4 veces.... Los detenidos son el jefe de toda la operación -... Marcelo -el jefe de uno de los equipos -... “Greco -... Aparecen croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/sergio-molaguero/n_17.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/sergio-molaguero/n_18.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Aguilar, era el organismo responsable de toda la actividad armada de FAU.</p>
+          <p>La integraron todo este período los siguientes compañeros: Martín, Marcelo, Campos y Rogelio.</p>
+          <p>... después de cerca 20 días, se ubican un par de lugares donde se podía hacer el “levante” de Sergio Molaguero... Se opta al final por hacer el operativo en la propia carretera en aquel lugar por donde determinados días y horas regresaba Molaguero a Santa Lucía.</p>
+          <p>Aguilar se aboca de lleno a la tarea... Marcelo y Campos realizan también tareas de información...</p>
+          <p>- ¿Está todo pronto para el levante de Molaguero?-, pregunta Gerardo Gatti en una reunión de Fomento...</p>
+          <p>... -Acá se puede hacer el trabajo, éste es el punto, mientras no llega nos esconderemos en ese zanjón a la espera que el compañero del walkie talkie nos avise que viene-...</p>
+          <p>En otro momento se preparaban las vestimentas de policías que usarían los que tenían que estar en la carretera en actitud de parar vehículos, de estar haciendo una “pinza”...</p>
+          <p>En el equipo de aprete inicial estarían: Ruben, Aníbal, Víctor, en el traslado intervendrían Marcelo y Martín. Abriendo camino, con una moto poderosa, vendría Santana. Molaguero quedaría unos días en una casa de Nuevo París. Lo cuidarían permanentemente 3 compañeros: Lola, la Topito y Santana.</p>
+          <p>Después sería trasladado a la casa de Campos. Sede de Aguilar, que tenía una pieza camuflada de cierta amplitud debajo de la cocina...</p>
+          <p>... Había surgido un dato... la visita regular de Sergio Molaguero a su novia... una ruta lateral que pasaba por un puente.</p>
+          <p>Se decidió montar la operación justamente en ese puente...</p>
+          <p>...-Llegamos al puente...- nos dice Víctor.</p>
+          <p>Agrega - llegó esta vez finalmente con su auto..., me paré con la baliza y se detuvo, le pedí documentos e inmediatamente se arrimó Greco y dijo: “éste es Bidegain”, compañero del MLN... Molaguero miró con asombro y después con indignación salió del coche... Apenas salió lo empujamos hacia afuera de la carretera... intentó correr... un compañero lo tenía agarrado de un brazo y otro le aplicó un golpe para reducirlo y acallar sus gritos...</p>
+          <p>Acto seguido, para no tener que pegarle nuevamente, también para cedarlo (sic) y dormirlo Marcelo le aplica una inyección y lo suben a la camioneta...
+          <p>... La camioneta y la moto se trasladaron hasta la casa que ya estaba condicionada para recibir esta “visita”.
+          <p>... Sergio Molaguero es liberado poco después.</p>
+
+          <p class="font-bold">Conversación con compañeros que participaron en este episodio</p>
+          <p>Víctor... Lo dejamos con auriculares en los oídos y atado...</p>
+          <p>R. Greco, vos tomaste parte de la retención y largada de Molaguero, ¿qué te acordás?</p>
+          <p>G. Me acuerdo que cuando la largada de Molaguero el que va adelante con la moto soy yo... Marcelo va adelante con un VW, después yo en la moto y más atrás la camioneta...</p>
+          <p>R. Cuando estás en el pozo cuidando a Molaguero, ¿cómo está constituido el grupo?</p>
+          <p>G. En ese lugar están: Juan, el gaucho Idilio, el Acrata y la compañera, el gitano y yo...</p>
+          <p>R. Vos Agripita...</p>
+          <p>A... Nosotros lo tuvimos unos cuantos días, dos semanas aproximadamente, después fue a un lugar con pozo...</p>
+          <p>R. Ahí, en Nuevo París, lo cuidan...</p>
+          <p>A. La Negra, Carlitos, Plomito, Lola y yo, nos turnábamos...”.</p>
+          <p>R.... Ahí hubo un episodio preocupante. Te acordás que llegan los allanamientos hasta una cuadra de la casa.</p>
+          <p>A.... El operativo rastrillo como lo llamaban, llega hasta la esquina. En ese momento hubo que empezar a evacuar un poco la casa. Se sacan los niños, se decide quienes quedan, si venían a la casa se iba a resistir. Estaba completamente decidido...”.</p>`,
+          // year: new Date("1990-1-1"),
+          name: "Acción directa anarquista. Una historia de FAU",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Recortes",
+          pages: "págs. 285, 391-400",
+          author: "Mechoso",
+        },
+        {
+          fragment: `<p>“... En ese momento, Mechoso integra la dirección de la FAU y al mismo tiempo “Aguilar” que era el organismo responsable de toda su actividad armada. Juan Carlos señala: “... continuamos actuando políticamente desde la ROE y operando militarmente desde la OPR 33...”.</p>
+          <p>El 11 de mayo se concretó un secuestro en la ruta 11, próximo al Paso Margat...</p>
+          <p>Días antes de la caída de la Cárcel del Pueblo del MLN secuestramos a Sergio Molaguero...</p>
+          <p>... El 19 de julio, a casi setenta días de su secuestro, Sergio Molaguero fue liberado en Montevideo por la OPR 33.</p>
+          <p>Mechoso afirma: “Molaguero no fue maltratado. Existía un criterio en la organización: se actuaba con firmeza pero con mucho respeto para las personas secuestradas...</p>
+          <p>A Molaguero lo entrevisté tres veces. La primera vez lo hice solo y las siguientes con Silva (Raúl Cariboni)...”. ”.</p>`,
+          year: new Date("2006-1-1"),
+          name: "Juan Carlos Mechoso anarquista",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Trilce",
+          pages: "págs. 75-77",
+          author: "Jung, Rodríguez",
+        },
+      ],
+    },
+    apologyForCrimeInImages: [
+      {
+        title: "Empresario encarcelado en condiciones inhumanas.",
+        description:
+          "Un comando terrorista armado secuestró violentamente a Sergio Molaguero, hijo de un industrial, interceptando el vehículo en que viajaba. Permaneció cautivo del grupo sedicioso OPR-33 durante 69 días habiendo sido liberado en deplorable estado de salud luego de sufrir torturas físicas y sicológicas.",
+        images: [
+          {
+            src: "/sergio-molaguero/i_1.jpg",
+            alt: "Sediciosos con uniforme militar esperan bajo un puente.",
+          },
+          {
+            src: "/sergio-molaguero/i_2.jpg",
+            alt: "Molaguero es reconocido y perseguido.",
+          },
+          {
+            src: "/sergio-molaguero/i_3.jpg",
+            alt: "Molaguero es detenido y golpeado por sediciosos con uniforme militar.",
+          },
+          {
+            src: "/sergio-molaguero/i_4.jpg",
+            alt: "Sediciosos con uniforme militar, atan con alambre e inyectan a Molaguero.",
+          },
+          {
+            src: "/sergio-molaguero/i_5.jpg",
+            alt: "Condiciones inhumanas de reclusión.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/sergio-molaguero/placa_virtual.jpg",
+        alt: "Aquí, en plena democracia, el 11/05/72 permaneció secuestrado y fue torturado física y socológicamente por Terroristas, Sergio Molaguero, de 23 años de edad.",
+      },
+    ],
+  },
+  {
+    date: new Date("July 28, 1972"),
+    title: "Héctor Menoni",
+    slug: "hector-menoni",
+    type: "secuestros",
+    fact: "SECUESTRAN AL PERIODISTA HÉCTOR MENONI",
+    victims: [
+      {
+        info: {
+          name: "Héctor Menoni",
+          age: 47,
+          marital: "casado",
+          daughter: 1,
+          avatar: {
+            src: "/hector-menoni/a.png",
+            alt: "imagen de Héctor Menoni",
+          },
+          kidnapping: {
+            init: new Date("July 28, 1972"),
+            end: new Date("July 30, 1972"),
+            days: 2,
+            description: " días en cautiverio",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("July 29, 1972"),
+        title: "“SECUESTRARON A GERENTE DE UPI”",
+        description:
+          "... Un núcleo terrorista de la “Organización Popular Revolucionaria 33 Orientales”, secuestró ayer... al Gerente de las Oficina local de la agencia noticiosa “United Press International” Sr. Héctor Nicolás Menoni,... el sexto de la serie perpetrada por la organización conocida bajo la denominación de “OPR 33”... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/hector-menoni/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/hector-menoni/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("July 29, 1972"),
+        title: "“SECUESTRO: LA OPR 33 TIENE AL PERIODISTA”",
+        description: "... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/hector-menoni/n_3.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/hector-menoni/n_4.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 8)',
+        date: new Date("July 29, 1972"),
+        title: "“EL CORRESPONSAL DE UPI FUE SECUESTRADO POR LA OPR 33”",
+        description:
+          "Dos integrantes de la Organización Popular Revolucionaria 33 (OPR 33) secuestraron ayer..., al gerente de la oficina local de la agencia de noticias United Press International (UPI) Sr. Héctor Nicolás Menoni... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/hector-menoni/n_5.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/hector-menoni/n_6.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 12)',
+        date: new Date("July 31, 1972"),
+        title: "“SOLTARON A MENONI”",
+        description:
+          "36 horas de cautiverio... Tras permanecer recluido durante 36 horas en una habitación de reducidas dimensiones fue liberado por sus secuestradores... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/hector-menoni/n_7.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/hector-menoni/n_8.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“... Era la reunión ordinaria de Fomento, habían pasado tres días de la largada de Molaguero. Uno de los temas a tratar era el efecto negativo para nosotros que la propaganda parecía haber logrado con el teatro deliberado que éste había hecho.</p>
+          <p>En Aguilar nos pareció,..., que era posible levantar a un periodista destacado y darle la verdadera versión...</p>
+          <p>El operativo se hace sobre la base de la Unidad 10. Martín es el encargado general. Todo se hace con gran rapidez. A los nueve días de la largada de Molaguero se concreta el levante de Héctor Menoni, gerente de la Agencia United Press International (UPI).</p>
+          <p>Waldemar y Sergio son los encargados de sacar de la casa a Menoni y llevarlo hasta el Volkswagen que está cerca de su casa. Nos cuenta Waldemar:
+          <p>Atendió la puerta Menoni, Sergio hablaba con él...</p>
+          <p>De repente Menoni nos dice: “¿Y si me niego?”. Mirá, a nosotros nos dijeron que te tenemos que llevar a como de (sic) lugar...</p>
+          <p>El furgón con Martín y Batlle esperaban cerca de 8 de Octubre y Propios, en él se llevaría al periodista hasta la casa establecida. Se hizo el trasbordo... Batlle iba manejando, Martín lo acompañaba, detrás iba Waldemar con Menoni, a quien se le habían colocado parches en los ojos... ”.</p>`,
+          // year: new Date("1990-1-1"),
+          name: "Acción directa anarquista. Una historia de FAU",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Recortes",
+          pages: "págs. 400-402",
+          author: "Mechoso",
+        },
+        {
+          fragment: `<p>“Las declaraciones públicas del liberado acusando a sus custodias de malos tratos molestó y preocupó al OPR. “Consideramos que esas declaraciones dejaban una imagen negativa en la organización... Optamos por Héctor Menoni de la Agencia UPI, por ser alguien de responsabilidad y trayectoria periodística...”.</p>
+          <p>Menoni recuerda que esa mañana del 28 de julio de 1972 “estaba durmiendo cuando sonó el timbre... Abrí la puerta, se aparecen dos jóvenes que muestran armas de fuego y señalan pertenecer a un “comando revolucionario”... Me llevaron a un volkswagen (sic) estacionado en Tristán Narvaja casi Colonia, me pusieron algodón en los ojos y lentes negros... hasta que llegamos a un lugar. Entré agachado a una pieza con las paredes cubiertas con bolsas de arpillera... me invitaron a jugar al truco...”.</p>
+          <p>Como integrante de la dirección de la OPR 33 Mechoso conversó con el periodista “retenido”...</p>
+          <p>Menoni fue liberado en horas de la noche en Coronel Raíz esquina Propios...</p>
+          <p>Treinta años después, con más de ochenta años, jubilado y siendo un destacado militante frenteamplista en la Costa de Oro de Canelones, reconoce que durante su secuestro se sintió muy angustiado... ”.</p>`,
+          year: new Date("2006-1-1"),
+          name: "Juan Carlos Mechoso anarquista",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Trilce",
+          pages: "págs. 77-80",
+          author: "Jung, Rodríguez",
         },
       ],
     },

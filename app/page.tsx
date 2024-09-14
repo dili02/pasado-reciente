@@ -1,7 +1,8 @@
 import { Icons } from "@/components/icons";
 import Stats from "@/components/stats";
 import { Button } from "@/components/ui/button";
-import { api } from "@/db/api";
+import { api as API } from "@/db/api";
+import { api } from "@/db/data";
 import Link from "next/link";
 // import { unstable_noStore as noStore } from "next/cache";
 import { ChevronRight } from "lucide-react";
@@ -14,27 +15,51 @@ export default async function Home() {
   // const month = new Intl.DateTimeFormat("es-ES", { month: "long" });
   // console.log(month);
 
-  const terroristActionWithVideos = await api.getAllWithVideo();
+  const terroristActionWithVideos = await API.getAllWithVideo();
   // console.log(
   //   "terroristActionWithVideos",
   //   terroristActionWithVideos.map((video) => console.log("video", video.title))
   // );
   // console.log(terroristActionWithVideos);
 
-  const numberOfMurderedVictims = (await api.getKills()).reduce(
-    (acc, incident) => acc + (incident.totalOfVictims ?? 0),
-    0
-  );
+  // const numberOfMurderedVictims = (await API.getKills()).reduce(
+  //   (acc, incident) => acc + (incident.totalOfVictims ?? 0),
+  //   0
+  // );
   // console.log(Number(numberOfMurderedVictims));
 
-  return (
-    <section className="min-h-screen">
-      {/* <Stats /> */}
+  const countTotalActionsTerrorist = await api.countTotalTerroristActions();
 
-      <div className="text-textPrimary container">
-        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4 relative py-8">
-          {/* <div className="grid grid-cols-1 md:grid-cols-2 min-h-[650px] md:gap-4 relative"> */}
-          <div className="flex flex-col justify-center">
+  return (
+    <section className="min-h-screen text-primary-foreground container py-8">
+      <div className="flex flex-col lg:flex-row">
+        <div className="lg:w-5/6">
+          <p className="uppercase text-2xl md:text-4xl xl:text-6xl font-extrabold py-8 text-primary">
+            nunca más terrorismo
+          </p>
+          <p className="text-primary-foreground lg:leading-relaxed 2xl:leading-loose">
+            La presente hemeroteca fue confeccionada exclusivamente con noticias
+            periodísticas de las décadas del 60 y 70 escaneadas de las páginas
+            originales de los diarios. De esta manera se podrá acceder al relato
+            cronológico documentado exento de opiniones y/o relatos alejados en
+            el tiempo y contexto en que sucedieron los hechos. En virtud del
+            tiempo transcurrido, es necesario precisar que el inicio de los
+            hechos se dieron en el marco de un gobierno democrático surgido de
+            elecciones libres, el cual, al igual que la sociedad de la época, se
+            vieron sorprendidos ante los embates de una situación ajena a los
+            hábitos de convivencia, como lo demuestran estas publicaciones.
+          </p>
+        </div>
+
+        <Memorial />
+      </div>
+
+      <Stats tototalActionsTerrorist={countTotalActionsTerrorist} />
+
+      {/* <div className="text-textPrimary container">
+        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4 relative py-8"> */}
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 min-h-[650px] md:gap-4 relative"> */}
+      {/* <div className="flex flex-col justify-center">
             <div className="text-center md:text-left space-y-4">
               <h1 className="text-5xl xl:text-6xl font-extrabold leading-relaxed xl:leading-tight uppercase text-[#f40]">
                 nunca más terrorismo
@@ -53,10 +78,10 @@ export default async function Home() {
                 como lo demuestran estas publicaciones.
               </p>
             </div>
-          </div>
+          </div> */}
 
-          {/* MEMORIal */}
-          {/* <div className="flex flex-col justify-center items-center">
+      {/* MEMORIal */}
+      {/* <div className="flex flex-col justify-center items-center">
             <div className="flex items-center justify-center gap-3 py-2">
               <Icons.museum className="w-6 h-6 hidden lg:block" />
               <h2 className="text-2xl uppercase text-center font-extrabold text-textPrimary">
@@ -83,12 +108,12 @@ export default async function Home() {
               </Link>
             </Button>
           </div> */}
-          <Memorial />
-        </div>
+      {/* <Memorial />
+        </div> */}
 
-        {/* <Stats /> */}
+      {/* <Stats /> */}
 
-        {/* <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      {/* <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="py-12 md:py-20">
           <div className="mx-auto pb-10 text-center md:pb-16">
             <h1 className="leading-tighter font-heading mb-6 text-4xl font-bold tracking-tighter md:text-5xl lg:text-6xl uppercase text-primary">
@@ -148,7 +173,7 @@ export default async function Home() {
         </div>
       </div> */}
 
-        {/* <div>
+      {/* <div>
         <h2 className="uppercase font-extrabold py-2 text-4xl text-center text-primary">
           testimonios
         </h2>
@@ -177,32 +202,32 @@ export default async function Home() {
           ))}
         </div>
       </div> */}
-      </div>
+      {/* </div> */}
 
-      <Stats />
+      {/* <Stats /> */}
 
-      <div className="bg-[#f90]/60 mt-8">
-        <div className="container">
-          <h2 className="text-3xl capitalize font-extrabold py-8 text-textPrimary">
+      <div className="mt-8">
+        <div className="">
+          <h2 className="text-3xl capitalize font-extrabold py-2 text-textPrimary">
             testimonios
           </h2>
-          <p className="text-textSecondary text-xl">
+          <p className="text-muted-foreground text-lg">
             Relatos de familiares de víctimas del terrorismo.
           </p>
 
           <div className="grid grid-cols-1 gap-3 lg:grid-cols-3 py-4">
             {terroristActionWithVideos.map((video) => (
-              <div className="rounded shadow-lg bg-orange-50" key={video.src}>
+              <div className="rounded shadow-lg" key={video.src}>
                 <iframe
                   src={video.src}
                   title={video.title}
-                  frameBorder="0"
+                  // frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
                   className="w-full h-96 lg:h-52"
                 ></iframe>
-                <div className="p-2 text-textPrimary">
+                <div className="p-2 text-base text-primary-foreground">
                   <Link href={video.slug}>{video.title}</Link>
                 </div>
               </div>

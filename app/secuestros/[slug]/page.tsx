@@ -1,6 +1,8 @@
 import ActionVindicated from "@/components/action-vindicated";
+import ApologyForCrimeInImages from "@/components/apology-for-crime-images";
 import Notice from "@/components/notice";
 import Victim from "@/components/victim-info";
+import VirtualMemorial from "@/components/virtual-memorial";
 import {
   api,
   ApologyForCrimeInImagesDefinition,
@@ -32,38 +34,28 @@ function getFormattedDateToString(date: Date): string {
 
 export default async function page({ params }: Props) {
   const action = await api.getActionBySlug(params.slug);
-  // console.log("ACTION", action);
-
-  // const victimsTotal = action.victims?.length ?? 0;
-  // const victims = action.victims?.map((victim) => victim);
-  // console.log("VICTIMS", victims);
-  //   console.log(action.vindicated?.description.split("\n")[0]);
-  //   const actionVindicatedDescriptionSplited =
-  //     action.vindicated?.description.split("\n");
-  //   console.log(actionVindicatedDescriptionSplited);
-  // console.log(action.videos);
 
   return (
     <section className="container mx-auto text-textPrimary">
+      {action.fact && (
+        <h1 className="text-center uppercase text-2xl md:text-4xl font-extrabold text-[#f40] mt-8">
+          HECHO: {action.fact}
+        </h1>
+      )}
+
       {action.victims?.map((victim, index) => (
         <Victim key={index} victim={victim} date={action.date} />
       ))}
 
-      {action.fact && (
-        <h2 className="text-center uppercase text-2xl md:text-4xl 2xl:text-5xl font-bold text-[#f40]">
-          {action.fact}
-        </h2>
-      )}
-
       {action.newsPapers && <Notice notices={action.newsPapers} />}
 
-      {/* {action.apologyForCrimeInImages && (
-          <ApologyForCrimeInImages crimeImages={action.apologyForCrimeInImages} />
-        )} */}
+      {action.apologyForCrimeInImages && (
+        <ApologyForCrimeInImages crimeImages={action.apologyForCrimeInImages} />
+      )}
 
-      {/* {action.virtualMemorial && (
-          <VirtualMemorial virtualMemorial={action.virtualMemorial} />
-        )} */}
+      {action.virtualMemorial && (
+        <VirtualMemorial virtualMemorial={action.virtualMemorial} />
+      )}
 
       {action.vindicatedActions && (
         <ActionVindicated actionVidicated={action.vindicatedActions} />

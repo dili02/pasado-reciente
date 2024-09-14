@@ -4,8 +4,11 @@ import React from "react";
 import CountUp from "react-countup";
 import { Icons } from "./icons";
 import { Diff } from "lucide-react";
+import { api } from "@/db/data";
 
-type Props = {};
+type Props = {
+  tototalActionsTerrorist: number;
+};
 
 const stats = [
   {
@@ -40,22 +43,22 @@ const stats = [
   },
 ];
 
-export default function Stats({}: Props) {
+export default function Stats({ tototalActionsTerrorist }: Props) {
   return (
     <div className="col-span-2 self-center p-4 mt-8 lg:mt-8 border border-primary text-[#f40]  rounded-md transition duration-500 ease-in-out hover:-translate-y-1 bg-orange-100">
       <div className="flex justify-center items-center gap-8">
-        <Diff
+        {/* <Diff
           className="font-extrabold text-xl xl:text-4xl text-[#f40] w-10 h-10"
           strokeWidth={3}
-        />
+        /> */}
         <CountUp
-          end={200}
+          end={tototalActionsTerrorist}
           duration={2}
           delay={1}
-          className="font-extrabold text-6xl text-[#f40]"
+          className="font-extrabold text-5xl text-[#f40]"
         />
-        <p className="font-extrabold text-xl xl:text-4xl text-[#f40]">
-          ACCIONES TERRORISTAS DESDE 1963 HASTA 1976
+        <p className="font-extrabold text-lg xl:text-2xl text-[#f40]">
+          ACCIONES TERRORISTAS DESDE 1963 HASTA 1976 REGISTRADAS EN ESTE MUSEO
         </p>
       </div>
     </div>

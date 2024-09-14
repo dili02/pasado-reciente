@@ -15,112 +15,96 @@ function getFormattedDateToString(date: Date): string {
 
 export default function Notice({ notices }: Props) {
   return (
-    <div className="py-8">
-      <h3 className="uppercase text-xl md:text-4xl 2xl:text-4xl text-center font-extrabold">
+    <div className="py-8 text-primary-foreground 2xl:text-lg">
+      <h3 className="uppercase text-xl md:text-2xl 2xl:text-4xl text-center font-extrabold">
         noticias publicadas por diarios de la época
       </h3>
 
       {notices?.map((notice) => (
         <div key={notice.name} className="py-6">
-          <p className="text-center text-xl md:text-3xl font-bold pt-4 text-textPrimary">
-            {notice.name}
-          </p>
+          <p className="text-center text-lg  font-extrabold">{notice.name}</p>
 
           {notice.date && (
-            <p className="text-center text-lg md:text-2xl font-bold text-textPrimary">
+            <p className="text-center font-bold">
               <time>{getFormattedDateToString(notice.date)}</time>
             </p>
           )}
 
           {notice.dateInit && (
-            <p className="text-center text-lg md:text-2xl font-bold text-textPrimary">
+            <p className="text-center font-bold">
               <time>{getFormattedDateToString(notice.dateInit)}</time> al{" "}
               <time>{getFormattedDateToString(notice.dateEnd!)}</time>
             </p>
           )}
 
           {notice.title && (
-            <h4 className="text-center text-base md:text-xl font-bold text-textPrimary">
+            <h4 className="text-center font-bold xl:text-lg">
               TÍTULO: {notice.title}
             </h4>
           )}
 
           {notice.description && (
-            <p className="text-base md:text-xl text-textSecondary">
-              {notice.description}
-            </p>
+            <p className="xl:text-lg">{notice.description}</p>
           )}
 
           {notice.subtitle && (
-            <h4 className="text-center text-base md:text-xl font-bold text-textPrimary">
+            <h4 className="text-center font-bold xl:text-lg">
               SUB TÍTULO: {notice.subtitle}
             </h4>
           )}
 
           {notice.subDescription && (
-            <p className="text-base md:text-xl text-textSecondary">
-              {notice.subDescription}
-            </p>
+            <p className="text-base xl:text-lg">{notice.subDescription}</p>
           )}
 
           {notice.title1 && (
-            <h4 className="text-center text-base md:text-xl font-bold text-textPrimary">
+            <h4 className="text-center text-base font-bold xl:text-lg">
               TÍTULO: {notice.title1}
             </h4>
           )}
 
           {notice.description1 && (
-            <p className="text-base md:text-xl text-textSecondary">
-              {notice.description1}
-            </p>
+            <p className="text-base xl:text-lg">{notice.description1}</p>
           )}
 
           {notice.subtitle1 && (
-            <h4 className="text-center text-base md:text-xl font-bold text-textPrimary">
+            <h4 className="text-center text-base font-bold xl:text-lg">
               SUB TÍTULO: {notice.subtitle1}
             </h4>
           )}
 
           {notice.subDescription1 && (
-            <p className="text-base md:text-xl text-textSecondary">
-              {notice.subDescription1}
-            </p>
+            <p className="text-base xl:text-lg">{notice.subDescription1}</p>
           )}
 
           {notice.title2 && (
-            <h4 className="text-center text-base md:text-xl font-bold text-textPrimary">
+            <h4 className="text-center text-base font-bold xl:text-lg">
               TÍTULO: {notice.title2}
             </h4>
           )}
 
           {notice.description2 && (
-            <p className="text-base md:text-xl text-textSecondary">
-              {notice.description2}
-            </p>
+            <p className="text-base xl:text-lg">{notice.description2}</p>
           )}
 
           {notice.title3 && (
-            <h4 className="text-center text-base md:text-xl font-bold text-textPrimary">
+            <h4 className="text-center text-base font-bold xl:text-lg">
               TÍTULO: {notice.title3}
             </h4>
           )}
 
           {notice.description3 && (
-            <p className="text-base md:text-xl text-textSecondary">
-              {notice.description3}
-            </p>
+            <p className="text-base xl:text-lg">{notice.description3}</p>
           )}
 
           {notice.title4 && (
-            <h4 className="text-center text-base md:text-xl font-bold text-textPrimary">
+            <h4 className="text-center text-base font-bold xl:text-lg">
               TÍTULO: {notice.title4}
             </h4>
           )}
 
           {notice.description4 && (
-            <p className="text-base md:text-xl text-textSecondary">
-              {notice.description4}
-            </p>
+            <p className="text-base xl:text-lg">{notice.description4}</p>
           )}
 
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between py-6">
@@ -131,11 +115,10 @@ export default function Notice({ notices }: Props) {
                 className="flex items-center gap-2 font-bold text-[#007664] py-2"
                 key={image.src}
               >
-                <p className=" text-xs md:text-lg lg:text-2xl uppercase underline">
+                <p className=" text-base md:text-lg uppercase underline">
                   IR A LA {image.type}
                 </p>
                 <Icons.newspaper className="h-5 w-5 md:h-6 md:w-6 lg:h-8 lg:w-8" />
-                <span></span>
               </Link>
             ))}
           </div>
