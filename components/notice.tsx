@@ -22,7 +22,7 @@ export default function Notice({ notices }: Props) {
 
       {notices?.map((notice) => (
         <div key={notice.name} className="py-6">
-          <p className="text-center text-lg  font-extrabold">{notice.name}</p>
+          <p className="text-center text-lg font-extrabold">{notice.name}</p>
 
           {notice.date && (
             <p className="text-center font-bold">
@@ -35,6 +35,46 @@ export default function Notice({ notices }: Props) {
               <time>{getFormattedDateToString(notice.dateInit)}</time> al{" "}
               <time>{getFormattedDateToString(notice.dateEnd!)}</time>
             </p>
+          )}
+
+          {notice.body && (
+            <div>
+              <h4 className="text-center font-bold xl:text-lg">
+                TÍTULO: {notice.body.title}
+              </h4>
+
+              {notice.body.titledescription && (
+                <p className="xl:text-lg">{notice.body.titledescription}</p>
+              )}
+
+              <h4 className="text-center font-bold xl:text-lg">
+                SUB TÍTULO: {notice.body.subtitle}
+              </h4>
+
+              {notice.body.subtitledescription && (
+                <p className="xl:text-lg">{notice.body.subtitledescription}</p>
+              )}
+
+              {notice.body.subtitle1 && (
+                <h4 className="text-center font-bold xl:text-lg">
+                  SUB TÍTULO: {notice.body.subtitle1}
+                </h4>
+              )}
+
+              {notice.body.subtitledescription1 && (
+                <p className="xl:text-lg">{notice.body.subtitledescription1}</p>
+              )}
+
+              {notice.body.subtitle2 && (
+                <h4 className="text-center font-bold xl:text-lg">
+                  SUB TÍTULO: {notice.body.subtitle2}
+                </h4>
+              )}
+
+              {notice.body.subtitledescription2 && (
+                <p className="xl:text-lg">{notice.body.subtitledescription2}</p>
+              )}
+            </div>
           )}
 
           {notice.title && (

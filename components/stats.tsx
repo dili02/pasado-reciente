@@ -46,19 +46,22 @@ const stats = [
 export default function Stats({ tototalActionsTerrorist }: Props) {
   return (
     <div className="col-span-2 self-center p-4 mt-8 lg:mt-8 border border-primary text-[#f40]  rounded-md transition duration-500 ease-in-out hover:-translate-y-1 bg-orange-100">
-      <div className="flex justify-center items-center gap-8">
+      <div className="flex justify-center flex-col text-center lg:flex-row items-center gap-8">
+        <p className="font-extrabold text-lg xl:text-2xl text-[#f40]">
+          RECOPILACIÓN DE ALREDEDOR DE
+        </p>
         {/* <Diff
           className="font-extrabold text-xl xl:text-4xl text-[#f40] w-10 h-10"
           strokeWidth={3}
         /> */}
         <CountUp
-          end={tototalActionsTerrorist}
+          end={200}
           duration={2}
           delay={1}
           className="font-extrabold text-5xl text-[#f40]"
         />
         <p className="font-extrabold text-lg xl:text-2xl text-[#f40]">
-          ACCIONES TERRORISTAS DESDE 1963 HASTA 1976 REGISTRADAS EN ESTE MUSEO
+          ACCIONES TERRORISTAS DESDE 1963 A 1976
         </p>
       </div>
     </div>

@@ -18,7 +18,7 @@ export type TypeTerroristActionDefinition =
   | "asesinatos"
   | "atentado"
   | "secuestros"
-  | "robo"
+  | "robo-armamento-explosivos"
   | "otras acciones";
 
 export type VictimsDefinition = {
@@ -27,6 +27,7 @@ export type VictimsDefinition = {
 
 export type VictimsInfoDefinition = {
   name: string;
+  deceased?: Date;
   age?: number;
   childs?: number;
   daughter?: number;
@@ -59,6 +60,8 @@ export type NewsPaperDefinition = {
   description1?: string;
   subtitle1?: string;
   subDescription1?: string;
+  subtitle2?: string;
+  subDescription2?: string;
   title2?: string;
   description2?: string;
   title3?: string;
@@ -68,6 +71,36 @@ export type NewsPaperDefinition = {
   imgSrc?: string[];
   images?: NewPapeImageDefinition[];
   fact?: string;
+  notice?: NoticeDefinition[];
+  body?: {
+    title: string;
+    titledescription?: string;
+    subtitle?: string;
+    subtitledescription?: string;
+    subtitle1?: string;
+    subtitledescription1?: string;
+    subtitle2?: string;
+    subtitledescription2?: string;
+  };
+};
+
+type NoticeDefinition = {
+  name: string;
+  date: Date;
+  decription?: string;
+  body?: [
+    {
+      title?: string;
+      titledescription?: string;
+      subtitle?: string;
+      subtitledescription?: string;
+      subtittle1?: string;
+      subtitledescription1?: string;
+      subtittle2?: string;
+      subtitledescription2?: string;
+      images?: NewPapeImageDefinition[];
+    }
+  ];
 };
 
 export type NewPapeImageDefinition = {
@@ -125,6 +158,15 @@ export const api = {
 
   getAllKidnappings: async (): Promise<TerroristActionDefinition[]> => {
     return TerroristActions.filter((action) => action.type === "secuestros") // Filtrar acciones por tipo
+      .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
+  },
+
+  getAllExplosiveWeaponsTheft: async (): Promise<
+    TerroristActionDefinition[]
+  > => {
+    return TerroristActions.filter(
+      (action) => action.type === "robo-armamento-explosivos"
+    ) // Filtrar acciones por tipo
       .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
   },
 };
@@ -1474,6 +1516,18 @@ export const TerroristActions: TerroristActionDefinition[] = [
           },
         },
       },
+      {
+        info: {
+          name: "Julio Techera",
+          deceased: new Date("November 18, 1969"),
+          age: 56,
+          marital: "casado",
+          avatar: {
+            src: "/agente-ruben-zembrano-y-chofer-julio-techera/a_1.png",
+            alt: "imagen de Chofer Julio Techera",
+          },
+        },
+      },
     ],
     virtualMemorial: [
       {
@@ -1505,7 +1559,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
         name: 'Diario "El Diario" (Página 19)',
         date: new Date("November 26, 1969 03:24:00"),
         title: "FUE BALEADO DE MUERTE HOY UN POLICÍA: CAYÓ UN EXTREMISTA",
-        description: `Un agente de la Seccional 18ª de Canelones fue asesinado esta tarde de seis balazos… en la Avda. de las Playas en El Pinar... la víctima es el agente Antonio Fernández (oriental, 40 años, casado, 5 hijos)... Veinte minutos después del alevoso crimen, el patrullero de la Caminera... detuvo en la Ruta Interbalnearia a un sospechoso que en un primer momento dijo llamarse... cuya vinculación con el homicidio parecía confusa en primera instancia... conocida la afiliación del mismo circuló la versión de que... había dado una identidad falsa y que era, en realidad, un extremista buscado por la policía... Aparecen fotos.`,
+        description: `Un agente de la Seccional 18ª de Canelones fue asesinado esta tarde de seis balazos... en la Avda. de las Playas en El Pinar... la víctima es el agente Antonio Fernández (oriental, 40 años, casado, 5 hijos)... Veinte minutos después del alevoso crimen, el patrullero de la Caminera... detuvo en la Ruta Interbalnearia a un sospechoso que en un primer momento dijo llamarse... cuya vinculación con el homicidio parecía confusa en primera instancia... conocida la afiliación del mismo circuló la versión de que... había dado una identidad falsa y que era, en realidad, un extremista buscado por la policía... Aparecen fotos.`,
         images: [
           {
             type: "noticia publicada",
@@ -1561,7 +1615,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
         name: 'Diario "El Día" (Página 3)',
         date: new Date("November 27, 1969 03:24:00"),
         title: "QUIEN ES Y QUE HIZO...",
-        description: `... Fue detenido, se verificó su identidad y en la valija de la motoneta se encontraron un revólver, una cachiporra y varios panfletos editados por los “extremistas”... Al ser interrogado,... no negó su vinculación con el movimiento… Aparece foto de...`,
+        description: `... Fue detenido, se verificó su identidad y en la valija de la motoneta se encontraron un revólver, una cachiporra y varios panfletos editados por los “extremistas”... Al ser interrogado,... no negó su vinculación con el movimiento... Aparece foto de...`,
         images: [
           {
             type: "noticia publicada",
@@ -1758,7 +1812,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
         name: 'Diario "El Día" (en Portada)',
         date: new Date("February 13, 1970 03:24:00"),
         title: "CAEN 4 PELIGROSOS “REOS”; UN POLICÍA SUFRIÓ GRAVE HERIDA",
-        description: `La detención, totalmente casual, se produjo en Cuchilla Alta, encontraron armas y explosivos. Tras un intenso… cruento tiroteo-cayó herido de gravedad un funcionario policial-fueron detenidos cuatro conspiradores, entre ellos una mujer... otro apareció repentinamente armado de una metralleta, hiriendo de un tiro a Pallas Cardozo... El que agredió al policía... se llama... sindicado como el que mató... al agente Fernández en El Pinar... estaban construyendo un túnel, poseían armas y bombas... Aparecen fotos de...`,
+        description: `La detención, totalmente casual, se produjo en Cuchilla Alta, encontraron armas y explosivos. Tras un intenso... cruento tiroteo-cayó herido de gravedad un funcionario policial-fueron detenidos cuatro conspiradores, entre ellos una mujer... otro apareció repentinamente armado de una metralleta, hiriendo de un tiro a Pallas Cardozo... El que agredió al policía... se llama... sindicado como el que mató... al agente Fernández en El Pinar... estaban construyendo un túnel, poseían armas y bombas... Aparecen fotos de...`,
         images: [
           {
             type: "noticia publicada",
@@ -10929,5 +10983,760 @@ export const TerroristActions: TerroristActionDefinition[] = [
         },
       ],
     },
+  },
+  {
+    date: new Date("July 31, 1963"),
+    title: "Robo armas en el Club de Tiro Suizo",
+    slug: "robo-armas-club-de-tiro-suizo",
+    type: "robo-armamento-explosivos",
+    fact: "ROBAN ARMAS EN EL CLUB DE TIRO SUIZO (COLONIA)",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 10)',
+        date: new Date("September 06, 1963"),
+        title:
+          "“FUERON APRESADOS EN PAYSANDÚ, DONDE SE INCAUTARON 21 CARABINAS Y 3.000 PROYECTILES, TRES EXTREMISTAS QUE ROBARON AL CLUB TIRO SUIZO”",
+        description:
+          "Paysandú. Tras una intensa jornada... una investigación de la que pueden surgir consecuencias imprevisibles, que tendrán gran resonancia en el ámbito nacional. La pista seguía a posibles autores del robo de armas registrado semanas atrás en Nueva Helvecia... De acuerdo a lo investigado los autores del robo, presumiblemente, respondan a una organización subversiva de filiación totalitaria. La importancia de la pesquisa policial radica, más que en el robo en sí, en los oscuros propósitos de que podría estar rodeado el hecho, pues se presume que pudo haber sido un primer paso para promover una sublevación contra nuestras instituciones... la noticia causará estupor a muchos que nunca pensaron en los peligros que acechan a nuestra democracia y a la libertad que disfrutamos todos, incluso los que atenten contra ella.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armas-club-de-tiro-suizo/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armas-club-de-tiro-suizo/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 10)',
+        date: new Date("September 07, 1963"),
+        title: "“EXTREMISTAS CONFESARON”",
+        description:
+          "Paysandú... Terminaron las actuaciones que se venían realizando por el caso del robo de armas del Club de Tiro Suizo de Nueva Helvecia. Todo comenzó cuando el 1º de agosto una camioneta volcó en el km. 234 de la Ruta 3. Obreros de Vialidad vieron una actitud sospechosa de los accidentados cuando, horas más tarde, con la llegada de otro vehículo comenzaron a trasbordar la carga que, envueltas en lonas, parecían armas. La policía detuvo a..., dueño de la camioneta, quien confesó que recibió un llamado de su amigo... para que lo auxilie en la carretera. Más tarde, acompañado por..., aceptó traer las armas a Paysandú y las descargaron en la sede del Centro Socialista. Se pudo saber que allí las armas fueron acondicionadas y transportadas al Arroyo Negro, donde fueron encontradas por la policía, en un monte tupido, 25 carabinas y 3210 balas.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armas-club-de-tiro-suizo/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armas-club-de-tiro-suizo/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("September 07, 1963"),
+        title:
+          '“CON LAS ARMAS ROBADAS PENSABAN "RESISTIR" EN UN INGENIO CAÑERO"',
+        description:
+          'Aparecen fotos a cuyo pie dicen: “Cinco personas detenidas en Paysandú y trasladadas a Colonia, prestaron declaración sobre el espectacular robo al Tiro de Nueva Helvecia” y aparecen sus nombres. Aparece foto de... a cuyo pie entre otras cosas dice:... "En 1962... fue procesado por protagonizar un ataque a la Confederación Sindical dirigiendo a cañeros en huelga". Aparece foto a cuyo pie dice: “Examinando las armas recuperadas en Paysandú y un cinturón con balas que no pertenece al Club de Tiro damnificado". Otra foto a cuyo pie dice:... "Las armas que fueron encontradas bajo tierra en las márgenes del arroyo Negro, Paysandú..."',
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armas-club-de-tiro-suizo/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armas-club-de-tiro-suizo/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 14)',
+        date: new Date("September 08, 1963"),
+        title:
+          "“EXTREMISTAS PLANEABAN SERIE DE ACTOS SUBVERSIVOS EN NUESTRO PAÍS”",
+        description:
+          "Colonia... Con relación al robo de armas al Tiro Suizo en Nueva Helvecia... los autores del hecho pertenecen a una organización extremista que pretendía realizar una serie de actos subversivos, el primero de los cuales... consistía en el apoderamiento de tierras de productores cañeros de Bella Unión, con la colaboración de U.T.A.A. (Unión de Trabajadores Azucareros de Artigas) con la intención de ocupar la refinería de azúcar y hacerse fuertes en esas instalaciones merced a las armas que obrarían en su poder... Ha surgido el nombre del principal cabecilla de la organización, un activista de gran influencia entre los obreros y trabajadores de las zonas norteñas del país... que así se llama el dirigente terrorista,... quien proporcionó el dato del escondite donde se encuentran los cuatro cerrojos de fusil Máuser modelo 1908, que faltaban de las armas recuperadas, como así también datos complementarios...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armas-club-de-tiro-suizo/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armas-club-de-tiro-suizo/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("September 08, 1963"),
+        title: "“BUSCAN A... EN SORIANO”",
+        description:
+          "Las últimas actuaciones policiales indican que..., el cerebro del robo de armas en Colonia, ayer se encontraba en Soriano...",
+        subtitle: "“Los Procesados”",
+        subDescription: "La nómina de procesados hasta hoy es la siguiente:...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armas-club-de-tiro-suizo/n_9.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armas-club-de-tiro-suizo/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 20)',
+        date: new Date("September 16, 1963"),
+        title: '“ESTÁ DETENIDO... EN MONTECASEROS (R.A.)"',
+        description:
+          "... es acusado allí de “tenencia de armas” y de “no pasar por lugares habilitados” encontrándose a disposición de la Justicia...",
+        subtitle: "“El Caso de la C.S.U.”",
+        subDescription:
+          "... fue procesado en el año 1962, a raíz del asalto contra el local de la Confederación Sindical del Uruguay-en la calle Paraguay-por parte de cañeros artiguenses, suceso que por trágica derivación costara la vida a una señora...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armas-club-de-tiro-suizo/n_11.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armas-club-de-tiro-suizo/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("January 01, 1964"),
+    title: "Robo armas de la Aduana de Bella Unión",
+    slug: "robo-armas-aduana-bella-union",
+    type: "robo-armamento-explosivos",
+    fact: "ROBAN ARMAS EN LA ADUANA DE BELLA UNIÓN (ARTIGAS)",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 15)',
+        date: new Date("January 12, 1964"),
+        title:
+          '“ROBARON DE LA RECEPTORÍA DE BELLA UNIÓN 11 RIFLES Y 7 BAYONETAS"',
+        description:
+          "Artigas... Mediante la ruptura de un candado, habían sido robados de la receptoría aduanera, los once fusiles Maúser que componían el armamento de ese destacamento... El hurto se perpetró entre la 1 y 30 y las 4 de la madrugada de hoy, descubriéndolo el guarda-aduanero que concurrió a abrir la receptoría. Comunicada la anormalidad a la policía local y al receptor encargado,... que se encontraba en Salto, se comprobó que habían sido robados 11 fusiles Maúser, modelo 1908, de repetición, calibre 7 mm y 7 bayonetas, estando intactas..., ruta 3, donde se encontraron dos tapabocas de fusil,...",
+        subtitle: "“Quienes Serían los Autores”",
+        subDescription:
+          "... se establecieron dos posibilidades en cuanto a quienes pueden haber cometido el hurto. La primera de ellas se relaciona al mismo grupo de agitadores que meses atrás robara las armas del Club de Tiro de Nueva Helvecia. La segunda...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armas-aduana-bella-union/n_11.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armas-aduana-bella-union/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 7)',
+        date: new Date("January 12, 1964"),
+        title:
+          "“ESPERAN ACLARAR A BREVE TÉRMINO EL ROBO DE ARMAS EN BELLA UNIÓN”",
+        description:
+          "...Todas las pesquisas llevan a presumir que fue-... el hombre afanosamente buscado por el anterior robo de armas- quien planeó el descubierto ayer e incluso vieron compinches del prófugo merodeando por los alrededores del galpón de AFE, que oficia de receptoría. Además el suceso se vincula a un paro de obreros cañeros, unos 120, que reclamaban el pago de jornales...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armas-aduana-bella-union/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armas-aduana-bella-union/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 5)',
+        date: new Date("January 13, 1964"),
+        title: '"MISTERIO A DOS PUNTAS: LAS ARMAS, ¿PARA QUÉ?"',
+        description:
+          "Sigue el misterio del robo de armas en Bella Unión donde sustrajeron 11 fusiles Máuser con sus respectivas bayonetas. Según opinión de los expertos los cartuchos 7 mm. robados en el Club de Tiro Suizo encajan perfectamente en las recámaras de estos fusiles. Se ha mencionado nuevamente a.., dirigente sindical y socialista, quien sigue prófugo de la justicia.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armas-aduana-bella-union/n_5.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armas-aduana-bella-union/n_6.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("April 20, 1964"),
+    title: "Robo armas en la ciudad de Minas",
+    slug: "robo-armas-ciudad-de-minas",
+    type: "robo-armamento-explosivos",
+    fact: "ROBAN ARMAS EN LA CIUDAD DE MINAS (LAVALLEJA)",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("April 21, 1964"),
+        title:
+          '“HAY SEIS DETENIDOS EN LA CIUDAD DE MINAS POR EL ROBO DE ARMAS"',
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armas-ciudad-de-minas/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armas-ciudad-de-minas/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Pagina 22)',
+        date: new Date("April 21, 1964"),
+        title: "“HAY SEIS PERSONAS QUE SON INDAGADAS”",
+        description:
+          "Minas. En la Jefatura de policía local se indaga esta tarde a seis personas por el robo de cinco rifles alemanes, seis revólveres de igual procedencia y mil proyectiles calibre 22, sustraídos el pasado domingo en el local de ”Casa Ribel S.A.” ubicada en 18 de Julio y Rodó...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armas-ciudad-de-minas/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armas-ciudad-de-minas/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Pagina 8)',
+        date: new Date("April 21, 1964"),
+        title: "“ROBO DE ARMAS EN MINAS: 12 FUSILES Y REVÓLVERES”",
+        description:
+          "La lista de robos continúa engrosando el caudal de extraños episodios. Primero fue en el Club de Tiro Suizo en Nueva Helvecia. Al descubrirse que los Maúser y los proyectiles pudieran haber caído en manos de extremistas políticos, una suerte de alarma, conjeturas y premoniciones invadió el país. Después fue el robo en la receptoría de Aduanas de Bella Unión. Ahí, el misterio más profundo silenció el caso, pero los Maúser nunca aparecieron. Más tarde fue en Las Piedras, una armería fue saqueada por ladrones que despreciaron otros artículos, también valiosos, para llevarse únicamente armas. Ahora es en Minas y esta vez también despreciaron artículos muy valiosos... para llevarse revólveres, rifles y cantidad de proyectiles para ambos tipo de armas.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armas-ciudad-de-minas/n_5.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armas-ciudad-de-minas/n_6.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("April 25, 1964"),
+    title: "Robo de explosivos en Maldonado y detonantes en Minas",
+    slug: "robo-explosivos-maldonado-y-detonantes-minas",
+    type: "robo-armamento-explosivos",
+    fact: "ROBAN EXPLOSIVOS EN MALDONADO Y DETONANTES EN MINAS (LAVALLEJA)",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("April 26, 1964"),
+        title:
+          "“TRESCIENTOS KILOS DE DINAMITA FUERON ROBADOS DE UNA CANTERA EN MALDONADO”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 13)',
+        date: new Date("April 26, 1964"),
+        title:
+          "“MALDONADO: LA POLICÍA INVESTIGA EL ROBO DE 300 KILOS DE DINAMITA”",
+        description:
+          "Maldonado... La lista de robos continúa. 300 kilos de dinamita fueron robadas de una cantera cerca de Pan de Azúcar, unos 4250 cartuchos en 17 cajones. Los ladrones se llevaron los explosivos de mayor poder, lo que indicaría que son personas habituadas a manejar dinamita...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("April 27, 1964"),
+        title:
+          "“NUEVA ESTIMACIÓN DE LA CANTIDAD DE EXPLOSIVOS ROBADOS: 540 KILOS. El Móvil Aún Se Desconoce”",
+        description:
+          "Pan de Azúcar... Si bien el móvil aún se desconoce, las últimas comprobaciones dan que al final fueron 540 kilos de dinamita los robados en la cantera de Pan de Azúcar perteneciente a la Compañía Nacional de Cemento S.A. El hurto inquieta a las autoridades ya que en principio se descarta que sea comercializado clandestinamente en otras canteras y que otros propósitos, ajenos a su valor, los llevaran a consumar el robo.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("May 02, 1964"),
+        title: "“DINAMITA : PREOCUPA AHORA EL ROBO DE DETONANTES EN MINAS”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_7.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("May 02, 1964"),
+        title: "“EN MINAS ROBARON DETONANTES”",
+        description:
+          "El robo de 100 fulminantes y 10 metros de mecha, a un vecino de Cerro Blanco a 12 kilómetros de Minas, abre una nueva interrogante con respecto a los 540 kilos de dinamita sustraída en Pan de Azúcar, ya que estos materiales son los indicados para detonar la dinamita.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_9.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("February 18, 1966"),
+    title: "Robo de armamento de la Carpa de F.U.T.I.",
+    slug: "robo-armamento-carpa-futi",
+    type: "robo-armamento-explosivos",
+    fact: "ROBAN ARMAMENTO DE LA CARPA FUTI, FEDERACIÓN URUGUAYA DE TEATRO INDEPENDIENTE",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("February 18, 1966"),
+        title: "“EXTREMISTAS ROBARON ARMAS DE LA AVIACIÓN”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armamento-carpa-futi/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armamento-carpa-futi/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("February 18, 1966"),
+        body: {
+          title: "“TUPAMAROS EN ACCIÓN”",
+          // titledescription: '',
+          subtitle: "“De la Línea de Pekín”",
+          subtitledescription:
+            "... conoce perfectamente las actividades de estos “Tupamaros” representantes de la ideología comunista de Pekín en su línea más dura. Esta agrupación clandestina es fervorosa defensora de la guerra total para lograr la implantación del comunismo a escala mundial. En las filas de los “Tupamaros” militan personas...",
+          subtitle1: "“Peligrosos y Organizados”",
+          subtitledescription1:
+            "Algunos de los “Tupamaros” que actúan en la clandestinidad están individualizados...",
+          subtitle2: "“Anteriores Atentados”",
+          subtitledescription2:
+            "... los “Tupamaros” quienes arrojaron una bomba contra los depósitos de la firma Bayer... también... contra el frente del edificio de Moore MacCormick Line... Hubo por entonces..., varias sedes de firmas norteamericanas dañadas con bombas.",
+        },
+        title1: "“FUSILES CON BAYONETAS PRESTADOS A UN TEATRO”",
+        description1: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armamento-carpa-futi/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armamento-carpa-futi/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("February 19, 1966"),
+        title: "“ROBARON DE UN TEATRO UNIFORMES Y 10 ARMAS”",
+        description:
+          "Un atraco desacostumbrado en nuestro medio acaeció ayer a las 10, en la carpa del Teatro Independiente ubicado en Sierra y Hocquart. Dos individuos jóvenes cuyas edades oscilarían entre 20 y 25 años llegaron hasta el teatro, los desconocidos arremetieron contra el sereno, Antonio Anuedo Ugati, reduciéndolo y atándolo en una silla y dirigiéndose donde se guardaban los uniformes y las armas, procediendo a cargarlas en una camioneta. Antes de retirarse esparcieron por las butacas del Teatro numerosos panfletos firmados con la sigla “Tupamaros”...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armamento-carpa-futi/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armamento-carpa-futi/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 6)',
+        date: new Date("February 20, 1966"),
+        title: "“LOCALIZADA LA CAMIONETA USADA POR LOS “TUPAMAROS”",
+        description:
+          "... se encontró abandonada ayer la camioneta utilizada por los “Tupamaros” en el extraño atraco a la carpa del Teatro Independiente del FUTI. El rodado de referencia había sido hurtado el 16 del corriente en Pocitos. Los delincuentes para utilizarla adulteraron el número de la cifra de la matrícula.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armamento-carpa-futi/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armamento-carpa-futi/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("November 27, 1966"),
+    title: "Robo de armamento y uniformes de la Armería El Cazador",
+    slug: "robo-armamento-uniformes-armeria-el-cazador",
+    type: "robo-armamento-explosivos",
+    fact: "“ROBAN LA ARMERÍA “EL CAZADOR”",
+    newsPapers: [
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("November 27, 1966"),
+        title:
+          "“ROBAN ARMAS POR UN MILLÓN DE PESOS Y UNIFORMES POLICIALES, DEJAN DINERO. CUMPLIERON UN PLAN CIENTÍFICO ¿QUÉ PASARÁ?”",
+        description:
+          "... Aparecen fotos del escenario y detalles del robo millonario.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armamento-uniformes-armeria-el-cazador/n_1.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armamento-uniformes-armeria-el-cazador/n_2.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 12)',
+        date: new Date("November 28, 1966"),
+        title: "“BOQUETEROS HURTARON AYER ARMAS Y UNIFORMES”",
+        description: "...",
+        subtitle: "“Segundo Asalto”",
+        subDescription:
+          "... Desde allí realizan un segundo boquete llegando a la armería “El Cazador” de la Avenida Uruguay 808; en la armería robaron armas y proyectiles sustrayendo 30 pistolas… marca Beretta. De otro lugar hurtan 20 carabinas calibre 22 de repetición y automáticas marca “Brno” y “Browning” y 200 cajas de proyectiles de calibre de guerra.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armamento-uniformes-armeria-el-cazador/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armamento-uniformes-armeria-el-cazador/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 11)',
+        date: new Date("November 28, 1966"),
+        title: "“ROBARON UNIFORMES Y ARMAS POR $ 800.000”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armamento-uniformes-armeria-el-cazador/n_5.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armamento-uniformes-armeria-el-cazador/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("January 01, 1968"),
+    title: "Robo de 500 Kgs. de explosivos de un polvorín en Maldonado",
+    slug: "robo-explosivos-polvorin-maldonado",
+    type: "robo-armamento-explosivos",
+    fact: "ROBAN 500 KILOS DE EXPLOSIVOS DE UN POLVORÍN DE LA INDUSTRIA DE CEMENTO (MALDONADO)",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("January 03, 1968"),
+        title: "“TUPAMAROS ROBAN 500 KILOS DE EXPLOSIVOS”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-explosivos-polvorín-maldonado/n_1.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-explosivos-polvorín-maldonado/n_2.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("January 03, 1968"),
+        title:
+          "“APROVISIONARÍAN A GUERRILLEROS DE OTROS PAÍSES CON LA GELINITA”",
+        description:
+          "Pan de Azúcar. Los Tupamaros robaron días pasados 500 kilos de gelinita del polvorín ubicado en la Cantera Blanca, con el propósito, según fuentes informadas, de enviar tan importante cantidad de explosivos a guerrilleros que operan en otros países de América y a los que resulta muy difícil aprovisionarse de tal elemento. El explosivo era propiedad de la fábrica de portland que se encuentra sobre la Ruta 9 a la altura del kilómetro 110 de la ciudad de Pan de Azúcar. Los autores de la sustracción se individualizaron dejando en el lugar unos volantes donde indican que son los “Tupamaros”.",
+        subtitle: "“Más de Veinte Prófugos”",
+        subDescription:
+          "Mientras se produce otra incursión de los “Tupamaros” que ya protagonizaron actos de terrorismo contra edificios de empresas extranjeras, asaltaron bancos, se tirotearon con la policía en varias circunstancias y atracaron la carpa de FUTI llevándose fusiles y uniformes, más de veinte de estos terroristas identificados por la policía cuando los sonados sucesos de diciembre de 1966, se mantienen prófugos. Algunos de estos “Tupamaros” se encuentran en Cuba...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-explosivos-polvorín-maldonado/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-explosivos-polvorín-maldonado/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("January 03, 1968"),
+        title: "“MALDONADO. ROBARON POLVORÍN DE INDUSTRIA DE CEMENTO”",
+        description:
+          "Pan de Azúcar. A las 10 y 15 de esta mañana se denunció a las autoridades de la seccional 3º, por parte de la Compañía Nacional de Cemento Portland con asiento en kilómetro 110 del ferrocarril al este, que mediante violación del techo del polvorín existente en la cantera “Nueva Carrara”, que explota dicha empresa, se había perpetrado la sustracción de importante cantidad de explosivos... El material sustraído de dicha cantera consiste en 27 cajones de dinamita de kg. 22,500 cada uno, con un total de kilogramos 607,500.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-explosivos-polvorín-maldonado/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-explosivos-polvorín-maldonado/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("May 07, 1968"),
+    title: "Robo de revólveres y pistolas de la Armería Botta",
+    slug: "robo-revolveres-y-pistolas-armeria-botta",
+    type: "robo-armamento-explosivos",
+    fact: "ASALTAN LA ARMERÍA BOTTA",
+    newsPapers: [
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("May 07, 1968"),
+        title:
+          "“ARMERÍA ATRACADA EN EL REDUCTO: LLEVAN 25 REVÓLVERES Y 200 BALAS”",
+        description:
+          "... Esta mañana, a la armería sita en San Martín 2328... llegaron tres desconocidos, los que, revólver en mano... intimaron al dueño de la casa... procedieron a atarle las manos a la espalda colocándole una ancha tira emplástica en la boca, mientras... se entregaban a la tarea de sacar de las vitrinas alrededor de veinticinco armas cortas -revólveres y pistolas- de las marcas Smith Wesson, Colt, Astra, Llama y Bernardelli... estimados en unos seiscientos mil pesos, incluyendo doscientas balas de calibre surtidos... en el cajón del mostrador, los delincuentes se apoderaron de seis mil pesos en efectivo.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-revolveres-y-pistolas-armeria-botta/n_1.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-revolveres-y-pistolas-armeria-botta/n_2.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("January 01, 1969"),
+    title: "Robo de armas de un juzgado",
+    slug: "robo-armas-de-un-juzgado",
+    type: "robo-armamento-explosivos",
+    fact: "ROBAN ARMAS DE UN JUZGADO",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("January 01, 1969"),
+        title: "“AUDAZ GOLPE DIERON AYER LOS TUPAMAROS”",
+        description:
+          "Mientras la ciudad festejaba el comienzo de un nuevo año, los Tupamaros reaparecieron en la madrugada del día miércoles 1º y dieron un golpe... Procurando armas violentaron la puerta de un juzgado y robaron un verdadero arsenal que incluye hasta metralletas y carabinas... Aparece plano de las dependencias del Juzgado.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armas-de-un-juzgado/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armas-de-un-juzgado/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("January 01, 1969"),
+    title: "Robo a coleccionista de armas",
+    slug: "robo-a-coleccionista-de-armas",
+    type: "robo-armamento-explosivos",
+    fact: "ROBO A UN COLECCIONISTA DE ARMAS",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("September 26, 1969 03:24:00"),
+        title: "LO ACRIBILLARON AL NO ENTREGAR EL ARMAMENTO",
+        description:
+          "Un coleccionista de armas... fue acribillado a balazos por un grupo de extremistas cuando intentaban robarle valiosas pistolas, revólveres y municiones... se produjo esta mañana pasada las 6.30 horas en el comercio de la Avda. General Flores 2687 esquina Vilardebó, propiedad de la víctima Rafael César Guidet Piotti. Aparece croquis de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-a-coleccionista-de-armas/n_1.jpg",
+            alt: "noticia publicada por el diario el diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-a-coleccionista-de-armas/n_2.jpg",
+            alt: "pagina publicada por el diario el diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("May 29, 1970"),
+    title: "Robo de armamento en el Centro de Instrucción de la Marina",
+    slug: "robo-armamento-centro-instruccion-de-la-marina",
+    type: "robo-armamento-explosivos",
+    fact: "ROBO DE ARSENAL EN  EL CENTRO DE INSTRUCCIÓN DE LA MARINA",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 11)',
+        date: new Date("May 31, 1970"),
+        title: "“EL TRAIDOR...,  ERA EL “CABO DE GUARDIA”",
+        description:
+          "...en sus funciones de Cabo de Guardia salió de la Oficina para realizar, al parecer, una de las rondas de rutina. Subió hasta la azotea donde estaba su compañero centinela... en determinado momento, extrajo su pistola de reglamento y apuntándole lo redujo, obligándolo a entregar el arma así como a acostarse boca abajo... desde allí arriba y con el “M-16” apuntó al “puerta” ubicado abajo... La nómina completa de armas... El numeroso arsenal estaba compuesto por 4 sub ametralladoras “Thompsom”..., 90 fusiles..., 150 fusiles semiautomáticos “Garand M-1”, 4 fusiles “M-16”..., 4 metralletas “Raissing”..., seis radio-transmisores de mochila... El total de proyectiles es... 7000...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armamento-centro-instruccion-de-la-marina/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armamento-centro-instruccion-de-la-marina/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("June 03, 1970"),
+        title: "“RECONOCEN A 4 ASALTANTES DE LA MARINA; 2 REMITIDOS”",
+        description: "El Juez de Instrucción...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armamento-centro-instruccion-de-la-marina/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armamento-centro-instruccion-de-la-marina/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 7)',
+        date: new Date("August 01, 1970"),
+        title: "“UNO DE LOS APRESADOS RECONOCIDO  COMO ASALTANTE A LA MARINA”",
+        description: "Tres sediciosos... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/robo-armamento-centro-instruccion-de-la-marina/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/robo-armamento-centro-instruccion-de-la-marina/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
   },
 ];

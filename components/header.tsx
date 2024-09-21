@@ -31,6 +31,7 @@ const navItems = [
   {
     name: "Robo Armas/Explosivos",
     icon: <Icons.gun className="w-6 h-6 lg:w-5 lg:h-5" />,
+    href: "/robo-armamento-explosivos",
   },
   {
     name: "Otras Acciones",

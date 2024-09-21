@@ -115,7 +115,17 @@ function VictimInfo({
           <time>{getFormattedDateToString(date)}</time>
         </p> */}
 
-        {!info.kidnapping && (
+        {/* {!info.kidnapping && (
+          <p className="text-center text-2xl 2xl:text-4xl font-bold">
+            <time>{getFormattedDateToString(date)}</time>
+          </p>
+        )} */}
+
+        {info.deceased ? (
+          <p className="text-center text-2xl 2xl:text-4xl font-bold">
+            <time>{getFormattedDateToString(info.deceased)}</time>
+          </p>
+        ) : (
           <p className="text-center text-2xl 2xl:text-4xl font-bold">
             <time>{getFormattedDateToString(date)}</time>
           </p>
