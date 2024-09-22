@@ -16,7 +16,10 @@ function getFormattedDateToString(date: Date): string {
 export default function Notice({ notices }: Props) {
   return (
     <div className="py-8 text-primary-foreground 2xl:text-lg">
-      <h3 className="uppercase text-xl md:text-2xl 2xl:text-4xl text-center font-extrabold">
+      <h3
+        className="uppercase text-xl md:text-2xl 2xl:text-4xl text-center font-extrabold"
+        id="notices"
+      >
         noticias publicadas por diarios de la época
       </h3>
 

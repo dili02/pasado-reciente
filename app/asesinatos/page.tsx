@@ -46,12 +46,8 @@ export default async function page({}: Props) {
 
   return (
     <section className="container mx-auto py-8">
-      <h1 className="uppercase text-2xl md:text-4xl 2xl:text-5xl text-center font-extrabold text-[#f40]">
+      <h1 className="uppercase text-2xl md:text-4xl text-center font-extrabold text-primary-foreground">
         asesinatos
-        {/* <span className="text-destructive hidden md:inline-block px-4">
-          (
-          {terroristActionMurders.length})
-        </span> */}
       </h1>
 
       <p className="text-textSecondary text-center font-bold text-xl">

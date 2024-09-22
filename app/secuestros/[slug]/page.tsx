@@ -37,11 +37,11 @@ export default async function page({ params }: Props) {
 
   return (
     <section className="container mx-auto text-textPrimary">
-      {action.fact && (
+      {/* {action.fact && (
         <h1 className="text-center uppercase text-2xl md:text-4xl font-extrabold text-[#f40] mt-8">
           HECHO: {action.fact}
         </h1>
-      )}
+      )} */}
 
       {action.victims?.map((victim, index) => (
         <Victim key={index} victim={victim} date={action.date} />

@@ -10986,7 +10986,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
   },
   {
     date: new Date("July 31, 1963"),
-    title: "Robo armas en el Club de Tiro Suizo",
+    title: "Armamento Club de Tiro Suizo - Colonia",
     slug: "robo-armas-club-de-tiro-suizo",
     type: "robo-armamento-explosivos",
     fact: "ROBAN ARMAS EN EL CLUB DE TIRO SUIZO (COLONIA)",
@@ -11117,7 +11117,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
   },
   {
     date: new Date("January 01, 1964"),
-    title: "Robo armas de la Aduana de Bella Unión",
+    title: "Armamento Aduana Bella Unión - Artigas",
     slug: "robo-armas-aduana-bella-union",
     type: "robo-armamento-explosivos",
     fact: "ROBAN ARMAS EN LA ADUANA DE BELLA UNIÓN (ARTIGAS)",
@@ -11135,12 +11135,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/robo-armas-aduana-bella-union/n_11.jpg",
+            src: "/robo-armas-aduana-bella-union/n_1.jpg",
             alt: "noticia publicada por el diario El Día",
           },
           {
             type: "página diario completa",
-            src: "/robo-armas-aduana-bella-union/n_12.jpg",
+            src: "/robo-armas-aduana-bella-union/n_2.jpg",
             alt: "página diario completa publicada por el diario El Día",
           },
         ],
@@ -11185,10 +11185,32 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Seiscientos kilómetros más al norte otro grupo cumplió, la noche de año nuevo, su compromiso con el Coordinador llevándose los fusiles de la aduana de Bella Unión, una especie de Tiro Suizo, pero esta vez sin fallas…”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 1: los orígenes",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "pág. 109",
+          author: "Fernández Huidobro",
+        },
+        {
+          fragment: `<p>“Y el primer día de 1964 también celebraron todos -algunos con vino en Montevideo, Sendic con caña brasilera más allá de la frontera- el robo de armas de la Aduana de Bella Unión por parte de algunos muchachos de la dirigencia de UTAA: once fusiles y siete bayonetas.”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 260",
+          author: "Pernas",
+        },
+      ],
+    },
   },
   {
     date: new Date("April 20, 1964"),
-    title: "Robo armas en la ciudad de Minas",
+    title: "Armamento Casa Ribel S.A. - Minas",
     slug: "robo-armas-ciudad-de-minas",
     type: "robo-armamento-explosivos",
     fact: "ROBAN ARMAS EN LA CIUDAD DE MINAS (LAVALLEJA)",
@@ -11254,8 +11276,8 @@ export const TerroristActions: TerroristActionDefinition[] = [
   },
   {
     date: new Date("April 25, 1964"),
-    title: "Robo de explosivos en Maldonado y detonantes en Minas",
-    slug: "robo-explosivos-maldonado-y-detonantes-minas",
+    title: "Explosivos Nueva Carrara - Maldonado",
+    slug: "robo-explosivos-maldonado",
     type: "robo-armamento-explosivos",
     fact: "ROBAN EXPLOSIVOS EN MALDONADO Y DETONANTES EN MINAS (LAVALLEJA)",
     newsPapers: [
@@ -11268,12 +11290,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_1.jpg",
+            src: "/robo-explosivos-maldonado/n_1.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_2.jpg",
+            src: "/robo-explosivos-maldonado/n_2.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -11288,12 +11310,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_3.jpg",
+            src: "/robo-explosivos-maldonado/n_3.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_4.jpg",
+            src: "/robo-explosivos-maldonado/n_4.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -11308,16 +11330,143 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_5.jpg",
+            src: "/robo-explosivos-maldonado/n_5.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_6.jpg",
+            src: "/robo-explosivos-maldonado/n_6.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
       },
+      // {
+      //   name: 'Diario "El Diario" (en Portada)',
+      //   date: new Date("May 02, 1964"),
+      //   title: "“DINAMITA : PREOCUPA AHORA EL ROBO DE DETONANTES EN MINAS”",
+      //   description: "...",
+      //   images: [
+      //     {
+      //       type: "noticia publicada",
+      //       src: "/robo-explosivos-maldonado-y-detonantes-minas/n_7.jpg",
+      //       alt: "noticia publicada por el diario El Diario",
+      //     },
+      //     {
+      //       type: "página diario completa",
+      //       src: "/robo-explosivos-maldonado-y-detonantes-minas/n_8.jpg",
+      //       alt: "página diario completa publicada por el diario El Diario",
+      //     },
+      //   ],
+      // },
+      // {
+      //   name: 'Diario "El Diario" (Página 18)',
+      //   date: new Date("May 02, 1964"),
+      //   title: "“EN MINAS ROBARON DETONANTES”",
+      //   description:
+      //     "El robo de 100 fulminantes y 10 metros de mecha, a un vecino de Cerro Blanco a 12 kilómetros de Minas, abre una nueva interrogante con respecto a los 540 kilos de dinamita sustraída en Pan de Azúcar, ya que estos materiales son los indicados para detonar la dinamita.",
+      //   images: [
+      //     {
+      //       type: "noticia publicada",
+      //       src: "/robo-explosivos-maldonado-y-detonantes-minas/n_9.jpg",
+      //       alt: "noticia publicada por el diario El Diario",
+      //     },
+      //     {
+      //       type: "página diario completa",
+      //       src: "/robo-explosivos-maldonado-y-detonantes-minas/n_10.jpg",
+      //       alt: "página diario completa publicada por el diario El Diario",
+      //     },
+      //   ],
+      // },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“... Fue durante esas reuniones de abril que pidió ingreso al Coordinador, formalmente, un nuevo grupo. Provenía de Montevideo. Del Partido Socialista. Aquel raro de la pipa, el ingeniero, había sido el chofer que no perdió la serenidad en Melilla. En base a ello se pedía el ingreso. El Coordinador no consideró suficiente acción como para ap obarlo (sic). Entonces, para ingresar, aquel grupo se llevó 540 kgs. de gelignita en 24 cajones de una cantera de Pan de Azúcar. El 25 de abril de 1964 ese grupo ingresó al Coordinador. Con él estaban todos los que pondrían manos a la obra en la construcción del MLN”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 1: los orígenes",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "págs. 129-130",
+          author: "Fernández Huidobro",
+        },
+        {
+          fragment: `<p>“Además, Manera, Rivero Cedrés, Amodio Pérez y Rodríguez Recalde-es decir, parte del grupo de socialistas- habían robado, el 24 de abril, unos quinientos cuarenta kilos de dinamita de la cantera Nueva Carrara de Pan de Azúcar, en el departamento de Maldonado. Eran unos dos mil quinientos cartuchos colocados en veinticuatros cajas, que cargaron en un jeep Land Rover y luego enterraron en las arenas del balneario Bella Vista, bajo unos tamarices, que servían de referencia para cuando debían desenterrarlos… La acción fue realizada con pleno conocimiento de Sendic”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 267",
+          author: "Pernas",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("May 01, 1964"),
+    title: "Detonantes Cerro Blanco - Minas",
+    slug: "robo-detonantes-minas",
+    type: "robo-armamento-explosivos",
+    fact: "ROBAN EXPLOSIVOS EN MALDONADO Y DETONANTES EN MINAS (LAVALLEJA)",
+    newsPapers: [
+      // {
+      //   name: 'Diario "El Diario" (en Portada)',
+      //   date: new Date("April 26, 1964"),
+      //   title:
+      //     "“TRESCIENTOS KILOS DE DINAMITA FUERON ROBADOS DE UNA CANTERA EN MALDONADO”",
+      //   description: "...",
+      //   images: [
+      //     {
+      //       type: "noticia publicada",
+      //       src: "/robo-explosivos-maldonado-y-detonantes-minas/n_1.jpg",
+      //       alt: "noticia publicada por el diario El Diario",
+      //     },
+      //     {
+      //       type: "página diario completa",
+      //       src: "/robo-explosivos-maldonado-y-detonantes-minas/n_2.jpg",
+      //       alt: "página diario completa publicada por el diario El Diario",
+      //     },
+      //   ],
+      // },
+      // {
+      //   name: 'Diario "El Diario" (Página 13)',
+      //   date: new Date("April 26, 1964"),
+      //   title:
+      //     "“MALDONADO: LA POLICÍA INVESTIGA EL ROBO DE 300 KILOS DE DINAMITA”",
+      //   description:
+      //     "Maldonado... La lista de robos continúa. 300 kilos de dinamita fueron robadas de una cantera cerca de Pan de Azúcar, unos 4250 cartuchos en 17 cajones. Los ladrones se llevaron los explosivos de mayor poder, lo que indicaría que son personas habituadas a manejar dinamita...",
+      //   images: [
+      //     {
+      //       type: "noticia publicada",
+      //       src: "/robo-explosivos-maldonado-y-detonantes-minas/n_3.jpg",
+      //       alt: "noticia publicada por el diario El Diario",
+      //     },
+      //     {
+      //       type: "página diario completa",
+      //       src: "/robo-explosivos-maldonado-y-detonantes-minas/n_4.jpg",
+      //       alt: "página diario completa publicada por el diario El Diario",
+      //     },
+      //   ],
+      // },
+      // {
+      //   name: 'Diario "El Diario" (Página 18)',
+      //   date: new Date("April 27, 1964"),
+      //   title:
+      //     "“NUEVA ESTIMACIÓN DE LA CANTIDAD DE EXPLOSIVOS ROBADOS: 540 KILOS. El Móvil Aún Se Desconoce”",
+      //   description:
+      //     "Pan de Azúcar... Si bien el móvil aún se desconoce, las últimas comprobaciones dan que al final fueron 540 kilos de dinamita los robados en la cantera de Pan de Azúcar perteneciente a la Compañía Nacional de Cemento S.A. El hurto inquieta a las autoridades ya que en principio se descarta que sea comercializado clandestinamente en otras canteras y que otros propósitos, ajenos a su valor, los llevaran a consumar el robo.",
+      //   images: [
+      //     {
+      //       type: "noticia publicada",
+      //       src: "/robo-explosivos-maldonado-y-detonantes-minas/n_5.jpg",
+      //       alt: "noticia publicada por el diario El Diario",
+      //     },
+      //     {
+      //       type: "página diario completa",
+      //       src: "/robo-explosivos-maldonado-y-detonantes-minas/n_6.jpg",
+      //       alt: "página diario completa publicada por el diario El Diario",
+      //     },
+      //   ],
+      // },
       {
         name: 'Diario "El Diario" (en Portada)',
         date: new Date("May 02, 1964"),
@@ -11326,12 +11475,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_7.jpg",
+            src: "/robo-detonantes-minas/n_7.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_8.jpg",
+            src: "/robo-detonantes-minas/n_8.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -11345,12 +11494,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_9.jpg",
+            src: "/robo-detonantes-minas/n_9.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/robo-explosivos-maldonado-y-detonantes-minas/n_10.jpg",
+            src: "/robo-detonantes-minas/n_10.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -11359,7 +11508,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
   },
   {
     date: new Date("February 18, 1966"),
-    title: "Robo de armamento de la Carpa de F.U.T.I.",
+    title: "Armamento F.U.T.I. - Montevideo",
     slug: "robo-armamento-carpa-futi",
     type: "robo-armamento-explosivos",
     fact: "ROBAN ARMAMENTO DE LA CARPA FUTI, FEDERACIÓN URUGUAYA DE TEATRO INDEPENDIENTE",
@@ -11452,10 +11601,23 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Mientras bajábamos por la calle 26 de Marzo al puertito del Buceo, alta ya la noche, íbamos comentando la reciente “operación” de la Organización en la carpa, que sobre el Palacio Legislativo, había levantado la Federación Uruguaya de Teatros Independientes; allí se había dado la obra de Rosencof “Las Ranas” y más tarde “Papas Fritas con Todo” de Arnold Wesker. Para esta obra era necesario utilizar fusiles, y la Fuerza Aérea había prestado diez; nosotros sabíamos que no tenían la aguja percutora en sus cerrojos, pero también sabíamos cómo hacerla en nuestros talleres. De modo que un día, en febrero habíamos ido en su busca y dejado un volante que decía: “El pueblo confisca para sí estos instrumentos como única garantía de ser respetado… TUPAMAROS”. Nos llevamos también 18 uniformes...”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 3: el MLN",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "pág. 16",
+          author: "Fernández Huidobro",
+        },
+      ],
+    },
   },
   {
     date: new Date("November 27, 1966"),
-    title: "Robo de armamento y uniformes de la Armería El Cazador",
+    title: "Armamento Armería El Cazador - Montevideo",
     slug: "robo-armamento-uniformes-armeria-el-cazador",
     type: "robo-armamento-explosivos",
     fact: "“ROBAN LA ARMERÍA “EL CAZADOR”",
@@ -11487,7 +11649,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
         description: "...",
         subtitle: "“Segundo Asalto”",
         subDescription:
-          "... Desde allí realizan un segundo boquete llegando a la armería “El Cazador” de la Avenida Uruguay 808; en la armería robaron armas y proyectiles sustrayendo 30 pistolas… marca Beretta. De otro lugar hurtan 20 carabinas calibre 22 de repetición y automáticas marca “Brno” y “Browning” y 200 cajas de proyectiles de calibre de guerra.",
+          "... Desde allí realizan un segundo boquete llegando a la armería “El Cazador” de la Avenida Uruguay 808; en la armería robaron armas y proyectiles sustrayendo 30 pistolas... marca Beretta. De otro lugar hurtan 20 carabinas calibre 22 de repetición y automáticas marca “Brno” y “Browning” y 200 cajas de proyectiles de calibre de guerra.",
         images: [
           {
             type: "noticia publicada",
@@ -11520,10 +11682,34 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“...Ocho hombres y dos mujeres brindaríamos apoyo desde afuera en diversas misiones. Encabezados por Marenales, entrarían cinco... Un local para alquilar en el edificio de apartamentos contiguo nos ofrecía, providencialmente, el camino de entrada con sólo hacer un boquete...
+          Aprovechando un momento en que la puerta quedó abierta, a eso de la hora 19, los cinco compañeros entraron al edificio...
+          Amanecía el 27 de noviembre de 1966: 63 armas de diverso calibre, más de 10.000 proyectiles, herramientas, uniformes policiales, etc., iban en una camioneta custodiada por otra, hacia el taller de José L. Terra...”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 3: el MLN",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "págs. 40-44",
+          author: "Fernández Huidobro",
+        },
+        {
+          fragment: `<p>“La noche de la elección nacional, el 27 de noviembre, aprovechando la distracción de las fuerzas de seguridad a cargo de la custodia del acto cívico, los tupamaros lograron desvalijar la Armería El Cazador, en pleno centro de Montevideo: diez bultos que contenían unas veinte armas largas –rifles y escopetas– , casi cincuenta revólveres, cerca de diez mil municiones y más de quince uniformes policiales se escurrieron en la madrugada del domingo”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 307",
+          author: "Pernas",
+        },
+      ],
+    },
   },
   {
     date: new Date("January 01, 1968"),
-    title: "Robo de 500 Kgs. de explosivos de un polvorín en Maldonado",
+    title: "Explosivos Cantera Blanca - Maldonado",
     slug: "robo-explosivos-polvorin-maldonado",
     type: "robo-armamento-explosivos",
     fact: "ROBAN 500 KILOS DE EXPLOSIVOS DE UN POLVORÍN DE LA INDUSTRIA DE CEMENTO (MALDONADO)",
@@ -11589,10 +11775,24 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“La noche de fin de año de 1967 se ven los clásicos fuegos artificiales en el cielo, suenan las “bombas y otros tipos de petardos en los barrios y poblados. Esa noche lo último que deseaban los tupamaros era que algo de lo que llevaban en la caja les explotara. Salían desde el kilómetro 110 de la Ruta 9 con más de quinientos kilos de gelignita que habían extraído de la Cantera Blanca, en las afueras de Pan de Azúcar. La estrella de cinco puntas quedó pintada en la pared del polvorín y los volantes dispersos por el lugar llevaban la firma del Comando Carlos Flores.
+          El material quedó enterrado en las arenas del balneario Bella Vista hasta mejor oportunidad de trasladarlo a Marquetalia”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 327",
+          author: "Pernas",
+        },
+      ],
+    },
   },
   {
     date: new Date("May 07, 1968"),
-    title: "Robo de revólveres y pistolas de la Armería Botta",
+    title: "Armamento Armería Botta - Montevideo",
     slug: "robo-revolveres-y-pistolas-armeria-botta",
     type: "robo-armamento-explosivos",
     fact: "ASALTAN LA ARMERÍA BOTTA",
@@ -11621,7 +11821,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
   },
   {
     date: new Date("January 01, 1969"),
-    title: "Robo de armas de un juzgado",
+    title: "Armamento en Juzgado - Montevideo",
     slug: "robo-armas-de-un-juzgado",
     type: "robo-armamento-explosivos",
     fact: "ROBAN ARMAS DE UN JUZGADO",
@@ -11646,10 +11846,24 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“... 1969 se inicia con perspectivas más auspiciosas. En los últimos días de diciembre se tuvo la información de que en el Juzgado de Instrucción de Primer Turno estaban depositadas las armas que la policía había incautado en los procedimientos contra el MLN-T.</p>
+          <p>La acción se realiza bajo la responsabilidad de Tabaré Rivero, participando gente de su columna que no tenía experiencia anterior...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "pág. 269",
+          author: "Marius",
+        },
+      ],
+    },
   },
   {
-    date: new Date("January 01, 1969"),
-    title: "Robo a coleccionista de armas",
+    date: new Date("September 26, 1969"),
+    title: "Armamento domicilio Luis Bruzzone - Montevideo",
     slug: "robo-a-coleccionista-de-armas",
     type: "robo-armamento-explosivos",
     fact: "ROBO A UN COLECCIONISTA DE ARMAS",
@@ -11677,7 +11891,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
   },
   {
     date: new Date("May 29, 1970"),
-    title: "Robo de armamento en el Centro de Instrucción de la Marina",
+    title: "Armamento Centro de Instrucción de la Marina - Montevideo",
     slug: "robo-armamento-centro-instruccion-de-la-marina",
     type: "robo-armamento-explosivos",
     fact: "ROBO DE ARSENAL EN  EL CENTRO DE INSTRUCCIÓN DE LA MARINA",
@@ -11738,5 +11952,48 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Cuatro días después los tupamaros festejan el gran golpe del Bebe Sendic y su columna del interior con el apoyo de otros revolucionarios en especial del marinero Fernando Garín. Habían irrumpido en el Centro de Instrucción de la Marina, redujeron a los efectivos navales...”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 460",
+          author: "Pernas",
+        },
+        {
+          fragment: `<p>“... -En varias cosas. En la Marina...</p>
+          <p>- Si, yo con otros peludos fuimos al mando de Raúl...</p>
+          <p>-Raúl estaba sí. El que más aparecía era Bidegain, pero Raúl estaba. De aquellos cuatro peludos que fuimos bajo las órdenes de Raúl hoy sólo quedamos Bandera Lima y yo.</p>
+          <p>... Las armas fueron muchas y se escondieron en varios lugares. No me extrañaría que cualquier día aparezca por ahí un pequeño arsenal, con las armas ya ferruginosas...”.</p>`,
+          year: new Date("2014-1-1"),
+          name: "El Cholo González. Un cañero de Bella Unión",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Trilce",
+          pages: "pág. 82",
+          author: "Gilio",
+        },
+        {
+          fragment: `<p>“... En la madrugada del día 29 de mayo de 1970, un comando del Movimiento de Liberación Nacional copó, sin una gota de sangre derramada, un cuartel de la Marina, llevándose todo el armamento.
+          Junto al parte de guerra, el MLN difundió la siguiente carta de Fernando Garín, militar y tupamaro que participó en dicho copamiento:...”.</p>`,
+          name: "La tregua armada",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Ediciones",
+          pages: "pág. 17",
+          author: "Fernández Huidobro",
+        },
+        {
+          fragment: `<p>“... Mayo se invirtió en la preparación de la acción del Centro de Instrucción de la Marina (CIM) y que fue realizada por la Columna del Interior y dirigida por Mansilla, quien había reclutado tiempo antes a un marinero, Fernando Garín, que prestaba servicios en esa unidad, y que jugó un papel fundamental antes y durante la realización del operativo...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "págs. 277-278",
+          author: "Marius",
+        },
+      ],
+    },
   },
 ];

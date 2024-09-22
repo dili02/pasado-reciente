@@ -37,11 +37,11 @@ export default async function page({ params }: Props) {
 
   return (
     <section className="container mx-auto text-textPrimary">
-      {action.fact && (
+      {/* {action.fact && (
         <h1 className="text-center uppercase text-2xl md:text-4xl font-extrabold text-[#f40] mt-8">
           HECHO: {action.fact}
         </h1>
-      )}
+      )} */}
 
       {action.victims?.map((victim, index) => (
         <Victim key={index} victim={victim} date={action.date} />
@@ -66,23 +66,23 @@ export default async function page({ params }: Props) {
   );
 }
 
-type NewsPapersProps = {
-  notices: NewPapersNoticesProps[];
-};
+// type NewsPapersProps = {
+//   notices: NewPapersNoticesProps[];
+// };
 
-type NewPapersNoticesProps = {
-  name?: string;
-  date?: Date;
-  title: string;
-  description?: string;
-};
-function NewPapers({ notices }: NewsPapersProps) {
-  console.log(notices);
-  return (
-    <div className="py-8 text-primary-foreground 2xl:text-lg">
-      <h3 className="uppercase text-xl md:text-2xl 2xl:text-4xl text-center font-extrabold">
-        noticias publicadas por diarios de la época
-      </h3>
-    </div>
-  );
-}
+// type NewPapersNoticesProps = {
+//   name?: string;
+//   date?: Date;
+//   title: string;
+//   description?: string;
+// };
+// function NewPapers({ notices }: NewsPapersProps) {
+//   console.log(notices);
+//   return (
+//     <div className="py-8 text-primary-foreground 2xl:text-lg">
+//       <h3 className="uppercase text-xl md:text-2xl 2xl:text-4xl text-center font-extrabold">
+//         noticias publicadas por diarios de la época
+//       </h3>
+//     </div>
+//   );
+// }

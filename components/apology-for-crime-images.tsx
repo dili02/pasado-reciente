@@ -8,7 +8,7 @@ type Props = {
 export default function ApologyForCrimeInImages({ crimeImages }: Props) {
   return (
     <div>
-      <h2 className="uppercase text-xl md:text-2xl 2xl:text-4xl text-center font-extrabold">
+      <h2 className="uppercase text-xl md:text-2xl 2xl:text-4xl text-center font-extrabold text-primary-foreground">
         Apología del delito en imágenes
       </h2>
 
@@ -23,7 +23,7 @@ export default function ApologyForCrimeInImages({ crimeImages }: Props) {
               {apology.description}
             </p>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 py-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 py-6 text-primary-foreground">
               {apology.images.map((image) => (
                 <div key={image.src}>
                   <img src={image.src} alt={image.alt} />

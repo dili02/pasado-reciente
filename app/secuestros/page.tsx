@@ -29,13 +29,8 @@ export default async function page({}: Props) {
   );
   return (
     <section className="container mx-auto py-8">
-      <h1 className="flex justify-center items-center">
-        <span className="uppercase text-2xl md:text-4xl 2xl:text-5xl text-center font-extrabold text-primary relative inline-block">
-          secuestros
-          <span className="absolute -top-2 -right-12 inline-flex items-center justify-center px-[0.4rem] py-1 text-xl font-semibold leading-none text-orange-100 bg-primary rounded-full w-10 h-10">
-            {terroristActionKidnapped.length}
-          </span>
-        </span>
+      <h1 className="uppercase text-2xl md:text-4xl text-center font-extrabold text-primary-foreground">
+        secuestros
       </h1>
 
       <p className="text-muted-foreground text-center font-bold text-xl">
