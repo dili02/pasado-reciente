@@ -11114,6 +11114,63 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Hubo, durante todo el período que venimos relatando, muchas reuniones de este tipo entre militantes con inquietudes similares. Sería exagerar decir que el denominador común de esas inquietudes era la lucha armada.</p>
+          <p>... A esas reuniones no iba cualquiera... En ellas nos vimos, en muchos casos por primera vez, con Cultelli, con Mujica, con Beletti, con Jorge Torres, con Gerardo Gatti, con Vivián Trías...</p>
+          <p>En el transcurso de ese verano, Eduardo Pinela logró volver a reunir a nuestro grupo y nos lanzóa (sic) una campaña de finanzas para reunir los fondos necesarios para comprar algunas armas.</p> <p>Salimos a vender juguetes: -que no logramos vender- llegamos a la conclusión de que para tener armas en las cantidades que necesitábamos teníamos que ir a buscarlas a donde estaban... Nos habían hablado de un juzgado...</p>
+          <p>El negocio de los juguetes no había marchado como para financiar la revolución y no teníamos las llaves del juzgado donde estaban las armas en depósito. Era necesario, imprescindible, actuar como delincuentes comunes y hacer creer a todos que eran los amigos de lo ajeno quienes intentaban llevárselas.</p>
+          <p>El intento del juzgado se había enmarcado dentro de los compromisos que para tal proyecto habíamos contraído. Al fallarnos, fue que se nos ocurrió ir a reconocer el Tiro Suizo...</p>
+          <p>Nos pusimos en contacto con Raúl y lo invitamos a visitar el lugar. Así fue que una mañana, bien temprano, salimos en su moto con rumbo a Colonia... Y una vez visto el “objetivo” nos encargaríamos de conseguir las armas, Raúl de llevarlas junto a dos compañeros nuestros...</p>
+          <p>Las puntas de varios fusiles asomaban por la puerta de un VW que corría por la Ruta 1 rumbo a Montevideo la madrugada del 1 de agosto de 1963...</p>
+          <p>... cuando la camioneta volcó en la noche del 31 de julio, algunos rastros claves quedaron en el lugar y la policía de Colonia desarrolló una discreta y brillante pesquisa que la condujo a Paysandú...</p>
+          <p>... El Tiro Suizo, la primera acción, el primer intento, el primer paso modesto y vacilante...”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 1: los orígenes",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial TAE",
+          pages: "págs. 63-64, 76-85, 90-91",
+          author: "Fernández Huidobro",
+        },
+        {
+          fragment: `<p>“En las tertulias del grupo de Pinela –y en la peluquería del Loco Rivera Yic– se mencionó un par de veces que la Sociedad Tiro Suizo de Nueva Helvecia, en el departamento de Colonia, guardaba una buena cantidad de armas en su local... El dato certero pertenecía al médico Mario Naviliat... cuyo padre había sido presidente del Tiro Suizo ... En uno de esos encuentros, se le planteó a Sendic el asunto del Tiro Suizo, que ya había sido estudiado a fondo-con viajes al lugar, mapeo, horarios, rutinas-...</p>
+          <p>Poco después, el Ñato Huidobro y Sendic viajaban rumbo a Colonia...</p>
+          <p>... Intervienen en la acción ejecutiva miembros del grupo de Pinela, Sendic, Jorge Abellá y un argentino que ha llegado a Uruguay... Su nombre es Joe Baxter...</p>
+          <p>El ingreso al Tiro Suizo se hace en la madrugada, luego de verificar que ya no quedaba nadie adentro... Empaquetan unos treinta fusiles Maúser-...- un par de carabinas de precisión, un fusil <p>Martini y cerca de cuatro mil proyectiles calibre 7 milímetros... Se introduce la mayor parte del cargamento en un Renault pero el joven argentino se pierde con un paquete en la oscuridad.</p> <p>Mientras Rivera Yic, Leonel Vidal y Huidobro parten en el Renault con el grueso de las armas, Pinela sale en busca del porteño Baxter y lo encuentra exhausto... Logran subir todo en el Fusca de Naviliat y salen rumbo a Montevideo.</p>
+          <p>El Renault llega al contacto a cuatro kilómetros donde esperan Sendic y Abellá. Traspasan los paquetes a una camioneta... y las armas parten rumbo al norte. Vidal se va con Sendic y Abellá... Mientras el Loco Rivera Yic y Huidobro vuelven a Montevideo.</p>
+          <p>Con la explosión de un neumático, la camioneta dio varias vueltas... y cayó en el campo.... Sendic caminó unos kilómetros hasta un almacén rural... y le prestaron un teléfono para comunicarse con Paysandú. Así logró que su amigo, el odontólogo Humberto González Perla, saliera a auxiliarlo.</p>
+          <p>Las armas transportadas por Sendic y González Perla quedaron escondidas en el local del Partido Socialista de Paysandú...</p>
+          <p>Al otro día le pidió ayuda a sus amigos sanduceros Raúl Cavillón y Ricardo Volpe, y dos días más tarde... en las inmediaciones del paso (sic) de la Bolsa, sobre el arroyo Negro, enterraron, envueltos en nailon, diez fusiles con cerrojos y municiones”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "págs. 253-257",
+          author: "Pernas",
+        },
+        {
+          fragment: `<p>“El último día de julio, el heterogéneo sector de la izquierda que integraba al Coordinador, rompe con la todavía sagrada “legalidad” del régimen uruguayo y se produce el asalto al Tiro Suizo.</p>
+          <p>Allí estábamos todos los integrantes del Coordinador, hombro con hombro. Un fracaso hubiera significado el derrumbe de todo lo que recién comenzábamos a construir, y seguramente el final prematuro de la aventura política más impresionante de la historia contemporánea de nuestro país.</p>
+          <p>El operativo, a pesar de nuestra comprensible inseguridad, en líneas generales resultó exitoso; no obstante un accidente protagonizado por uno de los automóviles que participaran en la acción, proporcionaría nuestra primera pista a la Policía, que meses después ya comenzaría a hablar de un “grupo subversivo” y daría orden de captura contra Raúl Sendic...”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Autobiografía de Amodio Pérez",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial ARCA",
+          pages: "pág. 10",
+          author: "Pérez",
+        },
+        {
+          fragment: `<p>“En ese mismo 1963 en que Lucía comienza su carrera universitaria, camino sin retorno donde aprendió a manejar armas y efectuar disparos, se disparó El Tiro Suizo, primera acción armada del Coordinador germen Tupamaro. Veinticinco fusiles, casi todos incompletos, algunos modelo 1908, más de tres mil quinientas balas; un botín aparatoso, casi inútil militarmente, pero sin dudas de un gran poder simbólico. Dos de tres rifles escruchados, eran calibre 22...”.</p>`,
+          year: new Date("2011-1-1"),
+          name: "Ana la guerrillera. Una historia de Lucía Topolanski",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Uruguay B S.A",
+          pages: "pág. 5",
+          author: "Caula y Silva",
+        },
+      ],
+    },
   },
   {
     date: new Date("January 01, 1964"),
@@ -11863,7 +11920,8 @@ export const TerroristActions: TerroristActionDefinition[] = [
   },
   {
     date: new Date("September 26, 1969"),
-    title: "Armamento domicilio Luis Bruzzone - Montevideo",
+    title:
+      "Armamento en domicilios de Rafael Guidet y Luis Bruzzone - Montevideo",
     slug: "robo-a-coleccionista-de-armas",
     type: "robo-armamento-explosivos",
     fact: "ROBO A UN COLECCIONISTA DE ARMAS",
