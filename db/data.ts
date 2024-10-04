@@ -16,7 +16,7 @@ export interface TerroristActionDefinition {
 
 export type TypeTerroristActionDefinition =
   | "asesinatos"
-  | "atentado"
+  | "atentados"
   | "secuestros"
   | "robo-armamento-explosivos"
   | "otras acciones";
@@ -158,6 +158,11 @@ export const api = {
 
   getAllKidnappings: async (): Promise<TerroristActionDefinition[]> => {
     return TerroristActions.filter((action) => action.type === "secuestros") // Filtrar acciones por tipo
+      .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
+  },
+
+  getAllAtacks: async (): Promise<TerroristActionDefinition[]> => {
+    return TerroristActions.filter((action) => action.type === "atentados") // Filtrar acciones por tipo
       .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
   },
 
@@ -1867,7 +1872,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
         date: new Date("February 14, 1970 03:24:00"),
         title:
           "... ADMITE QUE EFECTÚO DISPAROS CONTRA LOS POLICÍAS FERNÁNDEZ Y PALLAS.",
-        description: `... El infortunado agente había nacido…confesó su directa participación en la muerte del agente de Shangrilá Antonio Fernández... sería el autor del enfrentamiento... provocaría la muerte del agente Pallas...`,
+        description: `... El infortunado agente había nacido...confesó su directa participación en la muerte del agente de Shangrilá Antonio Fernández... sería el autor del enfrentamiento... provocaría la muerte del agente Pallas...`,
         images: [
           {
             type: "noticia publicada",
@@ -2431,7 +2436,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
         date: new Date("August 10, 1970 03:24:00"),
         title:
           "IMPRESIONANTE DESAFÍO: VILMENTE FUE MUERTO EL NORTEAMENICANO MITRIONE",
-        description: `Vendado, recibió dos balazos en la sien… apareció el cuerpo del infortunado Dan A. Mitrione, asesinado de un balazo en la cabeza... en el interior de un automóvil hurtado anoche.. Aparecen fotos.`,
+        description: `Vendado, recibió dos balazos en la sien... apareció el cuerpo del infortunado Dan A. Mitrione, asesinado de un balazo en la cabeza... en el interior de un automóvil hurtado anoche.. Aparecen fotos.`,
         images: [
           {
             type: "noticia publicada",
@@ -2612,7 +2617,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
         {
           fragment: `<p class='font-extrabold'>“SÁBADO 8 DE AGOSTO La impaciencia revolucionaria</p>
           <p class='font-bold'>12.00 horas. Jacinto Vera</p>
-          <p>Veinticuatro horas después de las capturas de Almería, los tupamaros del nuevo ejecutivo y las direcciones intermedias se reunieron en una casa del barrio Jacinto Vera… La suerte de Mitrione se decidió allí, a pocas cuadras de la Escuela MiIlitar...<p>
+          <p>Veinticuatro horas después de las capturas de Almería, los tupamaros del nuevo ejecutivo y las direcciones intermedias se reunieron en una casa del barrio Jacinto Vera... La suerte de Mitrione se decidió allí, a pocas cuadras de la Escuela MiIlitar...<p>
           <p>Según recuerda Mauricio Rosencof, “el sábado 8, en una casa de la columna Diez, en Garibaldi y Guadalupe, se reunió la nueva dirección de Mansilla, Blixen y demás... Se me pidió opinión sobre qué hacer... Algunos propusieron que se ejecutaran también los otros dos secuestrados, si no se accedía a la liberación de los presos. Yo dije que era necesario manejarnos con cautela y no tomar medidas que no tenían vuelta. Que había que aguantar el chaparrón, mantener a los detenidos en la cárcel del pueblo y después ver lo que se hacía. Pero no fue la opinión de la mayoría”.</p>
           <p>Por ello, señala Rosencof, “no es cierto que la decisión de la muerte de Mitrione la tomó el comando de la Quince... Simplemente la cumplió. Hubo una consulta con todos los comandos de columna, y a partir del resultado, se tomó la decisión”.</p>
           <p>Manuel Marx Menéndez, por el contrario, no cree que haya habido consultas. “A mí no me consultaron. Dónde se ha visto que se hagan consultas en una organización clandestina.”</p>
@@ -4272,7 +4277,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
       books: [
         {
           fragment: `<p>“... También se incluían secuestros dentro de la línea de Justicia Revolucionaria, como el de Juan Carlos Peirano Facio...</p>
-          <p>… el secuestro de Peirano Facio fracasó porque el chofer de uno de los vehículos no controló y venía siendo seguido por un coche policial (en el tiroteo murió el cadete Castiglioni)...”.</p>`,
+          <p>... el secuestro de Peirano Facio fracasó porque el chofer de uno de los vehículos no controló y venía siendo seguido por un coche policial (en el tiroteo murió el cadete Castiglioni)...”.</p>`,
           year: new Date("2015-1-1"),
           name: "Palabra de Amodio. La otra historia de los Tupamaros",
           place: "Montevideo - Uruguay",
@@ -8204,7 +8209,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
         info: {
           name: "Aloysio Días Gomide",
           age: 49,
-          // marital: "casado",
+          marital: "casado",
           childs: 4,
           childsDescription: "menores de edad",
           nationality: "Brasileño",
@@ -10476,7 +10481,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           marital: "casado",
           // nationality: "Francesa",
           childs: 4,
-          childsDescription: " (1 hijo menore de edad)",
+          childsDescription: " (1 hijo menor de edad)",
           avatar: {
             src: "/homero-farina/a.png",
             alt: "imagen de Homero Fariña",
@@ -11920,8 +11925,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
   },
   {
     date: new Date("September 26, 1969"),
-    title:
-      "Armamento en domicilios de Rafael Guidet y Luis Bruzzone - Montevideo",
+    title: "Armamento en domicilio Luis Bruzzone - Montevideo",
     slug: "robo-a-coleccionista-de-armas",
     type: "robo-armamento-explosivos",
     fact: "ROBO A UN COLECCIONISTA DE ARMAS",
@@ -11946,6 +11950,23 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>Al mediodía, otro grupo actúo con distinta planificación: averiguó que el coleccionista de armas y empresario Luis Alberto Bruzzone no estaba en su casa de la calle Luis de la Torre 468. Uno telefoneó a la hija, y haciéndose pasar por funcionario de una empresa, le comunicó a la joven que le llevarían unos papeles para su padre. Al llegar, ella les abrió la puerta y terminó encañonada.</p>
+            <p>– ¡Quedate tranquila y no te va a pasar nada!</p>
+            <p>Lo mismo le dijeron a la madre de la joven, cuando la encontraron en la cocina.</p>
+            <p>En veinte minutos se llevaron carabinas, rifles, escopetas, revólveres, pistolas y municiones...</p>
+            <p>Salieron, abordaron un taxi –el Mercedes Benz, negro, matrícula 350.910–..."</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 403",
+          author: "Pernas",
+        },
+      ],
+    },
   },
   {
     date: new Date("May 29, 1970"),
@@ -12053,5 +12074,2872 @@ export const TerroristActions: TerroristActionDefinition[] = [
         },
       ],
     },
+  },
+  {
+    date: new Date("January 11, 1965"),
+    title: "Bomba en Consulado de Brasil",
+    slug: "bomba-consulado-brasil",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("January 11, 1965"),
+        title: "“ARROJARON UNA BOMBA AL CONSULADO DE BRASIL”",
+        description:
+          "Una bomba explotó ayer en el local de Servicio de Propaganda y Expansión Brasileña dependiente de la Embajada de Brasil, causó daños en ventanas y puertas de la oficina de Catastro. Los terroristas dejaron inscripta en la pared la palabra “Tupamaros”, grupo extremista nuevo.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-consulado-brasil/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-consulado-brasil/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“...En aquel último TUPAMAROS con el que firmamos una bomba puesta en el Servicio de Propaganda de la Embajada Brasilera el 12 de enero....”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 1: los orígenes",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "pág. 166",
+          author: "Fernández Huidobro",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("May 06, 1965"),
+    title: "Bomba en Compañía telegráfica norteamericana",
+    slug: "bomba-compania-telegrafica-norteamericana",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("May 06, 1965"),
+        title: "“ARROJARON UNA BOMBA CONTRA COMPAÑÍA AMERICANA”",
+        description:
+          "Esta madrugada se confirmó un atentado contra la compañía telegráfica norteamericana “All American Cable and Radio”, ubicada en la calle Zabala 1451. Una bomba de alto poder arrojada allí, destrozó vidrios del edificio de esta compañía y otros contiguos. Integrantes de un grupo estudiantil efectuaron también anoche una manifestación relámpago, en las adyacencias del Palacio Legislativo y quemaron una bandera estadounidense.",
+        subtitle: "“Otro Frustrado”",
+        subDescription:
+          "En la madrugada de la víspera también arrojaron una bomba contra la sede de la compañía norteamericana “Werstern Telegraph Co.”, ubicada en Rondeau 1968, pero ésta no explotó. Allí también están ubicadas las oficinas de la Cámara Mercantil. Personal de dichas instituciones logró arrebatar el artefacto desde las llamas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-compañia-telegráfica-norteamericana/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-compañia-telegráfica-norteamericana/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("August 09, 1965"),
+    title: "Bomba en Empresa Bayer",
+    slug: "bomba-empresa-bayer",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("August 09, 1965"),
+        title: "“VIOLENTA EXPLOSIÓN”",
+        description:
+          "A las 23:30 del 9 de agosto se produjo una violentísima explosión en el portón de entrada de la empresa Bayer ubicada en la calle Yaguarón casi Paysandú. Una pareja que llegó en moto colocó una bomba que ocasionó roturas de vidrios en esa firma así como en otros negocios de la zona. Se encontraron panfletos con la siguiente leyenda: “Mueran los yanquis asesinos del Vietnam frente a la intervención asesina en Vietnam. Los pueblos oprimidos se unen para aplastar al enemigo común. La Bayer empresa nazi ayuda con gases tóxicos a la intervención de los gringos. Fuera los gringos liberticidas. Viva el Vietcong. Viva la revolución: TUPAMAROS”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-empresa-bayer/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-empresa-bayer/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 8)',
+        date: new Date("August 11, 1965"),
+        title: "“UNA MENOR HERIDA EN EL ATENTADO DE AYER”",
+        description:
+          "Como consecuencia de la colocación de una bomba en la Bayer, en el día de ayer, una menor resultó herida debido a la voladura de vidrios y una chapa metálica en la puerta de acceso. La menor de 13 años,... , presentaba heridas cortantes en el pie izquierdo.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-empresa-bayer/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-empresa-bayer/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 20)',
+        date: new Date("August 11, 1965"),
+        title: "“ES INMINENTE LA CAPTURA DE LA CÉLULA TERRORISTA”",
+        description:
+          "Por lo menos dos miembros de la organización terrorista “Tupamaros” iban a ser detenidos en las próximas horas por personal del Departamento de Inteligencia y Enlace. Se obtuvieron pistas de sumo interés para llegar hasta los autores de varios atentados contra edificios de firmas norteamericanas y los depósitos Bayer. En diversas esferas de grupos clandestinos, que se indican como nacionalistas de izquierda, se investiga con el objeto de establecer si los “Tupamaros” están entre ellos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-empresa-bayer/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-empresa-bayer/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("October 18, 1965"),
+    title: "Bombas en domicilios de Consejero Nacional de Gobierno y Diputado",
+    slug: "bomba-domicilios-consejero-nacional-de-gobierno-y-diputado",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("October 19, 1965"),
+        title: "“ATENTADOS TERRORISTAS CONTRA LOS HEBER HUBO EN LA MADRUGADA”",
+        description:
+          "Aparecen fotos a cuyo pie mencionan los atentados contra las residencias del Consejero Nacional Alberto Heber y el Diputado Señor Mario Heber.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-domicilios-consejero-nacional-de-gobierno-y-diputado/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-domicilios-consejero-nacional-de-gobierno-y-diputado/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("October 18, 1965"),
+        title: "“ARROJARON EXPLOSIVOS CONTRA LAS RESIDENCIAS DE LOS HEBER”",
+        description:
+          "Esta madrugada fueron arrojados petardos contra las residencias del Consejero Nacional Sr. Alberto Heber y del Diputado Mario Heber...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-domicilios-consejero-nacional-de-gobierno-y-diputado/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-domicilios-consejero-nacional-de-gobierno-y-diputado/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("December 08, 1965"),
+    title: "Bomba en Gremial Exportadores de Lana",
+    slug: "bomba-en-gremial-exportadores-de-lana",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("December 09, 1965"),
+        title: "“ATENTADOS TERRORISTAS”",
+        description:
+          "Aparecen fotos que documentan aspectos de los atentados dinamiteros contra la residencia del Sr. Mayer y la Cámara Mercantil.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-en-gremial-exportadores-de-lana/n_1.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-en-gremial-exportadores-de-lana/n_2.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 7)',
+        date: new Date("December 09, 1965"),
+        title:
+          '““FIRMAN" LOS TUPAMAROS: ATENTADOS CONTRA LA GREMIAL DE EXPORTADORES DE LANA Y LA RESIDENCIA DE SU PRESIDENTE"',
+        description:
+          "Pasada la medianoche del día de ayer se registraron atentados con dinamita en la casa del Sr. Mayer, en la calle Blanes Viale, y en la sede de la Cámara Mercantil, Rondeau 1908. La potencia de los estruendos fue de tal magnitud que se escucharon a doce cuadras. Dejaron volantes en el lugar firmados por los “Tupamaros” cuyo texto era el siguiente: “Tupamaros. Señalamos a la Cámara Mercantil de Productos del País y a Helmut Mayer su testaferro aliados al gobierno vendido y traidor junto al latifundio y los banqueros como principales responsables de la situación. Ellos se han enriquecido a expensas de la desgracia del pueblo. Ellos son los que imponen la violencia contra los reclamos del público. Nuestra violencia de hoy, de una pequeña parte de lo que el pueblo en el momento oportuno realizará contra quienes lo han engañado y explotado sistemáticamente”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-en-gremial-exportadores-de-lana/n_3.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-en-gremial-exportadores-de-lana/n_4.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 13)',
+        date: new Date("December 09, 1965"),
+        title: "“HUBO DOS ATENTADOS TERRORISTAS”",
+        description:
+          "Dos atentados con bombas se registraron en la madrugada. Uno frente al domicilio del presidente de la Cámara Mercantil, causando daños a la casa, vidrios, etc. Poco después, desde un Volkswagen, arrojaron otra bomba contra la sede de la Cámara Mercantil, en la calle Rondeau.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-en-gremial-exportadores-de-lana/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-en-gremial-exportadores-de-lana/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“El 9 de diciembre estallaron bombas en la Cámara Mercantil y en la Cámara de Exportadores.”</p>`,
+          year: new Date("1995-1-1"),
+          name: "Historia de los Tupamaros. Tomo 2: el nacimiento",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "pág. 136",
+          author: "Fernández Huidobro",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("January 19, 1967"),
+    title: "Policía baleado",
+    slug: "policia-baleado",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("January 19, 1967"),
+        title: "“TIROTEAN A UN AGENTE EN UN LUGAR ALLANADO”",
+        description:
+          "El caso de los Tupamaros,... adquieren nuevamente espectacularidad por dos hechos ocurridos en las últimas horas. Uno se refiere a la captura anoche en el Aeropuerto de Carrasco, de un argentino izquierdista, según informa la policía que pretendía introducir bajo su pilot una poderosa metralleta PAM dos cargadores para esta arma y 150 proyectiles. El detenido, que además pertenece a un grupo peronista, es..., argentino, soltero de 24 años. Una hora después del referido procedimiento efectuado por personal de la Aduana del Aeropuerto y el Jefe de Investigaciones de Carrasco,... se producía un atentado contra un agente de la Seccional 12a. quien estaba de guardia en una finca de la calle José L. Terra 3461, que fuera allanada días atrás...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/policia-baleado/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/policia-baleado/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("April 12, 1967"),
+    title: "Bomba en empresa norteamericana",
+    slug: "bomba-en-empresa-norteamericana",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("April 12, 1967"),
+        title: "“ATENTADO”",
+        description:
+          "El caso de los Tupamaros,... adquieren nuevamente espectacularidad por dos hechos ocurridos en las últimas horas. Uno se refiere a la captura anoche en el Aeropuerto de Carrasco, de un argentino izquierdista, según informa la policía que pretendía introducir bajo su pilot una poderosa metralleta PAM dos cargadores para esta arma y 150 proyectiles. El detenido, que además pertenece a un grupo peronista, es..., argentino, soltero de 24 años. Una hora después del referido procedimiento efectuado por personal de la Aduana del Aeropuerto y el Jefe de Investigaciones de Carrasco,... se producía un atentado contra un agente de la Seccional 12a. quien estaba de guardia en una finca de la calle José L. Terra 3461, que fuera allanada días atrás...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-en-empresa-norteamericana/n_1.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-en-empresa-norteamericana/n_2.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("April 12, 1967"),
+        title: "“ATENTADO CONTRA UNA FIRMA YANQUI”",
+        description:
+          "Un fuerte estampido dio la seguridad de un nuevo atentado terrorista. La explosión había tenido lugar en Andes y Cerro Largo en el frente de la casa ocupada por la compañía Bourroughs de Máquinas Limitada en Cerro Largo 847, había sido colocada una bomba de gran poder explosivo, la que al reventar había causado grandes daños, arrancando una cortina metálica, quebrando vidrios y dañando máquinas que se hallaban en el interior del local. El poder explosivo de la bomba alcanzó hasta el lugar que ocupa, pasando Andes, la firma Ernesto Quincke S.A. en el 851 de Cerro Largo, donde resultaron destrozados...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-en-empresa-norteamericana/n_3.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-en-empresa-norteamericana/n_4.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("November 29, 1967"),
+    title: "Policías baleados",
+    slug: "policias-baleados-en-el-pinar",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("November 30, 1967"),
+        title: "“POLICÍAS HERIDOS”",
+        description:
+          "Balneario El Pinar... Cuatro “Tupamaros” que se encuentran ocultos en los bosques existentes entre la Ruta 8 y Avenida Italia, tras un intento fallido de robo a un matrimonio de turistas argentinos, lograron huir hiriendo de gravedad a dos policías. Los terroristas se ocultaban en una choza rústica recientemente construída y ocultan dentro de ella armas y municiones. Una motoneta en que dos de ellos pretendieron huir fue alcanzada por un disparo.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/policias-baleados-en-el-pinar/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/policias-baleados-en-el-pinar/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 8)',
+        date: new Date("November 30, 1967"),
+        title: "“GAVILLA DE “TUPAMAROS” BALEÓ A DOS POLICÍAS”",
+        description:
+          "Balneario El Pinar... el Sargento Suárez De Lima recibió una herida sobre el hombro izquierdo y el tórax y el agente Bentancor un balazo en el tórax... Dos personas, más una pareja que se encontraba oculta en el interior de la cabaña, se alejaron rápidamente, portando todos armas; la mujer una escopeta de dos caños calibre 16. Al allanarse la finca, de construcción reciente a base de madera y paja, se encontraron en su interior cuatro granadas de mano, 200 cartuchos cargados con plomo, todo de fabricación casera, dos revólveres calibre 38 Smith & Wesson, una pistola calibre 45, una camioneta Ford F 100 último modelo, manuales de lucha de guerrilla, importante documentación y una cédula de identidad a nombre de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/policias-baleados-en-el-pinar/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/policias-baleados-en-el-pinar/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("November 30, 1967"),
+        title:
+          "“TUPAMAROS: A QUEMARROPA BALEARON A DOS POLICÍAS. Cubrieron a Balazos su Rápida Fuga”",
+        description:
+          "Aparecen fotos una de las cuales dice: “He aquí los cuatro “Tupamaros” que huyeron de la cabaña ubicada en “El Pinar” donde tras un dramático tiroteo hirieron a dos policías de Shangrilá. De izquierda a derecha... Este último es el único sujeto no identificado perfectamente, pues se sospecha también que el cuarto prófugo pueda ser…, hermano del extremista que cobijó ..., un “Tupamaro” recluído actualmente en la cárcel”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/policias-baleados-en-el-pinar/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/policias-baleados-en-el-pinar/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("November 30, 1967"),
+        title:
+          "“LOS POLICÍAS PENSABAN DETENER A DOS RATEROS. Se Toparon con los Terroristas”",
+        description:
+          "Dos funcionarios policiales... fueron baleados... por Tupamaros al intentar detenerlos en una cabaña del Balneario El Pinar, creyendo que se trataba simplemente de vulgares rateros. Los policías andaban tras dos motonetistas que habían desvalijado el interior de un vehículo, propiedad de un matrimonio argentino...",
+        subtitle: "“Camioneta Blindada”",
+        subDescription:
+          "Dentro de la cabaña había una camioneta blindada con una plancha al mismo estilo que la otra donde cayó un “Tupamaro” en el tiroteo de diciembre de 1966… El vehículo... se comprobó que fue robado en octubre pasado... la vivienda tenía una ventana blindada con una chapa de hierro y la otra estaba... la cabaña fue construída con la camioneta en su interior...en síntesis el camuflaje era perfecto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/policias-baleados-en-el-pinar/n_7.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/policias-baleados-en-el-pinar/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 8)',
+        date: new Date("December 01, 1967"),
+        title:
+          "“EN PINAMAR HUBO NUEVO TIROTEO CON TERRORISTAS: PESE A TODO FUGARON”",
+        description:
+          "La policía controlaba la zona costera donde se presume puedan encontrarse ocultos dos de los terroristas, que ayer protagonizaron el espectacular incidente baleando a dos policías tras ser sorprendidos luego que habían hurtado del interior de un auto de un matrimonio argentino, joyas y dinero por un monto de medio millón de pesos uruguayos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/policias-baleados-en-el-pinar/n_9.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/policias-baleados-en-el-pinar/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("December 01, 1967"),
+        title: "“TIROTEO EN NEPTUNIA: UNO DE LOS FUGITIVOS HERIDO”",
+        description:
+          "Entre los detalles del episodio y su desarrollo precisa que los cuatro hombres adquirieron el predio de la Ruta Interbalnearia a una inmobiliaria de plaza donde dieron nombres ficticios. La cabaña fue construída por ellos mismos y allí empezaron a vivir en octubre del año en curso… procurando en lo posible no establecer relaciones de ningún tipo con los vecinos. Culmina el artículo periodístico diciendo “otras indagaciones demostrarían que los integrantes de la células habían establecido contactos con organizaciones similares de Argentina, Paraguay y Brasil”. Aparecen las fotos de los cuatro terroristas.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/policias-baleados-en-el-pinar/n_11.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/policias-baleados-en-el-pinar/n_12.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 8)',
+        date: new Date("December 02, 1967"),
+        title: "“LOS TERRORISTAS HABRÍAN FUGADO”",
+        description:
+          "Shangrilá... Se confirma versión de que ya no caben dudas que la pareja integrada por... o... y..., logró eludir el cerco policial el mismo día miércoles. Tal circunstancia fue comprobada al interrogarse al chofer del camión que condujo a la pareja. Ratificó que el día citado recogió a la altura del kilómetro 28 de la Ruta Interbalnearia a una mujer que aparentemente estaba desmayada junto con su compañero, y que al ingresar ambos a la cabina, el hombre le encañonó con un arma y lo obligó a seguir... la pareja descendió en Avenida Italia a la altura del Balneario Lagomar. Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/policias-baleados-en-el-pinar/n_13.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/policias-baleados-en-el-pinar/n_14.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Volvíamos en la moto desde un contacto... Recorrimos un tramo de la ruta 101, luego un camino vecinal y desembocamos en la Interbalnearia a la altura de El Pinar...</p>
+          <p>... En una de las callecitas pasamos frente a un policía que charlaba con un matrimonio...</p>
+          <p>... dos ladrones en una moto similar a la nuestra habían robado en la playa las joyas de una pareja de turistas...</p>
+          <p>Pronto vimos rondar una camioneta particular, lentamente, por las cercanías de nuestra base...</p>
+          <p>...los vimos bajar y aproximarse... Habían visto la moto estacionada...</p>
+          <p>... decidimos que el único compañero legal que estaba allí saliera y hablara con ellos.</p>
+          <p>El compañero salió y los otros tres nos quedamos adentro...</p>
+          <p>Emprendieron el camino hacia la puerta, mientras uno quedaba custodiando al detenido. No hubo más remedio que salir- también arma en mano-...</p>
+          <p>Un policía, herido,....”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 3: el MLN",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "págs. 194-196",
+          author: "Fernández Huidobro",
+        },
+        {
+          fragment: `<p>“Efraín Martinez Platero...</p>
+          <p>.Estuve en la semiclandestinidad desde diciembre de 1966, cuando pasó a la clandestinidad mi hermano Leonel: Yo tenía 22 años. En 1967 quedé “clande”, después de un tiroteo que hubo en un rancho de El Pinar, donde quedó mi cédula de identidad...”.</p>`,
+          year: new Date("2009-1-1"),
+          name: "Memorias de insurgencia. Historias de vida y militancia en el MLN-Tupamaros. 1965-1975",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Banda Oriental",
+          pages: "pág. 361",
+          author: "Aldrighi",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("July 01, 1968"),
+    title: "Bomba en Radio Ariel",
+    slug: "bomba-en-radio-ariel",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 10)',
+        date: new Date("July 03, 1968"),
+        title: "“ATENTADO CONTRA PLANTA EMISORA DE RADIO ARIEL”",
+        description:
+          "El Ministerio del Interior a través de la Jefatura de Policía comunica que aproximadamente a la hora 21 y 30 se cometió un atentado contra la planta emisora de Radio Ariel, ubicada en Simón Martínez y Camino de las Tropas, paralizando su transmisión. No hubo que lamentar desgracias personales y los daños aún no han sido avaluados. Nota de redacción:... Como se comprenderá, casos de violencia como éste que -causan ingentes daños materiales y ponen en peligro, incluso, vidas humanas- merecen la más enérgica repulsa. Se trata de un método terrorista, reñido en absoluto con nuestros usos y costumbres y las prácticas democráticas de dirimir las diferencias en el terreno de la libre discusión. En cuanto al episodio en sí, trascendió que unos minutos después de las 21 del lunes, cuatro individuos -procurando, con sus ropas, dificultar la identificación- penetraron armados en la planta emisora. Uno de ellos, posiblemente, portaba una metralleta y los otros, revólveres o pistolas de gran calibre. Obligaron al encargado de la planta a salir al exterior, colocando tres poderosas bombas explosivas, dos de ellas junto a las bases que sostienen las columnas, y la restante en el local que fue la que estalló.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-en-radio-ariel/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-en-radio-ariel/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("July 03, 1968"),
+        title:
+          "“HUBO SABOTAJE EN LA ESTACIÓN DE UTE. SILENCIAN A RADIO ARIEL CON BOMBAS”",
+        description:
+          "Aparecen fotos donde se observan algunos de los daños causados por los terroristas en la planta emisora de CX 10 Radio Ariel... Cuatro individuos fuertemente armados y vistiendo uniformes, sacaron del local al encargado, colocando cuatro bombas, de las que estallaron dos. Se dañaron transmisores paralizando la salida al aire de la emisora y muy levemente una antena junto a cuya base había sido instalado uno de los artefactos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-en-radio-ariel/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-en-radio-ariel/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("July 03, 1968"),
+        title: "“SIGUEN INDAGANDO EL ATENTADO TERRORISTA”",
+        description:
+          "... la planta emisora de Radio Ariel, cuyas transmisiones siguen interrumpidas no se reanudarían hasta la semana próxima. La explosión no sólo destruyó los equipos de funcionamiento, sino que además afectó lámparas y otros materiales de repuestos depositados en el local donde se produjo la explosión...",
+        subtitle: "“Podrán Interferir Radios”",
+        description1:
+          "Los registros posteriores, permitieron establecer que faltaron varios aparatos utilizados para transmisiones de exteriores y onda corta, que tienen múltiples aplicaciones. Según se informó, con ellos es posible interferir las transmisiones radiales y telefónicas, lo que da una idea de la significación e importancia que pueden tener dichos aparatos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-en-radio-ariel/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-en-radio-ariel/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“En el Paso de la Arena también se escucharon explosiones pero bastante más poderosas. Las bombas destrozaron el transmisor y dañaron la torre de emisión de radio Ariel. La planta emisora ubicada en Camino de Las Tropas y Simón Martínez, dejó de transmitir la voz oficial.</p>
+          <p>Los tupamaros lograron llevarse varios aparatos de transmisión de exteriores, con los que se podía interferir comunicaciones radiales y posiblemente telefónicas. La voladura dejaría a radio Ariel sin transmitir por varios días”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 340",
+          author: "Pernas",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("September 12, 1968"),
+    title: "Bombas en sucursales bancarias",
+    slug: "bombas-en-sucursales-bancarias",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 10)',
+        date: new Date("September 12, 1968"),
+        title: "“EXPLOTARON TRES BOMBAS EN SUCURSALES BANCARIAS”",
+        description:
+          "... Bombas de bastante poder explosivo detonaron frente a los locales del Banco de Crédito y La Caja Obrera ubicados en Duvimioso Terra y Colonia, haciendo caer las rejas protectoras , así como también los vidrios del local. La tercera explosión se produjo en Burgues y Br. Artigas donde está la sucursal del Banco Popular. Aquí los daños fueron grandes, apareciendo los gruesos cristales de las vidrieras esparcidos en el centro de la calzada...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-sucursales-bancarias/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-sucursales-bancarias/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("September 12, 1968"),
+        title: "“EXPLOTARON BOMBAS EN CUATRO BANCOS”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-sucursales-bancarias/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-sucursales-bancarias/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("September 12, 1968"),
+        title:
+          "“LANZARON BOMBAS CONTRA CUATRO SEDES BANCARIAS. Se Perpetraron los Atentados de Madrugada”",
+        description:
+          "... Tres zonas de Montevideo vivieron momentos de pánico esta madrugada al producirse las explosiones de los artefactos dejados por los miembros del “CAP” (Comando de Autodefensa del Pueblo). A la hora 2 y 15 y en forma casi simultánea se oyeron fuertes detonaciones en las cercanías del Obelisco, comprobando posteriormente los vecinos que se había atentado contra las sucursales, del Banco Mercantil ubicada en Avenida 8 de Octubre y Colonia y la del Banco La Caja Obrera establecida en la Avenida 18 de Julio esquina Duvimioso Terra. Las bombas dañaron cristales, puertas, rejas, paredes y mobiliario en tales locales. Quince minutos después estalló otro petardo en la Agencia del Banco Popular instalada en el cruce de Br. Artigas y Burgues y casi a la misma hora se produjo la cuarta explosión en la sucursal Malvín del Banco de Crédito, que se encuentra en el cruce de las calles Amazonas y Orinoco...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-sucursales-bancarias/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-sucursales-bancarias/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 12)',
+        date: new Date("September 13, 1968"),
+        title:
+          "“FUERON DETENIDOS DOS EXTREMISTAS DEL CAP”. Merodeaban en Torno a una Región Militar”",
+        description:
+          "Cuando se hallaban merodeando en las inmediaciones de la Región Militar No. 1 (Avda. Agraciada y Capurro) fueron detenidos dos integrantes del “Comando de Autodefensa del Pueblo”, que perpetró los atentados contra cuatro sucursales bancarias en la víspera... De acuerdo a las primeras indagaciones tales hombres de 28 y 37 años de edad estarían vinculados al Movimiento de Liberación Nacional (Tupamaros).",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-sucursales-bancarias/n_7.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-sucursales-bancarias/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("October 24, 1968"),
+    title: "Policía baleado",
+    slug: "agente-edmundo-correa",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("October 24, 1968"),
+        title: "“PRESUNTOS TUPAMAROS BALEARON A UN AGENTE DE LA SECCIONAL 20ª”",
+        description:
+          "... cuando regresaba a su domicilio un agente de la Seccional 20º, Edmundo Correa Sosa, fue interceptado por dos desconocidos que portaban armas de grueso calibre los que, luego de insultarlo, le hicieron varios disparos que fueron repelidos por el Policía con su arma de reglamento. El agente Correa Sosa fue alcanzado por cuatro disparos... las balas eran de calibre 45 y también hallaron cápsulas de calibre 9 mm. En medio de la agresión el policía tomó de la muñeca al que llevaba la 45, logrando despojarla de ella. Al parecer uno de los atacantes fue herido por el policía. Posteriormente fue localizada la motoneta en que ellos se fugaron, la que aparece con manchas de sangre lo que confirma la herida del maleante... después del atentado, en la Seccional 24º se recibieron tres llamadas telefónicas anónimas, por las que se aseguraba que los autores del mismo eran “Tupamaros” y que el hecho señalaba el principio de una serie de atentados similares.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/agente-edmundo-correa/n_1.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/agente-edmundo-correa/n_2.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("December 13, 1968"),
+    title: "Bombas en domicilios jerarcas de gobierno y sucursales bancarias",
+    slug: "bombas-en-domicilios-jerarcas-de-gobierno-y-sucursales-bancarias",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("December 13, 1968"),
+        title: "“SE REGISTRARON SIETE ATENTADOS CON EXPLOSIVOS”",
+        description:
+          "Aparecen fotos con el siguiente texto: “Los artefactos estallaron entre las 3.45 y las 4.15 horas y a ellos se le agregaron dos apagones de escasos minutos en los alrededores de los edificios del Banco de Seguros y el Ministerio de Hacienda, oportunidad en que se inscribieron en muros leyendas contra las medidas de seguridad”. “Una sucesión de atentados contra sedes bancarias, domicilios de autoridades nacionales, la finca de un jerarca de la banca privada y el local de una institución particular, se consumaron esta madrugada. Los terroristas arrojaron bombas explosivas ocasionando diversos daños, como registra esta nota gráfica de el frente de un banco”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-domicilios-jerarcas-de-gobierno-y-sucursales-bancarias/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-domicilios-jerarcas-de-gobierno-y-sucursales-bancarias/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 11)',
+        date: new Date("December 13, 1968"),
+        title:
+          "SIETE ATENTADOS CON BOMBAS PERPETRARON ESTA MADRUGADA CONTRA DOMICILIOS E INSTITUTOS DE BANCA”",
+        description:
+          "... Las bombas causaron daños de cierta consideración en algunos lugares...",
+        subtitle: "“La Serie de Atentados”",
+        description1:
+          "La primera explosión ocurrió a las 3.45 en el local del Banco de Crédito ubicado en Colonia 2503 esquina Duvimioso Terra… El segundo atentado tuvo por escenario a las 3.40 en el domicilio del Ministro de Ganadería y Agricultura Dr. Frick Davie ubicado en José Martí 3233. A las 4 de la madrugada explotaron otras dos bombas en la agencia de Avenida Italia 3571 del Banco Territorial y Español del Uruguay (UBUR) y en la finca de Cartagena 1576,... Simultáneamente… hubo otro atentado en el domicilio del Vicepresidente del Banco Central, Sr. José Guntín García, ubicado en Echevarriarza 3478. Diez minutos después a las 4.10 fue arrojada otra bomba contra la agencia Paso Molino del Banco Popular del Uruguay en Agraciada 4049 esquina Pilar Costa. A las 4.15 hizo explosión el último artefacto de la serie que fue colocado en la sede de la Cámara Comercial Italiana del Uruguay y Centro Comercial de Italia sito en Paysandú Nº 816.",
+        subtitle1: "“También Dos Apagones”",
+        description2:
+          "Al producirse el último atentado que indicamos, se produjeron en la zona dos apagones consecutivos, cada uno de 3 minutos... También se comprobó que en el edificio del Sanatorio del Banco de Seguros del Estado, Agencia Banco de Cobranzas en Colonia y Julio Herrera y Ministerio de Hacienda, habían pintado la siguiente leyenda: “Seis meses de Medidas. Basta ya”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-domicilios-jerarcas-de-gobierno-y-sucursales-bancarias/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-domicilios-jerarcas-de-gobierno-y-sucursales-bancarias/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("December 13, 1968"),
+        title: "“SIETE ATENTADOS EN ZONAS DIFERENTES DE LA CAPITAL”",
+        description:
+          "Aparecen fotos que muestran los daños causados por los artefactos explosivos en diferentes lugares.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-domicilios-jerarcas-de-gobierno-y-sucursales-bancarias/n_5.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-domicilios-jerarcas-de-gobierno-y-sucursales-bancarias/n_6.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("December 13, 1968"),
+        title: "“SIETE ATENTADOS HUBO EN LA MADRUGADA: DESTROZOS”",
+        description:
+          "... Siete atentados se perpetraron esta madrugada en nuestra Capital. Una bomba explosiva, fue colocada en...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-domicilios-jerarcas-de-gobierno-y-sucursales-bancarias/n_7.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-domicilios-jerarcas-de-gobierno-y-sucursales-bancarias/n_8.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("January 03, 1969"),
+    title: "Niños heridos en explosión. Hallan armamento y explosivos",
+    slug: "ninos-herido-en-explosion-hallan-armamento-y-explosivos",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("January 03, 1969"),
+        title: "“LA POLICÍA UBICÓ UNA GUARIDA DE TUPAMAROS EN EL CERRO”",
+        description:
+          "Metralletas, gelinita y un transmisor de onda corta… Las fotos muestran aspectos del procedimiento policial retirando gelinita y armas largas existentes en el lugar.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ninos-herido-en-explosion-hallan-armamento-y-explosivos/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ninos-herido-en-explosion-hallan-armamento-y-explosivos/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("January 03, 1969"),
+        title: "“ASESTAN OTRO GOLPE CONTRA TERRORISTAS”",
+        description: "... fueron hallados...",
+        subtitle: "“El Hombre de los Paquetes”",
+        description1:
+          "... pudieron determinar que, antes de ser depositadas en China 1737, las metralletas, la radio y los explosivos habían sido entregados por un tal “Pepe” en la florería “La Orquídea”. Según se supo, “Pepe”, llegó al negocio el domingo de noche, con los paquetes que contenían esos materiales...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ninos-herido-en-explosion-hallan-armamento-y-explosivos/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ninos-herido-en-explosion-hallan-armamento-y-explosivos/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 16)',
+        date: new Date("January 04, 1969"),
+        title: "“ESPECTACULAR DESPLIEGUE EN EL CERRO: 2 MUJERES DETENIDAS”",
+        description:
+          "... Se trataría de indagaciones por los “Tupamaros”. Habríanse incautado armas, explosivos y un transmisor...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ninos-herido-en-explosion-hallan-armamento-y-explosivos/n_5.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/ninos-herido-en-explosion-hallan-armamento-y-explosivos/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("January 04, 1969"),
+        title: "“CUATRO HERIDOS EN UN GOLPE DE LOS TUPAMAROS”",
+        description:
+          "La policía trabajaba hoy febrilmente, realizando un procedimiento tras otro, para desbaratar células extremistas, mientras dedicaba una parte considerable de ese empeñoso esfuerzo a la localización de... y... (a) “Pepe”, por considerarlos responsables de la tenencia ilegal de las armas y explosivos ubicados ayer en una finca del Cerro...",
+        subtitle: "“Identifican a Pepe”",
+        description1:
+          "... se habría identificado al individuo como... quien tiene antecedentes por intento de rapiña... luego de revisarse minuciosamente el local, se habrían ubicado documentos que permitirían establecer la vinculación de... con una de las células terroristas de la organización tupamara... El estallido de un artefacto explosivo en 8 de Octubre y Gobernador Viana, causó anoche lesiones diversas a un vendedor ambulante y a tres menores de edad... ",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ninos-herido-en-explosion-hallan-armamento-y-explosivos/n_7.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ninos-herido-en-explosion-hallan-armamento-y-explosivos/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 9)',
+        date: new Date("January 04, 1969"),
+        title: " “ESTALLÓ UN PETARDO DE LOS TUPAMAROS, DOS HERIDOS LEVES”",
+        description:
+          "Un petardo, presumiblemente colocado por “tupamaros”, o arrojado en un lugar de intensa concentración de público, dio, como resultado,... dos personas heridas...",
+        title1: "“TERRORISTAS FUGAN EN EL CERRO; HALLAN ARMAS”",
+        description1:
+          "... En una de las habitaciones, cuidadosamente enfundadas, se encontraron tres ametralladoras PAM, calibre 9 mm., de fabricación argentina... Estas armas, poderosas, son las que usan las unidades ligeras del ejército argentino... en otra dependencia se encontró... Aparece foto a cuyo pie dice: “Este es el frente de la florería “La Orquídea”, de la calle Grecia, propiedad de... Allí fueron llevadas las armas robadas por...”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ninos-herido-en-explosion-hallan-armamento-y-explosivos/n_9.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ninos-herido-en-explosion-hallan-armamento-y-explosivos/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("January 08, 1969"),
+        title: "“UBICARON LA DINAMITA ROBADA EN TACUAREMBÓ”",
+        description:
+          "... Aparecen fotos a cuyo pie dicen: “... requeridos por el hallazgo de las metralletas y explosivos en la finca de la calle China, en el Cerro, continúan prófugos...”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ninos-herido-en-explosion-hallan-armamento-y-explosivos/n_11.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ninos-herido-en-explosion-hallan-armamento-y-explosivos/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 9)',
+        date: new Date("January 08, 1969"),
+        title: "“APARECIÓ...; PRESO DE TUPAMAROS”",
+        description:
+          "..., que se presentó ayer diciendo que lo secuestraron los “Tupamaros”... quien acompañó a... hasta la guarida de los “tupamaros”. No ha aparecido todavía...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ninos-herido-en-explosion-hallan-armamento-y-explosivos/n_13.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ninos-herido-en-explosion-hallan-armamento-y-explosivos/n_14.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("January 13, 1969"),
+    title: "Bomba en Asociación Rural",
+    slug: "bomba-en-asociacion-rural",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("January 13, 1969"),
+        title: "“COLOCARON UNA BOMBA EN PLENO CENTRO”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-en-asociacion-rural/n_1.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-en-asociacion-rural/n_2.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("January 13, 1969"),
+        title: '"HABRÍA CONFESADO SER TUPAMARO INDAGADO"',
+        description: "...",
+        subtitle: "“Bomba Casera”",
+        description1:
+          "Una bomba de fabricación casera, que no llegó a estallar, fue colocada... frente al local que ocupa la Asociación Rural, en la avenida Uruguay Nº 864,...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-en-asociacion-rural/n_3.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-en-asociacion-rural/n_4.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("February 15, 1969"),
+    title: "Bomba explota accidentalmente. Muere terrorista",
+    slug: "bomba-explota-accidentalmente",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("January 15, 1969"),
+        title: "“BOMBA: ESTALLÓ ANTES Y MATÓ AL TERRORISTA”",
+        description:
+          "... Todos los indicios llevan a suponer que... se aprestaba a colocar la bomba en la comisaría de la calle Prusia... Aparece foto de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-explota-accidentalmente/n_1.jpg",
+            alt: "noticia publicada por el diario Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-explota-accidentalmente/n_2.jpg",
+            alt: "página diario completa publicada por el diario Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("January 15, 1969"),
+        title: "“LA BOMBA NO LLEGÓ A DESTINO: LE EXPLOTÓ EN LA MANO Y MURIÓ”",
+        description:
+          "... por causas que se ignoran le explotó en sus manos una bomba que posiblemente pensaba colocar en algún lugar de las inmediaciones. El cuerpo horriblemente mutilado del joven fue hallado frente al 1933 de Prusia, en Villa del Cerro, siendo inútil toda asistencia ya que su deceso se produjo en forma casi instantánea...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-explota-accidentalmente/n_3.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-explota-accidentalmente/n_4.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("January 16, 1969"),
+        title: "“APARECIÓ EXTREMISTA HERIDO POR LA BOMBA”",
+        description:
+          "Preparaban una serie de atentados... Aparece foto de... a cuyo pie dice: “... Un segundo joven fue internado...”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-explota-accidentalmente/n_5.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-explota-accidentalmente/n_6.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("January 16, 1969"),
+        title: "“APARECIÓ EXTREMISTA HERIDO POR LA BOMBA”",
+        description:
+          "Un funcionario bancario... se halla incomunicado... del sanatorio de la Asociación Española Primera de Socorros Mutuos donde ingresó... presentando politraumatismos y múltiples heridas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-explota-accidentalmente/n_7.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-explota-accidentalmente/n_8.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 5)',
+        date: new Date("January 16, 1969"),
+        title: "“HORRIBLE MUERTE AL ESTALLARLE UNA BOMBA”",
+        description:
+          "... Al estallarle un artefacto con poderoso explosivo un joven resultó muerto... El occiso era... la Jefatura vincula al occiso al grupo “Tupamaros”... Aparece foto de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-explota-accidentalmente/n_9.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-explota-accidentalmente/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 5)',
+        date: new Date("January 16, 1969"),
+        title: "“TRÁGICA MUERTE DE UN TERRORISTA; OTRO HERIDO”",
+        description:
+          "... Un joven que portaba una bomba de alto poder,... sufrió una muerte instantánea, prácticamente mutilado, cuando el artefacto estalló en sus propias manos... Las averiguaciones practicadas... han probado que desdichadamente..., en los últimos tiempos, había demostrado una afinidad ostensible y creciente por las ideas extremistas, habiéndose vinculado a algunos grupos... Y, la circunstancias en que ocurre su trágica muerte, demuestra que había pasado del terreno teórico a la acción... Aparece foto de...",
+        title1: "“ESTUDIANTE DE ARQUITECTURA PROCESADO POR TUPAMARO”",
+        description1:
+          "... un estudiante de Arquitectura,... fue procesado ayer... bajo la grave imputación de “Atentado contra la Constitución en el grado de conspiración”... a raíz del hallazgo,... de escritos y documentos... que actuaba como “correo” de varios grupos de “tupamaros”...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-explota-accidentalmente/n_11.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-explota-accidentalmente/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("April 26, 1969"),
+    title: "Niños heridos en explosión en refugio terrorista",
+    slug: "ninos-heridos-en-explosion-en-refugio-terrorista",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("April 26, 1969"),
+        title: "“DETONÓ UN ARTEFACTO DE ELEVADA POTENCIA”",
+        description:
+          "Una explosión accidental puso al descubierto un nuevo cuartel Tupamaro... Allí hallaron armas, municiones, documentos, pólvora, gelinita, una camioneta robada y dinero. Dos niños resultaron heridos... también un hombre y una mujer. Aparecen fotos de uno de los menores y...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ninos-heridos-en-explosion-en-refugio-terrorista/n_1.jpg",
+            alt: "noticia publicada por el diario Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ninos-heridos-en-explosion-en-refugio-terrorista/n_2.jpg",
+            alt: "página diario completa publicada por el diario Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("April 27, 1969"),
+        title:
+          "“DESESPERADA BÚSQUEDA DE LOS DOS TUPAMAROS GRAVEMENTE QUEMADOS”",
+        description:
+          "... de 3 años como su hermanito sufrió graves quemaduras al producirse una explosión en una finca de Paso del Andaluz... Aparecen fotos del menor y de la finca.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ninos-heridos-en-explosion-en-refugio-terrorista/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ninos-heridos-en-explosion-en-refugio-terrorista/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 6)',
+        date: new Date("April 27, 1969"),
+        title: "“EXPLOSIÓN EN REFUGIO DE TUPAMAROS: CUATRO HERIDOS”",
+        description:
+          "... busca a dos integrantes del MLN con graves quemaduras... al explotar una bomba que manipulaban... quemaduras en dos niños de tres y cinco años internados en el Hospital Pereyra Rossel. Aparecen fotos del armamento hallado, 4 bombas, de la finca y de uno de los ocupantes.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ninos-heridos-en-explosion-en-refugio-terrorista/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ninos-heridos-en-explosion-en-refugio-terrorista/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 8)',
+        date: new Date("April 27, 1969"),
+        title: "“EXPLOSIÓN ACCIDENTAL: SINDICAN A “TUPAMAROS”",
+        description:
+          "Dos niños recibieron quemaduras. Una pareja también fue afectada,... habría permitido a la policía obtener referencias de personas sindicadas como “Tupamaros” que lograron fugar. Al mediodía se produjo una explosión en una finca de Manga. Dos pequeños niños resultaron con quemaduras... salió una pareja que había sufrido quemaduras y al parecer algunas heridas.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ninos-heridos-en-explosion-en-refugio-terrorista/n_7.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/ninos-heridos-en-explosion-en-refugio-terrorista/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("July 15, 1969"),
+    title: "Descubren laboratorio de bombas",
+    slug: "descubren-laboratorio-de-bombas",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 22)',
+        date: new Date("July 15, 1969"),
+        title:
+          "“LA POLICÍA UBICÓ UN LABORATORIO PARA FABRICAR BOMBAS Y PETARDOS”",
+        description:
+          "Tres mujeres y un hombre fueron detenidos en una finca de la calle Joaquín Requena donde habían montado una fábrica de explosivos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-laboratorio-de-bombas/n_1.jpg",
+            alt: "noticia publicada por el diario Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-laboratorio-de-bombas/n_2.jpg",
+            alt: "página diario completa publicada por el diario Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 22)',
+        date: new Date("July 17, 1969"),
+        title: "“REMITIERON A FABRICANTES DE BOMBAS Y ANULAN UN ATENTADO”",
+        description:
+          "Cinco personas fueron remitidas a la cárcel-ayer de tarde-por dedicarse a la fabricación de artefactos explosivos. En efecto los detenidos son... estudiante de 4º año de Arquitectura,... estudiante de 5º año de Medicina,... estudiante de 3er. de Medicina y... estudiante del último año de Medicina...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-laboratorio-de-bombas/n_3.jpg",
+            alt: "noticia publicada por el diario Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-laboratorio-de-bombas/n_4.jpg",
+            alt: "página diario completa publicada por el diario Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("July 26, 1969"),
+    title: "Descubren laboratorio de bombas",
+    slug: "descubren-otro-laboratorio-de-bombas",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 22)',
+        date: new Date("July 27, 1969"),
+        title: "“DETIENEN A TERRORISTAS FABRICANTES DE BOMBAS”",
+        description:
+          "Le hallan uniformes policiales: hay un herido... hay ocho personas detenidas, jóvenes y estudiantes en su mayoría-entre ellas dos mujeres-y un extranjero... apareció en la finca una elevada cantidad de dinero... de que se disponía, “en la célula” para financiar las operaciones terroristas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otro-laboratorio-de-bombas/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otro-laboratorio-de-bombas/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 5)',
+        date: new Date("July 28, 1969"),
+        title:
+          "“SEIS DETENIDOS POR FABRICAR BOMBAS; UNO ES HIJO DE UN SENADOR”",
+        description:
+          "... se encontraron,... seis chaquetas, correajes y revólveres robados a funcionarios policiales en el curso de sucesivos atracos... varias bombas, panfletos, documentos en clave y otros elementos que, agregados a las declaraciones de los detenidos, pueden motivar... espectaculares procedimientos. Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otro-laboratorio-de-bombas/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otro-laboratorio-de-bombas/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("July 31, 1969"),
+        title: "“LOS TERRORISTAS ANTE LA JUSTICIA”",
+        description:
+          "... de izquierda a derecha... procesó a los tres primeros por delitos gravísimos que incluyen... El Profesor y el brasileño fueron procesados por delitos menores... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otro-laboratorio-de-bombas/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otro-laboratorio-de-bombas/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 6)',
+        date: new Date("July 31, 1969"),
+        title:
+          "“PROCESADOS POR GRAVÍSIMOS CARGOS HOY SE LES PODRÍA AGREGAR EL DE HOMICIDIO”",
+        description:
+          "... fue remitido por “Asociación para delinquir”, “Atentado contra la Constitución”, “Tenencia de explosivos”, “Uso de documentos falsos”, “Usurpación de funciones públicas” y “violencia privada”. Los mismos delitos ligeramente agravados se configuraron para..., el ex cañero... y admitieron ser los autores de la invasión en Radio Sarandí; de haber penetrado en el domicilio del Senador Flores Mora, del robo de una camioneta en la ciudad de Minas (la misma usada en el atraco a Radio Sarandí), de fabricar explosivos en el galpón..., y de haber atracado a dos agentes frente al diario “Acción”... niegan tenazmente haber integrado el grupo de terroristas... atracaron a los agentes Garay Dama y Urriola...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otro-laboratorio-de-bombas/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otro-laboratorio-de-bombas/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("October 21, 1969"),
+    title: "Descubren laboratorio de bombas",
+    slug: "descubren-otro-laboratorio-de-bombas-mas",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("October 22, 1969"),
+        title: "“CAEN EXTREMISTAS EN COLÓN”",
+        description:
+          "... los movimientos observados en la finca-además del alto alquiler pagado por los extremistas- tenía que necesariamente que llamar la atención... habían comenzado a construir un doble muro y un galpón en los costados de la finca. El galpón hacía las veces de depósito... comunica por una pequeña puerta con una cocina ubicada en la planta baja, donde se encuentran además dos habitaciones y un pequeña hall; en la planta alta se hallan otras dos habitaciones a las que se llega por una pequeña escalera, una de las cuales comunica con un balcón: en esta pieza se halló un laboratorio de explosivos... Se hallaron también material subversivo, cuatro armas cortas... y diversos planos de instituciones bancarias conteniendo datos e informes que demuestran que su atraco estaba siendo planeado por la organización...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otro-laboratorio-de-bombas-mas/n_1.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otro-laboratorio-de-bombas-mas/n_2.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("October 23, 1969"),
+        title: "“ATRACOS Y SECUESTROS: PLANES DE LOS EXTREMISTAS PRESOS”",
+        description:
+          "... ha permitido establecer que los extremistas proyectaban nuevos secuestros... y varios atracos contra diversas instituciones (sede de OSE, Banco de la Nación Argentina,... Caja Nacional de Ahorros y Descuentos y Banco La Caja Obrera). Se hallaron también informes sobre el movimiento de diversos automóviles policiales, entre ellos el Jefe de Policía... admitió haber cometido diversos atentados desde 1964 a la fecha: el 8 de setiembre de ese año colocó bombas incendiarias... y poco después arrojó bombas incendiarias contra el local de Coca Cola...; el 9 de agosto de 1965 colocó una bomba de alto poder explosivo frente a los depósitos de la firma Bayer... y este año,... planificó el atentado perpetrado contra la Sucursal Cordón del Banco Comercial...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otro-laboratorio-de-bombas-mas/n_3.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otro-laboratorio-de-bombas-mas/n_4.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 11)',
+        date: new Date("October 23, 1969"),
+        title: "“EXTREMISTAS PLANEABAN GRANDES VARIOS ASALTOS”",
+        description:
+          "... que en un apartamento de Calderón de la Barca... una pareja pagaba $ 28.000 de alquiler... La finca no valía ese precio... hubo un allanamiento y dio por resultado la detención de la pareja y de... Posteriormente... fue detenido... Habría sido quien planeó y dirigió el acto de sabotaje contra el Banco Comercial, sucursal Cordón, donde se destruyeron las máquinas electrónicas y se produjo un incendio con pérdidas por valor de 250 millones de pesos. También habría sido quien dirigió la operación por la cual se robó la bandera de los “33 Orientales”...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otro-laboratorio-de-bombas-mas/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otro-laboratorio-de-bombas-mas/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("January 02, 1970"),
+    title: "Comisario baleado",
+    slug: "comisario-baleado",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("January 02, 1970"),
+        title: "“LUCAS: TIENE ALOJADA UNA BALA EN LA GARGANTA”",
+        description:
+          "Se cree lo emboscó un grupo conspirador... Comisario Juan María Lucas, permanecía internado esta tarde en estado delicado... con una bala alojada en la tráquea, después del atentado... los agresores efectuaron cuatro disparos. Sólo uno... entrándole por la espalda, alojándose junto a la tráquea después de pasar entre la carótida y la yugular... la herida es grave,...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/comisario-baleado/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/comisario-baleado/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("January 03, 1970"),
+        title: "“BALEARON E HIRIERON AL COMISARIO LUCAS”",
+        description:
+          "Anoche..., se produjo un criminal atentado contra el Comisario Juan María Lucas,... fue herido...  El proyectil pasó entre la carótida y la yugular y quedó alojado finalmente junto a la tráquea... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/comisario-baleado/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/comisario-baleado/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>... el 2 de enero había fallado un atentado contra el comisario Juan María Lucas,... Sobrevivió al disparo de un francotirador del MLN</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 439",
+          author: "Pernas",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("March 12, 1970"),
+    title: "Explosión en refugio terrorista",
+    slug: "explosion-en-refugio-terrorista",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("March 13, 1970"),
+        title: "“EXPLOTÓ UNA BOMBA EN GUARIDA DE CONSPIRADORES”",
+        description:
+          "...La explosión ocurrió en Yaro 973..., se vio salir... a dos jóvenes y una mujer... en dirección a la rambla... Llega la Policía... rompió la puerta de entrada... había numerosas bombas... armas cortas... medicamentos y material de enfermería... estaba montado un laboratorio... más de veinte bombas... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/explosion-en-refugio-terrorista/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/explosion-en-refugio-terrorista/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 8)',
+        date: new Date("March 18, 1970"),
+        title: "“HABÍAN PLANEADO GRANDES ASALTOS”",
+        description:
+          "Explosión de Yaro: revelaciones... planos de tres lugares... del Hipódromo de Maroñas... firma Crocker ubicada en la calle Rincón 418... “Laboratorio Galien” de la calle Arroyo Grande 2832... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/explosion-en-refugio-terrorista/n_2.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/explosion-en-refugio-terrorista/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("March 20, 1970"),
+        title: "“LOS SEDICIOSOS MANIATARON AL AGENTE QUE VIGILABA EL GARAGE”",
+        description:
+          "Tres conspiradores incursionaron anoche... en la calle Yaro... luego de maniatar al policía... se llevaron once millones de pesos... ignoraban que en el lugar los maleantes habían dejado dinero...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/explosion-en-refugio-terrorista/n_4.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/explosion-en-refugio-terrorista/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("May 17, 1970"),
+    title: "Bombas en laboratorios, sucursales bancarias y puesto policial",
+    slug: "bombas-en-laboratorios-sucursales-bancarias-y-puesto-policial",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("May 17, 1970"),
+        title: "“NUEVE ATENTADOS CON BOMBAS EXPLOSIVAS EN LA MADRUGADA”",
+        description: "... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-laboratorios-sucursales-bancarias-y-puesto-policial/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-laboratorios-sucursales-bancarias-y-puesto-policial/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("May 18, 1970"),
+        title: "“BOMBAS CONTRA LABORATORIOS, BANCOS Y UN PUESTO POLICIAL”",
+        description:
+          "Un total de diez atentados con bombas (cuatro contra entidades bancarias, cinco contra laboratorios y uno contra una garita policial ubicada en la zona del Prado)... se produjeron en la madrugada... sumándose a los ocurridos el día 29 de abril, con acciones similares que sobrepasaron en esa instancia, una docena de casos... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-laboratorios-sucursales-bancarias-y-puesto-policial/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-laboratorios-sucursales-bancarias-y-puesto-policial/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("June 01, 1970"),
+    title: "Policía y civiles baleados",
+    slug: "policia-y-civiles-baleados",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("June 01, 1970"),
+        title:
+          "“AMETRALLARON A 3 POLICÍAS Y UNO DE ELLOS SE HALLA GRAVE”. “DESDE UN AUTO EN MARCHA SE CONSUMARON AMBOS ATENTADOS. “OCURRIERON FRENTE AL CANAL 4 Y A SANIDAD POLICIAL”",
+        description: "... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/policia-y-civiles-baleados/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/policia-y-civiles-baleados/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 24)',
+        date: new Date("June 01, 1970"),
+        title: "“PRIMERO ROBARON LOS AUTOS”",
+        description:
+          "Un grupo de sediciosos robó.... dos automóviles secuestrando al sereno del garaje.... y luego varios asociados para delinquir protagonizaron una sucesión de hechos violentos en el barrio de Cordón....",
+        title1: "“AMETRALLAN A POLICÍAS: HUBO UN HERIDO DE CONSIDERACIÓN”",
+        description1:
+          "En lo que seguramente fue un concertado contragolpe, grupos de sediciosos.... ametrallaron esta mañana a varios funcionarios policiales afectados a la vigilancia de edificios, hiriendo a tres de ellos en el curso de dos acciones.... Los sediciosos dispararon ráfagas de metralleta en un caso y cartuchos de perdigones en otros. Los policías heridos se hallaban apostados en el edificio de la Sanidad Policial.... y frente al Canal 4 de Televisión.... Aparecen fotos y croquis de....",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/policia-y-civiles-baleados/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/policia-y-civiles-baleados/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("June 02, 1970"),
+        title: "“COBARDE ATAQUE: HERIDOS 3 AGENTES Y DOS PEATONES”",
+        description:
+          "Cruel “venganza” sediciosa”... atacaron a balazos a varios funcionarios policiales en una actitud que debe calificarse cruel y vandálica, mucho más cuando las víctimas elegidas son ajenas a los hechos ocurridos... la indiscriminada balacera de los sediciosos puso, en grave riesgo, la vida de inocentes peatones... Alcanzados directamente por los proyectiles y también al rebotar algunos en la pared de mármol, cayeron Hilario Crossa Aguilar y César Bulgarelli Silvera... Los dos, en grave estado, se encuentran en el Hospital Militar. Un tercer agente, Juan Zenén Sosa, fue rozado en una pantorrilla. Un joven de 16 años... también fue alcanzado por una bala en una pierna y la Srta. Beatriz Oviedo,... salvó la vida por milagro... una bala la rozó en la región occipital... ... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/policia-y-civiles-baleados/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/policia-y-civiles-baleados/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("June 02, 1970"),
+        title: "“HABRÍA SIDO UNA ABSURDA “VENGANZA”",
+        description:
+          "... se especula... actúo en el episodio, ocurrido hace ya dos meses, que permitió la aprehensión de tres sediciosos en el café “La Vía”, de Larrañaga y Monte Caseros, suceso en el que también resultó herido el conspirador... que acaba de ser procesado por el magistrado actuante... Aparecen fotos.",
+        title1: "“ATENTARON CONTRA POLICÍAS DESDE AUTOMÓVILES ROBADOS”",
+        description1:
+          "Tras asaltar un garaje del cual fueron hurtados dos autos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/policia-y-civiles-baleados/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/policia-y-civiles-baleados/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“El 1 de junio,..., los tupamaros ametrallaron por debajo de la cintura a policías que se encontraban en la puerta del canal 4...”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 461",
+          author: "Pernas",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("June 11, 1970"),
+    title: "Policía baleado",
+    slug: "policia-baleado-espino",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 22)',
+        date: new Date("June 11, 1970"),
+        title:
+          "“BALEARON UN POLICÍA PARA ROBAR CASI 5 MILLONES EN UN BANCO DE LA TEJA”",
+        description:
+          "Casi cinco millones de pesos se llevaron a primera hora de esta tarde cuatro individuos que asaltaron la agencia La Teja del Banco Español y Territorial. Al penetrar al local, asaltado por primera vez un año atrás, lucharon encarnizadamente con un funcionario policial de guardia, sobre quien tiraron a quemarropa hiriéndolo... tras lo cual lo castigaron con la culata de sus armas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/policia-baleado-espino/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/policia-baleado-espino/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("August 24, 1970"),
+    title: "Bombas en Radio Montecarlo",
+    slug: "bombas-en-radio-montecarlo",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("August 25, 1970"),
+        title: '"COPARON PLANTA EMISORA COLOCANDO CINCO BOMBAS”',
+        description:
+          "Un atentado... perpetraron integrantes de la organización sediciosa más antigua en perjuicio de la planta emisora de CX 20, Radio Montecarlo,... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-radio-montecarlo/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-radio-montecarlo/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 20)',
+        date: new Date("August 26, 1970"),
+        title: "“FUERON A VOLAR LA PLANTA Y NO A PASAR UNA PROCLAMA”",
+        description:
+          "...  los sediciosos, en su acción de ayer de tarde, pretendieron volar la planta de dicha emisora y en ningún momento evidenciaron el propósito de irradiar una proclama...",
+        title1: "“FRACASÓ EL OPERATIVO: SÓLO DESTROZOS LEVES EN LA RADIO”",
+        description1:
+          "Por segunda vez en cuatro días, los conspiradores fracasaron estrepitosamente al incursionar en una radio emisora, al intentar ayer sin éxito volar la planta transmisora de Radio Montecarlo, tras coparla durante 12 minutos… El de ayer fue el séptimo golpe de los conspiradores contra una radio emisora. El 10 de setiembre de 1964 se atentó contra Radio Carve, donde volvieron a incursionar...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-radio-montecarlo/n_2.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-radio-montecarlo/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("September 04, 1970"),
+    title: "Bombas en comercios y domicilios particulares",
+    slug: "bombas-en-comercios-y-domicilios-particulares",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("September 04, 1970"),
+        title: "“UNA BRUSCA SEGUIDILLA DE 18 ATENTADOS”",
+        description:
+          "Esta mañana se consumaron 18 atentados contra domicilios particulares, de bancarios, funcionarios del Estado, policías y locales comerciales así como en perjuicio de ómnibus del servicio de transporte colectivo urbano...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-comercios-y-domicilios-particulares/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-comercios-y-domicilios-particulares/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Carta del 7 de setiembre de 1970.</p>
+          <p>14 VECES LA MISMA NOCHE tuvieron que trabajar los bomberos y el personal de radio patrulla. En 14 lugares distintos y en escasos minutos, volvían a operar las organizaciones de combate.</p>
+          <p>... venía una extensa y detallada nómina de las acciones realizadas. Figuraban en ella: los banqueros Juan Carlos Peirano Facio, Enrique Martín y Luis Mario Limido, la agencia Publicidad Oriental y el comentarista radial Omar de Feo; los delatores Gualberto Cuenca, RubenYaffé, Hugo Molca, Marco Esteva Sureda y Elisa Lupo; un ómnibus de CUTCSA...”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Acción directa anarquista. Una historia de FAU",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Recortes",
+          pages: "págs. 264-265",
+          author: "Mechoso",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("September 10, 1970"),
+    title: "Bomba en planta de Coca Cola",
+    slug: "bomba-en-planta-de-coca-cola",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 17)',
+        date: new Date("September 11, 1970"),
+        title: "“UNO DE LOS ASALTANTES DE COCA COLA SE HIRIÓ CON SU REVÓLVER”",
+        description:
+          "Un grupo de delincuentes intentó anoche volar la planta embotelladora Nº 2 de Coca Cola... pero sus proyectos se frustraron y sólo estalló una bomba que arrojaron en el interior de una oficina, la que causó importantes daños... uno de los delincuentes... fue a colocar su revólver en la cartuchera y, al estar el arma sin seguro, se le escapó un disparo que fue a herirlo en la región glútea. Enseguida cayó al suelo...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-en-planta-de-coca-cola/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-en-planta-de-coca-cola/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("September 14, 1970"),
+    title: "Bombas en empresas Sudamtex y Carlos Sicco",
+    slug: "bombas-en-empresas-sudamtex-y-carlos-sicco",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("September 15, 1970"),
+        title: "“PUDO DESTRUIR LA MANZANA EL CRIMINAL ATENTADO DE ANOCHE”",
+        description: "... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-empresas-sudamtex-y-carlos-sicco/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-empresas-sudamtex-y-carlos-sicco/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("September 15, 1970"),
+        title: "“PÁNICO EN LA NOCHE”",
+        description:
+          "Dos atentados, simultáneamente ejecutados, sacudieron ayer a la población de Montevideo. El de más impresionantes características fue el que afectó de manera fundamental a la empresa Sudamtex cuyas instalaciones de la calle Lavalleja quedaron virtualmente arrasadas. El fuego puso en riesgo a la manzana entera... y destruyó también la cochería Sicco de la calle Rivera... En otro lado de la ciudad,... los criminales dinamitaron la planta transmisora de la compañía Press Wireless... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-empresas-sudamtex-y-carlos-sicco/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-empresas-sudamtex-y-carlos-sicco/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("September 15, 1970"),
+        title: "“PÉRDIDAS POR MÁS DE MIL MILLONES”",
+        description:
+          "Criminales atentados. Pánico: 50 familias evacuadas... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-empresas-sudamtex-y-carlos-sicco/n_4.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-empresas-sudamtex-y-carlos-sicco/n_5.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("September 15, 1970"),
+        title: "“ATENTADO SEDICIOSO HIZO ARDER CASI TODA UNA MANZANA ANOCHE”",
+        description:
+          "Un numeroso grupo de sediciosos entre los que se contaba por lo menos una mujer,  asaltó e incendió ayer el depósito que la empresa “Sudamtex”  posee en Montevideo,... El siniestro, de espectaculares características,... en pocos minutos las llamas fueron extendiéndose hacia las fincas linderas,... invadiendo poco después la cochería Carlos Sicco... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-empresas-sudamtex-y-carlos-sicco/n_6.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-empresas-sudamtex-y-carlos-sicco/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 3)',
+        date: new Date("September 16, 1970"),
+        title: "“UNA MANZANA EN JAQUE POR EL FUEGO”",
+        description:
+          "Uno de los siniestros de mayores proporciones que se haya producido en nuestro país... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-empresas-sudamtex-y-carlos-sicco/n_7.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-empresas-sudamtex-y-carlos-sicco/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("September 16, 1970"),
+        title: "“PERJUDICARÁ A LOS SECTORES MODESTOS EL DAÑO A SUDAMTEX”",
+        description:
+          "Tres mil kilómetros de telas quemados: toda la producción. Sector terciario perjudicado. Es del caso consignar que la horripilante salvajada que cometieron los sediciosos perjudicará en extremo a los sectores populares denominados terciarios dentro de la industria del vestido. Ellos sufrirán las consecuencias más directas de la falta de las telas consumidas por las llamas. Las modistas tendrán menos que hacer...",
+        subtitle: "“Más de 3:000.000 de Metros”",
+        description1: "... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-empresas-sudamtex-y-carlos-sicco/n_9.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-empresas-sudamtex-y-carlos-sicco/n_9.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("October 01, 1970"),
+        title: "“... INTERVINO EN ATENTADO A SUDAMTEX”",
+        description:
+          "...el conspirador muerto bajo las ruinas del “bowling” que dinamitara y cuyo cadáver fuera rescatado el martes por los bomberos, fue reconocido... como participante del atentado contra el depósito de “Sudamtex”... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-empresas-sudamtex-y-carlos-sicco/n_10.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-empresas-sudamtex-y-carlos-sicco/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("November 02, 1970"),
+        title:
+          "“UNA FAMILIA EN LA CALLE POR OBRA DE LOS DESTRUCTIVOS “TUPAMAROS”",
+        description:
+          "A los catorce meses de una catástrofe provocada por los “tupamaros”, una familia sigue pagando las consecuencias de una acción vandálica, que no estaba dirigida contra ellos, pero da la que resultaron víctimas inocentes, perdiendo todas sus pertenencias... El Sr. Washington Bonilla con su esposa y tres hijos menores (14 y 12 años los varones y 7 años la niña) viven en una dependencia de la congregación de Hermanas Domínicas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-empresas-sudamtex-y-carlos-sicco/n_11.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-empresas-sudamtex-y-carlos-sicco/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“... De ellas salió el “Plan Cacao”,... Consistía en una serie de sabotajes en puntos neurálgicos de la maquinaria económica del país, como ser voladuras de líneas de alta tensión, y de algunos puentes claves en el sistema de comunicaciones y de tramos de vía férrea, y atentados de importancia en empresas extranjeras de negocios oligárquicas... El primer objetivo de la serie fue un incendio prolijamente planeado, de los depósitos de Sudamtex, una empresa textil de capitales extranjeros y de inmediato, como era previsible, sobrevino el rechazo popular a la medida...”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Autobiografía de Amodio Pérez",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Arca",
+          pages: "pág. 52",
+          author: "Pérez",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("September 19, 1970"),
+    title: "Bombas en centro de diversión y restaurante",
+    slug: "bombas-en-centro-de-diversion-y-restaurante",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("September 20, 1970"),
+        title:
+          "“DAÑOS MILLONARIOS OCASIONÓ ATENTADO CONTRA UNA BOITE, QUE SÓLO POR MILAGRO NO SE INCENDIÓ”",
+        description: "... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-centro-de-diversion-y-restaurante/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-centro-de-diversion-y-restaurante/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 3)',
+        date: new Date("September 20, 1970"),
+        title: "“INCENDIARON CON BOMBAS TRANSMISOR DE ZUM ZUM”",
+        description:
+          "Dos hombres y una mujer... luego de secuestrar un taxímetro y retener por un espacio de dos horas a su conductor, atentaron contra la boite “Zum-Zum” ubicada abajo del Edificio Panamericano, causando graves daños... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-centro-de-diversion-y-restaurante/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-centro-de-diversion-y-restaurante/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 22)',
+        date: new Date("September 20, 1970"),
+        title: "“APLASTADO BAJO TONELADAS DE ESCOMBROS MURIÓ UN SEDICIOSO”",
+        description:
+          "La mañana neblinosa de hoy en Carrasco fue conmocionada por la explosión casi simultánea de dos locales de diversión: el “Carrasco Bowl” y “La Rochelle”. Las pérdidas ocasionadas por la acción de un grupo de delincuentes pertenecientes a una organización sediciosa...",
+        title1: "“LA ROCHELLE FUE TAMBIÉN VOLADA”",
+        description1:
+          "...“La Rochelle” fue objeto de la devastadora acción de un grupo de delincuentes pertenecientes a una organización sediciosa... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-centro-de-diversion-y-restaurante/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-centro-de-diversion-y-restaurante/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Mario Teti Izquierdo...</p>
+          <p>El Cacao se viene luego de Almería. Habían ajusticiado a Mitrione. Evidentemente lo que se tenía pensado no marchaba: el canje de los compañeros presos por los secuestrados. Se dijo: aténganse a las consecuencias, ahora les espera el Cacao. Vamos a golpear a la burguesía y a la oligarquía donde se divierta, donde se les encuentre... Era volar los lugares de diversión cuando no había gente. Como se hizo con La Rochelle en Carrasco o como se pretendió hacer en el Bowling... ”.</p>`,
+          year: new Date("2009-1-1"),
+          name: "Memorias de insurgencia. Historias de vida y militancia en el MLN-Tupamaros. 1965-1975",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Banda Oriental S.R.L.",
+          pages: "págs. 195, 209",
+          author: "Aldrighi",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("September 29, 1970"),
+    title: "Bombas en Club Bowling de carrasco. Funcionaria queda inválida",
+    slug: "bombas-en-club-bowling-de-carrasco",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("September 29, 1970"),
+        title: "“VUELAN EL CARRASCO BOWLING: DINAMITERO MURIÓ APLASTADO”",
+        description:
+          "Sangriento atentado. Una limpiadora quedó con heridas de consideración. ... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-club-bowling-de-carrasco/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-club-bowling-de-carrasco/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 20)',
+        date: new Date("September 29, 1970"),
+        title: "“UTILIZARON TRES AUTOMÓVILES ROBADOS”",
+        description:
+          "Los sediciosos que cometieron hoy en Carrasco los graves atentados dinamiteros utilizaron para movilizarse, antes y después del “operativo”, tres automóviles robados... Aparece croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-club-bowling-de-carrasco/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-club-bowling-de-carrasco/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 21)',
+        date: new Date("September 29, 1970"),
+        title: "“DETONARON GELINITA ROBADA EN LA CANTERA”",
+        description:
+          "La voladura esta mañana del “Carrasco Bowling Automático” en el cruce de Figari y Río de la Plata, es el atentado con explosivos de mayor entidad que han cometido hasta ahora los sediciosos... El local quedó destruido como si hubiese sido sometido a un bombardeo y para ello los conspiradores hicieron detonar simultáneamente varios atados de cartuchos de plastingelinita de la robada por ellos el 8 del cte., durante el asalto a la cantera Montevideo S.A... ubicada en Camino Pavia 3112. Pérdidas por 40 millones... allí pudo haber más personas que las que se encontraban en el lugar en el momento de la explosión, una de las cuales halló la muerte... la infortunada limpiadora, a la que los vecinos rescataron de entre vigas y mampostería que le cayó encima. Esta víctima recibió heridas de entidad... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-club-bowling-de-carrasco/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-club-bowling-de-carrasco/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 22)',
+        date: new Date("September 29, 1970"),
+        title: "“APLASTADO BAJO TONELADAS DE ESCOMBROS MURIÓ UN SEDICIOSO”",
+        description:
+          "... Un hombre con el rostro y manos cortadas, una mujer con la pierna destrozada y fractura de columna vertebral y un sedicioso muerto aprisionado bajo las estructuras de hormigón del edificio dedicado al bowling es el saldo en personas del atentado realizado. Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-club-bowling-de-carrasco/n_7.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-club-bowling-de-carrasco/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("September 30, 1970"),
+        title: "“ÚNICO SOSTÉN DE SUS CUATRO HIJOS PUEDE QUEDAR INVÁLIDA”",
+        description:
+          "En el interior de un box del Hospital Militar se debatía hoy... la empleada del “Bowling”, doña Hilaria Quirino de Monteagudo, sacudida por terribles dolores, mientras una pesa colgaba de sus extremidades fracturadas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-club-bowling-de-carrasco/n_18.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-club-bowling-de-carrasco/n_19.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (en Portada)',
+        date: new Date("September 30, 1970"),
+        title:
+          "“ATENTADOS: IDENTIFICAN UN CUERPO Y BUSCAN OTRO; UNA SEÑORA HERIDA”",
+        description:
+          "Simultáneamente a la voladura se provocó incendio en “La Rochelle.-..., de 21 Años, es uno de los dinamiteros muertos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-club-bowling-de-carrasco/n_9.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-club-bowling-de-carrasco/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 7)',
+        date: new Date("September 30, 1970"),
+        title: "“BOWLING: RESCATARON UN CADÁVER Y BUSCAN OTRO”",
+        description:
+          "... los bomberos lograron ubicar el cadáver calcinado... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-club-bowling-de-carrasco/n_11.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-club-bowling-de-carrasco/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 7)',
+        date: new Date("October 03, 1970"),
+        title: "“IDENTIFICARON EL CADÁVER”",
+        description:
+          "Recién el lunes se podrá rescatarlo;... Aparece foto. Presunta bomba... nunca llegó a establecerse con exactitud cuántas fueron las bombas colocadas... colocaron tres bombas en las pistas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-club-bowling-de-carrasco/n_13.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-club-bowling-de-carrasco/n_14.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 10)',
+        date: new Date("October 04, 1970"),
+        title: "“HABRÍA SIDO IDENTIFICADO EL SEDICIOSO MUERTO”",
+        description: "Mañana o pasado lo extraen... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-club-bowling-de-carrasco/n_15.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-club-bowling-de-carrasco/n_16.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("October 06, 1970"),
+        title: "“APRESADO BAJO UNA VIGA YACE EL DINAMITERO MUERTO”",
+        description:
+          "... Tras practicar un boquete en la planchada caída, los soldados del fuego llegaron…Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-club-bowling-de-carrasco/n_17.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-club-bowling-de-carrasco/n_17.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“El 29 de setiembre (sic), una bomba del MLN detonó en el Club de Bowling de Carrasco, uno de los lugares donde se reunía la juventud adinerada. En el atentado murieron los dos tupamaros que maniobraban el explosivo y varias personas quedaron heridas, entre estas (sic), la más grave, con su cuerpo quemado al extremo, la cuidadora, Hilaria Quirino Ibarra, una trabajadora de cuarenta y ocho años, con cuerpo y mente en ruinas, para siempre”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 476",
+          author: "Pernas",
+        },
+        {
+          fragment: `<p>“Mauricio Rosencof</p>
+          <p>En el caso del Bowling de Carrasco, por ejemplo, se quería demostrar que estábamos en contra de los privilegios de la oligarquía, en el momento en que nos perseguían. La operación tuvo sus trágicos inconvenientes. Murieron allí los compañeros Carlos López y Roberto Rhon. Este último quedó bajo los escombros de una explosión precipitada… Los estudiantes de Química le pusieron su nombre a la plaza que está frente a la Facultad...”.</p>`,
+          year: new Date("2009-1-1"),
+          name: "Memorias de insurgencia. Historias de vida y militancia en el MLN-Tupamaros. 1965-1975",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Banda Oriental S.R.L.",
+          pages: "págs. 23 y 39-41",
+          author: "Aldrighi",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("October 13, 1970"),
+    title: "Bombas en empresa Domingo Basso",
+    slug: "bombas-en-empresa-domingo-basso",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 13)',
+        date: new Date("October 14, 1970"),
+        title: "“SETENTA MILLONES DE PÉRDIDAS EN ATENTADO”",
+        description:
+          "Tres bombas destruyeron dos secciones del local y una avioneta en Basso. Más de 70 millones de pesos en daños causó el martes un grupo de conspiradores que provocó un siniestro en el local de “Domingo Basso” en la Avda. Rondeau Nº 1921... Aparece foto y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-empresa-domingo-basso/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-empresa-domingo-basso/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>““El 8 el MLN ataca dependencias de Domingo Basso,...”. </p>`,
+          // year: new Date("2013-1-1"),
+          name: "La tregua armada",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "pág. 73",
+          author: "Fernández Huidobro",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("December 03, 1970"),
+    title: "Bombas en Saeta TV Canal 10",
+    slug: "bombas-en-saeta-tv-canal-10",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 9)',
+        date: new Date("December 04, 1970"),
+        title: "“SEDICIOSOS ATACARON EMISORA DE TELEVISIÓN”",
+        description:
+          "Un grupo sedicioso, integrado por siete jóvenes y una mujer, atentó ayer contra el Canal 10 de televisión-Saeta-fracasando en su intento de destruir la planta emisora...  Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 7)',
+        date: new Date("December 04, 1970"),
+        title: "“HICIERON ESTALLAR 3 BOMBAS EN CANAL 10”",
+        description:
+          "... La Jefatura dio cuenta  ayer de cuatro hechos protagonizados por integrantes de una organización, el más significativo de los cuales consistió en el estallido de tres bombas en los estudios de canal 10...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_3.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("December 11, 1970"),
+        title: "“HICIERON ESTALLAR 3 BOMBAS EN CANAL 10”",
+        description:
+          "... La Jefatura dio cuenta  ayer de cuatro hechos protagonizados por integrantes de una organización, el más significativo de los cuales consistió en el estallido de tres bombas en los estudios de canal 10...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("December 11, 1970"),
+    title: "Bombas en la Sede del Banco Interamericano de Desarrollo (BID)",
+    slug: "bombas-en-sede-del-bid",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 9)',
+        date: new Date("December 12, 1970"),
+        title: "“SEDICIOSOS ATENTAN CONTRA EL BID Y CAUSAN SERIOS DESTROZOS”",
+        description:
+          "Mediante atraco... un grupo de conspiradores atentó ayer contra la sede del Banco Interamericano de Desarrollo (BID) ubicada en el edificio Banco de Crédito en 18 de Julio esquina Barrios Amorín. El hecho fue precedido por el secuestro de un médico...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 12)',
+        date: new Date("January 08, 1971"),
+        title: "“PROCESAN A DOS ESTUDIANTES SEDICIOSOS”",
+        description:
+          "Habían atentado contra el BID y se les imputó graves cargos... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_9.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("December 13, 1970"),
+    title: "Bombas en el Parador del Cerro",
+    slug: "bombas-en-el-parador-del-cerro",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("December 14, 1970"),
+        title: "“SECUESTRAN A PROFESIONAL PARA ATENTAR CONTRA BOITE”",
+        description:
+          "Un grupo de por lo menos diez conspiradores atentó ayer de mañana contra el Parador del Cerro-centro nocturno de señalado éxito últimamente-causando graves destrozos... Los hechos dieron comienzo con el hurto de un automóvil a cuyo propietario mantuvieron secuestrado... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_11.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("December 16, 1970"),
+    title: "Bombas en Radio Universal",
+    slug: "bombas-en-radio-universal",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("December 16, 1970"),
+        title: "““EXPLOSIÓN EN EMISORA PROVOCÓ GRAVES DAÑOS”",
+        description:
+          "... un grupo de sediciosos-se vio actuar a dos hombres y dos mujeres-redujo por la fuerza de las armas a operadores y custodios de la planta emisora de la estación CX 22 Universal, y luego hizo estallar una bomba de alto poder que causó cuantiosos daños. Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_13.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_14.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("December 17, 1970"),
+    title: "Bombas en la Boite Chez Carlos y Residencia Particular",
+    slug: "bombas-en-la-boite-chez-carlos-y-residencia-particular",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 10)',
+        date: new Date("December 18, 1970"),
+        title: "“DAÑOS ELEVADOS EN “CHEZ CARLOS”",
+        description:
+          "Un grupo de cinco conspiradores atentó en la madrugada de ayer contra la boite “Chez Carlos” ubicada en Rambla República de México 5521, sobre Punta Gorda tras inmovilizar a las tres personas que allí se encontraban procedieron a romper muebles e incendiar diversos elementos del alhajamiento, causando graves daños... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_15.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_16.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 2)',
+        date: new Date("December 18, 1970"),
+        title: "“INCURSIONARON AYER EN UNA BOITE Y UN DOMICILIO”",
+        description:
+          "Cuatro hombres y una mujer, que dijeron pertenecer a una organización, incursionaron... en la boite “Chez Carlos” y  provocaron un incendio dejando un artefacto explosivo... En un domicilio. Un grupo similar (cuatro hombres y una mujer) penetró ayer...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_17.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_18.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 9)',
+        date: new Date("December 19, 1970"),
+        title: "“SEDICIOSOS ATENTARON CONTRA UNA RESIDENCIA”",
+        description:
+          "Cinco conspiradores, entre los que se encontraba una mujer, tomaron por asalto ayer la residencia del Sr. Francisco Abal ubicada en A. Larrañaga 4611. Tras dominar a la dueña de casa, su hijo, su madre y una cocinera procedieron a pintarrajear frases características de su organización en las paredes... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_19.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bombas-en-medios-de-comunicacion-banco-interamericano-de-desarrollo-y-restaurantes/n_20.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("March 30, 1971"),
+    title: "Fábrica copada",
+    slug: "fabrica-copada",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 22)',
+        date: new Date("March 30, 1971"),
+        title: "“COPAN UNA FÁBRICA Y DESPUÉS DE INTENSO TIROTEO LOS APRESAN”",
+        description:
+          "Quince personas, la mayoría de ellos tupamaros, fueron detenidas… durante un espectacular tiroteo..., en la fábrica de plásticos “NiboPlast S.A.C.I.” de Chiávari 2865... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fabrica-copada/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/fabrica-copada/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 5)',
+        date: new Date("March 31, 1971"),
+        title: "“NIBO PLAST: TOTAL FRACASO TUPAMARO”",
+        description:
+          "Catorce “tupamaros” fueron apresados ayer por la Policía cuando intentaban realizar una proclama en la planta de “Nibo-Plast Uruguaya, SAIC”... un sereno que allí se encontraba vio la pareja... “De inmediato llamé al 890…”... Aparece foto y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fabrica-copada/n_2.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/fabrica-copada/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El País" (Página 7)',
+        date: new Date("March 31, 1971"),
+        title: "“INFERNAL TIROTEO: CAEN 8 TUPAMAROS”",
+        description:
+          "Entre los detenidos figura una facciosa que huyó de la cárcel.... Ocho integrantes de la organización clandestina que opera en nuestro país, fueron detenidos en la mañana de ayer,... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fabrica-copada/n_4.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/fabrica-copada/n_5.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 2)',
+        date: new Date("March 31, 1971"),
+        title: "“NIBOPLAST: DETUVIERON 8 TUPAMAROS; DOS HERIDOS”",
+        description:
+          "... Ocho detenidos, tres prófugos y un recio intercambio de decenas de balazos disparados... fue el saldo de un suceso... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fabrica-copada/n_6.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/fabrica-copada/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El País" (Página 6)',
+        date: new Date("April 03, 1971"),
+        title: "“TIROTEO EN NIBOPLAST: REMITEN A LOS FACCIOSOS”",
+        description:
+          "Les fueron incautadas armas que habían sustraído del Centro de Instrucción de la Marina el año pasado... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fabrica-copada/n_8.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/fabrica-copada/n_9.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("April 18, 1971"),
+    title: "Teniente de la Policía baleado",
+    slug: "teniente-de-la-policia-baleado",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 12)',
+        date: new Date("April 18, 1971"),
+        title:
+          "“FUERON REPELIDOS Y ACORRALADOS TRAS ATACAR A UN TENIENTE DE LA METROPOLITANA”",
+        description:
+          "... teniente de la Metropolitana Carlos Jesús Dos Santos, quien pese a estar herido (...), pudo abatir a uno de los que le emboscara al salir de su casa… La “bazuca” incautada por la policía,... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/teniente-de-la-policia-baleado/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/teniente-de-la-policia-baleado/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("April 19, 1971"),
+        title:
+          "“SEIS DETENIDOS; SEDICIOSO MUERTO Y OTROS DOS A PRISIÓN; POLICÍA HERIDO”",
+        description:
+          "Un oficial de la Metropolitana resultó baleado ayer de mañana... Un sedicioso resultó muerto y otros dos detenidos… Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/teniente-de-la-policia-baleado/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/teniente-de-la-policia-baleado/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("December 22, 1971"),
+    title: "Bomba en Club de Golf",
+    slug: "bomba-en-club-de-golf",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 22)',
+        date: new Date("December 22, 1971"),
+        title: "“PÉRDIDAS MILLONARIAS: SÓLO LOS VESTUARIOS SE SALVARON”",
+        description:
+          "Un grupo de sediciosos incendió esta mañana... ocasionando pérdidas por un monto de 60 millones de pesos... Aparecen foto y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-en-club-de-golf/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-en-club-de-golf/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Acción" (Página 8)',
+        date: new Date("December 22, 1971"),
+        title: "“VOLARON EL GOLF: PÉRDIDAS SUPERAN LOS 70 MILLONES”",
+        description:
+          "Seis hombres y una mujer fuertemente armados. Sólo ruinas humeantes quedan de lo que hasta las 6 de la mañana de hoy fuera el edificio que ocupaba el Club de Golf del Uruguay... en Punta Carreta... un grupo armado-seis hombres y una mujer-incendió el confortable edificio... Las pérdidas son multimillonarias... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-en-club-de-golf/n_3.jpg",
+            alt: "noticia publicada por el diario El Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-en-club-de-golf/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 8)',
+        date: new Date("December 23, 1971"),
+        title: "“PÉRDIDAS POR MÁS DE 60 MILLONES EN EL CLUB DE GOLF”",
+        description:
+          "En las primeras horas de la mañana de ayer, un comando incendió el lujoso edificio que el Club de Golf del Uruguay tiene instalado en Punta Carretas... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-en-club-de-golf/n_4.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-en-club-de-golf/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("December 23, 1971"),
+        title:
+          "“NO LES BASTÓ CON QUEMAR EL CLUB DE GOLF: TAMBIÉN INCENDIARON COMERCIO”",
+        description:
+          "Quedan 165 trabajadores desocupados... Aparecen fotos, una a cuyo pie dice: “En medio del dolor y la incredulidad de niños... el Mago Ariel improvisó el escenario para cumplir con su labor. Debía actuar en el acto organizado por el Club que culminaría con el reparto de juguetes a los hijos de los funcionarios...”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-en-club-de-golf/n_6.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-en-club-de-golf/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 5)',
+        date: new Date("December 23, 1971"),
+        title: "“ATENTADOS ANTERIORES”",
+        description: "... Cronológicamente... fueron los siguientes:...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/bomba-en-club-de-golf/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/bomba-en-club-de-golf/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("December 22, 1971"),
+    title: "Incendio en Casa Sanz",
+    slug: "incendio-en-casa-sanz",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 6)',
+        date: new Date("December 23, 1971"),
+        title: "“PÉRDIDAS TOTALES POR 10 MILLONES”",
+        description:
+          "Criminal. Otro bárbaro atentado, sin justificación ni explicación posible fue perpetrado en las últimas horas de la tarde de ayer contra “Casa Sanz”... Unos quince individuos, jóvenes en su mayoría-...- fueron los autores del vandálico atentado... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/incendio-en-casa-sanz/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/incendio-en-casa-sanz/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 8)',
+        date: new Date("December 24, 1971"),
+        title: "“CASA SANZ: LOS INCENDIARIOS ERAN EMPLEADOS DE “SERAL””",
+        description:
+          "Fueron reconocidos por tres testigos: los interroga el Juez. Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/incendio-en-casa-sanz/n_3.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/incendio-en-casa-sanz/n_4.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
   },
 ];

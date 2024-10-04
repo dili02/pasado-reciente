@@ -23,6 +23,7 @@ const navItems = [
   {
     name: "Atentados",
     icon: <Icons.timeDinamite className="w-7 h-7 lg:w-5 lg:h-5" />,
+    href: "/atentados",
   },
   {
     name: "Robo Dinero",
