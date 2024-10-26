@@ -160,6 +160,7 @@ function SeeAlso({ seeAlso }: { seeAlso: { href: string; text: string }[] }) {
         <Link
           className={`flex py-2 rounded transition-all duration-300 ease-in-out flex-row gap-2 text-sm`}
           href={item.href}
+          key={item.href}
         >
           &#187; {item.text}
         </Link>
