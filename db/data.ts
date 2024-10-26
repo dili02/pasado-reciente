@@ -12,6 +12,11 @@ export interface TerroristActionDefinition {
   };
   videos?: VideosTerroristActionDefinition[];
   fact?: string;
+  moneyTheft?: {
+    uyu: number;
+    usd: number;
+  };
+  seeAlso?: [{ href: string; text: string }];
 }
 
 export type TypeTerroristActionDefinition =
@@ -19,6 +24,7 @@ export type TypeTerroristActionDefinition =
   | "atentados"
   | "secuestros"
   | "robo-armamento-explosivos"
+  | "robo-dinero"
   | "otras acciones";
 
 export type VictimsDefinition = {
@@ -82,6 +88,14 @@ export type NewsPaperDefinition = {
     subtitle2?: string;
     subtitledescription2?: string;
   };
+  content?: NewsPaperContentDefinition[];
+};
+
+type NewsPaperContentDefinition = {
+  title?: string;
+  description?: string;
+  subtitle?: string;
+  subdescription?: string;
 };
 
 type NoticeDefinition = {
@@ -173,6 +187,17 @@ export const api = {
       (action) => action.type === "robo-armamento-explosivos"
     ) // Filtrar acciones por tipo
       .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
+  },
+
+  getAllMoneyTheft: async (): Promise<TerroristActionDefinition[]> => {
+    return TerroristActions.filter((action) => action.type === "robo-dinero") // Filtrar acciones por tipo
+      .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
+  },
+
+  getTotalAmountMoneyTheft: async (): Promise<number> => {
+    return TerroristActions.filter(
+      (action) => action.type === "robo-dinero"
+    ).reduce((acc, value) => acc + value.moneyTheft?.usd!, 0);
   },
 };
 
@@ -12133,12 +12158,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/bomba-compañia-telegráfica-norteamericana/n_1.jpg",
+            src: "/bomba-compania-telegrafica-norteamericana/n_1.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/bomba-compañia-telegráfica-norteamericana/n_2.jpg",
+            src: "/bomba-compania-telegrafica-norteamericana/n_2.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -12310,12 +12335,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/bomba-en-gremial-exportadores-de-lana/n_3.jpg",
+            src: "/bomba-en-gremial-exportadores-de-lana/n_5.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/bomba-en-gremial-exportadores-de-lana/n_4.jpg",
+            src: "/bomba-en-gremial-exportadores-de-lana/n_6.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -13020,6 +13045,26 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“El viernes 3 de enero dos autos de Inteligencia y Enlace y uno de la Metropolitana estacionaron frente a la casa del florista... encontraron el berretín: tres ametralladoras PAM, con municiones, seis kilos de gelignita y un transmisor de onda corta del Ejército...</p>
+          <p>Refreschini tomaba y apoyaba el pocillo en el plato, una y otra vez, lejos del barrio, en un sucucho amigo, entre el humo del cigarrillo. Así, afloró el recuerdo:</p>
+          <p>-No creo que sea el lugar más seguro, Pepe.</p>
+          <p>-Te lo pido por favor, hermano. Son unos pocos fierros -dijo Mujica a su amigo. Refreschini caminaba de un lado a otro, sabía que se estaba metiendo en un lío más complicado que el de esconder algún matute menor –bolsos o paquetes con algunos productos contrabandeados– como los que ya le había guardado a su amigo...</p>
+          <p>... las armas quedaron escondidas en la casa de la calle China... Hasta que la policía dio con el berretín...</p>
+          <p>-Eso no es de mi esposo, es de un conocido de la zona...</p>
+          <p>-Le dicen Pepe...</p>
+          <p>-Pepe Mujica, creo”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 373-375",
+          author: "Pernas",
+        },
+      ],
+    },
   },
   {
     date: new Date("January 13, 1969"),
@@ -13277,6 +13322,43 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“-Carlos, ocurrió una tragedia, explotó la pieza del fondo y Carlitos y Enriquito están quemados.</p>
+          <p>Era la voz de mi suegro, del querido viejo Daniel… Me venía la imagen de mis gurises... Tal vez sea más acertado decir solamente: un dolor que me lastimaba.</p>
+          <p>No pude llorar. Recién lloré durante horas sobre la madrugada en la casa “El Tropero” adonde fui a pasar la noche...</p>
+          <p>Mi casa estaba totalmente embagayada, yo tenía responsabilidades militantes y mis hijos ya estaban en el hospital...</p>
+          <p>Llamé a Mauricio… Me dijo que fuera enseguida para “El Tropero”...</p>
+          <p>No había pasado ni una hora y llegó Cariboni.</p>
+          <p>Era la medianoche, estábamos los tres sentados... Repasábamos problemas de seguridad. ¿Podía “salpicar” para algún lado? Sí, algo sí...</p>
+          <p>Mi compañera en ese momento: China, sí podía quedar implicada.</p>
+          <p>Seguimos conversando, un tema principal era sobre pasos inmediatos a dar. La Organización era también mi Familia...”.</p>`,
+          name: "Acción directa anarquista. Una historia de FAU",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Recortes",
+          pages: "págs. 151-154, 156",
+          author: "Mechoso",
+        },
+        {
+          fragment: `<p>“-Carlos, ocurrió una tragedia, explotó la pieza del fondo y Carlitos y Enriquito están quemados.</p>
+          <p>Era la voz de mi suegro, del querido viejo Daniel… Me venía la imagen de mis gurises... Tal vez sea más acertado decir solamente: un dolor que me lastimaba.</p>
+          <p>No pude llorar. Recién lloré durante horas sobre la madrugada en la casa “El Tropero” adonde fui a pasar la noche...</p>
+          <p>Mi casa estaba totalmente embagayada, yo tenía responsabilidades militantes y mis hijos ya estaban en el hospital...</p>
+          <p>Llamé a Mauricio… Me dijo que fuera enseguida para “El Tropero”...</p>
+          <p>No había pasado ni una hora y llegó Cariboni.</p>
+          <p>Era la medianoche, estábamos los tres sentados... Repasábamos problemas de seguridad. ¿Podía “salpicar” para algún lado? Sí, algo sí...</p>
+          <p>Mi compañera en ese momento: China, sí podía quedar implicada.</p>
+          <p>Seguimos conversando, un tema principal era sobre pasos inmediatos a dar. La Organización era también mi Familia...”.</p>`,
+          year: new Date("2006-1-1"),
+          name: "Juan Carlos Mechoso anarquista",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Trilce",
+          pages: "págs. 68-71",
+          author: "Jung y Rodríguez",
+        },
+      ],
+    },
   },
   {
     date: new Date("July 15, 1969"),
@@ -14459,9 +14541,9 @@ export const TerroristActions: TerroristActionDefinition[] = [
       {
         name: 'Diario "El Día" (en Portada)',
         date: new Date("December 11, 1970"),
-        title: "“HICIERON ESTALLAR 3 BOMBAS EN CANAL 10”",
+        title: "“DETENIDA UNA ESTUDIANTE QUE DIRIGIÓ ATAQUE A SAETA”",
         description:
-          "... La Jefatura dio cuenta  ayer de cuatro hechos protagonizados por integrantes de una organización, el más significativo de los cuales consistió en el estallido de tres bombas en los estudios de canal 10...",
+          "... estaría reconocida como integrante del grupo de sediciosos que hizo detonar tres bombas causando ingentes daños, en local de Canal 10 SAETA, ubicada en la calle Tacuarembó...",
         images: [
           {
             type: "noticia publicada",
@@ -14937,6 +15019,2009 @@ export const TerroristActions: TerroristActionDefinition[] = [
             type: "página diario completa",
             src: "/incendio-en-casa-sanz/n_4.jpg",
             alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("June 11, 1964"),
+    title: "Banco de Cobranzas sucursal Buceo",
+    slug: "banco-de-cobranzas-sucursal-buceo",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 100000, usd: 4700 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("June 11, 1964"),
+        title:
+          '“FUE ASALTADO UN BANCO EN EL BUCEO: DESPUÉS HUBO TIROTEO. Fueron Capturados Tres Individuos. Un Policía Herido"',
+        description:
+          "... Tres individuos ingresaron a la Sucursal Buceo del Banco de Cobranzas y robaron $100.000. Al entrar, uno de los pistoleros, hizo fuego contra la puerta de entrada. Con el dinero en su poder huyeron en un Volkswagen robado que los esperaba en la puerta. Minutos después son interceptados por un patrullero y, tras un intenso tiroteo en el que cae herido un policía, fueron capturados. Dos de los asaltantes pertenecen al grupo de los cañeros de Artigas que están acampando frente al Mercado Municipal, el tercero aún no fue identificado.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-cobranzas-sucursal-buceo/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-cobranzas-sucursal-buceo/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 11)',
+        date: new Date("June 12, 1964"),
+        title:
+          "“ASALTO A UN BANCO, TIROTEO, FUGA Y CAPTURA DE LOS RESPONSABLES, QUE SON CAÑEROS DE ARTIGAS”",
+        description:
+          "Integrantes del campamento de cañeros de Artigas, realizaron ayer un atraco contra un banco en la esquina de Rivera y Arrascaeta. Tras tirotearse con la policía fueron capturados tres asaltantes. Un policía y un atracador resultaron heridos tras el intenso tiroteo. En pleno asalto entró un menor, vecino de la zona, al banco y tras ser apuntado con un arma quedó en estado de shock... Gran sorpresa se llevó la policía al interrogarlos y descubrir que se trataba de tres cañeros de Artigas, acampantes en el Palacio Legislativo, ellos son:...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-cobranzas-sucursal-buceo/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-cobranzas-sucursal-buceo/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 11)',
+        date: new Date("June 12, 1964"),
+        title: "“TRES CAÑEROS ASALTANTES”",
+        description:
+          "Tres integrantes del campamento de cañeros de Artigas realizaron ayer un atraco contra el Banco de Cobranzas. En plena fuga, tras un intenso tiroteo con la policía, cayeron detenidos en la Plaza de los Olímpicos, no sin antes pelear cuerpo a cuerpo con los agentes. Resultaron heridos, un delincuente y un agente de policía. Los asaltantes fueron identificados y pertenecen a la agrupación UTAA, uno de ellos,..., estuvo involucrado en incidentes anteriores con los agentes del orden. Queda por identificar al cerebro del robo que sigue prófugo.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-cobranzas-sucursal-buceo/n_5.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-cobranzas-sucursal-buceo/n_6.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“... Sendic se quedó en el local de Melilla, pero siempre tenía ganas de volver al apartamento de Violeta… Ahí se hacían las reuniones del coordinador, que estaba funcionando a pleno. Además del MIR, MAC, UTAA, FAU –cuyos representantes son los hermanos Gerardo y Mauricio Gatti, Juan Carlos Mechoso y León Duarte –, ya son varios los jóvenes socialistas que han llegado con Manera: Julio Marenales, Tabaré Rivero Cedrés, Jesús Rodríguez Recalde, Héctor Amodio Pérez, Alicia Rey, Edith Moraes, Elsa Garreiro, Pedro Lerena, Ismael Bassini.</p>
+          <p>Y una tarde, la del 11 de junio de 1964 -mientras la marcha de peludos acampaba-, desde el balcón de aquel apartamento, ubicado en un edificio de la esquina de Arrascaeta y Rivera, Sendic supervisó a los tiros el robo al Banco de Cobranzas, que había en planta baja, cuando sus compañeros Julio Vique, Nelson Santana y Ataliva Castillo se vieron con problemas al retirarse con el dinero.</p>
+          <p>... A Vique se le disparó el arma antes de entrar al banco… Los peludos exigieron las llaves de la caja fuerte –tenían un cóctel molotov por si había que usarlo–...”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "págs. 263-265",
+          author: "Pernas",
+        },
+        {
+          fragment: `<p>“... - Mear en Picitos (sic) es un perjuicio burgués le dijo en tono cansino Santana a Vique... Faltaban pocos días para que ellos dos, junto con Castillo se metieran el 11 de junio de 1964, en el banco de Arrascaeta y Rivera a llevarse un poco de lo que allí se robaba. Los tres eran dirigentes de U.T.A.A... el grupo de los cañeros intentó el asalto... y fracasó desatando dos tempestades: la represiva desde afuera y la polémica desde adentro...</p>
+          <p>-¡Y justo debajo de lo de Violeta! (Violeta Setelich vivía en apartamento del mismo edificio y allí solía reunirse el Coordinador)...”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 1: los orígenes",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editoria",
+          pages: "págs. 143-144",
+          author: "Fernández Huidobro",
+        },
+        {
+          fragment: `<p>“... Raúl Sendic, dirigente socialista, actuaba con total autonomía, tanto en el plano sindical como en la realización de acciones armadas (por ejemplo, el asalto de la sucursal Buceo del Banco de Cobranzas en 1964, con la participación de los dirigentes de la Unión de Trabajadores Azucareros de Artigas (UTAA) Julio Vique, Nelson Santana y Ataliva Castillo)...”</p>`,
+          year: new Date("2001-1-1"),
+          name: "La izquierda armada. Ideología, ética e identidad en el MLN-Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Trilce,",
+          pages: "pág. 74",
+          author: "Aldrighi",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("October 14, 1964"),
+    title: "Banco de Cobranzas sucursal San Martín",
+    slug: "banco-de-cobranzas-sucursal-san-martin",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 93000, usd: 4400 },
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 9)',
+        date: new Date("October 15, 1964"),
+        title: "“ASALTARON OTRO BANCO PERO NO TARDARON EN CAER LOS LADRONES”",
+        description:
+          "Dos delincuentes penetraron a una sucursal bancaria de Larrañaga y San Martín portando metralletas se apropiaron de $ 93.900. Fueron detenidos... cuando trataban de escapar en un taxímetro... siendo recuperado íntegro el dinero hurtado luego de estéril intento de resistencia por parte de uno de los pillos. Fueron detenidos...",
+        subtitle: "“De Profesor a Asaltante”",
+        description1:
+          "... Uno de los asaltantes... a quien se le trabara la metralleta cuando intentó enfrentar a los funcionarios policiales que iban a detenerlo es nada menos que un profesor de la Escuela Nacional de Bellas Artes. El profesor “metido” a delincuente viene, con su participación, a darle tal vez un nuevo cariz a los hechos por cuanto parecería bien definida su ideología... Del asalto a la sucursal Buceo, del mismo banco, fueron autores elementos “cañeros” que acamparan en Montevideo entonces.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-cobranzas-sucursal-san-martin/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-cobranzas-sucursal-san-martin/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 8)',
+        date: new Date("October 16, 1964"),
+        title: "“HAY MÁS CÓMPLICES EN EL ATRACO FRUSTRADO”",
+        description:
+          "... De lo que expusieron surgió que tres personas les ayudaron a realizar el robo y dos de ellos permanecían aún prófugos esta madrugada... dijeron, al ser detenidos, que los animó, principalmente, la idea de ayudar a cierto grupo extremista a pesar de creerse en el móvil del robo simple... se les indica como afiliados a cierto sector ideológico de política extremista...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-cobranzas-sucursal-san-martin/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-cobranzas-sucursal-san-martin/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("October 17, 1964"),
+        title:
+          '“EL INGENIERO DETENIDO, "CEREBRO" DEL GRUPO IZQUIERDISTA Y DEL ASALTO”',
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-cobranzas-sucursal-san-martin/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-cobranzas-sucursal-san-martin/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("October 17, 1964"),
+        title: "“ADMITIÓ EL INGENIERO CIVIL SER PROMOTOR DEL ATRACO FRUSTRADO”",
+        description:
+          "Dos autores materiales del delito, procesados, con él por rapiña. Mantiénense prófugos otros dos individuos que oficiaron de “campana”. Aquellos ratificaron su ideología izquierdista... El bien pertrechado grupo centraba sus actividades en la Escuela de Bellas Artes... En el piso 5º de UTE prestaba funciones de alguna importancia, el Ingeniero Civil..., uruguayo, casado de 34 años de edad... Esta persona conoció en la Escuela Nacional de Bellas Artes a los que luego resultaron asaltantes,... uruguayo, casado de 34 años… y profesor del aludido centro docente, y... uruguayo, soltero de 27 años..., ex -alumno de la misma escuela, artista, pintor , etc... siendo los tres-según aseguraron-adictos al socialismo...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-cobranzas-sucursal-san-martin/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-cobranzas-sucursal-san-martin/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("October 17, 1964"),
+        title:
+          "EL INGENIERO DE UTE PLANEÓ EL ATRACO: RECOGERÍA A LOS AUTORES Y SE RETRASÓ!. Los Dos Noveles Asaltantes Esperaron en Vano el “Jeep”",
+        description:
+          "... fueron procesados y remitidos a la cárcel… Quedó perfectamente establecida la responsabilidad del profesional, en principio acusado de ser el que facilitó las armas, como uno de los integrantes de la banda, conocido como “Julio” restan aún detener a otros dos conocidos por “Jorge” y por “Alberto”. Serían también personas sin antecedentes, de ideología “socialista” como señalaron los tres remitidos, que actúan en ambientes profesionales o estudiantiles...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-cobranzas-sucursal-san-martin/n_9.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-cobranzas-sucursal-san-martin/n_10.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("May 13, 1966"),
+    title: "Banco Caja Obrera sucursal Bella Vista",
+    slug: "banco-caja-obrera-sucursal-bella-vista",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 93000, usd: 4400 },
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 5)',
+        date: new Date("May 14, 1966"),
+        title:
+          '"ASALTANTE DISFRAZADO DE POLICÍA Y CUATRO CÓMPLICES ROBARON $ 301.343”',
+        description:
+          "Un atraco... se registró en la Sucursal Bella Vista del Banco la Caja Obrera ubicada en Uruguayana 3101 esquina Sitio Grande. El agente comisionado para la vigilancia... Fue inmediatamente reducido por los intrusos que lo maniataron usando un grueso y herrumbrado alambre... que fue amenazada de muerte si intentaba resistir o llamar la atención... Al Jefe de Oficina Jorge Domínguez Salvanach lo trataron con violencia,... uno de los delincuentes le propinó dos fuertes golpes de puño en el estómago mientras que el otro le aplicaba un puñal en la nuca. Posteriormente logran el acceso al dinero...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-caja-obrera-sucursal-bella-vista/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-caja-obrera-sucursal-bella-vista/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("May 14, 1966"),
+        title: "“FUE LARGAMENTE PREMEDITADO EL ATRACO A LA CAJA OBRERA”",
+        subtitle: "“La Camioneta Está Blindada”",
+        subDescription:
+          "Lucía las chapas de Montevideo Nº 408-354 pero rápidamente se comprobó que esas chapas correspondían a una camioneta de la Tienda Caubarrere... En el interior de la camioneta empleada por los atracadores se hallaron trozos de alambre en un todo iguales, que utilizaron para atar al guardia metropolitano y al portero del banco. Además se comprobó en la parte posterior una chapa de hierro, de buen grueso, destinada sin duda a proteger los delincuentes de posibles balazos descargados desde atrás al emprender la fuga. Aparece foto de una chapa usada como protección dentro de la camioneta.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-caja-obrera-sucursal-bella-vista/n_3.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-caja-obrera-sucursal-bella-vista/n_4.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 11)',
+        date: new Date("May 15, 1966"),
+        title: "“PISTOLEROS: SURGE VALIOSA PISTA”",
+        description:
+          "... Todos los detalles de la forma en que se concretó el asalto así como otros posteriores deducido al inspeccionar la camioneta VW que incluso estaba acorazada para enfrentar un tiroteo, viene a demostrar que quienes cometieron el golpe contra la agencia bancaria, son maleantes experimentados y seguramente entre ellos hay un pistolero argentino.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-caja-obrera-sucursal-bella-vista/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-caja-obrera-sucursal-bella-vista/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“El 13 de mayo, catorce compañeros, utilizando cuatro vehículos, nos llevamos cerca de 5.000 dólares de la sucursal del Banco la Caja Obrera sita en Uruguayana y Arroyo Grande...”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 3: el MLN",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editoria",
+          pages: "pág. 20",
+          author: "Fernández Huidobro",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("November 22, 1966"),
+    title: "Banco Popular del Uruguay sucursal Paso de la Arena",
+    slug: "banco-popular-del-uruguay-sucursal-paso-de-la-arena",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 450000, usd: 7600 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 21)',
+        date: new Date("November 22, 1966"),
+        title:
+          "“UN BANCO FUE ASALTADO HOY. ROBARON $ 300.000 4 HOMBRES ARMADOS”",
+        description:
+          "A punta de pistolas y revólveres de grueso calibre, cuatro hombres jóvenes, asaltaron esta tarde... la Sucursal Paso de la Arena del Banco Popular del Uruguay, llevándose $ 300.000 de la institución y $ 50.000 que estaba depositando un cliente...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-popular-del-uruguay-sucursal-paso-de-la-arena/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-popular-del-uruguay-sucursal-paso-de-la-arena/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 9)',
+        date: new Date("November 23, 1966"),
+        title: "“UN ASALTO MÁS. $ 470.642 ROBADOS DE UNA SUCURSAL BANCARIA”",
+        description:
+          "... Los desconocidos llegaron en un auto Volkswagen,... que posteriormente había sido robado el 27 de mayo ppdo... El primer paso de los desconocidos al descender del vehículo fue dominar al agente, a quien le sacaron el revólver de reglamento, penetrando en la Sucursal Bancaria intimando a los presentes. Los asaltantes iban armados: 2 con pistolas de grueso calibre; uno con un revólver 38 y otro con un 22...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-popular-del-uruguay-sucursal-paso-de-la-arena/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-popular-del-uruguay-sucursal-paso-de-la-arena/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 11)',
+        date: new Date("November 23, 1966"),
+        title:
+          "“LOS TRES ATRACADORES DEL PASO DE LA ARENA TRASBORDARON DE VEHÍCULO EN AIRES PUROS. LLEVARON $ 470.000 DEL BANCO ASALTADO EN LA TARDE DE AYER”",
+        description:
+          "... La noticia conmovió a los vecinos de Paso de la Arena...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-popular-del-uruguay-sucursal-paso-de-la-arena/n_5.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-popular-del-uruguay-sucursal-paso-de-la-arena/n_6.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“... se decidió realizar antes una operación de finanzas “pequeña” que dotara a la Organización de recursos para el caso de una derrota en la “grande”. Fue por ello y para ello que el 22 de noviembre de 1966, cinco días antes de las elecciones, asaltamos el Banco Popular en Paso de la Arena, llevándonos 7270 dólares de aquel tiempo”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 3: el MLN",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "pág. 38",
+          author: "Fernández Huidobro",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("June 27, 1968"),
+    title: "Banco Caja Obrera sucursal Villa Muñoz",
+    slug: "banco-caja-obrera-sucursal-villa-munoz",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 1500000, usd: 6420 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("June 27, 1968"),
+        title: "“ASALTARON UN BANCO Y HUYERON CON UN MILLÓN Y MEDIO”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-caja-obrera-sucursal-villa-munoz/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-caja-obrera-sucursal-villa-munoz/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("June 27, 1968"),
+        title: "“LA POLICÍA CREE QUE LOS PISTOLEROS SON TUPAMAROS”",
+        description:
+          "Cuatro sujetos armados con metralletas asaltaron esta tarde la agencia del Banco La Caja Obrera de Villa Muñoz, llevándose un millón y medio de pesos. El hecho se produjo en la dependencia ubicada en Justicia y Nicaragua y los maleantes encerraron en un baño a los ocho empleados del banco y dos clientes, entre ellos una señora...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-caja-obrera-sucursal-villa-munoz/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-caja-obrera-sucursal-villa-munoz/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("June 27, 1968"),
+        title: "“RECONOCEN A 2 “TUPAMAROS” COMO ASALTANTES DEL BANCO”",
+        description:
+          "Según el testimonio de los ocho empleados de la Agencia del Banco La Caja Obrera que ayer fue asaltada por cuatro sujetos,... dos de los delincuentes serían integrantes de la organización terrorista conocida por “Los Tupamaros”… Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-caja-obrera-sucursal-villa-munoz/n_5.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-caja-obrera-sucursal-villa-munoz/n_6.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("June 28, 1968"),
+    title: "Banco Cobranzas sucursal La Paz",
+    slug: "banco-cobranzas-sucursal-la-paz",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 4900000, usd: 19700 },
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("June 29, 1968"),
+        title:
+          "“ASALTO RÉCORD: DE UN BANCO DE LA PAZ SE LLEVARON AYER CASI CINCO MILLONES”",
+        description:
+          "La Paz. Cinco delincuentes... fueron autores en la tarde de hoy, del robo más importante que registra la historia de los atracos a entidades bancarias... se llevaron la suma de $ 4:973.160, batiendo el récord que ostentaba otro asalto en la misma ciudad contra una sucursal del Banco Comercial el 27 de Julio de 1967... oportunidad en que los atracadores,... huyeron con pesos 2:350.000 en efectivo...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-cobranzas-sucursal-la-paz/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-cobranzas-sucursal-la-paz/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("June 29, 1968"),
+        title: "“TENEMOS YA EL ASALTO RÉCORD”",
+        description:
+          "Cinco sujetos-al parecer “Tupamaros”-asaltaron ayer el Banco de La Paz... A punta de armas, encerraron tras la reja de Tesoros a veinticuatro personas, y se llevaron casi cinco millones de pesos. Uno de los autos, fue logrado robándoselo a su chofer al que encerraron en una finca de Pocitos mientras cometían el atraco...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-cobranzas-sucursal-la-paz/n_3.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-cobranzas-sucursal-la-paz/n_4.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("June 30, 1968"),
+        title: "“REUNIÓN SUBVERSIVA EN ESCUELA PÚBLICA: INTERNAN 52 DETENIDOS”",
+        description:
+          "El plan: salir a la lucha; paralizar el país; renuncia del Presidente Pacheco Areco y expulsión de Jorge Batlle; boicot a ACCIÓN...",
+        title1: "“TEXTO DEL DOCUMENTO”",
+        description1:
+          "1) Salir a la lucha. 2) Paralizar el país por tiempo indeterminado...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-cobranzas-sucursal-la-paz/n_5.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-cobranzas-sucursal-la-paz/n_6.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("June 30, 1968"),
+        title: "“ATRACO A BANCOS ¿SEIS MILLONES PARA LA SUBVERSIÓN?”",
+        description:
+          "... Se señala que el dinero robado puede ser destinado a planes subversivos, ya que entre los Tupamaros se comprobó antes la militancia de empleados bancarios y ayer fueron detenidos cincuenta y uno de estos en reunión ilegal...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-cobranzas-sucursal-la-paz/n_7.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-cobranzas-sucursal-la-paz/n_8.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Se expropió entonces, el Banco de La Paz. Había ahí una buena guita. Cerrábamos el ´68 (sic) con buenas perspectivas de futuro”.</p>`,
+          // year: new Date("1994-1-1"),
+          name: "Acción directa anarquista. Una historia de FAU",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Recortes",
+          pages: "pág. 120",
+          author: "Mechoso",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("October 4, 1968"),
+    title: "Banco de Crédito sucursal Malvín",
+    slug: "banco-de-credito-sucursal-malvin",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 260000, usd: 1050 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("October 4, 1968"),
+        title:
+          "“CUATRO DÍAS DE OCTUBRE Y CUATRO ASALTOS A BANCOS: HOY EN MALVÍN”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-credito-sucursal-malvin/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-credito-sucursal-malvin/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("October 4, 1968"),
+        title:
+          "“SE COMETIÓ EL ASALTO DEL DÍA CONTRA UNA SUCURSAL DE MALVÍN. Tres Hombres Se Llevaron 262 Mil Pesos.”",
+        description:
+          "Un nuevo asalto, el cuarto consecutivo en lo que va de este mes, fue perpetrado esta tarde por tres hombres armados, contra la sucursal del Banco de Crédito ubicada en Orinoco 5004 esquina Amazonas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-credito-sucursal-malvin/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-credito-sucursal-malvin/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("October 7, 1968"),
+    title: "Banco de Londres y América del Sud sucursal Carrasco",
+    slug: "banco-de-londres-y-america-del-sud-sucursal-carrasco",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 10000000, usd: 44130 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("October 7, 1968"),
+        title:
+          "“CINCO DÍAS HÁBILES DE OCTUBRE: CINCO ASALTOS. DOS ENMASCARADOS SE LLEVARON DIEZ MILLONES DE UNA SUCURSAL”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-londres-y-america-del-sud-sucursal-carrasco/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-londres-y-america-del-sud-sucursal-carrasco/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("October 7, 1968"),
+        title: "“¿AVEZADOS PISTOLEROS O COMANDOS EXTREMISTAS?”",
+        description:
+          "Por varias e importantes razones, este último asalto del presente mes de octubre sale de lo común y plantea una serie de enigmas, entre ellos, el más importante es establecer si sus autores son pistoleros avezados o integrantes de un comando extremista...",
+        title1: "“SUMA RÉCORD: 10 MILLONES SE LLEVAN LOS PISTOLEROS”",
+        description1:
+          "Tras la obligada pausa del fin de semana, los asaltantes reanudaron su actividad alcanzando un doble récord: quinto día hábil del mes, quinto asalto consecutivo a sucursales bancarias y la suma más elevada registrada en los anales policiales del país en hechos de esta índole: diez millones de pesos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-londres-y-america-del-sud-sucursal-carrasco/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-londres-y-america-del-sud-sucursal-carrasco/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("October 8, 1968"),
+        title:
+          "“RÉCORD. DIEZ MILLONES SE LLEVARON AYER DE UN BANCO DE CARRASCO, A PUNTA DE PISTOLA, DOS ENMASCARADOS”",
+        description:
+          "El asalto más espectacular, en lo que refiere al monto, fue perpetrado ayer. Dos enmascarados con los rostros pintados y cubiertos con medias de seda negra penetraron con llaves “apropiadas” a la Agencia Carrasco del Banco de Londres y América del Sud...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-londres-y-america-del-sud-sucursal-carrasco/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-londres-y-america-del-sud-sucursal-carrasco/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 9)',
+        date: new Date("October 8, 1968"),
+        title: "“NO HAY PISTAS DE LOS ASALTANTES Y SE PIENSA EN UN ENTREGADOR”",
+        description:
+          "El asalto más importante en la historia ilícita del Uruguay...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-londres-y-america-del-sud-sucursal-carrasco/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-londres-y-america-del-sud-sucursal-carrasco/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("October 8, 1968"),
+        title: "“NO HAY NINGUNA PISTA DE LOS PISTOLEROS DE AYER”",
+        description:
+          "... Y van más de 44 millones. En el curso de 14 meses ya se cometieron 18 asaltos a sucursales bancarias montevideanas y de Canelones por un monto que alcanza, hasta ahora los $ 43.658.000 aproximadamente...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-londres-y-america-del-sud-sucursal-carrasco/n_9.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-londres-y-america-del-sud-sucursal-carrasco/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("October 24, 1968"),
+    title: "Banco Comercial sucursal La Paz",
+    slug: "banco-comercial-sucursal-la-paz",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 3400000, usd: 13750 },
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("October 25, 1968"),
+        title: "“OTRO ASALTO A UN BANCO”",
+        description:
+          "Un nuevo asalto perpetrado en la tarde de ayer contra una institución bancaria reportó a los delincuentes, la suma de 3.427.400 pesos. Resultó afectada en la oportunidad la sucursal del Banco Comercial ubicada en la Avda. José Batlle y Ordoñez 286 de la ciudad de La Paz, Departamento de Canelones, la cual ya había sido asaltada en 28 de Julio de 1967, oportunidad en que cinco individuos llevaron la suma de 2.400.00 pesos, delito que hasta el presente no ha sido aclarado... sorpresivamente irrumpieron en el local dos desconocidos, quienes actuando a cara descubierta mientras anunciaban en voz alta “esto es un asalto, nadie se mueva”, encañonaron con sendos revólveres, a los presentes.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-comercial-sucursal-la-paz/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-comercial-sucursal-la-paz/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("October 25, 1968"),
+        title: "“ATRACO AL BANCO DE LA PAZ: SE LLEVARON TRES MILLONES Y MEDIO”",
+        description:
+          "Utilizando un coche robado - en el que llevaron y trajeron al dueño del mismo - llegaron hasta el Banco Comercial de La Paz, los tres delincuentes del atraco. Poco después el coche era localizado en General Flores y Pozzolo, donde a un funcionario le hicieron un disparo desde otro vehículo...",
+        subtitle: "“Raro Atentado”",
+        description1:
+          "Uno de los integrantes de la Comisión de Hurtos y Rapiñas, el Sargento Ayton Correa, se dirigía a un comercio para comunicar telefónicamente a sus superiores el hallazgo del vehículo. De pronto, pasó por allí un auto marca Austin, pintado de negro, en el que viajaban tres hombres, uno de los cuales hizo un disparo contra el funcionario que sintió “silbar” la bala junto a su cabeza, comprobándose luego que el proyectil había penetrado por la puerta abierta de un taller cercano, quedando incrustada en una pared de madera...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-comercial-sucursal-la-paz/n_3.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-comercial-sucursal-la-paz/n_4.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("October 25, 1968"),
+        title: "“TRES PISTOLEROS ASALTARON UN BANCO: HUYERON CON 3 MILLONES”",
+        description:
+          "Una gavilla de pistoleros, que ya habría cometido algún asalto anterior, atracó ayer de tarde la sucursal La Paz del Banco Comercial, apoderándose de $ 3.427.000 en contados minutos. Los maleantes eran tres: dos de ellos actuaron en el interior del local, asumiendo el rol ejecutivo, y un tercero oficiaba de chofer y “campana”... los atracadores robaron el vehículo secuestrando a su chofer, Manuel Pintos Fuentes, oriental casado de 54 años, con quien realizaron el recorrido desde Montevideo a la ciudad de La Paz,... El chofer quedó en el coche, junto a Pintos, mientras sus cómplices se dirigían a la sucursal… El chofer había dicho: “si alguien se opone, métanle bala...”.",
+        subtitle: "“Huyen a Toda Velocidad”",
+        description1:
+          "... Al llegar a Piedras Blancas, pararon y obligaron a Pintos a descender en Cuchilla Grande y Teniente Rinaldi... Pintos formuló la denuncia correspondiente en la seccional 16ª, relatando los hechos y haciendo la descripción de los tres delincuentes.",
+        subtitle1: "“Atentado Contra Un Sargento”",
+        description2:
+          "Poco después, el auto era ubicado en Pozzolo y Gral. Flores, abandonado. Un funcionario de Investigaciones...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-comercial-sucursal-la-paz/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-comercial-sucursal-la-paz/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("November 29, 1968"),
+    title: "Casino Hotel Carrasco Montevideo",
+    slug: "casino-hotel-carrasco-montevideo",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 6000000, usd: 25280 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("November 29, 1968"),
+        title:
+          "“USARON METRALLETAS LOS PISTOLEROS DEL CASINO DE CARRASCO. El Asalto del Siglo. Pudieron Huir con más de 6 Millones”",
+        description: "Aparece dibujo reconstruyendo escenas de dicho asalto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-hotel-carrasco-montevideo/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-hotel-carrasco-montevideo/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("November 29, 1968"),
+        content: [
+          {
+            title: "“ASALTARON EL CASINO DEL HOTEL CARRASCO”",
+            description:
+              "Tres cuartos de hora después que unas trescientas personas abandonaron la sala de juego del Casino Carrasco, seis pistoleros dieron allí esta madrugada, uno de los golpes más espectaculares de los últimos tiempos. Habiendo llegado hasta el lugar en un vehículo robado, dominaron a dos policías, orientaron todos sus movimientos con absoluta precisión y, finalmente, atracaron la tesorería, apoderándose de una suma superior a los seis millones de pesos, exactamente $ 6.301.531.",
+            subtitle: "“El Robo de una Camioneta”",
+            subdescription:
+              "... los malvivientes huyeron en una camioneta “Volkswagen”. Este vehículo había sido hurtado a la 1.45 de la madrugada del garaje ubicado en la calle Blanes 1080. Allí, tres desconocidos secuestraron al sereno del local, Césare Ricardo Felice, lo maniataron, y luego, colocándolo en la parte trasera de la camioneta, lo llevaron consigo hasta unos montes próximos al matadero Fylsa, en Carrasco. En esos montes el sereno del garaje permaneció prisionero de dos individuos, encañonado por revólveres,... Uno de los rapiñeros se fue con la camioneta, para usarla en la comisión del asalto al Casino.",
+          },
+          {
+            title: "“DICE LA POLICÍA QUE ENTREGARON EL GOLPE”",
+            description:
+              "Nadie duda que la banda que consumó el espectacular asalto de esta madrugada, estaba integrada por experimentados pistoleros. Tampoco se discute que el golpe fue planeado a la perfección, incluso disponiendo previamente de planos del Hotel Carrasco; además existe la certeza de que los maleantes era gente decidida a todo... “fue entregado por alguien desde adentro del Casino de Carrasco”.",
+            subtitle: "“¿Otra Vez los Tupamaros?”",
+            subdescription:
+              "En los primeros días de este mes el gerente de los Casinos Municipales recibió una extraña llamada telefónica anónima. La persona que habló con dicho jerarca dijo que los tupamaros iban a asaltar una de las casas de juego. El comunicado provocó evidente alarma y se tomaron las correspondientes medidas de vigilancia. Personal fuertemente armado de la Guardia Metropolitana fue destacado en los Casinos del Parque Hotel y Hotel Carrasco. Posteriormente, la vigilancia fue levantada y el golpe ocurrió tal como fue anunciado... hay más con respecto a la posible participación del Movimiento de Liberación Nacional en este golpe. En el curso de procedimientos llevados a cabo tiempo atrás... se allanó la finca de un posible miembro del grupo extremista y entre la documentación incautada allí estaba una fotografía del Hotel de Carrasco. La misma tenía varias flechas, indicando determinados accesos al edificio.",
+          },
+        ],
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-hotel-carrasco-montevideo/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-hotel-carrasco-montevideo/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("November 29, 1968"),
+        title: "“ATRACO “ENTREGADO” AL CASINO DE CARRASCO: 6.300.000 PESOS”",
+        description:
+          "Aparecen fotos mostrando por donde entraron y como se encaminaron hasta ponerse en contacto con la gran suma.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-hotel-carrasco-montevideo/n_5.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-hotel-carrasco-montevideo/n_6.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("November 29, 1968"),
+        title:
+          "“HABÍAN ROBADO UN VW DE UN GARAGE Y SECUESTRADO AL SERENO. SERÍAN NUEVE”",
+        description:
+          "... Poco antes de sucederse estas escenas, tres hombres llegaron hasta el garage sito en Juan Manuel Blanes 1132, que se hallaba a cargo del sereno César Riccardi... sorpresivamente, los tres desconocidos, desenfundando revólveres le encañonaron y le dijeron secamente-ni grites, ni te resistas viejo, que no te va a pasar nada. Si te retobás te matamos- Acto seguido lo hicieron retroceder hasta la camioneta Volkswagen... que se hallaba guardada allí, obligándole a entrar al vehículo. Una vez en el interior le ataron firmemente tobillos y muñecas... no pudiendo ver hacia donde era llevado por sus secuestradores... Proporciona información sobre el secuestro del sereno y vehículo y detalles del asalto.",
+        title1: "“¿UN GOLPE ENTREGADO?”",
+        description1:
+          "... Las características del golpe indicarían que el mismo fue planeado con la colaboración de personas que conocen perfectamente el funcionamiento interno del Casino. El hecho de que se haya violentado la puerta interior y que los atracadores arribaran en el preciso momento que se realizaba el arqueo cuando el público ya se había retirado, indicarían que alguien participó desde adentro en la preparación del golpe.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-hotel-carrasco-montevideo/n_7.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-hotel-carrasco-montevideo/n_8.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("December 9, 1968"),
+        title: "FUERON LOS TUPAMAROS QUIENES ASALTARON EL CASINO CARRASCO”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-hotel-carrasco-montevideo/n_9.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-hotel-carrasco-montevideo/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("December 9, 1968"),
+        title: "“FUERON TUPAMAROS LOS ASALTANTES DEL CASINO”",
+        description:
+          "Un comando tupamaro cometió el asalto al Casino del Hotel Carrasco... En primer término en la finca de Bompland, donde también estuvieron guarecidos varios tupamaros, se incautó documentación que irreversiblemente prueba la presencia de gente del MLN en tal lugar y a ello se añade que allí estaba uno de los bolsos en que los asaltantes cargaron varios de los millones arrebatados de la tesorería del casino.",
+        title1: "“Muchas Dudas Disipadas”",
+        description1:
+          "En el apresuramiento de la huida de..., que se enteró... ésta no pudo destruir ciertas pruebas, que ahora podemos señalar disiparon muchas dudas acerca de para quienes colaboró en el estudio del asalto del Casino,... El M.L.N. no puede salir en estos momentos a librar una lucha armada, que sería reducida rápidamente, por ello prefieren: 1º) acrecentar el número de integrantes de las células; 2º) obtener la mayor cantidad de armamento poderoso; 3º) estudiar minuciosamente la estrategia de una futura acción; 4º) consumar las consabidas “expropiaciones” que le aportan dinero para mantener en la clandestinidad a los grupos de acción directa y realizar viajes de estudio y contactos al extranjero; 5º) recoger la mayor cantidad de información sobre todo en lo que tiene que ver con nuestro país; 6º) ir colocando infiltrados en instituciones y lugares claves; 7º) realizar ciertas acciones espectaculares que, aunque no tengan finalidades directas dentro de sus planes terroristas, permitan promover el movimiento para que la población considere que los tupamaros están por todos lados y que su operar no decae en ningún momento.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-hotel-carrasco-montevideo/n_11.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-hotel-carrasco-montevideo/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("December 13, 1968"),
+        title:
+          "“ACLARADO EL ATRACO DEL CASINO CARRASCO. TRES DETENIDOS DECLARARON QUE EN LA CHACRA HABÍA UN PORTAFOLIOS CON $ 750.000”",
+        description:
+          "Procesados ya siete de los ocho Tupamaros capturados en una modesta chacra ubicada en los alrededores de Pando... Los propios detenidos, que denunciaron ayer la existencia en los ranchos 750.000 pesos, han señalado que en el curso de los últimos meses hurtaron a la policía siete metralletas, de las cuales se recuperaron dos de la chacra de Pando… habría confesado su participación en el atraco al Casino Carrasco, manifestando que fue él la persona encargada de organizar el “comando” y planificar la acción. El mismo se habría encargado de desarmar al Guardia de la Metropolitana y también a él se le habría disparado accidentalmente la metralleta quitada a dicho funcionario. Posteriormente se habrían alejado del lugar en el automóvil hurtado, cambiando de vehículo luego de algunos minutos de marcha.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-hotel-carrasco-montevideo/n_13.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-hotel-carrasco-montevideo/n_14.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“A fines de noviembre el MLN asalta el Casino de Carrasco, a mí me correspondió la planificación y organización del asalto, y decidí tomar personalmente la dirección del operativo, que se desarrolla en forma impecable. Luego de dificultades iniciales, surgidas cuando la Policía descubre unas semanas antes un relevamiento fotográfico del Casino en un local allanado, y la medida debe diferirse hasta que la guardia policial desaparece nuevamente, fue posible cumplir impecablemente el objetivo. Habíamos hecho un exhaustivo relevamiento de la zona, control de horarios y movimientos de empleados y de guardia.</p>
+          <p>El asalto rindió un fruto de seis millones de pesos, que se repartieron $ 700.000 a cada columna, y el resto va para el Ejecutivo...”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Autobiografía de Amodio Pérez",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Arca",
+          pages: "pág. 35",
+          author: "Pérez",
+        },
+        {
+          fragment: `<p>“A principios de ese año, las finanzas del MLN estaban en rojo: En noviembre del 68 se había hecho el asalto al Hotel Casino Carrasco, de donde se llevaron 6.300.000 pesos que no dieron para nada...”.</p>
+          <p>El asalto rindió un fruto de seis millones de pesos, que se repartieron $ 700.000 a cada columna, y el resto va para el Ejecutivo…”.</p>`,
+          year: new Date("2007-1-1"),
+          name: "Cero a la izquierda. Una biografía de Jorge Zabalza",
+          place: "Montevideo - Uruguay",
+          edition: "Letraeñe Ediciones",
+          pages: "pág. 69",
+          author: "Leicht",
+        },
+        {
+          fragment: `<p>“... J .M. –.... ¿Quién era o es en realidad Nannete?.</p>
+          <p>H. A. P. -Es Teresa Labrocca, la compañera Lía... Ya me habían integrado al Ejecutivo y con Gavino Beto Falero decidimos que el estudio de la zona lo haría yo. Tenemos que ir al Casino de Carrasco...</p>
+          <p>... Estuvimos horas en su casa hasta que hicimos un horario que cubría las posibles llegadas de los tiras al casino, horarios que nos dividimos entre Lía y dos colaboradores de Alicia, Julia Armand Ugón,..., y yo. Lía era muy audaz..., consiguió ubicar la escalera que conducía al garaje por el que teníamos prevista la entrada al edificio y después la escalera que nos llevaría a la sala del recuento de dinero...</p>
+          <p>Lía pasó a la clandestinidad a raíz del asalto al Casino...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plazas",
+          pages: "págs. 189-191",
+          author: "Marius",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("February 18, 1969"),
+    title: "Casino San Rafael Maldonado",
+    slug: "casino-san-rafael-maldonado",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 50000000, usd: 200800 },
+    newsPapers: [
+      {
+        name: 'Diario "El País" (Página 6)',
+        date: new Date("February 19, 1969"),
+        title: "“CASINO: EN PLENO DÍA OPERARON LOS ASALTANTES”",
+        description:
+          "... Actuando con rapidez, pero sin nervios los siete individuos redujeron enseguida al personal. Todos fueron maniatados con alambre y encerrados, mientras el tesorero... era obligado a dirigirse a la “Caja de Conversión” y abrir las puertas del tesoro. Del mismo, los atracadores retiraron una enorme cantidad de dinero, que en los primeros momentos se estimó en cuarenta millones de pesos... Aparece una foto a cuyo pie dice: “La caja: de aquí salió gran parte del dinero robado”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-san-rafael-maldonado/n_1.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-san-rafael-maldonado/n_2.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("February 19, 1969"),
+        title:
+          "“ROBARON 50 MILLONES. LLEVABAN GRANADAS DE MANO EN LA CAMIONETA. BORRARON LOS RASTROS”",
+        description:
+          "Funcionarios del Casino sindican a 2 tupamaros. Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-san-rafael-maldonado/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-san-rafael-maldonado/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 13)',
+        date: new Date("February 19, 1969"),
+        title: "“UN MISMO TUPAMARO EN LOS ASALTOS”",
+        description:
+          "... (“Ernesto”) y... (“Jaime”) fueron identificados como dos de los integrantes del comando tupamaro que consumó el atraco millonario contra una financiera del Banco de Crédito,... Los dos pertenecen al “Comando Líber Arce”... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-san-rafael-maldonado/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-san-rafael-maldonado/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("February 19, 1969"),
+        title: "“COMANDO TUPAMARO”",
+        description:
+          "Punta del Este... Varios fundamentales elementos de juicio permiten presumir que el fabuloso asalto contra el Casino de San Rafael fue consumado por un comando del Movimiento de Liberación Nacional (Tupamaros)... Aparece dibujo con el siguiente comentario: “... el instante en que los pistoleros roban los casi 50 millones de pesos en el Casino...”.",
+        title1: "“SIETE HOMBRES EN 10’¬ ROBARON 50 MILLONES”",
+        description1:
+          "Portaban poderosas armas automáticas. Punta del Este... Casi cincuenta millones de pesos fue la suma total de lo robado ayer en el Casino del Hotel San Rafael por los siete audaces pistoleros que cometieron en ese establecimiento el asalto récord en los anales policiales del país... Aparece croquis a cuyo pie dice: “... muestra la disposición de los distintos ambientes en que se desarrolló el espectacular golpe...”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-san-rafael-maldonado/n_7.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-san-rafael-maldonado/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("February 19, 1969"),
+        title: "“PERPETRÓSE AYER EL MAYOR ASALTO DE NUESTRA HISTORIA”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-san-rafael-maldonado/n_8.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-san-rafael-maldonado/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (en Portada)',
+        date: new Date("February 19, 1969"),
+        title: "“ASALTO RÉCORD: SE LLEVARON 43 MILLONES DEL CASINO SAN RAFAEL”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-san-rafael-maldonado/n_9.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-san-rafael-maldonado/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 5)',
+        date: new Date("February 19, 1969"),
+        title: "“¿EL ASALTO FUE ENTREGADO?”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-san-rafael-maldonado/n_11.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-san-rafael-maldonado/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("February 22, 1969"),
+        title: "“COMANDO DE TUPAMAROS SE ATRIBUYEN EL ASALTO”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-san-rafael-maldonado/n_13.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-san-rafael-maldonado/n_14.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 8)',
+        date: new Date("March 16, 1969"),
+        title: "“CONFESÓ AMPLIAMENTE EL ENTREGADOR DEL CASINO”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-san-rafael-maldonado/n_15.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-san-rafael-maldonado/n_16.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“El presupuesto del MLN terminó por equilibrarse cuatro días después, cuando el 18 de febrero siete tupamaros, desde entonces conocidos por la prensa como “los siete hombres de oro” se alzaron con el equivalente a 220 mil dólares... Sus nombres: Raúl Sendic, Nicolás Estévez, Lucas Mansilla, César Long, Félix Bentín, Ataliva Castillos y Jorge Zabalza.
+          Cerca de las 5 de la tarde, el tesorero del casino San Rafael, Manuel Sunhary, caminaba hacia su casa acompañado por dos amigos…. se les apersonaron un policía uniformado y otro de particular que se identificó como agente de Investigaciones. Eran Ataliva y Mansilla...</p>
+          <p>... Sunhary viajaba en la cabina de la camioneta junto a siete tupamaros. El tesorero tardó poco tiempo en percatarse de que la camioneta no iba hacia la seccional… y ahí nomás empezaron las quejas, acalladas con una Luger 7.65 que Jorge sacó a relucir mientras un manotazo de Bentín surgía desde atrás...</p>
+          A todo esto Jorge -... -estacionó la camioneta en la puerta lateral del San Rafael. Bajaron Mansilla, Ataliva y Sendic que golpearon la puerta insistentemente hasta que apareció el sereno…, una limpiadora, Tomasa Méndez, aseaba el local… Mansilla,..., puso el pie contra la puerta y lo encañonó… la limpiadora, presa de una crisis nerviosa, se puso a pedir por sus hijos. Entonces habló Sendic.</p>
+          <p>- Por favor Doña Tomasa, serénese… esto lo hacemos por sus hijos, por nuestros hijos y por todos.</p>
+          ... Con tranquilidad, mientras uno quedaba vigilando a los empleados, los otros se dirigieron hasta la caja, que fue abierta sin dificultad, y comenzaron a cargar el dinero en bolsas de arpillera...</p>
+          <p>... El 14 de marzo fue procesado Horacio Griecco, subjefe de sala del casino San Rafael, quien confesó haber oficiado de entregador...</p>
+          <p>... Los 54 millones de pesos del San Rafael se repartieron entre las distintas columnas del MLN. Se comenzó así a montar una compleja y eficiente infraestructura de guerra. Una verdadera red de locales en la periferia de Montevideo, que iban desde “cárceles del pueblo”, hasta hospitales de campaña, enterraderos, laboratorios, fábricas de explosivos, talleres, sistemas de comunicación, así como imprentas y mimeógrafos...”.</p>`,
+          year: new Date("2007-1-1"),
+          name: "Cero a la izquierda. Una biografía de Jorge Zabalza",
+          place: "Montevideo - Uruguay",
+          edition: "Letraeñe Ediciones",
+          pages: "págs. 70-73",
+          author: "Leicht",
+        },
+        {
+          fragment: `<p>“El 18 de febrero se había concretado el plan diseñado en la casa balnearia El Limbo, donde Mujica y el Flaco David habían pasado unos días de veraneo clandestino: Sendic, el joven Jorge Zabalza, Nicolás Estévez, Lucas Mansilla, César Long, Félix Bentín y Ataliva Castillos se habían llevado doscientos veinte mil dólares del casino San Rafael, de Punta del Este... actuaron en complicidad con el subjefe del casino, Horacio Griecco.</p>
+          <p>El dinero que se repartió entre las distintas columnas del MLN dio un gran respiro financiero a la organización y sirvió para montar una buena infraestructura de base para la lucha revolucionaria”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "págs. 383-384",
+          author: "Pernas",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("October 08, 1969"),
+    title:
+      "Ciudad de Pando: Banco de la República Oriental del Uruguay - Caja Obrera - Pan de Azúcar e Ítalo Americano",
+    slug: "ciudad-de-pando",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 50000000, usd: 200800 },
+    seeAlso: [
+      {
+        href: "/asesinatos/agente-ruben-zembrano-y-chofer-julio-techera",
+        text: "Carlos Burgeño y Sgto. (RP) Enrique Fernández",
+      },
+    ],
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("October 09, 1969"),
+        title: "“VENDAVAL DE SANGRE Y FUEGO SE ABATIÓ AYER SOBRE PANDO”",
+        description:
+          "Durante veinticinco minutos un vendaval de fuego se abatió ayer sobre Pando... es el relato cronológico... en el que se consumó “el asalto a la ciudad”. Pando...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ciudad-de-pando/n_6.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ciudad-de-pando/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("March 09, 1970"),
+    title: "Unión de Bancos del Uruguay sucursal Maroñas",
+    slug: "union-de-bancos-del-uruguay-sucursal-maronas",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 11000000, usd: 44100 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("March 09, 1970"),
+        title: "“SIMULARON REALIZAR UN ALLANAMIENTO”",
+        description:
+          "...logrando apoderarse de... once millones de pesos... Desvalijan el Tesoro... Los tres individuos sacaron a relucir armas de fuego... amenazaron de muerte a los dos bancarios... obligaron al gerente a abrir el tesoro... maniataron al gerente general y al gerente con esposas metálicas de fabricación casera... Aparece foto de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/union-de-bancos-del-uruguay-sucursal-maronas/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/union-de-bancos-del-uruguay-sucursal-maronas/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("March 09, 1970"),
+        title: "“SIMULARON REALIZAR UN ALLANAMIENTO”",
+        description:
+          "...expresan a Marín Durán que debe acompañarlos hasta la sucursal bancaria, ya que se está haciendo una investigación... le indican que debe dirigirse primero, a la casa del contador jefe de la misma institución bancaria, Carlos Coitiño Gavay… emprenden viaje directo a la Sucursal del Banco Español y Territorial en 8 de Octubre y Gobernador Vigodet... una vez adentro sacaron armas. La “investigación” se había transformado en un asalto...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/union-de-bancos-del-uruguay-sucursal-maronas/n_3.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/union-de-bancos-del-uruguay-sucursal-maronas/n_4.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("March 30, 1970"),
+    title: "Banco Francés e Italiano sucursal Tres Cruces",
+    slug: "banco-frances-e-italiano-sucursal-tres-cruces",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 5000000, usd: 20050 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("March 30, 1970"),
+        title: "“ROBARON DOS AUTOS PARA DAR EL GOLPE”",
+        description:
+          "Recio tiroteo tras el asalto. Una suma superior a los cinco millones en efectivo... atracaron esta mañana la sucursal Tres Cruces del Banco Francés e Italiano... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-frances-e-italiano-sucursal-tres-cruces/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-frances-e-italiano-sucursal-tres-cruces/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 8)',
+        date: new Date("March 30, 1970"),
+        title:
+          "“CONSPIRADORES ATRACAN UN BANCO ANTES DE ABRIR: QUINCE MILLONES”",
+        description:
+          "Ayer de mañana-más o menos a las 9 y 30-a la sucursal “Tres Cruces” del Banco Francés-Italiano, ubicada en... 18 de Julio y Duvimioso Terra… se pusieron los mazos... en los bolsillos... huyeron y cruzaron la calle... una señorita había estacionado, adelante, una camioneta... el motor fallaba. Uno de los delincuentes empujó la camioneta... el agente Silva-salió del banco...-le hizo unos cinco disparos… los delincuentes respondieron con tres armas... la camioneta arrancó… Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-frances-e-italiano-sucursal-tres-cruces/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-frances-e-italiano-sucursal-tres-cruces/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("April 07, 1970"),
+    title: "Frigorífico Carrasco",
+    slug: "frigorifico-carrasco",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 300000, usd: 1200 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 17)',
+        date: new Date("April 07, 1970"),
+        title: "“GRUPO SEDICIOSO LLAMADO “FARO” ASALTÓ EL FRIGORÍFICO “CASTRO”",
+        description:
+          "...pertenecientes a una organización ilegal no muy conocida en el país habrían sido los autores del asalto a las oficinas del frigorífico Castro... se llevaron 300.000 pesos y documentación... luego de reducir con metralletas y revólveres a seis empleados y el propietario... Mario Castro Cerdeiro... cinco hombres y una mujer... al local ubicado en Agraciada y Galicia...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/frigorifico-carrasco/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/frigorifico-carrasco/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("June 16, 1970"),
+    title: "Unión de Bancos del Uruguay sucursal Cordón",
+    slug: "union-de-bancos-del-uruguay-sucursal-cordon",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 300000, usd: 1200 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 22)',
+        date: new Date("June 16, 1970"),
+        title: "“SECUESTRARON A DOS EMPLEADOS PARA QUE ABRIERAN EL TESORO”",
+        description:
+          "Usaban fusiles automáticos de los robados a la Marina. Casi siete millones de pesos constituyeron el botín de los elementos sediciosos que... asaltaron la sucursal Cordón de UBUR luego de secuestrar en sus respectivos domicilios a un gerente y al subtesorero de esa dependencia bancaria... Una vez en el banco, con sus rehenes, dominaron a éstos y a otros dos empleados, con fusiles automáticos M-15... Aparece plano y foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/union-de-bancos-del-uruguay-sucursal-cordon/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/union-de-bancos-del-uruguay-sucursal-cordon/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 22)',
+        date: new Date("June 16, 1970"),
+        title: "“CONSPIRADORES ROBARON CASI 7 MILLONES: DOS SECUESTROS”",
+        description:
+          "... habrían participado unas diez personas, entre hombre y mujeres, elementos integrantes de una conocida asociación para atentar contra la Constitución, secuestraron a dos jerarcas bancarios y robaron de la entidad de la que ambos son funcionarios, una suma cercana a los siete millones de pesos... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/union-de-bancos-del-uruguay-sucursal-cordon/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/union-de-bancos-del-uruguay-sucursal-cordon/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("June 22, 1970"),
+    title: "Banco Palestino sucursal Andes",
+    slug: "banco-palestino-sucursal-andes",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 18000000, usd: 72180 },
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("June 23, 1970"),
+        title: "“ROBARON 18 MILLONES DEL BANCO PALESTINO”",
+        description:
+          "... Anoche se consumó un sensacional robo de dieciocho millones de pesos a la sucursal Andes del Banco Palestino... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-palestino-sucursal-andes/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-palestino-sucursal-andes/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 20)',
+        date: new Date("June 16, 1970"),
+        title: "“SECUESTRAN AL GERENTE Y ÉSTE ABRIÓ LA CAJA”",
+        description:
+          "Un grupo de sediciosos se llevó anoche del Banco Palestino Uruguayo de la calle Andes y San José, $16.546.750, tras secuestrar cuando se dirigía a su domicilio, al Gerente Julio Gril... Golpe totalmente “entregado”... es evidente que el golpe fue entregado ya que los atracadores hasta poseían llaves del banco que sólo pudieron lograr mediante el concurso de un “entregador” que además brindó detalles minuciosos a los conspiradores para consumar el golpe con total éxito... Este asalto permitió confirmar, una vez más, que los sediciosos poseen perfectos medios de comunicaciones...",
+        title1: "“EL NEGOCIO DE LA SEDICIÓN: 200 MILLONES EN SEIS MESES”",
+        description1:
+          "La sedición es el mejor negocio del país: con el golpe de ayer en el Banco Palestino los sediciosos alcanzaron un envidiable superávit de 200 millones de pesos en el primer semestre de 1970. Esta suma incluye tan sólo los golpes en metálico; si se añaden los hurtos de armas y automóviles… la cifra sobrepasa con creces los 250 millones de pesos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-palestino-sucursal-andes/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-palestino-sucursal-andes/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("June 30, 1970"),
+    title: "Banco de Londres y América del Sud sucursal Sayago",
+    slug: "banco-de-londres-y-america-del-sud-sucursal-sayago",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 14000000, usd: 56150 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 22)',
+        date: new Date("June 30, 1970"),
+        title: "“SE LLEVAN 14 MILLONES SIN DEJARLOS NI ABRIR”",
+        description:
+          "Casi catorce millones de pesos consiguieron robar hoy seis sediciosos que dieron un audaz golpe en el Banco de Londres y América del Sud sucursal Sayago... Secuestran… Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-londres-y-america-del-sud-sucursal-sayago/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-londres-y-america-del-sud-sucursal-sayago/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 9)',
+        date: new Date("July 01, 1970"),
+        title: "“AUDAZ ROBO A BANCO: CASI 13 MILLONES”",
+        description:
+          "Cerca de trece millones de pesos fueron robados antes del mediodía de ayer, de la sucursal Sayago del Banco de Londres y América del Sur (Camino Ariel 4801, esquina Av. Sayago)... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-londres-y-america-del-sud-sucursal-sayago/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-londres-y-america-del-sud-sucursal-sayago/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("June 26, 1970"),
+    title: "Foto Martín",
+    slug: "foto-martin",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 0, usd: 4000 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("June 26, 1970"),
+        title:
+          "“CINCO SEDICIOSOS ASALTARON HOY UN COMERCIO DE FOTOGRAFÍA Y HURTARON VALIOSO EQUIPO TÉCNICO”",
+        description:
+          "Máquinas fotográficas, proyectores de dispositivos y filmadoras por un valor superior al millón de pesos constituyeron el botín de los cinco sediciosos que asaltaron esta mañana una firma comercial ubicada en la proa de Agraciada, Uruguay y Paraguay...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/foto-martin/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/foto-martin/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("July 20, 1970"),
+    title: "Otonello S. A.",
+    slug: "otonello-sa",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 2000000, usd: 8020 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("July 20, 1970"),
+        title:
+          "“LOS DIEZ DELINCUENTES ARENGARON A LOS VEINTITRÉS EMPLEADOS MIENTRAS ROBABAN”",
+        description:
+          "Diez sediciosos..., entre éstos, dos mujeres, asaltaron esta tarde la fábrica de productos porcinos Ottonello Hnos. S.A.,... Los integrantes del movimiento clandestino se apoderaron de 2 millones de pesos de varias cajas de la empresa y una pistola “Luger”, calibre 9 milímetros...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/otonello-sa/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/otonello-sa/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 14)',
+        date: new Date("July 21, 1970"),
+        title: "“FACCIOSOS ROBAN EN UNA FÁBRICA DOS MILLONES”",
+        description:
+          "... ocho hombres y dos mujeres integrantes de una organización ilegal asaltaron la fábrica de productos porcinos Ottonello Hnos., (Avda.Gral. Flores 3715) y huyeron con una suma aproximada a los dos millones de pesos... Robaron vehículos. El golpe,... fue llevado a cabo con la participación de por lo menos dos automotores robados... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/otonello-sa/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/otonello-sa/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("July 22, 1970"),
+    title: "Sociedad de Bancos sucursal Reducto",
+    slug: "sociedad-de-bancos-sucursal-reducto",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 2500000, usd: 10050 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("July 22, 1970"),
+        title: "“DOS MILLONES Y MEDIO SE LLEVAN LOS ASALTANTES”",
+        description:
+          "En momentos de abrir sus puertas al público fue asaltada la sucursal de la Sociedad de Bancos ubicada en Bella Vista 1605... se llevaron $ 2.500.000 y tras dominar al policía de guardia, le arrebataron su arma de reglamento, la gorra y la chapa de identificación...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/sociedad-de-bancos-sucursal-reducto/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/sociedad-de-bancos-sucursal-reducto/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 11)',
+        date: new Date("July 23, 1970"),
+        title: "“FACCIOSOS ASALTARON BANCO: $ 2.200.000”",
+        description:
+          "... fue asaltada, ayer, la sucursal Reducto de la Sociedad de Bancos, ex Banco del Trabajo Ítalo-Americano y de Galicia, ubicada en Bella Vista 1605 esquina San Martín... se identificaron como miembros de una conocida organización ilegal, robaron la suma aproximada a los $ 2.200.000... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/sociedad-de-bancos-sucursal-reducto/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/sociedad-de-bancos-sucursal-reducto/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("July 23, 1970"),
+    title: "Electro Confort S. A.",
+    slug: "electro-confort",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 60000, usd: 250 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("July 22, 1970"),
+        title: "“FACCIOSOS CONSUMARON EN LA TARDE UN AUDAZ GOLPE”",
+        description:
+          "Aumentó la impresionante serie de hurtos y rapiñas en toda la ciudad. De entre ocho y diez personas que se dieron a conocer como conspiradores, asaltaron ayer de tarde la firma Electro Confort S.A. de San Martín 3723 y huyeron tras robar $ 60.000, documentos comerciales... y otros efectos diversos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/electro-confort/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/electro-confort/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("July 25, 1970"),
+    title: "CUOPAR S.A.",
+    slug: "cuopar-sa",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 4700000, usd: 19050 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 19)',
+        date: new Date("July 31, 1970"),
+        title:
+          "“SEDICIOSOS DE FARO ASALTARON CUOPAR LLEVÁNDOSE $ 4.700.000 DE LOS SUELDOS”",
+        description:
+          "... dos jóvenes adolescentes-apoyados por otro cuatro delincuentes-asaltaron esta mañana a la textil CUOPAR S.A. de donde se llevaron $ 4.700.000. Luego de reducir al portero y un cuidador, los atracadores se dirigieron a las Oficinas de la fábrica encañonando a 15 funcionarios-entre ellas dos mujeres-... A fin de intimidarles les hicieron dos disparos... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/cuopar-sa/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/cuopar-sa/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("August 20, 1970"),
+    title: "Banco de Cobranzas sucursal Colón",
+    slug: "banco-de-cobranzas-sucursal-colon",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 2000000, usd: 8020 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("August 20, 1970"),
+        title: "“EL ASALTO DE HOY TAMBIÉN FUE PERPETRADO POR CONSPIRADORES”",
+        description:
+          "Cinco conspiradores asaltaron en las primeras horas de esta tarde la sucursal Colón del Banco de Cobranzas, llevándose dos millones de pesos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-cobranzas-sucursal-colon/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-cobranzas-sucursal-colon/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 3)',
+        date: new Date("August 21, 1970"),
+        title: "“DOS MILLONES MÁS EL REVÓLVER DEL POLICÍA”",
+        description: "Asaltan otro banco... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-cobranzas-sucursal-colon/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-cobranzas-sucursal-colon/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("August 24, 1970"),
+    title: "El Mago S. A.",
+    slug: "el-mago",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 17200000, usd: 32080 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 22)',
+        date: new Date("August 24, 1970"),
+        title: "“MÁS DE SIETE MILLONES SE LLEVARON HOY DE EL MAGO”",
+        description:
+          "Entre siete y ocho millones de pesos se llevaron los conspiradores, de los escritorios de la firma  “El Mago S.A.” de Colonia 936 que fueron asaltados pasados al mediodía de hoy por cinco integrantes de la conocida organización ilegal... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/el-mago/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/el-mago/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("November 12, 1970"),
+    title: "Caja Nacional de Préstamos Pignoraticios",
+    slug: "caja-nacional-de-prestamos-pignoraticios",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 2000000000, usd: 8020000 },
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("November 13, 1970"),
+        title:
+          "“TRIPLE SECUESTRO Y ROBO DE JOYAS A CAJA DE EMPEÑOS POR SUMA FABULOSA”",
+        description:
+          "En una gigantesca operación en la que está relacionado el secuestro y hurto, desconocidos asaltaron la Caja Nacional de Préstamos Pignoraticios ubicada en Uruguay y Julio Herrera y Obes de donde sustrajeron alhajas y efectos por una suma que se calcula multimillonaria. Autores del gigantesco robo 8 individuos y cuatro mujeres, quienes se dirigieron hacia los domicilios del Subgerente de la Caja... del Jefe del Tesoro... y del Adscripto a la Gerencia... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/caja-nacional-de-prestamos-pignoraticios/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/caja-nacional-de-prestamos-pignoraticios/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 3)',
+        date: new Date("November 14, 1970"),
+        title: "“EL ROBADO ES EXCLUSIVAMENTE EL PUEBLO”",
+        description:
+          "Miles, decenas de miles de personas, sufrirán las consecuencias del fácil, aunque fabuloso robo de alhajas y dinero, al departamento Pignoraticio de la Caja Nacional de Ahorros y Descuentos... Aparece foto a cuyo pie dice: “... el grueso de la gente perjudicada por el robo “Prestamos Pignoraticios”, es de condición modesta…...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/caja-nacional-de-prestamos-pignoraticios/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/caja-nacional-de-prestamos-pignoraticios/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 3)',
+        date: new Date("November 14, 1970"),
+        title: "“ASCIENDE A 2.000 MILLONES EL BOTÍN QUE SE LLEVARON”",
+        description: "... Desarrollo del golpe... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/caja-nacional-de-prestamos-pignoraticios/n_5.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/caja-nacional-de-prestamos-pignoraticios/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("July 05, 1971"),
+        title: "“ESTÁ PRESO EL ENTREGADOR DEL ROBO A LA CAJA DE EMPEÑOS”",
+        description:
+          "Es el sedicioso capturado el miércoles... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/caja-nacional-de-prestamos-pignoraticios/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/caja-nacional-de-prestamos-pignoraticios/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("November 28, 1971"),
+        title:
+          "“CAYÓ LA MUJER DEL ENTREGADOR DEL ROBO A LA CAJA DE PRÉSTAMOS PIGNORATICIOS”",
+        description:
+          "En la ciudad de Minas fue capturada..., la esposa de... el entregador del multimillonario asalto contra el Departamento de Préstamos Pignoraticios... la tupamara capturada... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/caja-nacional-de-prestamos-pignoraticios/n_9.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/caja-nacional-de-prestamos-pignoraticios/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("November 30, 1970"),
+    title: "Acodike S. A.",
+    slug: "acodike",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 0, usd: 8020 },
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 8)',
+        date: new Date("November 30, 1970"),
+        title: "“ATRACAN “ACODIKE” Y ATENTAN CONTRA EMPRESARIOS Y BOITES”",
+        description: "Comunicado... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/acodike/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/acodike/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("July 15, 1971"),
+    title: "Banco de la República Oriental del Uruguay sucursal Tacuarembó",
+    slug: "banco-de-la-republica-oriental-del-uruguay-sucursal-tacuarembo",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 82000000, usd: 339750 },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("July 16, 1971"),
+        title:
+          "“HAY SEIS DETENIDOS EN RELACIÓN AL FABULOSOS ROBO DE LOS 82 MILLONES”",
+        description:
+          "... Seis hombres armados hasta los dientes con metralletas y pistolas de grueso calibre, coparon... el moderno edificio... dominaron a una treintena de empleados y se alzaron con 82 millones de pesos. Fugaron en una camioneta propiedad de uno de los funcionarios del Banco... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-la-republica-oriental-del-uruguay-sucursal-tacuarembo/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-la-republica-oriental-del-uruguay-sucursal-tacuarembo/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("July 20, 1971"),
+        title:
+          "“UN SUBGERENTE BANCARIO ENTREGÓ EL FABULOSO ROBO DE TACUAREMBÓ”",
+        description:
+          "..., estudiante de Medicina... se confesó cerebro y autor material del robo perpetrado el último jueves contra la sucursal local del Banco de la República... fue detenido en el domicilio de... Subgerente de la sucursal del Banco Hipotecario… quien admitió... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-la-republica-oriental-del-uruguay-sucursal-tacuarembo/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-la-republica-oriental-del-uruguay-sucursal-tacuarembo/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 3)',
+        date: new Date("July 20, 1971"),
+        title: "“RECUPERARON $ 3.572.500 DE LO ROBADO DEL BANCO DE TACUAREMBÓ”",
+        description:
+          "Tacuarembó. Del fabuloso monto de dinero robado... la policía logró recuperar la suma de $ 3:572.500... se encontraba dentro de un portafolio oculto debajo de un piso de madera... de la finca que residía... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-la-republica-oriental-del-uruguay-sucursal-tacuarembo/n_4.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-la-republica-oriental-del-uruguay-sucursal-tacuarembo/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 4)',
+        date: new Date("June 24, 1972"),
+        title: "“ACLARARON EL ROBO DEL BROU DE TACUAREMBÓ”",
+        description:
+          "Caen más sediciosos. El robo del que fue objeto el 15 de julio de 1971 la sucursal del Banco República de Tacuarembó ha quedado totalmente esclarecido... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-la-republica-oriental-del-uruguay-sucursal-tacuarembo/n_6.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-la-republica-oriental-del-uruguay-sucursal-tacuarembo/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("November 15, 1971"),
+    title: "Casino Parque Hotel Montevideo",
+    slug: "casino-parque-hotel-montevideo",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 17250000, usd: 69150 },
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("November 16, 1971"),
+        title: "“ASALTO ENTREGADO AL CASINO: $ 17:250.000”",
+        description:
+          "Cinco delincuentes asaltaron ayer el Casino Municipal del Parque Hotel y lograron huir tras reducir uno a uno a más de cien funcionarios, con un suculento botín de pesos 17:250.000... uno de los asaltantes le golpeó de improviso en la boca con la culata de su revólver... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-parque-hotel-montevideo/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-parque-hotel-montevideo/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Acción" (Página 7)',
+        date: new Date("November 16, 1971"),
+        title:
+          "“ESPECTACULAR ASALTO AL CASINO PARQUE HOTEL: USARON DISFRACES; GOLPE ENTREGADO”",
+        description:
+          "Una suma ligeramente superior a los 17 millones de pesos fue el botín obtenido... por media docena de desconocidos que penetraron al Casino Municipal del Parque Hotel... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/casino-parque-hotel-montevideo/n_3.jpg",
+            alt: "noticia publicada por el diario El Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/casino-parque-hotel-montevideo/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Acción",
           },
         ],
       },

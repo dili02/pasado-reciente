@@ -28,6 +28,7 @@ const navItems = [
   {
     name: "Robo Dinero",
     icon: <Icons.heist className="w-7 h-7 lg:w-5 lg:h-5" />,
+    href: "/robo-dinero",
   },
   {
     name: "Robo Armas/Explosivos",
@@ -47,21 +48,82 @@ export default function Header({}: Props) {
   const pathname = usePathname();
 
   return (
-    <>
-      <header className="py-4 text-primary-foreground text-lg md:text-xl">
-        {" "}
+    <header className="bg-orange-500 lg:bg-orange-100">
+      <div className="container mx-auto flex justify-between items-center lg:justify-center">
+        <Link href="/">
+          <div className="lg:hidden flex items-center gap-4">
+            <Icons.uruguay className="h-8 w-8" />
+            <h1 className="font-extrabold text-sm sm:text-lg md:text-xl">
+              Museo de la Memoria del Pasado Reciente
+            </h1>
+          </div>
+
+          <div className="hidden lg:block py-4">
+            <h1 className="font-extrabold lg:text-2xl">
+              Museo de la Memoria del Pasado Reciente
+            </h1>
+
+            <p className="flex items-center gap-2 md:w-full md:justify-center">
+              <Icons.uruguay className="h-8 w-8 hidden lg:block" />
+              <span className="hidden lg:block lg:text-2xl">Uruguay</span>
+            </p>
+          </div>
+        </Link>
+
+        <button
+          onClick={() => setIsNavOpen((isNavOpen) => !isNavOpen)}
+          className="lg:hidden p-2"
+          aria-label="Toggle navigation menu"
+        >
+          {isNavOpen === false && <Menu className="w-12 h-12" />}
+          {isNavOpen === true && <X className="w-10 h-10" />}
+        </button>
+      </div>
+
+      <nav
+        className={`bg-orange-500 ${isNavOpen ? "block" : "hidden"} lg:block`}
+      >
+        <div className="container mx-auto px-4">
+          <ul className="flex flex-col items-center lg:flex-row justify-center py-2">
+            {navItems.map((item, index) => (
+              <li key={index} className="my-1 md:my-0 md:mx-2">
+                <Link
+                  href={`${item.href}`}
+                  className={`text-orange-100 hover:text-orange-900 flex items-center font-bold text-lg lg:text-base transition-colors duration-200 py-4 lg:py-1 ${
+                    item.href?.split("/")[1] === pathname.split("/")[1] &&
+                    "text-orange-900"
+                  }`}
+                >
+                  {item.icon}
+                  <span className="ml-2">{item.name}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+    </header>
+  );
+}
+
+/*
+
+<div className="py-4 text-lg md:text-xl">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center lg:justify-center">
-            <Link href={`/`} className="flex justify-center items-center gap-2">
-              <Icons.museum className="w-12 h-12 hidden" />
-              <div className="flex flex-col justify-center">
+            <Link
+              href={`/`}
+              className="flex justify-center items-center gap-2 sm:text-xl md:text-2xl bg-red-400"
+            >
+              <div className="flex lg:flex-col justify-center items-center gap-2">
+                <Icons.uruguay className="h-8 w-8 lg:hidden" />
                 <h1 className="font-extrabold lg:text-2xl">
                   Museo de la Memoria del Pasado Reciente
                 </h1>
 
                 <p className="flex items-center gap-2 md:w-full md:justify-center">
-                  <Icons.uruguay className="h-8 w-8" />
-                  <span className="">Uruguay</span>
+                  <Icons.uruguay className="h-8 w-8 hidden lg:block" />
+                  <span className="hidden lg:block">Uruguay</span>
                 </p>
               </div>
             </Link>
@@ -76,7 +138,7 @@ export default function Header({}: Props) {
             </button>
           </div>
         </div>
-      </header>
+      </div>
 
       <nav className={`bg-primary ${isNavOpen ? "block" : "hidden"} lg:block`}>
         <div className="container mx-auto px-4">
@@ -98,6 +160,5 @@ export default function Header({}: Props) {
           </ul>
         </div>
       </nav>
-    </>
-  );
-}
+
+*/

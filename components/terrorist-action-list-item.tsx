@@ -2,6 +2,14 @@ import Link from "next/link";
 import React from "react";
 import { Icons } from "./icons";
 import { TerroristActionDefinition } from "@/db/data";
+import {
+  BookOpenCheck,
+  Calendar,
+  Image,
+  MapPin,
+  MonitorPlay,
+} from "lucide-react";
+import { Badge } from "./ui/badge";
 
 type Props = {
   action: TerroristActionDefinition;
@@ -14,23 +22,91 @@ export default function TerroristActionListItem({ action }: Props) {
     );
   }
   //   console.log("TerroristActionListItem", action);
+
+  function formatCurrency(amount: number) {
+    return new Intl.NumberFormat("es-UY", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    }).format(amount);
+  }
   return (
-    <Link
+    <li
+      key={action.slug}
+      className="rounded-lg shadow-md overflow-hidden hover:shadow-lg hover:-translate-y-1 transition ease-in-out duration-500 bg-orange-50"
+    >
+      <Link href={`/${action.type}/${action.slug}`} className="block p-4">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2 text-orange-500">
+            <Calendar className="w-4 h-4" />
+            <time className="text-sm">
+              {getFormattedDateToString(action.date)}
+            </time>
+          </div>
+
+          {action.moneyTheft?.usd && (
+            <Badge className="text-xs text-orange-100">
+              {formatCurrency(action.moneyTheft?.usd)}
+            </Badge>
+          )}
+        </div>
+
+        <h2 className="text-base font-semibold line-clamp-2">{action.title}</h2>
+
+        <div className="flex items-center gap-2 py-2">
+          {action.newsPapers && (
+            <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
+              <Icons.newspaper />
+            </span>
+          )}
+
+          {action.apologyForCrimeInImages && (
+            <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
+              <Image className="w-4 h-4" />
+            </span>
+          )}
+
+          {action.virtualMemorial && (
+            <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
+              <MapPin className="w-4 h-4" />
+            </span>
+          )}
+
+          {action.vindicatedActions && (
+            <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
+              <BookOpenCheck className="w-4 h-4" />
+            </span>
+          )}
+
+          {action.videos && (
+            <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
+              <MonitorPlay className="w-4 h-4" />
+            </span>
+          )}
+        </div>
+      </Link>
+    </li>
+  );
+}
+
+/*
+
+ <Link
       href={`/${action.type}/${action.slug}`}
       key={action.slug}
       className={`border border-primary p-4 rounded-md transition duration-500 ease-in-out hover:-translate-y-1 bg-orange-100 flex flex-col items-center justify-center md:flex-row md:justify-start md:items-start text-primary-foreground xl:text-lg`}
+      className={`rounded-lg transition duration-500 ease-in-out hover:-translate-y-1 bg-orange-50 flex flex-col items-center justify-center md:flex-row md:justify-start md:items-start p-4`}
     >
-      <div className="flex items-center gap-4 md:min-w-[200px]">
-        <Icons.calendar className="w-5 h-5 text-primary-foreground" />
-        <time className="text-secondary-foreground">
+      <div className="flex items-center gap-4 md:min-w-[200px] text-gray-500 h-full">
+        <Icons.calendar className="w-5 h-5" />
+        <time className="text-base">
           {getFormattedDateToString(action.date)}
         </time>
       </div>
       <p className="font-bold text-center md:text-left">
-        {/* <p className="font-bold text-textPrimary xl:text-lg 2xl:text-xl text-center md:text-left"> */}
+        {/* <p className="font-bold text-textPrimary xl:text-lg 2xl:text-xl text-center md:text-left">
         {action.title}
       </p>
-      <div className="flex flex-col md:flex-row items-center gap-4"></div>
     </Link>
-  );
-}
+
+*/

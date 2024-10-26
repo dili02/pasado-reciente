@@ -12,56 +12,39 @@ async function getMonth() {
   return currentMonth;
 }
 
-async function getToday() {
-  const today = new Date().toLocaleDateString();
-  return today;
-}
-
-// TODO: <p>Acciones terroristas llevadas a cabo por los movimientos subversivos durante el período 1965-1972.</p>
-// TODO: DELETE =>  <span className="hidden">{today}</span>
 export default async function Memorial({}: Props) {
   const month = await getMonth();
-  const today = await getToday();
+
   return (
-    <div className="flex flex-col justify-center items-center w-full lg:w-1/6">
-      <p className="text-lg uppercase text-center font-extrabold text-muted-foreground">
-        Memorial del Mes de{" "}
+    <div className="flex flex-col justify-center items-center gap-y-4 lg:max-w-[450px]">
+      <h2 className="uppercase text-center font-semibold text-lg">
+        <span className="pr-2"> Memorial del Mes de</span>
         <time dateTime={month} className="">
           {month}
         </time>
-      </p>
+      </h2>
+
+      {/* TODO: get years automatically */}
+      <h4 className="text-center lg:text-sm text-gray-500">
+        Acciones terroristas llevadas a cabo por los movimientos subversivos
+        durante el período 1965-1972
+      </h4>
 
       <img
         src={`/efemerides/${month}.png`}
-        className="w-[350px] drop-shadow py-4"
-        // className="object-cover w-full py-4"
-        // alt={`memorial del mes de ${month.format(new Date())}`}
+        className=""
+        alt={`memorial del mes de ${month}`}
       />
 
-      {/* <div className="flex items-center justify-center gap-3 py-2">
-        <Icons.museum className="w-6 h-6 hidden lg:block" />
-        <h2 className="text-lg uppercase text-center font-extrabold text-textPrimary">
-          Memorial del Mes de{" "}
-          <time dateTime={month} className="">
-            {month}
-          </time>
-        </h2>
-        <span className="hidden">{today}</span>
-      </div> */}
-
-      {/* <img
-        src={`/efemerides/${month}.png`}
-        className="w-[350px] md:w-[550px] xl:w-[350px] drop-shadow py-4"
-        className="object-cover w-full py-4"
-        alt={`memorial del mes de ${month.format(new Date())}`}
-      /> */}
-
-      <Button variant="default" className="w-80 lg:w-full" asChild>
+      <Button
+        className="bg-orange-500 hover:bg-orange-400 w-52 lg:w-[320px]"
+        asChild
+      >
         <Link
           href="/efemerides"
-          className="text-primary-foreground hover:bg-primary"
+          className="flex items-center justify-center gap-2"
         >
-          Ver Efemérides <ChevronRight className="ml-2 h-4 w-4" />
+          <span>Ver Efemérides</span> <ChevronRight className="h-5 w-5" />
         </Link>
       </Button>
     </div>

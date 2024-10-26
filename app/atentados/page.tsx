@@ -22,20 +22,20 @@ export default async function page({}: Props) {
 
   return (
     <section className="container mx-auto py-8">
-      <h1 className="uppercase text-2xl md:text-4xl text-center font-extrabold text-primary-foreground">
+      <h1 className="uppercase text-3xl text-center font-extrabold text-orange-950">
         atentados
       </h1>
 
-      <p className="text-muted-foreground text-center font-bold text-xl">
+      <p className="text-center font-bold text-xl text-orange-500">
         entre el <time dateTime={initDate}>{initDate}</time> y el{" "}
         <time dateTime={endDate}>{endDate}</time>{" "}
       </p>
 
-      <div className="grid grid-cols-1 py-8 gap-6">
+      <ul className="grid grid-cols-1 lg:grid-cols-2 py-8 gap-6">
         {terrorstActionsAttacks.map((action) => (
           <TerroristActionListItem action={action} key={action.slug} />
         ))}
-      </div>
+      </ul>
     </section>
   );
 }

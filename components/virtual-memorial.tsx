@@ -8,6 +8,13 @@ type Props = {
 export default function VirtualMemorial({ virtualMemorial }: Props) {
   return (
     <div className="py-8">
+      <h2
+        className="uppercase text-3xl text-center font-extrabold text-orange-950"
+        id="virtual-memorial"
+      >
+        Memoria Virtual
+      </h2>
+
       {virtualMemorial.map((memorial) => (
         <img
           src={memorial.src}

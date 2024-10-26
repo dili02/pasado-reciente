@@ -1,6 +1,8 @@
 import ActionVindicated from "@/components/action-vindicated";
 import ApologyForCrimeInImages from "@/components/apology-for-crime-images";
+import TableOfContet from "@/components/common/table-of-content";
 import Notice from "@/components/notice";
+import Testimonies from "@/components/testimonies";
 import Victim from "@/components/victim-info";
 import VirtualMemorial from "@/components/virtual-memorial";
 import {
@@ -36,32 +38,34 @@ export default async function page({ params }: Props) {
   const action = await api.getActionBySlug(params.slug);
 
   return (
-    <section className="container mx-auto text-textPrimary">
-      {/* {action.fact && (
-        <h1 className="text-center uppercase text-2xl md:text-4xl font-extrabold text-[#f40] mt-8">
-          HECHO: {action.fact}
-        </h1>
-      )} */}
+    <section className="container mx-auto flex flex-row">
+      <div className="w-full lg:w-4/5">
+        {action.victims?.map((victim, index) => (
+          <Victim key={index} victim={victim} date={action.date} />
+        ))}
 
-      {action.victims?.map((victim, index) => (
-        <Victim key={index} victim={victim} date={action.date} />
-      ))}
+        {action.newsPapers && <Notice notices={action.newsPapers} />}
 
-      {action.newsPapers && <Notice notices={action.newsPapers} />}
+        {action.apologyForCrimeInImages && (
+          <ApologyForCrimeInImages
+            crimeImages={action.apologyForCrimeInImages}
+          />
+        )}
 
-      {action.apologyForCrimeInImages && (
-        <ApologyForCrimeInImages crimeImages={action.apologyForCrimeInImages} />
-      )}
+        {action.virtualMemorial && (
+          <VirtualMemorial virtualMemorial={action.virtualMemorial} />
+        )}
 
-      {action.virtualMemorial && (
-        <VirtualMemorial virtualMemorial={action.virtualMemorial} />
-      )}
+        {action.vindicatedActions && (
+          <ActionVindicated actionVidicated={action.vindicatedActions} />
+        )}
 
-      {action.vindicatedActions && (
-        <ActionVindicated actionVidicated={action.vindicatedActions} />
-      )}
+        {action.videos && <Testimonies videos={action.videos} />}
+      </div>
 
-      {/* {action.videos && <Testimonials videos={action.videos} />} */}
+      <div className="hidden lg:flex  w-1/5 lg:mb-0 lg:sticky lg:top-0 lg:self-start">
+        <TableOfContet action={action} />
+      </div>
     </section>
   );
 }
