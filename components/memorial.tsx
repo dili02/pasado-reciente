@@ -11,17 +11,26 @@ type Props = {};
 
 export default function Memorial({}: Props) {
   const [dateTime, setDateTime] = useState<string>("");
+  const [currentMonth, setCurrentMonth] = useState<string>("");
 
   useEffect(() => {
     const now = new Date();
     setDateTime(now.toLocaleString());
+
+    const monthFormatter = new Intl.DateTimeFormat("es-UY", { month: "long" });
+    const getCurrentMonth = monthFormatter.format(new Date()).toLowerCase();
+    setCurrentMonth(getCurrentMonth);
   }, []);
+
+  // TODO: delete console.log
+  console.log(dateTime);
+  // console.log(month);
 
   return (
     <div className="flex flex-col justify-center items-center gap-y-4 lg:max-w-[450px]">
       <h2 className="uppercase text-center font-semibold text-lg">
         <span className="pr-2"> Memorial del Mes de</span>
-        <time dateTime={getCurrentMonth()}>{getCurrentMonth()}</time>
+        <time dateTime={getCurrentMonth()}>{currentMonth}</time>
       </h2>
 
       {/* TODO: get years automatically */}
@@ -33,7 +42,7 @@ export default function Memorial({}: Props) {
       <span className="text-xs hidden">{dateTime}</span>
 
       <img
-        src={`/efemerides/${getCurrentMonth()}.png`}
+        src={`/efemerides/${currentMonth}.png`}
         className=""
         alt={`memorial del mes de ${getCurrentMonth()}`}
       />
@@ -59,6 +68,7 @@ function getCurrentMonth() {
   return montFormatter.format(new Date());
 }
 
+// TODO: delete functions
 async function getToday() {
   const date = new Date();
 
