@@ -1,4 +1,5 @@
 import { Book } from "@/db/data";
+import { BookOpenCheck } from "lucide-react";
 import React from "react";
 
 type Props = {};
@@ -9,13 +10,14 @@ export default function ActionVindicated({
   actionVidicated: { books: Book[] };
 }) {
   return (
-    <div className="my-10">
-      <h3
-        className="uppercase text-3xl text-center font-extrabold text-orange-950"
+    <div className="min-h-screen">
+      <h2
+        className="uppercase text-3xl text-center font-extrabold text-orange-950 scroll-mt-6 flex items-center justify-center gap-2"
         id="vindicated"
       >
-        acciones reivindicadas por los movimientos terroristas
-      </h3>
+        <BookOpenCheck className="w-8 h-8 mt-1" /> acciones reivindicadas por
+        los movimientos terroristas
+      </h2>
 
       <p className="py-4">
         Las acciones terroristas del llamado Pasado Reciente son reconocidas y

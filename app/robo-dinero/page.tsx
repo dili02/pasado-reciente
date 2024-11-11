@@ -19,6 +19,7 @@ function formatCurrency(amount: number) {
     style: "currency",
     currency: "USD",
     maximumFractionDigits: 0,
+    currencyDisplay: "code",
   }).format(amount);
 }
 

@@ -1,27 +1,27 @@
-import React from "react";
-import { Icons } from "./icons";
+"use client";
+
+import { useState, useEffect } from "react";
+
+// import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
 type Props = {};
 
-async function getMonth() {
-  const monthFormatter = new Intl.DateTimeFormat("es-ES", { month: "long" });
-  const currentMonth = monthFormatter.format(new Date());
-  return currentMonth;
-}
+export default function Memorial({}: Props) {
+  const [dateTime, setDateTime] = useState<string>("");
 
-export default async function Memorial({}: Props) {
-  const month = await getMonth();
+  useEffect(() => {
+    const now = new Date();
+    setDateTime(now.toLocaleString());
+  }, []);
 
   return (
     <div className="flex flex-col justify-center items-center gap-y-4 lg:max-w-[450px]">
       <h2 className="uppercase text-center font-semibold text-lg">
         <span className="pr-2"> Memorial del Mes de</span>
-        <time dateTime={month} className="">
-          {month}
-        </time>
+        <time dateTime={getCurrentMonth()}>{getCurrentMonth()}</time>
       </h2>
 
       {/* TODO: get years automatically */}
@@ -30,10 +30,12 @@ export default async function Memorial({}: Props) {
         durante el período 1965-1972
       </h4>
 
+      <span className="text-xs hidden">{dateTime}</span>
+
       <img
-        src={`/efemerides/${month}.png`}
+        src={`/efemerides/${getCurrentMonth()}.png`}
         className=""
-        alt={`memorial del mes de ${month}`}
+        alt={`memorial del mes de ${getCurrentMonth()}`}
       />
 
       <Button
@@ -49,4 +51,51 @@ export default async function Memorial({}: Props) {
       </Button>
     </div>
   );
+}
+
+function getCurrentMonth() {
+  const montFormatter = new Intl.DateTimeFormat("es-UY", { month: "long" });
+
+  return montFormatter.format(new Date());
+}
+
+async function getToday() {
+  const date = new Date();
+
+  return new Intl.DateTimeFormat("es-UY", {
+    dateStyle: "full",
+    timeStyle: "long",
+  }).format(date);
+  // const today = new Intl.DateTimeFormat("es-UY", {
+  //   dateStyle: "full",
+  //   timeStyle: "long",
+  //   timeZone: "Montevideo/Uruguay",
+  // });
+
+  // return today.format(new Date());
+
+  // return new Date();
+}
+
+export function getMonth(): string {
+  const months = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
+
+  // Usamos new Date() para obtener la fecha actual del servidor
+  const currentDate = new Date();
+
+  // Obtenemos el índice del mes (0-11) y lo usamos para obtener el nombre del mes
+  return months[currentDate.getMonth()];
 }

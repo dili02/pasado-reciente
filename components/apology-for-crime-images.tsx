@@ -1,5 +1,6 @@
 import { ApologyForCrimeInImagesDefinition } from "@/db/data";
 import React from "react";
+import { Image } from "lucide-react";
 
 type Props = {
   crimeImages: ApologyForCrimeInImagesDefinition[];
@@ -9,10 +10,10 @@ export default function ApologyForCrimeInImages({ crimeImages }: Props) {
   return (
     <div>
       <h2
-        className="uppercase text-3xl text-center font-extrabold text-orange-950"
+        className="uppercase text-3xl text-center font-extrabold text-orange-950 scroll-mt-6 flex items-center justify-center gap-2"
         id="apology"
       >
-        Apología del delito en imágenes
+        <Image className="w-8 h-8" /> Apología del delito en imágenes
       </h2>
 
       <div className="py-8">
@@ -28,7 +29,7 @@ export default function ApologyForCrimeInImages({ crimeImages }: Props) {
               {apology.images.map((image) => (
                 <div key={image.src}>
                   <img src={image.src} alt={image.alt} />
-                  <p className="text-base text-gray-500 py-2">{image.alt}</p>
+                  <p className="text-base py-2">{image.alt}</p>
                 </div>
               ))}
             </div>

@@ -2,6 +2,7 @@ import { NewsPaperDefinition } from "@/db/data";
 import Link from "next/link";
 import React from "react";
 import { Icons } from "./icons";
+import { Newspaper } from "lucide-react";
 
 type Props = {};
 
@@ -19,10 +20,11 @@ export default function NewspapersNotices({
   return (
     <div className="py-8 text-base">
       <h3
-        className="uppercase text-3xl text-center font-extrabold text-orange-950"
+        className="uppercase text-3xl text-center font-extrabold text-orange-950 scroll-mt-6 flex items-center justify-center gap-2"
         id="notices"
       >
-        noticias publicadas por diarios de la época
+        <Newspaper className="w-8 h-8" /> noticias publicadas por diarios de la
+        época
       </h3>
 
       {notices?.map((notice) => (
@@ -139,6 +141,16 @@ export default function NewspapersNotices({
 
           {notice.description2 && <p className="">{notice.description2}</p>}
 
+          {notice.subtitle2 && (
+            <h4 className="text-center font-bold text-lg">
+              SUB TÍTULO: {notice.subtitle2}
+            </h4>
+          )}
+
+          {notice.subDescription2 && (
+            <p className="">{notice.subDescription2}</p>
+          )}
+
           {notice.title3 && (
             <h4 className="text-center font-bold text-lg">
               TÍTULO: {notice.title3}
@@ -147,6 +159,16 @@ export default function NewspapersNotices({
 
           {notice.description3 && <p className="">{notice.description3}</p>}
 
+          {notice.subtitle3 && (
+            <h4 className="text-center font-bold text-lg">
+              SUB TÍTULO: {notice.subtitle3}
+            </h4>
+          )}
+
+          {notice.subDescription3 && (
+            <p className="">{notice.subDescription3}</p>
+          )}
+
           {notice.title4 && (
             <h4 className="text-center font-bold text-lg">
               TÍTULO: {notice.title4}
@@ -154,6 +176,16 @@ export default function NewspapersNotices({
           )}
 
           {notice.description4 && <p className="">{notice.description4}</p>}
+
+          {notice.subtitle4 && (
+            <h4 className="text-center font-bold text-lg">
+              SUB TÍTULO: {notice.subtitle4}
+            </h4>
+          )}
+
+          {notice.subDescription4 && (
+            <p className="">{notice.subDescription4}</p>
+          )}
 
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between py-6">
             {notice.images?.map((image) => (

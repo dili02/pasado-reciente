@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      scrollMargin: {
+        custom: "8px",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

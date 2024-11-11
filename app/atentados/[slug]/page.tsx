@@ -1,6 +1,7 @@
 import ActionVindicated from "@/components/action-vindicated";
 import ApologyForCrimeInImages from "@/components/apology-for-crime-images";
 import TableOfContet from "@/components/common/table-of-content";
+import NewspapersNotices from "@/components/newspapers-notices";
 import Notice from "@/components/notice";
 import Testimonies from "@/components/testimonies";
 import Victim from "@/components/victim-info";
@@ -44,7 +45,8 @@ export default async function page({ params }: Props) {
           <Victim key={index} victim={victim} date={action.date} />
         ))}
 
-        {action.newsPapers && <Notice notices={action.newsPapers} />}
+        {/* {action.newsPapers && <Notice notices={action.newsPapers} />} */}
+        {action.newsPapers && <NewspapersNotices notices={action.newsPapers} />}
 
         {action.apologyForCrimeInImages && (
           <ApologyForCrimeInImages

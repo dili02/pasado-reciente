@@ -1,4 +1,5 @@
 import { ImageDefinition } from "@/db/data";
+import { MapPin } from "lucide-react";
 import React from "react";
 
 type Props = {
@@ -9,10 +10,10 @@ export default function VirtualMemorial({ virtualMemorial }: Props) {
   return (
     <div className="py-8">
       <h2
-        className="uppercase text-3xl text-center font-extrabold text-orange-950"
+        className="uppercase text-3xl text-center font-extrabold text-orange-950 scroll-mt-6 flex items-center justify-center gap-2"
         id="virtual-memorial"
       >
-        Memoria Virtual
+        <MapPin className="w-8 h-8" /> Memoria Virtual
       </h2>
 
       {virtualMemorial.map((memorial) => (

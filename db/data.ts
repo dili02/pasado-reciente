@@ -1,5 +1,6 @@
 export interface TerroristActionDefinition {
   date: Date;
+  dates?: { init: Date; end: Date };
   title: string;
   slug: string;
   type: TypeTerroristActionDefinition;
@@ -25,7 +26,7 @@ export type TypeTerroristActionDefinition =
   | "secuestros"
   | "robo-armamento-explosivos"
   | "robo-dinero"
-  | "otras acciones";
+  | "otras-acciones";
 
 export type VictimsDefinition = {
   info?: VictimsInfoDefinition;
@@ -72,8 +73,12 @@ export type NewsPaperDefinition = {
   description2?: string;
   title3?: string;
   description3?: string;
+  subtitle3?: string;
+  subDescription3?: string;
   title4?: string;
   description4?: string;
+  subtitle4?: string;
+  subDescription4?: string;
   imgSrc?: string[];
   images?: NewPapeImageDefinition[];
   fact?: string;
@@ -198,6 +203,11 @@ export const api = {
     return TerroristActions.filter(
       (action) => action.type === "robo-dinero"
     ).reduce((acc, value) => acc + value.moneyTheft?.usd!, 0);
+  },
+
+  getAllOtherAcctions: async (): Promise<TerroristActionDefinition[]> => {
+    return TerroristActions.filter((action) => action.type === "otras-acciones") // Filtrar acciones por tipo
+      .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
   },
 };
 
@@ -16267,7 +16277,8 @@ export const TerroristActions: TerroristActionDefinition[] = [
       {
         name: 'Diario "Acción" (Página 6)',
         date: new Date("March 09, 1970"),
-        title: "“SIMULARON REALIZAR UN ALLANAMIENTO”",
+        title:
+          "“SACARON DE SU CASA AL GERENTE Y AL CONTADOR PARA ABRIR EL TESORO”",
         description:
           "...expresan a Marín Durán que debe acompañarlos hasta la sucursal bancaria, ya que se está haciendo una investigación... le indican que debe dirigirse primero, a la casa del contador jefe de la misma institución bancaria, Carlos Coitiño Gavay… emprenden viaje directo a la Sucursal del Banco Español y Territorial en 8 de Octubre y Gobernador Vigodet... una vez adentro sacaron armas. La “investigación” se había transformado en un asalto...",
         images: [
@@ -16284,6 +16295,33 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“El aparato armado, Chola, ha tenido cierto desarrollo y se ha reestructurado.</p>
+          <p>El presupuesto regular ha subido.</p>
+          <p>Hay que encarar nuevamente el problema de las finanzas generales. Queda dinero para pocos meses. Es necesario realizar en breve una nueva expropiación...</p>
+          <p>Las llaves están en manos del gerente General y del Cajero...</p>
+          <p>Durante el análisis del operativo Aguilar consideró distintas posibilidades y llegó finalmente a la conclusión de que la manera más sencilla era tomar las casas respectivas y hacerse acompañar hasta el Banco por las personas poseedoras de las llaves.</p>
+          <p>Martín y Arturo se encargarán de cubrir la parte que corresponde al Cajero.</p>
+          <p>Batlle, Adam, Pablo, Gringa, cubrirán la parte correspondiente al Gerente.</p>
+          <p>El equipo que comienza la acción, el Nº 1, avisa al Centro que ya están en marcha. Van cuatro compañeros en el coche, dos quedarán en la casa y dos vendrán con el bancario.</p>
+          <p>... se le hace abrir al Gerente la puerta… asegurándose que tiene las llaves correspondientes, se le sube al auto...</p>
+          <p>Los que han quedado en la casa tranquilizan a la familia… La mujer está un poco nerviosa...</p>
+          <p>El otro equipo, el Nº 2, recibe la indicación de comenzar su parte...</p>
+          <p>El Cajero tras un pretexto sale y cuando ve de qué se trata comienza a protestar, se le dice que no hay alternativa, que tiene que ir con la llave...</p>
+          <p>Entra un compañero con el Gerente...</p>
+          <p>Casi enseguida llegan los otros dos compañeros con el Cajero,...</p>
+          <p>Dos compañeros se abocan a atar a los bancarios y otros dos, ya con las llaves en su poder, abren la caja y comienzan a llenar los bolsos...”.</p>`,
+          year: new Date("2004-1-1"),
+          name: "Acción directa anarquista. Una historia de FAU",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Recortes",
+          pages: "págs. 336-339",
+          author: "Mechoso",
+        },
+      ],
+    },
   },
   {
     date: new Date("March 30, 1970"),
@@ -16362,11 +16400,11 @@ export const TerroristActions: TerroristActionDefinition[] = [
     ],
   },
   {
-    date: new Date("June 16, 1970"),
+    date: new Date("June 06, 1970"),
     title: "Unión de Bancos del Uruguay sucursal Cordón",
     slug: "union-de-bancos-del-uruguay-sucursal-cordon",
     type: "robo-dinero",
-    moneyTheft: { uyu: 300000, usd: 1200 },
+    moneyTheft: { uyu: 300000, usd: 20070 },
     newsPapers: [
       {
         name: 'Diario "El Diario" (Página 22)',
@@ -16720,12 +16758,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/banco-de-cobranzas-sucursal-colon/n_1.jpg",
+            src: "/banco-de-cobranzas-sucursal-colon/n_3.jpg",
             alt: "noticia publicada por el diario El Día",
           },
           {
             type: "página diario completa",
-            src: "/banco-de-cobranzas-sucursal-colon/n_2.jpg",
+            src: "/banco-de-cobranzas-sucursal-colon/n_4.jpg",
             alt: "página diario completa publicada por el diario El Día",
           },
         ],
@@ -17022,6 +17060,1868 @@ export const TerroristActions: TerroristActionDefinition[] = [
             type: "página diario completa",
             src: "/casino-parque-hotel-montevideo/n_4.jpg",
             alt: "página diario completa publicada por el diario El Acción",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("January 3, 1966"),
+    title: "Conferencia marxista en La Habana, Cuba",
+    slug: "conferencia-marxista-en-la-habana-cuba",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Popular" (Página 10)',
+        date: new Date("January 4, 1966"),
+        title:
+          "“ACTO CONCRETO DE SOLIDARIDAD DE LOS PUEBLOS DE TRES CONTINENTES. ESCRIBE LUIS PEDRO BONAVITA PRESIDENTE DE LA DELEGACIÓN URUGUAYA A LA TRICONTINENTAL”",
+        description:
+          "En la izquierda nacional uruguaya a través del Frente Izquierda de Liberación, la convocatoria para la Conferencia de la Tricontinental a realizarse en La Habana en el correr de la primera semana de enero, encontró desde el primer momento, la más calurosa acogida. Aparece foto a cuyo pie dice: “...: lo que hemos visto es como el extraordinario hecho internacional de la Conferencia Tricontinental se proyecta sobre nuestra problemática nacional”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/conferencia-marxista-en-la-habana-cuba/n_1.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/conferencia-marxista-en-la-habana-cuba/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 10)',
+        date: new Date("January 8, 1966"),
+        title:
+          "“URUGUAY OCUPA LA SECRETARÍA DE LA COMISIÓN POLÍTICA. CUBA: UN SOLO ORGANISMO Y PRESIDIDO POR VIETNAM. VIBRANTE INTERVENCIÓN DEL CAPITÁN CIENFUEGOS EN LA PLENARIA”",
+        description:
+          "La revolución es posible. Ejemplo de Cuba. Favorable situación para la liberación...",
+        title1: "“COMO SE INTEGRAN LAS COMISIONES”",
+        description1:
+          "Tres subcomisiones trabajarán con la Comisión Política... las cuatro comisiones integradas son: 1. Política, cuya presidencia ocupa la República Árabe Unida; la Vice Presidencia corresponde a la República Democrática de Vietnam y la Secretaría a Uruguay;...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/conferencia-marxista-en-la-habana-cuba/n_3.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/conferencia-marxista-en-la-habana-cuba/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 10)',
+        date: new Date("January 10, 1966"),
+        title: "“BONAVITA: APROVECHAR TODA FORMA DE LUCHA”",
+        description:
+          "La Habana. En su intervención en la sesión plenaria de la Conferencia Tricontinental, el Presidente de la delegación uruguaya Luis P. Bonavita - quien es también Presidente del Frente Izquierda de Liberación de su país- manifestó que en la lucha contra el imperialismo es necesario aprovechar todas las formas que los pueblos crean convenientes para liberarse de su enemigo principal. Y que cada pueblo adopta la forma de lucha que considere más apropiada para lograr sus fines de liberación...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/conferencia-marxista-en-la-habana-cuba/n_4.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/conferencia-marxista-en-la-habana-cuba/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (en Portada)',
+        date: new Date("January 16, 1966"),
+        title:
+          "“SE APROBÓ LA RESOLUCIÓN FINAL Y SE CREÓ EL ORGANISMO PERMANENTE DE LA TRICONTINENTAL”",
+        description:
+          "Cuba fue designada sede hasta 1968, en que una nueva reunión de las fuerzas liberadoras de Asia, África y América Latina se efectuará en El Cairo. Se estrecharon vínculos de solidaridad con las fuerzas revolucionarias de 82 países... El derecho de los pueblos a oponer, a la violencia imperialista, la violencia revolucionaria. El socialismo, ejemplo y ayuda a los pueblos oprimidos... El derecho de los pueblos a recurrir a todas las formas de lucha que sean necesarias incluyendo la lucha armada. La fusión de las tres corrientes revolucionarias mundiales.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/conferencia-marxista-en-la-habana-cuba/n_6.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/conferencia-marxista-en-la-habana-cuba/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 10)',
+        date: new Date("January 16, 1966"),
+        title: "“LA RESOLUCIÓN FINAL DE LA TRICONTINENTAL APROBÓSE AYER”",
+        subtitle: "“El Derecho a la Liberación Política”",
+        description1:
+          "... La lucha revolucionaria y patriótica de cada pueblo es un aporte a la liberación de los otros países. La conferencia proclama el derecho de los pueblos a obtener su liberación política, económica y social por las vías que estime necesaria incluyendo la lucha armada para conseguir tal objetivo.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/conferencia-marxista-en-la-habana-cuba/n_8.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/conferencia-marxista-en-la-habana-cuba/n_9.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("December 22, 1966"),
+    title:
+      "Terrorista muerto en tiroteo. Descubren actividades y planes terroristas",
+    slug: "terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("December 22, 1966"),
+        title: "“METRALLETA EN MANO RESISTEN A POLICÍAS”",
+        description:
+          "Aparece foto a cuyo pie, dice: “He aquí el escenario donde culminó el trágico enfrentamiento entre delincuentes y policías, el cruce de Burgues y Bella Vista. A la izquierda vemos la camioneta Chevrolet robada a un carnicero el pasado sábado, en el interior del cual halló la muerte uno de los malhechores”. Aparece otra foto a cuyo pie, dice: “El Sargento Carlos Vega y el Subcomisario José Carlos Banandi, muestran las metralletas con que fueron baleados, cuando desde su patrullero siguieron la camioneta donde iban los cinco maleantes... se pretendió detener la marcha del vehículo policial, arrojándole poderosas granadas”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("December 22, 1966"),
+        title: "“BOMBAS Y BALAZOS EN LA 12ª : DEJARON UN COMPAÑERO MUERTO”",
+        description:
+          "... Aparecen fotos a cuyo pie dice: “Nuevamente hoy, delincuentes han resistido a la Policía...”",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_2.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_2.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 8)',
+        date: new Date("December 22, 1966"),
+        title:
+          "“PISTOLEROS TERRORISTAS CUBREN SU RETIRADA CON BOMBAS Y TIROS ABANDONAN UN COMPAÑERO MUERTO”",
+        description:
+          "El Subcomisario José Carlos Banandi... Dice: “... de inmediato, fue digno de una serie del viejo Chicago. Desde la parte posterior de la camioneta se inició un fuego cerrado contra el patrullero, con armas automáticas. Y de pronto, en el camino del coche policial, cayó y estalló una bomba incendiaria que fue la primera de una serie de once que los fugitivos arrojaban para detener la persecución, sin lograr su objetivo. Los policías, a su vez, abrieron fuego con sus armas de reglamento contra la camioneta y el vecindario fue alarmado por un tiroteo en el curso del cual se hicieron alrededor de doscientos disparos”.",
+        subtitle: "“Señorita Herida”",
+        subDescription:
+          "... La señorita Damiana Tejera Suárez,... se hallaba al borde de la acera, esperando el ómnibus para ir a sus ocupaciones, cuando fue alcanzada por una bala de los delincuentes en la rodilla izquierda,... por lo que fue llevada con toda urgencia... al Hospital Español, donde quedó en asistencia... Al mismo nosocomio se llevó al pistolero que apareciera dentro de la Chevrolet con un balazo en la frente y otro en la ingle y sin vida... Testigos afirmaron que vieron huir al resto de los delincuentes, y a uno en una motoneta”.",
+        title1: "“IDENTIFICAN AL MUERTO; UN ARSENAL EN SU CASA”",
+        subDescription1:
+          "... la Policía logró la identificación del hombre muerto en el tiroteo de esta mañana. Resultó ser..., uruguayo, casado de 22 años, padre de dos criaturas, que se domiciliaba en Carlos de la Vega 3982 Apto. 2. Un rápido allanamiento efectuado en la finca, permitió el secuestro de regular cantidad de armas, las que al parecer son parte de las robadas en la Armería “Del Cazador” en la Av. Uruguay… Aparece foto a cuyo pie dice: “Walter Zigalotti, el motonetista cuya máquina aparece también en la nota, que fue obligado por el conductor de la camioneta bajo amenaza de pistola, a llevarlo hasta Rondeau y Panamá.”",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_3.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_3.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 5)',
+        date: new Date("December 23, 1966"),
+        title:
+          "“INTENSA BÚSQUEDA POLICIAL DE LOS CÓMPLICES DEL TERRORISTA MUERTO”",
+        description: "...",
+        subtitle: "“Lo que Abandonaron. El Muerto”",
+        subtitle1: "“Se Descubre la Célula Extremista”",
+        subDescription:
+          "Mientras uno, pues, caía muerto, los cuatro restantes se perdían de vista. Tres corriendo a pie por el baldío salieron a la calle vecina. El que fugó por Burgues detuvo al Sr. Walter Zigalatti... que llegaba en una motoneta, lo amenazó con la metralleta y se hizo conducir hasta Rondeau y Panamá...",
+        subDescription1: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("December 23, 1966"),
+        subtitle: "“Intensa Búsqueda”",
+        subDescription: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 10)',
+        date: new Date("December 23, 1966"),
+        title:
+          "“ESPECTACULAR TIROTEO EN BARRIO BRAZO ORIENTAL: UN JOVEN RESULTÓ MUERTO”",
+        description: "... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_9.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p class='font-bold'>“JUEVES 22 DE DICIEMBRE DE 1966</p>
+          <p>Estaba todo pronto. Varios equipos de acción se iban concentrando al caer la noche del 21...</p>
+          <p>En el apartamento de Arrascaeta y Rivera funcionaba el comando para la operación...</p>
+          <p>... Uno de ellos era una gran camioneta en excelentes condiciones, incautada unas semanas antes y bastante bien camuflada… camioneta “No 1”...</p>
+          <p>Poco antes del amanecer comienza el despliegue, cronometrado...</p>
+          <p>Otra tripulación llega al taller mecánico de José L. Terra. Sacan con toda naturalidad una camioneta (la “No. 2”)... Su color original era celeste… Ha sido levemente camuflada y se ha construido con hormigón un blindaje en la parte trasera...</p>
+          <p>... La camioneta 1, en la que van dos hombres, sigue muy discretamente a la 2 en que van cuatro… La camioneta 2 debe recoger a su quinto tripulante.</p>
+          <p>El quinto tripulante no llega a la hora a la cita...</p>
+         <p> Al fin, el tripulante inpuntual aparece caminando velozmente; Carlos Flores… Sobre su pecho, una camiseta blanca con el símbolo de la Asociación Cristiana de Jóvenes… La camioneta 2 se le acerca y apenas detiene su marcha para que suba a la parte trasera donde ya están dos compañeros...</p>
+         <p> ... de pronto el chofer ve que un patrullero avanza lentamente por Gral. Flores bordeando la rotonda, se estaciona con la franca intención de cortar el paso...</p>
+          <p>Ya cerca del patrullero la camioneta acelera sorpresivamente...</p>
+          <p>... los compañeros de la caja arrojan varias granadas al patrullero...</p>
+          <p>Al llegar nuevamente a Burgues, viniendo por Antonio Machado, los de la cabina ven el baldío… El chofer y el acompañante -ya la camioneta prácticamente detenida- corren hacia el campito donde ya está, parado y en calma, apuntando con su Máuser, de pie, uno de los compañeros de la caja cubriéndolos. Otro de los compañeros de la caja baja disparando la Uzi en ráfagas cortas… detiene una motoneta que se entrepara no pudiendo su chofer creer lo que está viendo, encañona a éste, se sube atrás y le ordena dirigirse hacia el Centro.</p>
+          <p>...- Un compañero, por lo menos, murió.</.p>
+          <p>El mismo apartamento de Arrascaeta y Rivera era centro para el caso de repliegue… Quedamos a la espera de los otros dos: Carlos Flores o Neill Tachi…</p>
+          <p>Por el repecho abajo, cansino, lo vimos venir a Neill… Se había bajado de aquella motoneta solo para subirse a un taxi...</p>
+          <p>Supimos luego como habían sido todas las cosas. Un amigo del dueño de la camioneta recientemente incautada por nosotros la identificó en Gral. Flores y Propios y dio aviso a Radiopatrulla…
+          ... el buzo de Carlos Flores… permitió identificarlo por sus actividades en la Asociación Cristiana. Conducida a su casa por la rápida pesquisa, la policía encuentra allí 10 armas cortas y material escrito que la condujo,..., a la Base Eduardo Pinela...”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 3: el MLN",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "págs. 55-64",
+          author: "Fernández Huidobro",
+        },
+        {
+          fragment: `<p>“El 14 de diciembre los tupamaros se robaron una camioneta Chevrolet, celeste, con caja cerrada del jardín de una casona ubicada en Yaguaneses y la rambla de Punta Gorda,... La llevaron al tallercito de José L Tera, para acondicionarla se preocuparon de blindar la puerta trasera con hormigón… la economía del MLN venía de mal en peor y había que usar el vehículo en un operativo de finanzas: el pago de salarios y aguinaldos de Funsa...</p>
+          <p?>La camioneta servía de apoyo en la operación -con cinco hombres dentro-, junto con otra muy bien camuflada, en la que iban dos tupamaros. También actuaban en el plan un auto legal, una moto,...</p>
+          <p>Cuando se dirigía hacia su puesto de espera -de acuerdo con el plan-, la camioneta fue identificada por uno de los invitados a aquel asado de Punta Gorda, que avisó de inmediato a la policía.
+          ... Circulaban por Propios hacia el norte, rumbo a la rotonda que hay en Gral. Flores. Allí, un patrullero con las puertas abiertas, se había atravesado en el camino:...</p>
+          <p>Y la camioneta acelera de frente, esquiva la patrulla… ya con el patrullero detrás, al que los tupamaros arrojan granadas… La otra camioneta y la moto de los revolucionarios comienzan a perseguir al patrullero. Una caravana avanza a los balazos cruzados… -los tupamaros usan pistolas Mauser (sic) 7.63 y una Uzi 9 milímetros-... sigue una cuadra hasta la avenida Burgues donde se divisa un baldío...</p>
+          <p>Un frenazo. Algunos tupamaros saltan de la caja...</p>
+          <p>Varios guerrilleros corren por el campo... Carlos Flores y el argentino Nell Tacchi son los que quedan resistiendo los balazos para permitir el escape. Como una invasión de langostas de plomo, viajan rectas y mortales las municiones de los policías... da en la cabeza de Flores… tenía veintitrés años, era casado y padre de tres niños.</p>
+          <p>Nell logró huir.</p>
+          <p>Paró una moto enseñando su Uzi... Unas horas después llegó al apartamento de Arrascaeta y Rivera, el mismo en que habían vivido Setelich con Sendic hasta poco después del asalto al Banco de Cobranzas en la planta baja...</p>
+          <p>La policía allana la casa de Flores, en La Teja, y encuentran diez armas cortas y documentación del MLN. Cae la Base Pinela y el local de José L Terra: descubren explosivos, armamento y mapas de la red de cloacas montevideana que los guerrilleros vienen estudiando como posibles caminos para movimientos seguros y eventuales escapes por medios subterráneos.”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "págs. 308-310",
+          author: "Pernas",
+        },
+        {
+          fragment: `<p>“... En la mañana del 22 de diciembre se inicia una nueva e importante etapa en la organización. A las 7:00 de la mañana se pone en movimiento todo un complejo mecanismo que culminaría con el asalto de los funcionarios de FUNSA que pasaban a pocos metros de un portón abierto, sin armas y sin custodia. La camioneta Chevrolet se dirigió a Propios y Gral. Flores a recoger el equipo operativo, cuando es detectada por un amigo del dueño (la camioneta era robada), quien llama a la policía. Se dirige al lugar un coche patrullero, iniciándose un intenso tiroteo, que culmina en Burgues y Bella Vista con la muerte de Carlos Flores, que había empuñado una pistola Mauser (sic) 7.63 con culatín y que se encasquilló cuando le tiró el tercer balazo al patrullero y que rozó la cabeza del conductor policial.</p>
+          <p>Los otros dos artilleros tenían otra Mauser (sic) que también se trabó y una pistola subametralladora Uzi calibre 9 mm… Un párrafo aparte merece el uso de las granadas; al arrojarlas con el vehículo en movimiento impidió que fueran colocadas en zonas vulnerables del patrullero,...</p>
+          <p>Cuando la policía identifica al muerto, comienza a detener a sus vinculaciones familiares. Su esposa... denuncia a varios amigos, los que son detenidos.</p>
+          <p>Dos de ellos (Héctor Nieves y Araquel Saradanian)... Se producen entonces las detenciones de Raúl Rodríguez y Rivera Yic al ser señalados por Nieves y Saradanian...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "págs. 250-251",
+          author: "Marius",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("December 22, 1966"),
+    title: "Ubican una fábrica de bombas en el Club “Eduardo Pinela”",
+    slug: "",
+    type: "otras-acciones",
+  },
+  {
+    date: new Date("December 28, 1966"),
+    title: "Experto en bombas argentino detenido",
+    slug: "experto-en-bombas-argentino-detenido",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 8)',
+        date: new Date("December 28, 1966"),
+        title: "“TUPAMAROS: CAYÓ UN EXPERTO EN BOMBAS”",
+        description:
+          "Aparece foto a cuyo pie dice: “Este sujeto es..., el ciudadano argentino, operario del diario “Época”, que fue capturado por la policía, en un procedimiento en la calle Urquiza. Según las autoridades, se trata de un experto en la fabricación de explosivos y está vinculado a los extremistas tupamaros”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/experto-en-bombas-argentino-detenido/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/experto-en-bombas-argentino-detenido/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("December 28, 1966"),
+        title: "“DETIENEN A UN EXPERTO EN EXPLOSIVOS”",
+        description:
+          "... un ciudadano argentino, radicado en nuestro país,... determina que es experto en la fabricación de bombas. Este individuo, que pese a ser cordobés se le conoce bajo el alias de “El Porteño”, fue capturado durante un procedimiento “relámpago” que realizó la policía en las inmediaciones del Parque Central. Aparecen subtítulos “Un técnico petardista”, “Quien es El Porteño”, “Incidente y detención”, “Las batidas de ayer” y bajo el título... “Allí Estaría el Armamento”… son decenas los miembros del Movimiento de Liberación Nacional.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/experto-en-bombas-argentino-detenido/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/experto-en-bombas-argentino-detenido/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("December 29, 1966"),
+        title: "“CAPTURAN OTRO IMPORTANTE TUPAMARO: ALLANAMIENTOS”",
+        description:
+          "... “el argentino... es técnico en construcción de bombas, tiene experiencia en células de choque en Argentina, allanan su vivienda y encuentra material impreso para fabricar bombas,... presumen que son docenas de hombres y mujeres de diferentes profesiones y oficios que integran la organización”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/experto-en-bombas-argentino-detenido/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/experto-en-bombas-argentino-detenido/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("January 5, 1967"),
+    title: "Terroristas identificados",
+    slug: "terroristas-identificados",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 6)',
+        date: new Date("January 5, 1967"),
+        title: "“IDENTIFICAN A TODO EL GRUPO DE TERRORISTAS”",
+        description:
+          "Aquel episodio (tiroteo con los ocupantes de un patrullero donde perdiera la vida… cuando intentaba, metralleta en mano, cubrir la fuga de sus compañeros) reveló la existencia de células “terroristas” que mediante asaltos a bancos (se probó que consumaron, por lo menos, dos de ellos), procuraban munirse de dinero y por robo en armerías, de armas para sus fines. También robaban vehículos para movilizarse... Agrega “Desde ese momento los sucesos se precipitaron. Se reveló que la organización era vasta y compleja y numerosas personas, todas de ideología comunista y extremista, participaban del movimiento. Los indicados como figuras principales desaparecieron y no han sido hallados...”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terroristas-identificados/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/terroristas-identificados/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("January 5, 1967"),
+        title: "“UN CABECILLA DE LOS TERRORISTAS ESTÁ DETENIDO”",
+        description:
+          "... sería uno de los hombres claves en todo este plan subversivo que se venía gestando en nuestro país, con objetivos orientados por el ideario del viejo líder chino Mao Tse Tung.",
+        subtitle: "“Conectados con Cubanos”",
+        subDescription:
+          "..., verdadero jefe de la organización extremista desbaratada, y se ha podido comprobar que fue adoctrinado en la lucha revolucionaria por líderes cubanos, con los que mantiene estrecha vinculación… viajó a La Habana en más de una oportunidad a entrevistarse con fidelistas y allí recibió directivas precisas, para aplicar luego en la guerra de guerrillas y acciones de terrorismo en el Uruguay... Hay pruebas en su contra entre ellas la del porteño... que afirma haber entregado explosivos y otros elementos para la práctica del terrorismo a...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terroristas-identificados/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/terroristas-identificados/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 5)',
+        date: new Date("January 6, 1967"),
+        title: "“IDENTIFICAN A OTROS 4 CABECILLAS TERRORISTAS”",
+        description:
+          "Aparecen fotos de… se completa con otros nombres. Todos ellos… forman parte del grupo activista que orientó, imaginó y participó, en distintos grados, en los asaltos y robos, así como atentados terroristas. Los nuevos sindicados son:...",
+        subtitle: "“Nuevas Revelaciones”",
+        subDescription:
+          "De acuerdo a nuestras informaciones, la policía habría llegado a individualizar a los citados, por las confesiones de varios de los detenidos y remitidos. Incluso, tendría datos bastante exactos sobre la personalidad de cada uno..., una estudiante de Derecho, de tendencia comunista extremista, de especiales condiciones..., era ella la encargada de “instrucciones de tiro”, enseñando a los demás el manejo de las armas, tiro rápido, etc. Sería la mejor tiradora de todos... Es de señalar que varios de los citados son estudiantes y sus edades oscilan entre 23 y 28 años.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terroristas-identificados/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/terroristas-identificados/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("January 11, 1967"),
+    title: "Actividades terroristas desarrolladas. Vínculos internacionales",
+    slug: "actividades-terroristas-desarrolladas-vinculos-internacionales",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("January 12, 1967"),
+        title: "“ALLANAN OTRO CENTRO DE ACTIVIDAD TERRORISTA”",
+        description:
+          "... en la Avenida Agraciada 1632 casi esquina Galicia, reunía..., gran profusión de material de propaganda extremista; folletos impresos a mimeógrafo, literatura comunista, etc... también en gran cantidad, formularios conteniendo los test que hacían a los integrantes del grupo; cuestionarios de los cursos que se realizaban en dicho local y otros detalles de las clases. Igualmente, se encontró una amplia lista de personas de actividad pública y contrarias a los extremistas, constando los nombres, domicilios, funciones y todo lo relativo a ellas. Folletos del Frente de Liberación Nacional, libros de adoctrinamiento, estudios sobre “La Estrategia de la guerra urbana”, explicando al final de los mismos que la misma era de consumo interno, especificando las indicaciones establecidas.",
+        subtitle: "“Fabricación de Bombas”",
+        subDescription:
+          "En otra de las habitaciones se halló una gran cantidad de folletos a mimeógrafo en los que se daban los más completos detalles para la fabricación de bombas...",
+        subtitle1: "“Otros Elementos”",
+        subDescription1:
+          "Otro estudio se refería y se explicaba la forma en que se toma un cuartel...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("January 12, 1967"),
+        title:
+          "“ALLANARON OTRA SEDE TERRORISTA: SE ENCONTRARON MATERIALES EXPLOSIVOS”",
+        description: "...",
+        subtitle: '"Un Plan Sedicioso"',
+        subDescription:
+          "Consideraban como debían operar en las ciudades tanto en Montevideo como en las principales localidades del Interior, sin preocuparse demasiado por el medio rural. Su revolución, pues, sería urbana. “Inicialmente-dicen los planes- un ejército revolucionario debe ser empleado en dar cobertura armada a huelgas, actos de protesta, castigo de represores y traidores, secuestros políticos, atentados y sabotajes”... podrían formarse guerrillas rurales y que las dos formas de lucha constituirían la estrategia correcta, “de guerra prolongada que culminaría con una insurrección urbana”... se proyectaban otras medidas violentas, como asaltos a las plantas de radio y televisión, golpe de mano a los bancos y sociedades financieras, toma de rehenes y voladuras de puentes... inutilizar los sistemas de combustibles y las fuentes de energía... los tupamaros, creen posible dividir al poder militar provocando divergencias entre los distintos sectores de las Fuerzas Armadas...",
+        title1: "“QUE SE SABE DE LOS TUPAMAROS”",
+        subDescription1:
+          "... que ideología profesan los Tupamaros, como están organizados, que delitos se probaron a los Tupamaros, quienes ocupaban la camioneta cuando el tiroteo con la policía además de..., el argentino... y quien le arrendaba un altillo que tienen que ver con la organización, que función cumplía en las células..., las detenciones tan prolongadas de sospechosos las autorizó la Justicia, con que fundamento legal, hay una jefatura central de Tupamaros, con archivos, arsenales, etc., cuantas células forman el movimiento en general, cuantos hombres pueden integrar el movimiento en Montevideo y cuantos en el interior, los Tupamaros tienen contacto en el exterior, los exiliados brasileños pueden estar vinculados a los Tupamaros, los cañeros forman parte de los Tupamaros, fueron encontrados campamentos de práctica para los guerrilleros, existen arsenales de los Tupamaros, hay algún cabecilla detenido...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("January 13, 1967"),
+        title: "“GRAVES VINCULACIONES DE LA BANDA TERRORISTA”",
+        description:
+          "No tienen duda ninguna los investigadores de que en ese lugar (guarida abandonada por los terroristas, en un aparente escritorio comercial de la Avenida Agraciada) se adoctrinaba a elementos de mayor categoría dentro de las células...",
+        subtitle: "“Vinculación con el Exterior”",
+        subDescription:
+          "... creada para un fin muy especial... se necesitó la capacitación de los elementos dentro de la delincuencia común, robo de vehículos, rapiñas, asaltos a bancos, etc. con el objeto de reunir los fondos necesarios para llegar a sus fines. En el escritorio de la Avenida Agraciada… había algo más importante dentro de la lucha ideológica, eran los diez mandamientos para un revolucionario detallando el comportamiento que debían seguir, la manera de actuar, como se debía utilizar a la “clase obrera” o al “pueblo”- como ellos lo denominaban despectivamente- planes de dirección y otras instrucciones... se desprende de todo lo estudiado que este Movimiento tendría muy estrechas vinculaciones con otros tipos de organizaciones terroristas internacionales, ya que al aparecer todo el material y los trabajos dentro de las células necesitaban la aprobación de un comité y éste a su vez lo emitía al exterior para el conforme definitivo.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_4.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("January 14, 1967"),
+        title: "“IMPORTANCIA DEL PLAN TERRORISTA”",
+        description:
+          "... cada día que pasa va quedando en claro la gravedad de las intenciones del grupo extremista para nuestra seguridad pública, al ir preparando secretamente a los grupos de extremistas que merced a un profundo adoctrinamiento se iban capacitando para realizar un atentado cuando las circunstancias así lo requirieran.",
+        subtitle: "“Claves Militares”",
+        subDescription:
+          "Los estudios de toda clase de explosivos, el material para la preparación de toda clase de bombas, la enseñanza de la forma de violentar cerraduras..., la forma en que debían actuar los llamados “revolucionarios”, la manera de aprovechar a los gremios, la lista de personas de relevante actuación pública con nombre, direcciones, forma de vida, etc... los estudios de los Cuarteles, Regiones Militares, Regimientos, donde constaba los nombres de los Jefes, Oficiales de jerarquía, clases y soldados. Además contaban con la información secreta de las Fuerzas Armadas.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_6.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 4)',
+        date: new Date("January 15, 1967"),
+        title:
+          "“¿PROYECTABAN ROBAR UN CAMIÓN BLINDADO DE TRANSPORTE DE DINERO?”",
+        description:
+          "Hace referencia a informaciones que tendría la policía sobre planes documentados detallando minuto a minuto los movimientos de un camión blindado de conducir dinero, señalando las horas, los recorridos, la forma en que se bajan los valores, la actitud “confiada” de los dos policías que armados de metralletas custodiaban la carga y todo aquello que bien estudiado podría facilitar un audaz golpe para apoderarse de ese dinero.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_10.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_11.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 15)',
+        date: new Date("January 16, 1967"),
+        title: "“TERRORISTAS: EXAMINAN DOCUMENTOS APRESADOS”",
+        description:
+          "Hace referencia a la exhibición de material literario, documentos y profuso material subversivo incautados y presentado en el Salón de Honor de la Jefatura de Policía de Montevideo.",
+        subtitle: "“Diferentes Materiales”",
+        subDescription:
+          "Realizan en forma detallada una descripción de como está montada la muestra del material.",
+        subtitle1: "“Nuevos Identificados”",
+        subDescription1:
+          "Menciona nombres de miembros de las células terroristas identificados y confirmados como integrantes de la célula tupamara.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_10.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_11.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("January 17, 1967"),
+        title: "“IDENTIFICAN A OTROS 4 ELEMENTOS TERRORISTAS”",
+        description: "",
+        subtitle: "“La Organización”",
+        subDescription:
+          "... empezaron a organizarse hace ya unos años,... entendieron que la subversión debía estallar en el Uruguay, considerándola una revolución latinoamericana. Para ello realizaban la preparación del guerrillero en el orden intelectual, de capacitación física y por medio de los test ya mencionados en la oportunidad.",
+        subtitle1: "“En la Avenida Agraciada”",
+        subDescription1:
+          "Se comprobó que allí hacían ejercicios de tiro con armas de aire comprimido y en un cuadro hecho a mimeógrafo se constató el resultado de estas prácticas, donde intervenían las referidas mujeres... Se halló... un manual con las instrucciones en caso de detención de los elementos, manera de actuar ante los interrogatorios, como debían proceder en caso que la policía los arrestara.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_12.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_13.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("January 19, 1967"),
+    title: "Vínculo internacional terrorista",
+    slug: "vinculo-internacional-terrorista",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("January 19, 1967"),
+        title: "“DETENIDO HOY, PASAJERO PORTANDO ARMAMENTO”",
+        description:
+          "Informa de la detención del argentino... y su traslado a dependencias de la Jefatura de Policía de Montevideo.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/vinculo-internacional-terrorista/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/vinculo-internacional-terrorista/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("January 21, 1967"),
+        title: "“PROCESAN AL PORTEÑO”",
+        description:
+          "Entre otras informaciones dice “así como cayó... con un arma de gran poder, se estima que otros contrabandistas habrían podido tener mejor fortuna que él, y tal vez consiguieron pasar metralletas por Carrasco, como parte de un plan para introducir ese tipo de efectos en el país… trascendió de fuentes autorizadas que, hasta el momento, pudieron lograrse ciertos indicios que probarían la vinculación directa de... con algunos cabecillas de las células terroristas descubiertas por nuestras autoridades... incluso, hay detalles que señalan en... la categoría y funciones de un correo clandestino, al que, quizá, alguna organización bonaerense de izquierda encargaría traer materiales diversos para otros grupos, del mismo carácter, que operan en nuestro país”...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/vinculo-internacional-terrorista/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/vinculo-internacional-terrorista/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("January 27, 1967"),
+        title: "“TUPAMAROS: ¿CABECILLAS ARGENTINOS?”",
+        description:
+          "Cuatro agitadores argentinos, de conocida militancia en organizaciones de izquierda, estuvieron vinculados directamente a los tupamaros, orientando sus actividades subversivas. Los sujetos en cuestión son:... de 26 años,... de 29 años,... de 25 años y...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/vinculo-internacional-terrorista/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/vinculo-internacional-terrorista/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("January 27, 1967"),
+        title: "“VINCULACIÓN EXTERIOR DEL GRUPO TERRORISTA”",
+        description: "...",
+        subtitle: "“Vinculación Internacional”",
+        subDescription:
+          "... nuevas e importantísimas pruebas... vinculan a estos grupos terroristas con elementos del exterior. A continuación se dan nombres, alias, edades y actividades subversivas que estas personas tendrían en su haber. Menciona que participaron directamente en diferentes asaltos a sucursales bancarias en Montevideo. En cuanto a... era el principal inquilino del apartamento 17 de la Avenida Rivera 4316, finca que estaba arrendada a nombre de... en enero de 1963, pasaron al denominado “Movimiento Nacionalista Revolucionario Tacuara”, tildado de grupo de extrema izquierda y marxista.",
+        subtitle1: "...",
+        subDescription1:
+          "... comienzan sus actividades en una forma casi similar con el movimiento subversivo del Uruguay. Forman células y se dedican a obtener armas, dinero, equipos de transmisiones, etc... ya en el año 1963 realiza una larga gira por España, Argelia, Angola, Congo, Egipto, Suiza e Italia. En España entra en contacto con un ex mandatario argentino y procura el ingreso de su movimiento Tacuara a la juventud peronista. Viaja luego a Praga y La Habana, invitado por el gobierno cubano. En 1964 visita Hanoi y el Vietnam del Norte, donde asiste a una gran convención partidaria, luego a China, y en 1965 llega a Montevideo. Su papel en nuestro país se considera de enorme gravitación, en especial con el movimiento terrorista, lo que indica la peligrosidad de su persona y de la importancia de sus directivas.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/vinculo-internacional-terrorista/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/vinculo-internacional-terrorista/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Luego Baxter habló de su pasaje por China, de la medalla al valor que le había otorgado Ho Chi Minh por su combate en Vietnam...</p>
+          <p.>... el argentino no era un improvisado en el combate ni en la estrategia revolucionaria: sus viajes le habían permitido foguearse en entrenamiento a sangre y fuego en campos de batalla que para los muchachos tupamaros eran desconocidos.</p>
+          <p?>... Los integrantes del grupo de “los porteños”,..., también estaban siendo buscados: Nell, Baxter, Jorge Andrés el Pata Cataldo, Ruben Daniel Rodríguez Primón y Patricio Errecalde...</p>
+          <p?>El primero en salir del país fue Baxter, hacia Cuba: luego otros.</p>
+          <p>Nell Tacchi, primer jefe de Milicias del Movimiento Nacionalista Revolucionario Tacuara, y Jorge Rulli... se quedaron en Montevideo como contactos de las fuerzas revolucionarias entre Uruguay y Argentina... La ayuda de algún otro guerrillero peronista también buscó llegar desde el otro lado del estuario. El primer intento resultó fallido: el argentino Silvio Halperin fue detenido en el aeropuerto de Carrasco cuando pretendía ingresar con una metralleta PAM, dos cargadores y municiones de diverso calibre”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 295-313",
+          author: "Pernas",
+        },
+        {
+          fragment: `<p>“Pocos días antes, un compañero argentino fue detenido en el Aeropuerto de Carrasco cuando intentaba pasar entre sus ropas una subametralladora Pam con dos cargadores y 160 proyectiles, solidaridad concreta que nos enviaban luchadores hermanos”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 3: el MLN",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "pág. 98",
+          author: "Fernández Huidobro",
+        },
+        {
+          fragment: `<p>“El Peronismo tenía un brazo armado que era el Tacuara. Uno de izquierda y el otro de derecha; antes de los Montoneros.</p>
+          <p>Aquí vinieron del Tacuara de izquierda. Habían hecho un asalto importante en el Policlínico Bancario en Argentina… mataron a un montón de gente. Y a raíz de eso quedaron requeridos Nell Tacci -que cayó conmigo acá, después- y tres compañeros más. Requeridos en la Argentina, se van para la China de Mao Tse Tung, hacen un entrenamiento y se vuelven para Uruguay y ahí toman contacto con el MLN, un poco antes del 22 de diciembre.</p>
+          <p>El 22 de diciembre, nosotros tenemos ahí a Nieves, el primer traidor, el que canta todo; lo detienen; él dice que hay cuatro porteños y le muestran fotos de estos (sic) y salen como Tupamaros en la prensa: (José Luis) Nell Tacci, (José) Joe Baxter, (Jorge) Andrés Cataldo y (Ruben) Eduardo Rodríguez...”.</p>`,
+          year: new Date("2011-1-1"),
+          name: "Ana la guerrillera. Una historia de Lucía Topolanski",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones B Uruguay S.A.",
+          pages: "págs. 77-78",
+          author: "Caula y Silva",
+        },
+        {
+          fragment: `<p>“Nuestro primer contacto con grupos guerrilleros argentinos habían sido hecho poco tiempo antes de la Convención gracias a la intermediación de Abraham Guillén, quien nos puso en comunicación con cuatro integrantes de Tacuara, que luego se trasladaron a Montevideo a colaborar con nosotros: Joe Baxter, Rodríguez Primón, André Cataldo y Nell Tachi”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Autobiografía de Amodio Pérez",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Arca",
+          pages: "págs. 15-16",
+          author: "Pérez",
+        },
+        {
+          fragment: `<p>“En cuanto a la vinculación con los argentinos de Tacuara, esta (sic) culminó con su integración efectiva a mediados de 1966, pero manteniendo ellos la posibilidad de conexión con su organización en la argentina (sic). En el movimiento Tupamaro su integración se dio en distintos encuadres: Baxter funcionaba en el coordinador político; Nell Tacci y Cataldo en grupos de acción y Rodríguez Primón en el laboratorio de explosivos...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "pág. 247",
+          author: "Marius",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("July 31, 1967"),
+    title:
+      "Conferencia OLAS. Proclaman lucha armada para la conquista del poder",
+    slug: "conferencia-olas-proclaman-lucha-armada-para-la-conquista-del-poder",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Popular" (Página 3)',
+        date: new Date("August 11, 1967"),
+        title:
+          "“OLAS: PROPICIAR E IMPULSAR LA UNIDAD DEL MOVIMIENTO Y ORGANIZACIONES ANTIIMPERIALISTAS. APOYAR POR TODOS LOS MEDIOS A LOS PUEBLOS DE A. LATINA EN LUCHA, ESPECIALMENTE A LOS QUE SE ENCUENTRAN EN LUCHA ARMADA”",
+        description: "",
+        subtitle: "“Texto de la Resolución”",
+        subDescription:
+          "La Habana. “Para nosotros la patria es América”... En su texto de once carillas se han expresado de modo cabal estos seis conceptos: “La lucha armada es la línea fundamental. Las formas no armadas deben ayudar y no entorpecer a la lucha armada. Es necesario unificar la dirección política y militar en la guerra revolucionaria. En la mayoría de los países de América, organizar, iniciar y desarrollar la guerra revolucionaria es la tarea inmediata más importante. Nadie puede proclamarse de por sí vanguardia”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/conferencia-olas-proclaman-lucha-armada-para-la-conquista-del-poder/n_1.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/conferencia-olas-proclaman-lucha-armada-para-la-conquista-del-poder/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 4)',
+        date: new Date("August 11, 1967"),
+        title:
+          "“CÁLIDA RECEPCIÓN TUVIERON AYER ARISMENDI, BRUERA Y J. J. MARTÍNEZ”",
+        description: "",
+        subtitle: "“La Palabra de Arismendi”",
+        subDescription:
+          "... a la victoria y en la solidaridad con los que luchan con las armas en la mano en la clandestinidad...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/conferencia-olas-proclaman-lucha-armada-para-la-conquista-del-poder/n_3.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/conferencia-olas-proclaman-lucha-armada-para-la-conquista-del-poder/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Por entonces tenía lugar en La Habana la conferencia de la Organización Latinoamericana de Solidaridad (OLAS), que pretendía coordinar los movimientos revolucionarios del continente, como una especie de internacional revolucionaria de América Latina.</p>
+          <p>Grandes problemas suscitó entre los grupos de izquierda uruguayos este encuentro, sobre todo respecto a quienes participarían de la delegación. El FIDEL acaparó el Comité Nacional, y quedaron fuera de la convocatoria la FAU, el MIR, el Movimiento de Unificación Socialista Proletaria (MUSP) y el propio MLN-T. Por gestiones del chileno Salvador Allende, logró viajar a último momento el Partido Socialista, que junto con el MRO y el movimiento Batllista 26 de octubre..., eran los únicos grupos uruguayos proclives a la lucha armada en el continente. Fue esa la decisión de fondo que se adoptó en la conferencia”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 320-321",
+          author: "Pernas",
+        },
+        {
+          fragment: `<p class='font-bold'>“LA TRICONTINENTAL</p>
+          <p>Nada, mejor a nuestro juicio, que comenzar este tramo de la “Historia de los Tupamaros” con una cita del teórico que más influencia tuvo en esos años.</p>
+          <p>Con un total de 483 representantes provenientes de los tres continentes, 82 delegaciones inician en La Habana el 3 de enero de 1966 las sesiones de la Primera Conferencia de Solidaridad de los Pueblos de Asia, Africa (sic) y América Latina.</p>
+          <p>El evento culmina creando la Organización de Solidaridad entre los Pueblos de Africa (sic) y América Latina (OSPAAL)... Y con una Declaración General en la que, entre otras cosas, se afirma: el derecho de los pueblos a obtener su liberación política, económica y social por las vías que estimen necesarias, incluyendo la lucha armada...”.</p>
+          <p>La delegación uruguaya que suscribe esta declaración (Luis Pedro Bonavita, Rodney Arismendi, Edmundo Soares Netto, Blanca Silvia Collazo, Luis Echave y César Reyes Daglio) estaba integrada por el Fidel... dejando de lado al Partido Socialista, a la Federación Anarquista, al Grupo de Independientes de “Marcha”, al MUSP, al MIR, al FAR...</p>
+          <p>El 16 de enero,..., por iniciativa de Salvador Allende las 27 delegaciones latinoamericanas deciden crear la Organización Latinoamericana de Solidaridad (OLAS)...”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 3: el MLN",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "págs. 7-8",
+          author: "Fernández Huidobro",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("August 24, 1968"),
+    title: "Terrorista herido huye del Hospital de Clínicas",
+    slug: "terrorista-herido-huye-del-hospital-de-clinicas",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("August 29, 1968"),
+        title: "“BUSCAN A UN TUPAMARO QUE PUDO HUIR DEL HOSPITAL DE CLÍNICAS”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-herido-huye-del-hospital-de-clinicas/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-herido-huye-del-hospital-de-clinicas/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("August 29, 1968"),
+        title:
+          "“UN ACCIDENTE DELATÓ AL JOVEN EXTREMISTA. Lo Buscan en Todo el País”",
+        description:
+          'Un común accidente de tránsito ocurrido el domingo pasado puso al descubierto a un Tupamaro en cuyo poder se hallaron pruebas irrefutables de que era miembro de la organización extremista auto denominada "Movimiento de Liberación Nacional". Hace cinco días circulaba por Camino Maldonado una camioneta la que chocó con una motoneta ocupada sólo por quien la piloteaba. El accidente tuvo alguna entidad y el motonetista, con diversas lesiones, debió ser trasladado al Hospital de Clínicas para su atención... pero cuando la policía revisó los efectos que se hallaban en la motoneta de la víctima fue que surgió la sensacional revelación..., el conductor del rodado era un tupamaro... Fueron detenidos un practicante y otros tres estudiantes de Medicina sobre los que recaen sospechas acumuladas a través de una ardua tarea indagatoria.',
+        subtitle: "“Quien Es ...”",
+        subDescription:
+          "El tupamaro... es hijo de quien fuera Diputado del Partido Socialista, grupo político del que luego se separó... no se le conocía ninguna actividad... durante cierto tiempo estuvo dedicado en el interior del país a las tareas rurales. Quizás este silencio que rodeó en los últimos años a... explica su vinculación con los miembros de Movimiento de Liberación Nacional.",
+        subtitle1: "“Muchos Confidentes”",
+        subDescription1:
+          "Se ha llegado a la conclusión de que los Tupamaros poseen confidentes en las más diversas esferas ya sea oficiales como privadas y ello les facilita tomar todas las providencias para impedir que la policía llegue hasta sus guaridas. Hay muchas conjeturas en cuanto a los centros de reunión de las células que están conectadas entre sí apenas por uno de sus miembros quien a su vez se comunica con el comando central, que es desconocido por los demás extremistas. Los grupos de Tupamaros se integran a diversos niveles y así como están los encargados de las acciones directas, hay instructores, correos y hasta simples colaboracionistas. Estos últimos, aunque fueran individualizados, muy poco o nada podrían aportar sobre la organización, salvo su solidaridad con los planes que se ejecutan.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-herido-huye-del-hospital-de-clinicas/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-herido-huye-del-hospital-de-clinicas/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("October 8, 1968"),
+    title: "Procesan a jefe terrorista y su célula",
+    slug: "procesan-a-jefe-terrorista-y-su-celula",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("October 9, 1968"),
+        title:
+          "“... ERA EL JEFE DE LA CÉLULA TERRORISTA CAPTURADA”. “UN TUPAMARO TRABAJÓ EN EL ESTADO MAYOR DEL EJÉRCITO”. “ESTÁ HERIDO UNO DE LOS TERRORISTAS. CAYERON 7 HOMBRES Y UNA MUJER. CONFESARON EL ASALTO A UN BANCO”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 7)',
+        date: new Date("October 9, 1968"),
+        title: "“CINCO AÑOS DE VIOLENTA HISTORIA”",
+        description:
+          "Por vez primera, una célula terrorista del movimiento tupamaro es apresada por la policía... Hasta finales del año 1966 el movimiento continuó actuando en las sombras sin llegar nunca a un choque con las fuerzas policiales. En el período que va desde el robo de armas en el Tiro Suizo de Colonia hasta el encuentro en el barrio Brazo Oriental, donde murió el tupamaro..., son numerosos los actos terroristas que el movimiento se adjudica en sus revelaciones a la prensa, preferentemente extranjera. Es así, que en las tantas veces citada revista chilena “Punto Final” al igual que en publicaciones de Argentina, una larga lista de acciones se atribuye a los comandos tupamaros, en ese lapso de cinco años que comienza en julio de 1963...",
+        title1:
+          "“CREEN A ..., UNO DE LOS DETENIDOS, PIEZA CLAVE. ESTÁ IDENTIFICADO HACE TIEMPO”",
+        description1:
+          "..., ex estudiante de Arquitectura, de 26 años, es considerado por la Policía importante pieza dentro de uno de los comandos Tupamaros,... Fue identificado cuando la policía detuvo en su domicilio a... (actualmente en prisión) y se volvió a tener noticias de él cuando se tiroteó con una patrulla el 29 de noviembre de 1967 en el balneario “San Cristóbal”, junto a otros dos Tupamaros… viajaba (con... y otro Tupamaro) en la camioneta cuya detención, anoche, posibilitó el procedimiento que culminó con la captura de otros tres integrantes de la organización.",
+        subtitle1: "“El Tiroteo de San Cristóbal”",
+        subDescription1:
+          "... cobró notoriedad en oportunidad del tiroteo que mantuvo con la policía en el balneario “San Cristóbal” (Canelones) luego de haber robado alhajas, una pistola y dinero por valor de medio millón de pesos, del interior de un automóvil de turistas argentinos estacionado en el balneario “El Pinar”...",
+        title2: "“IDEOLOGÍA Y ACCIÓN PRÁCTICA DE LA ORGANIZACIÓN TUPAMARA”",
+        description2:
+          "Algunos miembros del Partido Socialista, desilusionados por el fracaso de la Unión Popular en 1962, se nuclean en torno a este movimiento tupamaro que desde julio de 1963 (cuando el robo de armas en Colonia), optó definitivamente por la violencia como vía de acceso al poder político. Tal es el origen del movimiento cuyas actividades vuelven hoy al primer plano de la opinión pública. Veamos cómo explica un tupamaro en el suplemento a la edición Nº 58 de la revista chilena “Punto Final” la posición del grupo dentro de la izquierda uruguaya. “Creo que todo aparato armado debe formar parte de un aparato político de masas a determinada altura del proceso revolucionario… Hay que combatir la mezquina idea en boga de Partido, que lo identifica con una sede, reuniones, un periódico y posiciones sobre todo lo que lo rodea...”.",
+        subtitle2: "“Guerrilla Urbana”",
+        subDescription2:
+          "Influidos por el proceso revolucionario de Cuba y por los intentos repetidos en varios países latinoamericanos, los tupamaros parecen haber construído una teoría de guerrilla totalmente propia, pensada en exclusividad para nuestro país... Dice el tupamaro entrevistado por “Punto Final”: “Otro factor estratégico a tener en cuenta es el factor geográfico. No tenemos lugares inexpugnables en el territorio como para instalar un foco guerrillero que perdure. En compensación tenemos una gran ciudad con más de 300 kms. cuadrados de edificios que permite el desarrollo de la lucha urbana. Esto quiere decir que no podemos copiar estrategias de otros países. Por el contrario, tenemos que elaborar una estrategia autóctona adecuada a una realidad diferente a la de otros países latinoamericanos”. Señala más adelante el terrorista que “Montevideo es una ciudad suficientemente grande y polarizada por las luchas sociales como para dar cobijamiento a un vasto contingente de comando en actividad. Desde luego, agrega, toda organización que pretenda perdurar en la lucha urbana debe construir pacientemente sus bases materiales y el vasto movimiento de apoyo y cobertura que necesita un contingente armado para operar o subsistir en la ciudad”.",
+        subtitle3: "“Se Están Fortaleciendo”",
+        subDescription3:
+          "Consultado sobre la actividad que desenvuelven en la actualidad dijo que estaban en la fase de “crear una fuerza armada con la mayor premura posible... y echar bases materiales para poder desarrollar la lucha urbana y la lucha en el campo”. En la carta abierta difundida cuando el secuestro del Dr. Pereira Reverbel puedan extraerse las siguientes conclusiones:... 3) Los tupamaros buscan atraer al pueblo a su línea de violencia, mediante un aparato de captación organizado a tales efectos. 4) Parecen dispuestos a proseguir la lucha armada hasta sus últimas consecuencias.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("October 9, 1968"),
+        title:
+          "“TUPAMAROS: YA SON OCHO LOS DETENIDOS-UN HERIDO. PROCURAN DESPISTAR A LA POLICÍA PARA CUBRIR LA FUGA DE LOS OTROS”",
+        description: "Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_4.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_5.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("October 9, 1968"),
+        title: "“8 TUPAMAROS DETENIDOS: UNO HERIDO”",
+        description:
+          "... Se supo extraoficialmente que una ambulancia había venido a levantar a uno de los ocupantes del vehículo detenido en Avenida Garzón... siendo llevado al Hospital de Clínicas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_6.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_7.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("October 9, 1968"),
+        title: "“APRESAN TUPAMAROS”",
+        description: "Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_8.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_9.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 9)',
+        date: new Date("October 9, 1968"),
+        title: "“TRAS UN TIROTEO DETUVIERON ANOCHE AL JEFE TUPAMARO PROF...”",
+        description:
+          "Publican detalles del proceso que realizó y viene realizando la policía.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_10.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_11.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("October 10, 1968"),
+        title: "“TUPAMAROS: SE REÚNEN ELEMENTOS DE PRUEBA”",
+        description: "...",
+        subtitle: "“Fotógrafo que Logró Huir”",
+        subDescription:
+          "Durante las actuaciones que desbarataron una célula del MLN logró eludir a los policías el fotógrafo... que tenía su estudio en la finca de Ganaderos 4898 donde apresaron a otras personas. Allí... tomaba fotografías a los tupamaros para confeccionar los documentos falsificados que todos ellos tienen. Cabe señalar que las cédulas de identidad apócrifas son casi perfectas y es muy difícil hacer el reconocimiento.",
+        subtitle1: "“Unos Mil Simpatizantes”",
+        subDescription1:
+          "... Se estima que por lo menos mil personas integran el engranaje que impulsa al Movimiento de Liberación Nacional... El material de adoctrinamiento que se emplea proviene del extranjero y varios textos de uso estrictamente interno redactado por algunos sectores intelectuales que actúan en las células. La base de los estudios de acción se refiere a preparar cuerpos de guerrilleros urbanos ya que evidentemente la actividad subversiva en la ciudad es el fuerte de los tupamaros.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_12.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_13.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("October 10, 1968"),
+        title: "“MÉDICO NOTORIO SERÍA EL CEREBRO TUPAMARO”",
+        description:
+          "Un prestigioso médico especialista..., resultaría ser uno de los cerebros de la organización armada que se autodenomina Movimiento de Liberación Nacional (“Tupamaros”). De acuerdo con esa misma versión integrarían el movimiento un elevado número de profesores, profesionales y estudiantes de cursos superiores. Entre estos intelectuales, que constituirían el treinta por ciento del total de sus integrantes, el Movimiento de Liberación Nacional reclutaría a sus más caracterizados dirigentes, entre los cuales el médico de referencia y otras dos personas podrían integrar una especie de Triunvirato encargado de orientarlo ideológica y militarmente. En torno suyo se nuclearían no sólo la veintena de Tupamaros prófugos, sino también 110 personas ya identificadas, y a los cuales se sindica como vinculados de una manera u otra al grupo de acción directa...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_14.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_15.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("October 10, 1968"),
+        title: "“PRESOS: 7 HOMBRES Y UNA MUJER; SIGUE UNA AFIEBRADA BÚSQUEDA”",
+        description:
+          "Hace un detalle de los detenidos y referente a uno de ellos dice: “Otro de los presos, que estaría levemente herido en la cabeza (luego de curado, con dos puntos de sutura, pasó a Jefatura), se trata de una persona que tiene documento a nombre de...; pero puede ser un documento falso... No hay dudas de que también es un decidido “tupamaro”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_16.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_17.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 11)',
+        date: new Date("October 10, 1968"),
+        title: "“LLEVABAN UNA GRANADA DE ALTO PODER; HOY IRÁN ANTE EL JUEZ”",
+        description:
+          "Aparecen fotos de... Precisa las detenciones y detalles específicos de los detenidos.",
+        title1: "“UN VERDADERO HISTORIAL DE MUERTE Y VIOLENCIA”",
+        description1:
+          "Aparecen fotos de… Detallan y confirman robos, muertes y secuestros realizados durante los tres años anteriores.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_18.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_19.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("October 11, 1968"),
+        title:
+          "“CONTINUABAN DECLARANDO ANTE EL JUEZ, ESTA MADRUGADA LOS TRES CABECILLAS TUPAMAROS QUE SERÍAN PROCESADOS COMO MÍNIMO POR 10 AÑOS”",
+        description: "Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_20.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_21.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 10)',
+        date: new Date("October 11, 1968"),
+        title:
+          "“HABRÍAN IMPLICADOS DENTRO DE LA PROPIA JEFATURA; VARIAS LIBERTADES”",
+        description: "Aparecen fotos de...",
+        subtitle: "“Hallazgos e Interrogatorio”",
+        subDescription:
+          "En la camioneta ”Volkswagen”, de tipo furgón que había sido robada meses atrás en Colonia y reempadronada, con una chapa falsa, que corresponde a La Paz, se encontró una granada de mano. Este artefacto está en manos de los técnicos del Ejército y se le presume de alto poder explosivo... Alguno de los detenidos “admitió haber intervenido en el asalto a una sucursal bancaria del Reducto de donde se llevaron un millón de pesos”...",
+        subtitle1: "“Infiltración en el Ejército”",
+        subDescription1:
+          "Uno de los detenidos (presumiblemente...) hace dos años y medio, estuvo vinculado al Estado Mayor del Ejército y, en su calidad de militar o asimilado a una jerarquía, tuvo acceso a noticias que permitieron alertar a muchos “tupamaros” o simpatizantes que pretendieron ser indagados al iniciarse la operación de captura, luego de los trágicos sucesos que siguieron a la muerte de... y el Comisario Silveira Regalado en los finales del año 1966… Un militar, que ahora ocupa un alto cargo en Jefatura, lo habría reconocido como uno de los que actuaban cerca del Estado Mayor y el Servicio de Inteligencia del Ejército en aquella época.",
+        subtitle2: "“Gente Importante”",
+        subDescription2:
+          "De un jerarca policial: “Según los datos reunidos por Inteligencia y Enlace a través de tres años de labor, hay cientos de personas vinculadas al “Movimiento de Liberación Nacional”... Y, entre ellos, figuran profesionales de distintas profesiones (médicos, ingenieros, arquitectos, abogados, periodistas) que lo son, decididamente o simpatizan y ayudan sin estar enrolados en el movimiento...”.",
+        subtitle3: "“Dentro de la Jefatura”",
+        subDescription3:
+          "Del mismo jerarca dice que: “El material incautado en la casa del fotógrafo... demostró que éste usaba, para fabricar documentos falsos, muchos papeles legítimos. Es decir sobres, cubiertas de plástico, tarjetas, etc. que provienen realmente de los talleres policiales… Se desprende que habían logrado corromper mediante dinero a funcionarios o tenían tupamaros infiltrados en la propia Jefatura”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_22.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_23.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("October 11, 1968"),
+        title: "“FUERON PROCESADOS YA TRES TUPAMAROS”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_24.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_25.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("October 11, 1968"),
+        title: "“INDAGAN COMO LOS TUPAMAROS SE APODERARON DE CÉDULAS VÁLIDAS”",
+        description: "...",
+        title1: "“COMO ESTÁN ORGANIZADAS LAS CÉLULAS”",
+        description1:
+          "Quienes participan en ella, describen a la organización de los Tupamaros como una pirámide trunca. En la base absoluta de esa pirámide, están los que se inician recién en el movimiento y están a prueba, los que reciben comisiones concretas a través de algún miembro de la célula. Por encima de ellos están las células. Las células son integradas por tres o cuatro individuos, y se comunican con otras a través de su jefe. Los principios sobre los cuales se asienta la organización suponen la compartimentación de tareas y la limitación de los conocimientos. Salvo aquellas personas que estén en la cúspide de la pirámide puede saber algo más de lo que tienen inmediatamente próximo. Cada uno de los miembros de una célula conoce a los otros por su nombre de tupamaros (alias), pero prescinde de los nombres verdaderos, y en algún caso puede hasta haberlo desconocido. El principio de compartimentación y el secreto rigen las actividades de los miembros, y cuando éstos declaran enfatizan esa circunstancia… Por encima de las células estaban dos comandos: el comando político y el militar. El comando político determinaba si una operación dada era conveniente; este tipo de opciones se votaba dentro del comando respectivo. El principio de la votación rige los actos de la organización, a veces a un nivel más general y más alto: el de una asamblea plenaria, que por lo menos debe existir una vez por año, y a la que llega con un voto un representante por célula. Decidido, en los casos más frecuentes, que una operación era conveniente se pasaba al comando militar, el cual determinaba si era técnicamente posible… Recogidos esos dos elementos previa decisión, si una operación se lleva a cabo y como se lleva a cabo, todo pasa a la cúspide de la pirámide, y desde allí se irradian las órdenes para su ejecución... Dos de los principales declarantes de ayer coincidieron en definir la organización, en su funcionamiento habitual como una pirámide trunca. En lo alto del corte de esa pirámide, figuran los dos comandos; más abajo las células y más abajo aún los ingresados a prueba.",
+        title2: "“LA LARGA NOCHE EN EL JUZGADO”",
+        description2:
+          "... el magistrado decidió los tres procesamientos... admitió: formar parte del comando político, haber votado allí la planeada operación del secuestro del Presidente de UTE, pero no haber participado en ella ni saber como y donde se albergó al secuestrado. Así mismo, tenía noticia de algunos asaltos a bancos. En la jerga de la organización se le llamaba “confiscación”. El código moral que rige a la organización permite tomar, para los fines del Movimiento, el dinero cuyo origen se tenga por espurio; no se ataca los bienes que son fruto del trabajo ni se ataca a las personas... En cuanto a las armas, su origen sería el mercado negro; excepcionalmente, algún arma puede haber sido comprada en Brasil. Los declarantes conocen los fines de la organización, de transformar por todos los medios, incluso los violentos, el orden institucional existente, que consideran injusto. Operaciones como la privación del Dr. Pereira Reverbel, la bomba en las instalaciones de Radio Ariel, y el asalto en busca de armas a la carpa de FUTI, fueron reconocidas como obras del movimiento..., formula declaraciones que no difieren de las de... parece ser el “Tupamaro” de menor importancia de los tres, fue apalabrado por... y aceptó entrar en la organización. No estaba en célula alguna, teniéndose a prueba. Reparó un VW del que después se enteró que había sido utilizado en el asalto de una sucursal bancaria e intervino en un hurto de vehículo de que... había sido “campana”... vivían en la clandestinidad... todavía no.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_26.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_27.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("October 11, 1968"),
+        title:
+          "“TRES PROCESADOS: SIGUEN INTERROGANDO A CINCO. POR DELITOS CONTRA LA PATRIA LE TOCARÍAN ENTRE 10 Y 30 AÑOS”",
+        description:
+          "Tres tupamaros procesados inculpados de asociación para delinquir, y cinco personas más emplazadas para declarar esta tarde ante el Juez de Instrucción de 1er. turno Dr. Daniel Pereyra Maneli, por presumible complicidad con aquellos, es el saldo positivo que ha dejado el procedimiento policial cumplido en Avda. Garzón y San Quintín... Continúa el desarrollo de la noticia con comentarios sobre las acciones delictivas y responsabilidades de algunos de sus integrantes sin mencionar nombres.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_28.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_29.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 7)',
+        date: new Date("October 11, 1968"),
+        title: "“-LE PERDONAMOS LA VIDA-” DICEN AL COMISARIO OTERO”",
+        description:
+          "... A raíz de los prolijos detalles reunidos por Inteligencia y Enlace y de sus propias declaraciones, la justicia decretó los procesamientos de..., quedando los cinco restantes en calidad de detenidos para volver esta tarde a prestar declaración... el peligro de los “tupamaros” lejos de ser una fantasía, como muchos creen, es una realidad a la que hay que dar el valor real que tiene. No debe olvidarse que una pequeña cantidad de hombres disciplinados y bien armados son una fuerza temible ya que se mueven en la clandestinidad y no se puede atacarlos de frente, lo que los llevaría a la destrucción. Ya en Inteligencia y Enlace,... dijo al Comisario Otero: “Estaba vivo por que le habían perdonado la vida”... que había pasado casualmente por allí (una heladería de la Avda. Rivera) con un amigo y que, al verlo pensaron en disparar a sangre fría contra él. Luego desistieron de tal acto”. En realidad, no hubo generosidad por parte de los terroristas. Es que, personas de clara inteligencia, comprendieron que matar a Alejandro Otero, era decretar la guerra a muerte contra su organización. Y, a pesar de sus grandes deseos de eliminar a su peor enemigo, prefirieron no desafiar tan a fondo a la sociedad”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_30.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-jefe-terrorista-y-su-celula/n_31.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("October 12, 1968"),
+    title: "Descubren base de operaciones terrorista",
+    slug: "descubren-base-de-operaciones-terrorista",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("October 14, 1968"),
+        title: "“HALLARON UNA BASE DE LOS “TUPAMAROS””",
+        description:
+          "En Cno. Pajas Blancas, el grupo extremista conocido como “Tupamaros” había asentado una importante base de operaciones, disimulando su actividad en lo que parecía ser para ojos extraños, una simple chacra. En su interior se pudo establecer, se procedía al armado de vehículos y armado de nuevas unidades, utilizando para ello los rodados que venían hurtando desde tiempo atrás. Además, era campo de tiro y taller en general. Producido el incendio, al remover los bomberos los restos del material, se encontraron armas, dinero, restos de automotores y unidades para terminar, lo que confirmaba el uso que los extremistas daban al lugar... Aparece foto de la mencionada base.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-base-de-operaciones-terrorista/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-base-de-operaciones-terrorista/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 4)',
+        date: new Date("October 14, 1968"),
+        title: "“NUEVO GRAN GOLPE A LOS TUPAMAROS”",
+        description:
+          "Realiza una descripción del lugar y del material encontrado... Comunicada la novedad a las autoridades de Jefatura, se hicieron presentes... Dichos jerarcas pudieron comprobar de inmediato que en efecto el material hallado pertenecía al Movimiento de Liberación Nacional conocido como “Tupamaros” y que el local era una de las bases de operaciones del grupo.",
+        subtitle: "“Atalayas”",
+        subDescription:
+          "... Desde los locales tenían un campo visual fabuloso, ya que se podía observar a kilómetros de distancia. Pero, para evitar cualquier entorpecimiento, los extremistas habían instalado en la copa de los árboles y en la construcción, puestos de observación, que permitía una mayor visual y facilitaba una urgente fuga por varias de las salidas con que se contaba...",
+        subtitle1: "“Remisión de los Tres “Tupamaros”",
+        subDescription1:
+          "Finalmente, el Juez Dr. Pereyra Manelli emitió la sentencia... fueron remitidos por: Asociación Ilícita para delinquir; atentado contra la Constitución; rapiña; privación de libertad, daños y hurtos... por: Asociación Ilícita para delinquir; atentado contra la Constitución y hurto. Aparecen fotos a cuyo pie dicen: “..., en instantes que procede a examinar parte del material que utilizaban para la confección de explosivos, hallados”. “Las armas halladas, muestran los efectos causados por el siniestro”. “Al removerse los escombros por parte de los bomberos, se logró descubrir enorme cantidad de publicaciones extranjeras y nacionales, medio chamuscadas, que contenían importante material que se referían a actividades de los “Tupamaros”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-base-de-operaciones-terrorista/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-base-de-operaciones-terrorista/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("October 14, 1968"),
+        title:
+          "“FUSILES DEL EJÉRCITO EN EL CUARTEL QUE SE QUEMÓ”. OTRO TUPAMARO CAPTURADO POR LA POLICÍA”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-base-de-operaciones-terrorista/n_4.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-base-de-operaciones-terrorista/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("October 14, 1968"),
+        title:
+          "“UN JOVEN TUPAMARO CAPTURADO EL SÁBADO DEPUSO HOY ANTE EL JUEZ”",
+        description:
+          "... Según trascendió el nuevo detenido sería una pieza clave dentro de la organización extremista y se hallaría muy vinculado al comando de los tupamaros... Lo único concreto que se sabe es que el detenido habría desempeñado un papel importante en el MLN y así lo reconoció ante la policía...",
+        subtitle: "“Habría Más Revelaciones”",
+        subDescription:
+          "... se supo que en las próximas horas las pesquisas podían dar lugar tal vez a revelaciones de corte sensacional. Como ya lo adelantamos, los tupamaros suman en conjunto unas mil personas jóvenes, de ambos sexos. De esa cantidad, solamente una minoría forman las células que se aplican a la acción directa. El resto constituye la base del movimiento subversivo. Los militantes del M.L.N. acatan una férrea disciplina...",
+        title1: "“HALLARON FUSILES ROBADOS AL EJÉRCITO, EN LA GRANJA”",
+        description1:
+          "En el cuartel de los tupamaros descubierto en Pajas Blancas había, entre las armas carbonizadas en el incendio, por lo menos cuatro fusiles robados al Ejército... Existe un croquis a cuyo pie dice: “Este plano muestra detalladamente las instalaciones que componían el cuartel de los tupamaros descubierto en Pajas Blancas merced a un siniestro cuyas causas se investigan. Allí las autoridades hallaron fusiles robados al Ejército Nacional”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-base-de-operaciones-terrorista/n_6.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-base-de-operaciones-terrorista/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("October 14, 1968"),
+        title: "“BASE TUPA: INCENDIO NO ESTABA PLANEADO”",
+        description:
+          'Aparecen fotos a cuyo pie dicen: "Armas largas y cortas semidestruídas por el fuego, entre los muchos materiales extraños de hallar en una chacra. En uno de los árboles más altos, un mirador, desde el cual se divisaba largo trecho del Camino Pajas Blancas, y vehículos de procedencia delictiva, en proceso de disfraz para ser utilizado por los tupamaros".',
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-base-de-operaciones-terrorista/n_8.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-base-de-operaciones-terrorista/n_9.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("October 14, 1968"),
+        title: "“TUPAMAROS: INCENDIO ACCIDENTAL”",
+        description:
+          "... Grande fue la sorpresa de los hombres del Cuartel Centenario cuando hallaron restos de armas quemadas, monedas, billetes semi quemados y herramientas que no se justificaban en una chacra... Y hallaron nuevas “cosas raras en una chacra”, como una camioneta Commer, una Volkswagen, un Land Rover y una motoneta, todo ello en vías de reparación o transformación... fue hallado en la chacra el esqueleto de un transmisor portátil que fuera robado con otros elementos técnicos en la planta emisora de Radio Ariel...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-base-de-operaciones-terrorista/n_10.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-base-de-operaciones-terrorista/n_11.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“La persona que lo había alquilado con documentos falsos era Marenales, conmigo, que habíamos pasado como si fuera una pareja”, nos dice María Elía.</p>
+          <p>“Esa chacra que teníamos en Camino Pajas Blancas entre Tomkinson y López, era el Cantón principal del MLN. Ahí estaban todos los documentos, absolutamente todo, y entrábamos gente también.</p>
+          <p>Ahí se armaron todas las acciones que se hicieron en ese momento. Se hizo la 2ª Convención. Ese fue un lugar muy importante mientras existió.</p>
+          <p>Estaba el taller de armas, el de explosivos, se camuflaban los autos, se reunía la Dirección.</p>
+          <p>Vivían Manera y Marenales; y el Ñato (Fernández Huidobro) y el Bebe (Sendic) iban constantemente.</p>
+          <p>Montamos todo un cerco al lugar para ver si ellos llegaban y no llegaron, ni el primero ni el segundo día. Después que logramos evacuar, yo propuse incendiar todo.</p>
+          <p>Quemamos el lugar porque teníamos un montón de dinamita que estaba cristalizada...</p>
+          <p>Juntamos todo lo que encontramos, lo rodeamos con dinamita pusimos una mecha larga, la prendimos y nos fuimos...”.</p>`,
+          year: new Date("2011-1-1"),
+          name: "Ana la guerrillera. Una historia de Lucía Topolanski",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Uruguay B S.A.",
+          pages: "págs. 126-128",
+          author: "Caula y Silva",
+        },
+        {
+          fragment: `<p>“Entrevista a Julio Marenales</p>
+          <p>“... Por ejemplo, en el cantón que llamábamos “Marquetalia”, cuando tuvimos una evacuación –porque se produjo una especie de cerco– una de las personas que tuvo la cabeza más fría fue la Parda Topolanski... Como responsable del cantón, resolví entonces que cuando yo no estuviera, fuera ella la responsable...</p>
+          <p>Marquetalia, una chacra que teníamos en la entrada de Pajas Blancas, era nuestra base operativa. Yo era responsable de ese local, en un principio junto a Manera”.”.</p>`,
+          year: new Date("2001-1-1"),
+          name: "La izquierda armada. Ideología, ética e identidad en el MLN-Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Trilce",
+          pages: "págs. 226-231",
+          author: "Aldrighi",
+        },
+        {
+          fragment: `<p>“Pero antes de comenzar a relatarlos, describamos el “Siete”, principal base de operaciones de la columna 2, conocida en la jerga interna, ya se verá porqué, como, “Marquetalia”.</p>
+          “Marquetalia” era refugio, depósito, base de operaciones, taller, escuela de cuadros, lugar de grandes reuniones... En ella, tres meses después realizaríamos la II Convención Nacional.</p>
+          <p>Un taller de armería y uno de vehículos, que a la vez se utilizaba como taller para todo servicio, funcionaban allí.</p>
+          <p>Con los recientemente evacuados, y mientras provisoriamente permanecen allí, se montó el laboratorio de explosivos...</p>
+          <p>Varios vehículos, a veces hasta tres o cuatro, de distinto tipo, eran disfrazados y mantenidos allí...</p>
+          <p>... La guardia, que debía vigilar también otros puntos, contaba con una atalaya disimulada en las copas de unos altos árboles, a la que se subía por una delgada escalerilla.”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 3: el MLN",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "págs. 201-203",
+          author: "Fernández Huidobro",
+        },
+        {
+          fragment: `<p>“A esa chacra de tres hectáreas los tupamaros comenzaron a llamarla Marquetalia, como la zona liberada por las fuerzas revolucionarias colombianas: allí entrenaban, formaban a los nuevos guerrilleros, practicaban tiro, montaron un taller de armería, un laboratorio de explosivos y otro de documentos de identidad, camuflaban vehículos y servía de refugio a decenas de clandestinos. Era como el gran “berretín” de la organización...”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 324",
+          author: "Pernas",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("October 18, 1968"),
+    title: "Documento terrorista sobre el movimiento obrero-estudiantil",
+    slug: "documento-terrorista-sobre-el-movimiento-obrero-estudiantil",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("October 18, 1968"),
+        title: "“TUPAMAROS: ADMITEN DESVALIDEZ POPULAR”",
+        description:
+          "...se halló un documento cuya propiedad fue admitida, donde se analiza la situación obrero estudiantil... En él se pone de manifiesto: La injerencia de los Tupamaros en la acción estudiantil, a la que se le considera como “punta de lanza”. El pasaje del trabajo sindical a otras formas de lucha “revolucionaria”. La debilidad del movimiento y su desvalidez popular. La actividad del proceso en ese momento, así como las tendencias imperantes: la burocracia bolche y M.A.P.U. (Movimiento de Acción Popular Uruguayo), así como las que están “para ir para adelante (Bellas Artes ampliada como dijera algún compañero)”. Los centros del movimiento Bellas Artes, Agronomía, Arquitectura, Medicina, así como su filiación ideológica. Las etapas previstas para la acción de futuro... organizativa, acciones callejeras y acciones militares (robo de armas). 1) Etapa organizativa: organizar a la gente dispuesta a meter para adelante, en pequeños comandos con el fin de realizar: 2) Etapa. Acciones Callejeras: esto sería de unos 100 tipos con objetivos concretos y apoyo militar, de carácter esencialmente propagandístico… 3) Etapas Acciones Militares: esta… etapa... consiste en organizar militarmente, robar armas, abastecerse... Hay participación de todo el mundo y mucha combatividad. En general hay unos 500 tipos seguros radicalizados, entre universitarios y secundarios. Se da el caso de que esta última está radicalizada en mayor grado por los universitarios...",
+        subtitle: "“En Buenos Aires”",
+        subDescription:
+          "... algunos elementos tupamaros que habrían logrado escapar a la Argentina, saliendo por la costa de Colonia, en lancha, para llegar al Delta del Tigre, donde serían esperados y auxiliados por miembros de la organización argentina “Tacuara”, en muchos aspectos similar a los “Tupamaros”, con los que se sabía mantenían contacto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/documento-terrorista-sobre-el-movimiento-obrero-estudiantil/n_1.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/documento-terrorista-sobre-el-movimiento-obrero-estudiantil/n_2.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("December 10, 1968"),
+    title: "Descubren otra base de operaciones terrorista",
+    slug: "descubren-otra-base-de-operaciones-terrorista",
+    type: "otras-acciones",
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Pocos días después, indiscutibles errores de Sendic provocan la caída de un importante reducto. La Policía llegó hasta una chacra que el MLN poseía en Pando, y fueron detenidos ocho compañeros, casi todos de alto rango en el Movimiento, entre los que se encuentran Falero Montes de Oca, Bassini, De Lucía y Pedro Dubra...”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Autobiografía de Amodio Pérez",
+          place: "Montevideo - Uruguay",
+          edition: "Arca Editorial",
+          pages: "págs. 35-36",
+          author: "Pérez",
+        },
+        {
+          fragment: `<p>“Raúl, con su paupérrima credencial cívica, había logrado arrendar un terrenito en la Ruta 75, más allá de Pando.</p>
+          <p>Era una muy pequeña chacrita descampada, en pronunciado declive... Al fondo la cruzaba una cañada cuyos cauces daban la única cobertura...</p>
+          <p>Lo primero que hicimos fue montar una carpa contra la cañada. Luego comenzamos a clavar los piques del futuro rancho de fajina… Un tumulto de herramientas, armas y materiales de todo tipo, metidos allí...</p>
+          <p>En poco más de una semana los compañeros plantaron un rancho... Pronto sería mejorado y ampliado, pero ya teníamos nueva base...”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 3: el MLN",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "págs. 163-164",
+          author: "Fernández Huidobro",
+        },
+        {
+          fragment: `<p>“... A mediados de diciembre cae una chacra en Pando, donde son detenidos Falero, Bassini y Pedro Dubra que constituían el comando de una de las columnas recientemente formadas...</p>
+          <p>... Se perdía un comando íntegro, en el que estaba Falero, un hombre con una gran experiencia militar y seguro tanto en la planificación como en la ejecución, Bassini, en ese momento único experto en explosivos y gran cantidad de materiales...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "pág. 268",
+          author: "Marius",
+        },
+      ],
+    },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("December 10, 1968"),
+        title:
+          "“OCHO TUPAMAROS CAYERON LUEGO DE SOSTENER UN VIOLENTO TIROTEO”. “HABÍA UN LABORATORIO PARA FABRICAR BOMBAS”. “SE INCAUTÓ UN ARSENAL MUY VALIOSO”. “POSEÍAN UN TALLER PARA AUTOS”",
+        description:
+          "... Aparecen fotos de tupamaros capturados y uno de los ranchos descubiertos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 19)',
+        date: new Date("December 10, 1968"),
+        title: "“DOS RANCHOS ERAN LA BASE TUPAMARA”",
+        description:
+          "Dos grandes ranchos situados a menos de dos cuadras de la carretera, eran al mismo tiempo la vivienda, el arsenal y la base de operaciones del comando tupamaro que hoy desbarató, sorpresivamente, la policía. Esas edificaciones, levantadas por los extremistas con sus propias manos, están frente a la Ruta 75, en el kilómetro 36,800 y a corta distancia de Pando.",
+        subtitle: "“12 Armas y 700 Proyectiles”",
+        subDescription:
+          "La policía encontró dos ametralladoras de la Guardia Metropolitana, una metralleta PAM de fabricación argentina, una pistola de señales, un revólver 32 niquelado, un Smith & Wesson 38 de la policía, dos metralletas de marca no especificada, un fusil “Máuser”, una escopeta de caza de dos caños, otra de aire comprimido, un matagatos y más de 700 proyectiles para armas de calibre 7.65, 32, 38 y 45.",
+        subtitle1: "“Material Quirúrgico y Uniformes”",
+        subDescription1:
+          "Los tupamaros tenían también, en el rancho, instrumental quirúrgico, cajas de gasas esterilizadas, frascos de suero fisiológico, medicamentos principalmente, sulfas y antibióticos y un tubo de oxígeno con su correspondiente manómetro, para atender a los terroristas que pudieran resultar heridos durante sus incursiones. Esos materiales le permitirían, eventualmente, realizar intervenciones quirúrgicas. Con esos efectos había dos uniformes, una túnica del Hospital Pasteur y un saco y un pantalón de brin con el distintivo de UTE. La policía secuestró, así mismo, 14 cédulas de identidad y un número no identificado de libretas de chofer falsificadas...",
+        subtitle2: "“Laboratorio y Taller Mecánico”",
+        subDescription2:
+          "... los tupamaros habían instalado un taller mecánico y un laboratorio. En el taller, trabajaban con un coche “Volkswagen” de matrícula falsa... En esa dependencia empleada obviamente para desmontar y camuflar automóviles robados, la policía se incautó de juegos de chapas con diferentes características. En el laboratorio, había granadas de mano, bombas de comparador, detonantes para artefactos de efecto retardado, tubos de ensayo, pinzas, elementos para la fabricación de explosivos y varios caños de revólveres de calibre 38.",
+        subtitle3: "“Libros, Manuales, Correspondencia”",
+        subDescription3:
+          "Se encontraron numerosos libros sobre guerrilla urbana, numerosas fotos del “Che” Guevara y de Fidel Castro “figuras inspiradoras de la acción terrorista” y manuales para la fabricación de explosivos y manejo de armas… un volumen apreciable de cartas, anotaciones y misivas correspondientes a los enlaces y contactos de la organización... En un folleto que distribuían entre sus pares, constan los números de matrículas y las características de todos los automóviles particulares que actualmente emplea la policía. Aparecen 10 fotos de Tupamaros nombrándolos:...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 20)',
+        date: new Date("December 10, 1968"),
+        title: "“LA GUARIDA DE LOS TUPAMAROS QUEDABA MUY PRÓXIMA A PANDO”",
+        description:
+          "Ocho tupamaros, siete hombres y una mujer, fueron capturados tras violento tiroteo en torno a unos ranchos enclavados en medio de un monte a la altura del kilómetro 36,800 de la Ruta 75, a corta distancia de la ciudad de Pando. Los extremistas se entregaron después de ser herido uno de ellos. El primer dato que dio la pista para apresar a los tupamaros fue tomar conocimiento de que en los referidos ranchos de la Ruta 75 de Canelones había un grupo de hombres que se dedicaban allí a desmontar automotores. Una discreta pesquisa en los alrededores de los ranchos permitió establecer que aquellos individuos eran extremistas. En la zona el asunto era muy notorio ya que incluso los vecinos llamaban a las viviendas “ranchos de los tupamaros”.",
+        subtitle: "“Lista de los Detenidos”",
+        subDescription:
+          "Los tupamaros fueron llevados a la Comisaría 7ª donde... se procedió a la identificación de los detenidos estableciéndose que entre ellos había varios de los tupamaros que vienen siendo buscados desde hace varios años, por la comisión de innumerables delitos, atentados terroristas, tiroteos con la policía, asaltos a bancos, robos en armerías y en la Intendencia de Policía, secuestro del Presidente interventor de UTE y últimamente por el asalto al Casino del Hotel Carrasco y el secuestro de tres transportistas de vehículos taxi flet. Los integrantes del M.L.N. capturados son los siguientes:... El octavo está internado en el Hospital Pasteur y no había trascendido su identificación. Uno de los apresados presenta dos cicatrices de heridas de bala en una pierna",
+        title1: "“CAYERON ... ”",
+        description1:
+          "Entre los “tupamaros” detenidos hoy figuran tres elementos identificados por la policía desde tiempo atrás... Cabe señalar además que la base de operaciones en donde los “tupamaros” fueron ubicados en la jornada, presenta caracteres similares a la que fuera descubierta tiempo atrás en Pajas Blancas luego de un incendio ocurrido en lo que aparentemente era un rancho común...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("December 10, 1968"),
+        title:
+          "“CAPTURARON A 8 TUPAMAROS EN UNA CHACRA DE PANDO. Tras Nutrido Tiroteo Cayeron esta Mañana 7 Hombres y una Mujer”",
+        description: "Aparece foto del arsenal incautado...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_6.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_7.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("December 10, 1968"),
+        title: "“HALLAN VERDADERO ARSENAL”",
+        description:
+          "... En la granja se observaba desusados movimientos. El predio, que perteneciera a la sucesión del gran escritor compatriota Filisberto Hernández y que actualmente es propiedad de una persona de apellido Rodríguez, a la que se procura localizar, ... Según informaciones proporcionadas por la policía se halló en el lugar un verdadero arsenal, armas cortas y largas de origen nacional y extranjero, dos metralletas que en el curso de otras tantas acciones habían sido hurtadas a funcionarios de la Guardia Metropolitana, balas de todo calibre, municiones, materiales para fabricar explosivos y bombas caseras, así como un laboratorio para la recarga de proyectiles... Aparecen fotos de... y de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_8.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_9.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("December 11, 1968"),
+        title: "“HOY DECLARAN ANTE EL JUEZ”",
+        description:
+          "... Los detenidos han sido interrogados..., estimándose que de dichos interrogatorios pueden surgir valiosos elementos para efectuar nuevos e importantes procedimientos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_10.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_11.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 8)',
+        date: new Date("December 11, 1968"),
+        title: "“QUIEREN EL “PARAÍSO” A BOMBAS Y BALAS”",
+        description:
+          "Aparecen fotos de... Aparece foto a cuyo pie dice: “La mesa del laboratorio, así como la estantería que se aprecia en el fondo, estaba cubierta de explosivos armados y elementos para su fabricación”. Aparece otra foto a cuyo pie dice: “Una “bomba” del tipo que los tupamaros fabricaban en el refugio cercano a Pando”... Atrás, sobre la mesa, granadas y bombas de gas del tipo que utiliza la Guardia Metropolitana. Aparece otra foto a cuyo pie dice: “Una máquina de armar y rellenar bombas, cartuchos y balas. Los terroristas tenían todo dispuesto para autoabastecerse de este tipo de elementos de los que se sorprendió un gran depósito.” Aparece croquis a cuyo pie dice: “El plano de la chacra a la que la Policía llegó por ladrones de autos y se fue con tupamaros”.",
+        title1: "“EL CÍRCULO DE LA AUTODESTRUCCIÓN”",
+        description1:
+          "... surgieron en América los imitadores de Fidel y su guerrilla. En casi una década de intento en distintas latitudes del Continente, se ha demostrado que por lo menos hasta ahora las circunstancias no se dan para reeditar nuevas Cubas. Pero en el tiempo, esos frustrados guerrilleros, esos Tupamaros nuestros, se han profesionalizado. En el círculo vicioso de la actividad terrorista y la clandestinidad, se ven acorralados. Alrededor, una realidad que no se hace eco de su postura. Adentro, vivencias desubicadas que se autodestruyen o mueren destruyendo gratuitamente, en medio de la desaprobación colectiva de una sociedad que no concibe las bombas y las balas, el fuego y la sangre, con factores de su felicidad.",
+        title2:
+          "“LA VIDA EN LA CHACRA: COSECHABAN EXPLOSIVOS Y PRACTICABAN TIRO”",
+        description2: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_12.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_12.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("December 11, 1968"),
+        title:
+          "“OCHO TUPAMAROS FUERON DETENIDOS CERCA DE PANDO. UN HERIDO TRAS BREVE RESISTENCIA; LAS VIVIENDAS OCULTABAN UNA FÁBRICA DE EXPLOSIVOS”",
+        description: "Aparecen fotos de los tupamaros detenidos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_13.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_13.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("December 11, 1968"),
+        title: "“DIERON CON LA GUARIDA AL SEGUIR UN AUTO ROBADO”",
+        description:
+          "Un rudo golpe asestó ayer la policía a uno de los comandos del denominado Movimiento de Liberación Nacional “Tupamaros”, al detener en una granja ubicada a cinco kilómetros de la ciudad de Pando, a ocho integrantes de una de sus células...",
+        title1: "“TENÍAN UNA CLÍNICA MÓVIL PARA SER USADA EN LAS EMERGENCIAS”",
+        description1:
+          "... Sorprendió la gran cantidad de material sanitario encontrado, que lo hace apto para instalar una tienda de campaña de primeros auxilios. Una caja de acero con numerosos instrumentos de cirugía, un tubo de oxígeno con medidor Nº 1002, una túnica de enfermero perteneciente al Hospital Pasteur según el sello que tiene impreso, jeringas para inyectables y numerosos medicamentos...",
+        title2: "“DINAMITA: ROBO EN TACUAREMBÓ QUEDA ACLARADO”",
+        description2:
+          "Tacuarembó... El Día publicó la primicia del robo de 225 kilos de dinamita, perteneciente a la Empresa Techin,... han permitido..., y confirmar versiones, determinar totalmente que quienes hurtaron el peligroso explosivo fueron los Tupamaros...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_14.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_14.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 3)',
+        date: new Date("December 11, 1968"),
+        title: "“ENTRE LOS DETENIDOS HAY CABECILLAS”",
+        description:
+          "... Las detenciones dieron por resultado, desde el punto de vista policial, el ubicar a por lo menos tres de los hombres sindicados como cabecillas o cerebros de la organización... Aparece foto de las viviendas que servían como enterradero.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_15.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_15.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("December 11, 1968"),
+        title: "“TUPAMAROS: PODÍAN HACER ALTA CIRUGÍA”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_16.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_17.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("December 11, 1968"),
+        title:
+          "“SE PREPARABA EN PANDO A LOS NUEVOS TUPAMAROS. Centro de Formación, Arsenal y Sanatorio”",
+        description:
+          "Trascendió que las dos ametralladoras de la Guardia Metropolitana incautadas en la guarida de Canelones donde cayeron ayer ocho tupamaros, son las arrebatadas a los funcionarios de aquella unidad, cuando el asalto al Casino Hotel Carrasco y durante el golpe en el supermercado de Scosería contra el remesero del Banco Mercantil. El internado en el Hospital Maciel es...",
+        subtitle: "“Hospital de Campaña”",
+        subDescription:
+          "... además de ser uno de los ideólogos del movimiento se desempeña como médico de los miembros de las células... domina la cirugía lo que además está acreditado por las altas calificaciones que obtuvo cuando brindó los exámenes correspondientes. Tiempo atrás debió practicar una difícil intervención quirúrgica a uno de los hermanos... en oportunidad en que un compañero lo hirió de bala en el abdomen accidentalmente. Una eficaz colaboradora del extremista es la estudiante de Medicina...",
+        subtitle1: "“El Dinero de “Expropiaciones”",
+        subDescription1:
+          "... el dinero de las “expropiaciones” (asaltos) que realizan los tupamaros lo administra el estado mayor del MLN que distribuye a las diferentes células, unas 35, las sumas necesarias para los gastos diarios de cada una de ellas que no puede estar integrada por más de diez personas. Aparece croquis con la ubicación de los policías durante el tiroteo con los tupamaros.",
+        subtitle2: "“También en Tacuarembó”",
+        subDescription2:
+          "Según datos oficiosos, un comando tupamaro había robado 225 kilos de dinamita, cuando promediaba el pasado mes de noviembre, en el campamento de la empresa que construye la Ruta 26 en Tacuarembó… el hurto de los explosivos fue cometido el 16 de noviembre en la madrugada. Los ladrones violentaron el candado del polvorín, llevaron 10 de los 59 cajones de dinamita que allí se guardaban, y luego pintaron en una de las paredes del local la leyenda: “Tierra Tupamaros”, junto a una gran estrella en rojo.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_19.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_20.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("December 12, 1968"),
+        title:
+          '"... NARCOTIZÓ AL PRESIDENTE DE UTE. RECONOCIERON A... EMPLEADOS DEL CASINO”',
+        description: "",
+        subtitle1: '"Al Juzgado"',
+        subDescription1:
+          "Aparecen fotos de... y... cuando llegan a la sede judicial.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_21.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_21.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("December 12, 1968"),
+        title: "“FUERON PROCESADOS OTROS 7 TUPAMAROS”",
+        description:
+          "Siete de los ocho tupamaros capturados el martes en la chacra de Canelones, fueron procesados por la Justicia de Instrucción de 1er. Turno… Sólo no hay dictamen judicial sobre el extremista..., pues permanece en asistencia en un Hospital por el balazo que recibió durante el enfrentamiento...",
+        subtitle1: "“Los Delitos Tipificados”",
+        subDescription1:
+          "Menciona los nombres de los procesados y los delitos que a cada uno se les tipificaron...",
+        subtitle2: "“Larga Serie de Asaltos”",
+        subDescription2:
+          "De acuerdo a lo que trascendió, además del asalto al Casino, que sólo admitió haberlo cometido..., los tupamaros recientemente capturados aceptaron la responsabilidad del movimiento en otros golpes... Una de las metralletas de la Guardia Metropolitana y un revólver de reglamento incautado en los ranchos de Canelones, pertenecen al policía que cumplía funciones de vigilancia cuando el asalto al casino. Además, este funcionario reconoció a... y también a... como integrantes de la banda que llegó en la madrugada del 29 de noviembre a la casa de juego de Carrasco. Aparece foto de... al salir del juzgado.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_22.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_23.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 8)',
+        date: new Date("December 12, 1968"),
+        title: "“SIETE TUPAMAROS PROCESADOS”",
+        description:
+          "Los interrogatorios duraron 16 hs... Los reconocieron como atracadores del Casino y uno de ellos habría confesado... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_24.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_25.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("December 13, 1968"),
+        title:
+          "“ACLARADO EL ATRACO DEL CASINO DE CARRASCO”. “TRES DETENIDOS DECLARARON QUE EN LA CHACRA HABÍA UN PORTAFOLIOS CON $ 750.000”",
+        description:
+          "... y un tercer integrante del grupo cuyo nombre no ha sido proporcionado, denunciaron ayer que en el interior de uno de los ranchos allanados por la policía se encontraba además de todos los objetos encontrados, un portafolios que contenía 750.000 pesos, dos revólveres y una pistola. La denuncia, que tomó de sorpresa a la policía y a los funcionarios policiales actuantes, habría sido formulada por los tres hombres por separado en el curso de sus declaraciones ante el Juez Dr. Pereira Manelli. Habrían señalado al mismo que el dinero era producto del atraco al Casino de Carrasco...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_26.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-otra-base-de-operaciones-terrorista/n_27.jpg",
+            alt: "página diario completa publicada por el diario Acción",
           },
         ],
       },
