@@ -17,7 +17,12 @@ export interface TerroristActionDefinition {
     uyu: number;
     usd: number;
   };
-  seeAlso?: [{ href: string; text: string }];
+  seeAlso?: SeeAlsoItem[];
+}
+
+interface SeeAlsoItem {
+  href: string;
+  text: string;
 }
 
 export type TypeTerroristActionDefinition =
@@ -79,6 +84,11 @@ export type NewsPaperDefinition = {
   description4?: string;
   subtitle4?: string;
   subDescription4?: string;
+  title5?: string;
+  subtitle5?: string;
+  description5?: string;
+  title6?: string;
+  description6?: string;
   imgSrc?: string[];
   images?: NewPapeImageDefinition[];
   fact?: string;
@@ -162,9 +172,25 @@ export const api = {
     return TerroristActions.length;
   },
 
+  getAllAcitions: async (): Promise<TerroristActionDefinition[]> => {
+    return TerroristActions;
+  },
+
+  getMemorialActions: async (
+    month: number
+  ): Promise<TerroristActionDefinition[]> => {
+    return TerroristActions.filter((action) => action.date.getMonth() === month) // Filtrar acciones por tipo
+      .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
+  },
+
   getAllMurders: async (): Promise<TerroristActionDefinition[]> => {
     return TerroristActions.filter((action) => action.type === "asesinatos") // Filtrar acciones por tipo
       .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
+  },
+
+  countAllMurders: async (): Promise<number> => {
+    return TerroristActions.filter((action) => action.type === "asesinatos")
+      .length;
   },
 
   getActionBySlug: async (slug: string): Promise<TerroristActionDefinition> => {
@@ -180,9 +206,19 @@ export const api = {
       .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
   },
 
+  countAllKidnappings: async (): Promise<number> => {
+    return TerroristActions.filter((action) => action.type === "secuestros")
+      .length;
+  },
+
   getAllAtacks: async (): Promise<TerroristActionDefinition[]> => {
     return TerroristActions.filter((action) => action.type === "atentados") // Filtrar acciones por tipo
       .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
+  },
+
+  countAtacks: async (): Promise<number> => {
+    return TerroristActions.filter((action) => action.type === "atentados")
+      .length;
   },
 
   getAllExplosiveWeaponsTheft: async (): Promise<
@@ -194,9 +230,20 @@ export const api = {
       .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
   },
 
+  countExplosiveWeaponsTheft: async (): Promise<number> => {
+    return TerroristActions.filter(
+      (action) => action.type === "robo-armamento-explosivos"
+    ).length;
+  },
+
   getAllMoneyTheft: async (): Promise<TerroristActionDefinition[]> => {
     return TerroristActions.filter((action) => action.type === "robo-dinero") // Filtrar acciones por tipo
       .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
+  },
+
+  countMoneyThef: async (): Promise<number> => {
+    return TerroristActions.filter((action) => action.type === "robo-dinero")
+      .length;
   },
 
   getTotalAmountMoneyTheft: async (): Promise<number> => {
@@ -208,6 +255,27 @@ export const api = {
   getAllOtherAcctions: async (): Promise<TerroristActionDefinition[]> => {
     return TerroristActions.filter((action) => action.type === "otras-acciones") // Filtrar acciones por tipo
       .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
+  },
+
+  countAllOtherAcctions: async (): Promise<number> => {
+    return TerroristActions.filter((action) => action.type === "otras-acciones")
+      .length;
+  },
+
+  getAllWithVideo: async () => {
+    const terroristActionsWithVideo = TerroristActions.filter(
+      (action) => action.videos
+    ).flatMap((action) =>
+      action.videos!.map((video) => ({
+        id: video.id,
+        title: video.title,
+        src: video.src,
+        slug: video.slug,
+        date: video.date,
+      }))
+    );
+
+    return terroristActionsWithVideo;
   },
 };
 
@@ -623,6 +691,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         },
       ],
     },
+    seeAlso: [
+      {
+        href: "/otras-acciones/terrorista-gravemente-herido-en-enfrentamiento-con-la-policia",
+        text: "Terrorista gravemente herido en enfrentamiento con la policía",
+      },
+    ],
   },
   {
     date: new Date("October 08, 1969 03:24:00"),
@@ -649,7 +723,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           name: "Sgto. Radio Patrulla Enrique Fernández",
           age: 44,
           childs: 2,
-          childsDescription: "menores de edad",
+          childsDescription: " menores de edad",
           marital: "casado",
           avatar: {
             src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/avatar_2.png",
@@ -1974,7 +2048,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           name: "Agente Alfredo Pallas",
           age: 25,
           childs: 1,
-          childsDescription: " menor de edad",
+          childsDescription: "menor de edad",
           marital: "casado",
           avatar: {
             src: "/alfredo-pallas/a.png",
@@ -3407,7 +3481,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 37,
           marital: "casado",
           daughter: 1,
-          childsDescription: " menor de edad",
+          childsDescription: "menor de edad",
           avatar: {
             src: "/juan-bentancur/a.png",
             alt: "imagen de Juan Bentancur",
@@ -4133,6 +4207,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         },
       ],
     },
+    seeAlso: [
+      {
+        href: "ubican-carcel-del-pueblo-del-mln-t-donde-ejecutaron-al-peon-rural-pascasio-baez",
+        text: "Ubican cárcel del pueblo del MLN-T donde ejecutaron al peón rural Pascasio Báez",
+      },
+    ],
   },
   {
     date: new Date("January 19, 1972 03:24:00"),
@@ -5460,6 +5540,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         },
       ],
     },
+    seeAlso: [
+      {
+        href: "detienen-a-los-cabecillas-terroristas-jose-mujica-y-lucia-topolansky",
+        text: "Detienen a los cabecillas terroristas José Mujica y Lucía Topolansky",
+      },
+    ],
   },
   {
     date: new Date("April 17, 1972 03:24:00"),
@@ -7625,6 +7711,24 @@ export const TerroristActions: TerroristActionDefinition[] = [
         },
       ],
     },
+    seeAlso: [
+      {
+        href: "ulysses-pereira-reverbel-primer-secuestro",
+        text: "Dr. Ulysses Pereira Reverbel - 1er. secuestro",
+      },
+      {
+        href: "ubican-carcel-del-pueblo-del-mln-t",
+        text: "Ubican cárcel del pueblo del MLN-T",
+      },
+      {
+        href: "ulysses-pereira-segundo-secuestro",
+        text: "Dr. Ulysses Pereira Reverbel - 2do. secuestro",
+      },
+      {
+        href: "liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t",
+        text: "Liberan dos secuestrados de una cárcel del pueblo del MLN-T",
+      },
+    ],
   },
   {
     date: new Date("September 10, 1969"),
@@ -7988,6 +8092,24 @@ export const TerroristActions: TerroristActionDefinition[] = [
         },
       ],
     },
+    seeAlso: [
+      {
+        href: "ulysses-pereira-reverbel-primer-secuestro",
+        text: "Dr. Ulysses Pereira Reverbel - 1er. secuestro",
+      },
+      {
+        href: "ubican-carcel-del-pueblo-del-mln-t",
+        text: "Ubican cárcel del pueblo del MLN-T",
+      },
+      {
+        href: "ulysses-pereira-segundo-secuestro",
+        text: "Dr. Ulysses Pereira Reverbel - 2do. secuestro",
+      },
+      {
+        href: "liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t",
+        text: "Liberan dos secuestrados de una cárcel del pueblo del MLN-T",
+      },
+    ],
   },
   {
     date: new Date("July 31, 1970"),
@@ -9130,6 +9252,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         },
       ],
     },
+    seeAlso: [
+      {
+        href: "ubican-carcel-del-pueblo-del-mln-t",
+        text: "Ubican cárcel del pueblo del MLN-T",
+      },
+    ],
   },
   {
     date: new Date("March 10, 1971"),
@@ -9648,6 +9776,24 @@ export const TerroristActions: TerroristActionDefinition[] = [
         alt: "Aquí, en plena democracia, el 30/03/71 fue secuestrado violentamente por un comando del MLN-T, el Dr. Ulysses Pereira Reverbel, Presidente de la Usina y Teléfonos del Estado (UTE) de 54 años de edad.",
       },
     ],
+    seeAlso: [
+      {
+        href: "ulysses-pereira-reverbel-primer-secuestro",
+        text: "Dr. Ulysses Pereira Reverbel - 1er. secuestro",
+      },
+      {
+        href: "ubican-carcel-del-pueblo-del-mln-t",
+        text: "Ubican cárcel del pueblo del MLN-T",
+      },
+      {
+        href: "ulysses-pereira-segundo-secuestro",
+        text: "Dr. Ulysses Pereira Reverbel - 2do. secuestro",
+      },
+      {
+        href: "liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t",
+        text: "Liberan dos secuestrados de una cárcel del pueblo del MLN-T",
+      },
+    ],
   },
   {
     date: new Date("April 13, 1971"),
@@ -9860,6 +10006,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         },
       ],
     },
+    seeAlso: [
+      {
+        href: "liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t",
+        text: "Liberan dos secuestrados de una cárcel del pueblo del MLN-T",
+      },
+    ],
   },
   {
     date: new Date("June 23, 1971"),
@@ -10286,6 +10438,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         },
       ],
     },
+    seeAlso: [
+      {
+        href: "ubican-carcel-del-pueblo-del-opr",
+        text: "Ubican cárcel del pueblo del OPR-33",
+      },
+    ],
   },
   {
     date: new Date("October 22, 1971"),
@@ -10501,6 +10659,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         },
       ],
     },
+    seeAlso: [
+      {
+        href: "ubican-carcel-del-pueblo-del-opr",
+        text: "Ubican cárcel del pueblo del OPR-33",
+      },
+    ],
   },
   {
     date: new Date("Febrary 12, 1972"),
@@ -10887,6 +11051,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         alt: "Aquí, en plena democracia, el 11/05/72 permaneció secuestrado y fue torturado física y socológicamente por Terroristas, Sergio Molaguero, de 23 años de edad.",
       },
     ],
+    seeAlso: [
+      {
+        href: "ubican-carcel-del-pueblo-del-opr",
+        text: "Ubican cárcel del pueblo del OPR-33",
+      },
+    ],
   },
   {
     date: new Date("July 28, 1972"),
@@ -11211,6 +11381,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         },
       ],
     },
+    seeAlso: [
+      {
+        href: "detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic",
+        text: "Detienen en enfrentamiento al cabecilla terrorista Raúl Sendic",
+      },
+    ],
   },
   {
     date: new Date("January 01, 1964"),
@@ -17371,9 +17547,30 @@ export const TerroristActions: TerroristActionDefinition[] = [
   },
   {
     date: new Date("December 22, 1966"),
-    title: "Ubican una fábrica de bombas en el Club “Eduardo Pinela”",
-    slug: "",
+    title: "Descubren fábrica de bombas",
+    slug: "descubren-fabrica-de-bombas",
     type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("December 23, 1966"),
+        title: "“TERRORISTAS: FUE UBICADA UNA FÁBRICA DE BOMBAS”",
+        description:
+          "El descubrimiento de una peligrosa célula terrorista de izquierda, motivó una serie de intensos procedimientos policiales fundamentalmente, en los barrios La Teja y Nuevo París. Así, fue allanado el club “Eduardo Pinela” donde funcionaba el comando de los extremistas. La policía pudo comprobar que allí se hacían prácticas de judo y tiro al blanco. Las autoridades secuestraron los ficheros de la organización clandestina y detuvieron a varios de sus integrantes. A raíz del descubrimiento de la célula terrorista después del tiroteo que costara la vida a..., la policía conduce detenida a la esposa en cuyo domicilio halló un verdadero arsenal clandestino.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-fabrica-de-bombas/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-fabrica-de-bombas/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
   },
   {
     date: new Date("December 28, 1966"),
@@ -18927,4 +19124,4095 @@ export const TerroristActions: TerroristActionDefinition[] = [
       },
     ],
   },
+  {
+    date: new Date("January 11, 1969"),
+    title: "Vinculación movimiento terrorista argentino y MLN-T",
+    slug: "vinculacion-movimiento-terrorista-argentino-y-mlnt",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("January 11, 1969"),
+        title: "“SE VINCULA A TUPAMAROS CON EXTREMISTAS ARGENTINOS”",
+        description:
+          "El... atraco cometido en perjuicio del Banco de la Nación, sucursal Escobar, en la Provincia de Buenos Aires, que reportó a sus autores 72 millones de pesos..., ha puesto de manifiesto en el vecino país la existencia de células trotskistas de acción directa, vinculadas con los Tupamaros uruguayos... Montevideo: 4 años de indagaciones... Aparecen fotos a cuyo pie dicen: “Extremistas...”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/vinculacion-movimiento-terrorista-argentino-y-mlnt/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/vinculacion-movimiento-terrorista-argentino-y-mlnt/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 6)',
+        date: new Date("January 12, 1969"),
+        title: "“... EN LIBERTAD; SE VINCULA TUPAMAROS Y TACUARA”",
+        description: "...",
+        subtitle1: "“Vinculaciones en la Argentina”",
+        description2:
+          "Con motivo del gran asalto ocurrido en la localidad de Escobar (provincia de Buenos Aires), se ha establecido por la Policía Federal que el mismo-que reportó a los atracadores la suma “récord” de 71 millones de pesos- fue efectuado por un “comando” integrado por elementos de la extrema peronista y trotskistas. Se especula, en la vecina orilla, con la posibilidad que los terroristas argentinos envíen (o hayan enviado ya), una parte de ese dinero a los “tupamaros” uruguayos con los cuales están conectados...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/vinculacion-movimiento-terrorista-argentino-y-mlnt/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/vinculacion-movimiento-terrorista-argentino-y-mlnt/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("July 16, 1969"),
+    title: "Roban la bandera original de los 33 Orientales",
+    slug: "roban-la-bandera-original-de-los-treinta-y-tres-orientales",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("July 17, 1969"),
+        title: "“ROBARON AYER LA BANDERA DE LOS 33”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/roban-la-bandera-original-de-los-treinta-y-tres-orientales/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/roban-la-bandera-original-de-los-treinta-y-tres-orientales/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 20)',
+        date: new Date("July 17, 1969"),
+        title: "“FUE ROBADA LA BANDERA DE LOS TREINTA Y TRES”",
+        description:
+          "Maniataron a varios empleados del museo. Un grupo de seis o siete asaltantes, se apoderó ayer tras amedrentar con armas de fuego y maniatar al personal del Museo Histórico Nacional, de la Bandera de los Treinta y Tres Orientales... de la planta alta de la casa del General Juan Antonio Lavalleja, ubicada en la calle Zabala 1469 casi 25 de Mayo... dejando encerrados... a un portero, un vigilante, dos bibliotecarias y dos funcionarios...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/roban-la-bandera-original-de-los-treinta-y-tres-orientales/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/roban-la-bandera-original-de-los-treinta-y-tres-orientales/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 22)',
+        date: new Date("July 22, 1969"),
+        title:
+          "“EXTREMISTAS DETENIDOS: PARTICIPARON EN EL ROBO DE LA BANDERA DE LOS 33”",
+        description:
+          "Cuatro extremistas detenidos en una casa de Colón... De las primeras actuaciones surge que por lo menos uno de ellos... está directamente vinculado al comando que el 16 de julio... tras un asalto robó de la casa del Gral. Lavalleja, sede del Museo Histórico Nacional, la auténtica bandera que enarbolaron los Treinta y Tres Orientales, cuando la Cruzada Libertadora de 1825...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/roban-la-bandera-original-de-los-treinta-y-tres-orientales/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/roban-la-bandera-original-de-los-treinta-y-tres-orientales/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 17)',
+        date: new Date("July 5, 1970"),
+        title: "“... ROBÓ LA BANDERA DE LOS 33”",
+        description:
+          "Otra figura importante de los conspiradores,... cayó ayer tras cruentos atentados contra policías… es uno de los integrantes de las columnas de conspiradores que ha cometido más audaces golpes entre ellos dos que conmovieran a la opinión pública. El primero fue el robo de la bandera de los Treinta y Tres Orientales, sustraída, mediante un asalto, de la casa del Gral. Juan Antonio Lavalleja,... una de las sedes del Museo Histórico Nacional... y otro el secuestro del Dr. Gaetano Pellegrini Giampietro...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/roban-la-bandera-original-de-los-treinta-y-tres-orientales/n_7.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/roban-la-bandera-original-de-los-treinta-y-tres-orientales/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `“<p>Se plantea retirar del Museo Histórico Nacional la Bandera de los 33 Orientales. Es la original… Es a la vez una acción de fuerte propaganda y también de mensaje simbólico: la lucha de la liberación, el combate por la auténtica libertad, continúa.</p>
+          <p>... Tiene una vigorosa consigna libertaria en su centro: Libertad o Muerte. Consigna usada más de una vez por movimientos revolucionarios en nuestra América Latina.</p>
+          <p>Inicialmente se informa en lo interno de la Organización que la Bandera será retenida por un tiempo...</p>
+          <p>Nuestra actividad armada aún no se identificaba con una firma precisa. Se usó en varios operativos la R”.</p>`,
+          // year: new Date("2013-1-1"),
+          name: "Acción directa anarquista. Una historia de FAU",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Recortes",
+          pages: "pág. 269",
+          author: "Mechoso",
+        },
+      ],
+    },
+    seeAlso: [
+      {
+        href: "desarticulan-intento-de-reorganizacion-del-opr-treinta-y-tres",
+        text: "Desarticulan intento de reorganización del OPR-33",
+      },
+    ],
+  },
+  {
+    date: new Date("December 17, 1969"),
+    title: "Descubren planes de secuestros y copamientos",
+    slug: "descubren-planes-de-secuestros-y-copamientos",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("December 19, 1969"),
+        title: "“DENUNCIAN PLAN PARA RAPTAR A LA SENADORA ALBA ROBALLO”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-planes-de-secuestros-y-copamientos/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-planes-de-secuestros-y-copamientos/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 20)',
+        date: new Date("December 19, 1969"),
+        title: "“SE ESTUDIA UNA AGENDA CON DATOS REVELADORES”",
+        description:
+          "El secuestro de la senadora Alba Roballo figuraba entre los planes del grupo delictivo desbaratado... se le incautaron además documentos donde se planificó el sangriento “asalto a Pando” ejecutado en octubre último... el estudio de los archivos descubiertos reveló que el grupo está compuesto por unos 800 hombres y que preparaba atentados de diverso calibre...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-planes-de-secuestros-y-copamientos/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-planes-de-secuestros-y-copamientos/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("December 19, 1969"),
+        title: "“PLANEABAN SECUESTRO DE UNA SENADORA”",
+        description:
+          "... el estudio del abundante material incautado... en el “centro de información” clandestino descubierto en 14 de Julio 1434 bis Ap. 16 (Villa Dolores)... planes de futuro, estructurados a escala nacional, incluían atracos, operativos similares al de Pando y el secuestro de una senadora del Partido Colorado...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-planes-de-secuestros-y-copamientos/n_5.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-planes-de-secuestros-y-copamientos/n_6.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("December 20, 1969"),
+        title: "“PROYECTABAN INVADIR LIBERTAD”",
+        description:
+          "... se encontró, entre otras cosas, una agenda con varias direcciones y gran cantidad de nombres-seguramente seudónimos-que permiten situar en ochocientos el número de personas que entre activistas, ideólogos y periféricos integran la organización... además de otros golpes espectaculares, proyectaban la “ocupación” de la ciudad de Libertad...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-planes-de-secuestros-y-copamientos/n_7.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-planes-de-secuestros-y-copamientos/n_8.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 24)',
+        date: new Date("December 21, 1969"),
+        title: "“PLANEABAN ASALTO A MINAS”",
+        description:
+          "El grupo delictivo que consumó el “asalto a Pando” en octubre último, planeaba repetir la operación en Minas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-planes-de-secuestros-y-copamientos/n_9.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-planes-de-secuestros-y-copamientos/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("December 21, 1969"),
+        title:
+          "“PLANEABAN ASALTAR A LAS CIUDADES DE LIBERTAD Y MINAS; OTRA CONSPIRADORA DETENIDA”",
+        description:
+          "... Había... un archivo con fichas de políticos, banqueros, industriales, jerarcas policiales, periodistas y planos de varias agencias bancarias y ciudades del Interior... de los datos encontrados en 14 de Julio y en el domicilio de la Sra... surgiría que los “asociados para delinquir” planeaban golpes de atraco e incluso “toma transitoria” de algunas ciudades del Interior. Se habían sindicado, para próximas operaciones, la ciudad de Libertad (San José) y luego la ciudad de Minas, capital del Departamento de Lavalleja...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-planes-de-secuestros-y-copamientos/n_11.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-planes-de-secuestros-y-copamientos/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 22)',
+        date: new Date("December 22, 1969"),
+        title: "“HUBO TRES PROCESADOS POR CONSPIRACIÓN”",
+        description:
+          "... por “Atentado a la Constitución” en el grado de “Conspiración”, a...,... y... los tres detenidos en... la finca de Villa Dolores, donde la policía encontró un “centro de información” clandestino... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-planes-de-secuestros-y-copamientos/n_13.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-planes-de-secuestros-y-copamientos/n_14.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 23)',
+        date: new Date("December 23, 1969"),
+        title: "“CUARTELES: PLANOS DETALLADOS OCUPARON A LOS CONSPIRADORES”",
+        description:
+          "Completos relevamientos de cuarteles y otras dependencias militares de Montevideo, se encontraban entre los documentos descubiertos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-planes-de-secuestros-y-copamientos/n_15.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-planes-de-secuestros-y-copamientos/n_16.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("January 12, 1970"),
+    title: "Procesan a la esposa de líder terrorista",
+    slug: "procesan-a-la-esposa-de-lider-terrorista",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("January 13, 1970"),
+        title:
+          "“LA ESPOSA E HIJOS DE... FUERON DETENIDOS JUNTO A OTROS CUATRO CONSPIRADORES”",
+        description:
+          "Cinco conspiradores-entre ellos dos mujeres-fueron detenidos ayer... una de ellas... es la esposa del conocido y largamente buscado... Los otros... son... éste último recibió un balazo en la cabeza y otro en el abdomen... dio lugar a un breve pero intenso tiroteo...",
+        title1: "“UN HERIDO GRAVE”",
+        description1:
+          "Cinco conspiradores-entre ellos dos mujeres-fueron detenidos ayer... una de ellas... es la esposa del conocido y largamente buscado... Los otros... son... éste último recibió un balazo en la cabeza y otro en el abdomen... dio lugar a un breve pero intenso tiroteo...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("January 13, 1970"),
+        title: "“ENCUBRÍAN UN ARCHIVO DE INFORMES MILITARES”",
+        description:
+          "Falsificaban documentos de identidad. Un archivo... fue hallado en la vivienda de Santa Rosa 6029... revelan importantes planes sediciosos... estudios de cuarteles, juzgados y locales policiales... recortes y fotografías de policías, militares y personalidades políticas del país… Aparecen fotos.",
+        title1:
+          "“ESTÁ GRAVEMENTE HERIDO EL SEDICIOSO QUE RESISTIÓ EN LA GUARIDA DE...”",
+        description1:
+          "Una de las guaridas frecuentadas por... fue descubierta y allanada ayer... detuvieron a cinco... y... son los únicos que se resistieron... tratando de fugar cubriéndose a tiros...",
+        title2:
+          "“..., COMPAÑERA DE..., ES UNA PIEZA CLAVE ENTRE LOS CONSPIRADORES”",
+        description2:
+          "La ex profesora de sordomudos,... (compañera del conspirador...)... Esta persona-una de las más antiguas militantes de la organización ilegal-... estuvo actuando junto a los más conspicuos integrantes de la dirección general, hasta que pasó a ser la concubina de..., con el que tuvo dos hijos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_2.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("January 13, 1970"),
+        title: "“TENÍAN PLANOS DEL PENAL Y DE LA ESCUELA MILITAR”",
+        description:
+          "Planeaban copar una estancia... Había planos del Penal de Punta Carreta,... de la Escuela Militar,... de una estancia... allí funcionaba una “agencia central” de falsificación de documentos... tras recio tiroteo fueron detenidas cinco personas, entre ellas dos mujeres, resultando heridos... dos conspiradores... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_3.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_4.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (en Portada)',
+        date: new Date("January 13, 1970"),
+        title: "“INTENSO TIROTEO EN CARRASCO: TRES HERIDOS, CINCO DETENIDOS”",
+        description: "Entre ellos la compañera de… Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_5.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 5)',
+        date: new Date("January 13, 1970"),
+        title: "“ALLANAMIENTO Y TIROTEO: 3 HERIDOS”",
+        description:
+          "La Policía rodeó una finca en Carrasco y detuvo a tres en la casa y otros dos que intentaron huir hiriendo a ambos... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_7.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("January 14, 1970"),
+        title: "“RECLUTÓ EL CURA... A TRES DE LOS CONSPIRADORES”",
+        description:
+          "Detenido indagado por la muerte de Zambrano. Tres de los conspiradores capturados en la guarida de la calle Santa Rosa 6029 anteayer, habían sido reclutados por el padre... pasaron a integrar el grupo de antisociales a instancias del sacerdote...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_9.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("January 15, 1970"),
+        title: "““BERÓN”: URUGUAYO Y SE LLAMA...”",
+        description:
+          "Nacido en Paysandú, es amigo de... y se vinculó en Argentina a fuerzas peronistas... El conspirador que se encuentra internado... en el Hospital Militar y que se hacía pasar como un argentino de nombre Hugo Omar Berón es... uruguayo y conocía a... se desempeñaba como obrero cortador de remolacha y caña de azúcar... Su nombre completo es..., de 31 años...",
+        title1:
+          "“UN SACERDOTE INDUJO A JÓVENES A DELINQUIR: LES PAGABAN SUELDOS DE $ 10.000 Y OTROS GASTOS”",
+        description1:
+          "...apresados en... Santa Rosa 6029 (Carrasco) fueron reclutados... por el ex sacerdote... recibían por parte de la organización... entre $ 8.000 y $ 10.000 mensuales cada uno..., esposa de... recibía una suma similar y otros $ 10.000 por concepto de alquiler de una finca de su propiedad situada en la avenida Rivera...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_11.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("January 15, 1970"),
+        title: "“EX CAÑERO, HOMICIDA EMISARIO DE...”",
+        description:
+          "El atraco al Casino... La compañera de... admitió... haber habitado el año pasado la finca de Pinares de Maldonado que fue usada como base de operaciones para el atraco al Casino San Rafael...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_13.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_14.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("January 18, 1970"),
+        title: "“FUERON REMITIDOS LOS CUATRO ANTISOCIALES”",
+        description:
+          "... la remisión a la cárcel de... esposa de... por “Asociación para delinquir”... por “Atentado a la Constitución en el grado de conspiración y Asociación para delinquir” y... por Asociación para delinquir y atentado... “Otro Golpe”... en la calle Novara 3339 esquina Acrópolis... logró secuestrar bombas... un “hospital de campaña”... A los fondos... se encontró un foso... serviría para ocultar a algunas personas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_15.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_16.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("March 8, 1970"),
+    title: "Fugan terroristas de la Cárcel de Mujeres",
+    slug: "fugan-terroristas-de-la-carcel-de-mujeres",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("March 8, 1970"),
+        title: "“ESCAPAN CON AYUDA EXTERIOR DESDE LA CÁRCEL DE MUJERES”",
+        description: "Increíble fuga de 13 conspiradoras... Aparece foto de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fugan-terroristas-de-la-carcel-de-mujeres/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/fugan-terroristas-de-la-carcel-de-mujeres/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("March 8, 1970"),
+        title:
+          "“CERCA DE 20 HOMBRES APOYARON LA AUDAZ FUGA DE LAS CONSPIRADORAS”",
+        description:
+          "...actuaron cerca de 20 sediciosos en cinco coches… cabe deducir que más de cien personas están integrando las diferentes columnas del movimiento... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fugan-terroristas-de-la-carcel-de-mujeres/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/fugan-terroristas-de-la-carcel-de-mujeres/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 16)',
+        date: new Date("March 8, 1970"),
+        title: "“CASI TODAS CUMPLÍAN CONDENAS POR DELITOS GRAVES”",
+        description: "...",
+        title1: "“TRES HABÍAN ACTUADO EN PANDO”",
+        description1:
+          "...participaron en forma activa del denominado “Operativo Pando”... Remitidas el mismo día... (a) “María”... Es nurse... fue remitida el 14 de octubre de 1969... (a) “Sara” (a) “la Mata” (a) “Serafina”... (a) “Beatriz”...",
+        title2: "“CAYERON POR DENUNCIA ANÓNIMA”",
+        description2:
+          "La esposa del largamente buscado... junto a ella cayó... fueron procesadas el 5 de diciembre de 1969...",
+        title3: "“LOCALIZADAS EN ALLANAMIENTO CLAVE”",
+        description3: "...",
+        title4: "“REPARTÍA VOLANTES EN UN BUS”",
+        description4:
+          "...(a) “Livia”... había sido procesada el 23 de setiembre de 1969... pertenecía a una reputada familia, era una aventajada estudiante de la Facultad de Humanidades, fue detenida en un ómnibus... distribuyendo panfletos...",
+        title5: "“CUATRO IDENTIFICADOS”",
+        description5:
+          "... además de... habrían sido reconocidos... prófugo desde 1967 y... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fugan-terroristas-de-la-carcel-de-mujeres/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/fugan-terroristas-de-la-carcel-de-mujeres/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 4)',
+        date: new Date("March 9, 1970"),
+        title: "“IDENTIFICARON A DOS DE LOS AUTORES: ... Y...”",
+        description:
+          "... El primero ha sido reconocido por el agente Lemes... una de las fugadas... es la esposa de... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fugan-terroristas-de-la-carcel-de-mujeres/n_6.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/fugan-terroristas-de-la-carcel-de-mujeres/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 5)',
+        date: new Date("March 9, 1970"),
+        title: "“MEDIANTE ARDID USARON AMBULANCIA ARRENDADA”",
+        description:
+          "El chofer y sus captores caminaron casi 2 horas... Antonio Marra..., chofer de la ambulancia de “Luis Moro e Hijos”... a la hora 8.45... Marra esperaba la hora de partir... Le acompañaba Juan Carlos Pelayo... para llevar un enfermo... uno de los “clientes” se sentó junto a él... el otro se ubicó detrás... para recoger al enfermo... ambos ocupantes... sacando a relucir sendos revólveres... integrantes de una organización de conspiradores... -Me obligaron a mí y a Pelayo a ponernos esos sacos...-... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fugan-terroristas-de-la-carcel-de-mujeres/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/fugan-terroristas-de-la-carcel-de-mujeres/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("March 9, 1970"),
+        title:
+          "“RECONOCEN A TRES CONSPIRADORES, TESTIGOS DE LA INCREÍBLE FUGA”",
+        description:
+          "...fueron reconocidos como tres de los quince o veinte hombres que participaron en la operación de rescate... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fugan-terroristas-de-la-carcel-de-mujeres/n_8.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/fugan-terroristas-de-la-carcel-de-mujeres/n_9.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 6)',
+        date: new Date("March 9, 1970"),
+        title: "“CUATRO IDENTIFICADOS DE LA “OPERACIÓN RESCATE”",
+        description:
+          "...participaron no menos de veinte participantes... identificados... utilizaron cinco vehículos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fugan-terroristas-de-la-carcel-de-mujeres/n_10.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/fugan-terroristas-de-la-carcel-de-mujeres/n_11.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("March 9, 1970"),
+        title: "“FUGA: SE CONOCÍA YA EN DICIEMBRE”",
+        description:
+          "...“una fuga masiva de la Cárcel de Mujeres”, obraban en poder de la policía desde el mes de  diciembre pasado... en una finca de la calle 14 de Julio en Villa Dolores... se incautó un “plano” de la Cárcel de Mujeres... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fugan-terroristas-de-la-carcel-de-mujeres/n_12.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/fugan-terroristas-de-la-carcel-de-mujeres/n_13.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("March 23, 1970"),
+    title: "Terrorista gravemente herido en enfrentamiento con la policía",
+    slug: "terrorista-gravemente-herido-en-enfrentamiento-con-la-policia",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 5)',
+        date: new Date("March 24, 1970"),
+        title: "“SORPRENDEN A CONSPIRADORES EN UN BAR; UNO GRAVEMENTE HERIDO”",
+        description:
+          "... El desconocido que portaba una cédula a nombre de José Antonio Mones Morelli resultó ser... En la mesa central de Jefatura se recibió una denuncia anónima que cuatro individuos de muy sospechosa traza… según el denunciante pertenecerían a la asociación para delinquir... Los cuatro individuos se pusieron de pie... y mientras el mayor extraía un arma... calibre 45 con que amenazó al oficial los otros se pusieron a su espalda... el oficial... forcejeaba con el cabecilla... pese al arma que esgrimía el sedicioso... se trenzó nuevamente en lucha... se dispararon cuatro balazos, tres hirieron al maleante en el pecho... el cuarto hirió al agente Artigas Silva... en una pierna... salieron rumbo al Hospital Militar... el herido de nombre... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-gravemente-herido-en-enfrentamiento-con-la-policia/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-gravemente-herido-en-enfrentamiento-con-la-policia/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 12)',
+        date: new Date("March 24, 1970"),
+        title: "“BALEADO GRAVEMENTE AL SER DETENIDO POR POLICÍA”",
+        description:
+          "Apresaron a 4 miembros de una organización... recibió tres balazos sufriendo perforaciones en múltiples órganos vitales. Le extrajeron el bazo. Un agente recibió una herida sin gravedad en una pierna. La policía guarda reserva sobre la identidad de los otros detenidos. Al parecer se planificaba un operativo. Llamada telefónica delató la presencia de los cuatro en el Bar... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-gravemente-herido-en-enfrentamiento-con-la-policia/n_3.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-gravemente-herido-en-enfrentamiento-con-la-policia/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 6)',
+        date: new Date("March 27, 1970"),
+        title: "“PROCESARON A LOS CÓMPLICES DE... QUE SIGUE GRAVE”",
+        description:
+          "...resultó herido... (a) Pepe o Ulpiano, de 36 años soltero, que se domiciliaba en Simón Martínez 6411... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-gravemente-herido-en-enfrentamiento-con-la-policia/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-gravemente-herido-en-enfrentamiento-con-la-policia/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("March 27, 1970"),
+        title: "“POR GRAVES DELITOS REMITEN SEDICIOSO”",
+        description:
+          "...(a) “Pepe” o “Ulpiano”... “Asociación para delinquir”, “Encubrimiento” y “Atentado a la Constitución en el grado de conspiración”... admitió haber integrado el grupo... que el 26 de setiembre pasado, asaltó la florería de la Avda. Gral. Flores... que costó la vida a... Guidet.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-gravemente-herido-en-enfrentamiento-con-la-policia/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-gravemente-herido-en-enfrentamiento-con-la-policia/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    seeAlso: [
+      {
+        href: "/asesinatos/comerciante-rafael-guidet",
+        text: "Rafael Guidet",
+      },
+    ],
+  },
+  {
+    date: new Date("April 6, 1970"),
+    title: "Hombre con explosivos atado a un árbol",
+    slug: "hombre-con-explosivos-atado-a-un-arbol",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("April 6, 1970"),
+        title: "“LO ATARON A UN ÁRBOL Y LE COLGARON EXPLOSIVOS”",
+        description:
+          "Un hombre atado a un árbol, con un gran cartel que lo acusaba de delatar a conspiradores, fue encontrado esta mañana en la calle Shinca... 2349 entre Timoteo Aparicio y Camino Carrasco... luciendo letreros advirtiendo que eran explosivos... los cartuchos (de los que utilizan habitualmente los sediciosos) estaban rellenos de papel... se lo menciona como Enrique Crosa...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/hombre-con-explosivos-atado-a-un-arbol/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/hombre-con-explosivos-atado-a-un-arbol/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("May 5, 1970"),
+    title: "Terroristas intentan volar club comunista",
+    slug: "terroristas-intentan-volar-club-comunista",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("May 5, 1970"),
+        title: "“CAEN 16 SEDICIOSOS QUE IBAN A VOLAR UN CLUB COMUNISTA”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terroristas-intentan-volar-club-comunista/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/terroristas-intentan-volar-club-comunista/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 22)',
+        date: new Date("May 5, 1970"),
+        title: "“LOS SORPRENDIERON CUANDO IBAN A ENCENDER LA MECHA”",
+        description:
+          "Un procedimiento realizado en las primeras horas de hoy por la policía, permitió evitar un atentado contra el local de un club comunista ubicado en el Cordón, y a la vez detener a 16 personas que componen una organización de asociados para delinquir. Los sujetos aprehendidos... estarían implicados en toda una serie de actos terroristas cometidos en nuestra ciudad mediante la utilización de artefactos explosivos... forman parte del denominado Frente Armado Revolucionario Oriental (FARO)... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terroristas-intentan-volar-club-comunista/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/terroristas-intentan-volar-club-comunista/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("May 8, 1970"),
+    title: "Terroristas capturados",
+    slug: "terroristas-capturados",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("May 9, 1970"),
+        title: "“OTROS 2 EXTREMISTAS DETENIDOS: PLANEABAN ASALTO A BANCOS”",
+        description:
+          "...manifestaron “estar en una misma línea de lucha”. Manifestaron ambos ser militantes de fracciones anarquistas... la policía encontró elementos sumamente comprometedores... en efecto aparecieron siete armas cortas; dos pistolas y cinco revólveres. Además entre 400 y 500 proyectiles... En una biblioteca... se encontraron otros elementos sumamente comprometedores. Entre ellos los planos, un borrador y luego pasado en limpio de cinco instituciones bancarias de plaza. Dos casas centrales y tres agencias. Los planos son perfectos;... Armas robadas en Ferretjans y el Juzgado 1º... Aparece foto de las armas incautadas.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terroristas-capturados/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/terroristas-capturados/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("June 2, 1970"),
+    title: "Terrorista uruguayo detenido y procesado en Chile",
+    slug: "terrorista-uruguayo-detenido-y-procesado-en-chile",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 3)',
+        date: new Date("June 2, 1970"),
+        title: "“DETIENEN EN CHILE A CONSPIRADOR URUGUAYO”",
+        description:
+          "Santiago, Chile... En la ciudad de Los Andes, fue detenido un sedicioso uruguayo, que había ingresado al país con un cargamento de oro y folletos con instrucciones para la fabricación de bombas. El detenido fue identificado como... ligado al grupo uruguayo de conspiradores... el “correo” uruguayo traía el cargamento para el Movimiento de Izquierda Revolucionaria (MIR) organización terrorista procastrista que ha cometido numerosos asaltos bancarios...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-uruguayo-detenido-y-procesado-en-chile/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-uruguayo-detenido-y-procesado-en-chile/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 22)',
+        date: new Date("June 5, 1970"),
+        title: "“SEDICIOSOS”",
+        description:
+          "El “correo” sedicioso... portaba 830 libras de las 25.000 robadas a las firma Mahilos-Ferriolo... el obrero gráfico… W.A.F.E. a quien... señala como la persona que le entregó las libras...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-uruguayo-detenido-y-procesado-en-chile/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-uruguayo-detenido-y-procesado-en-chile/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 3)',
+        date: new Date("August 12, 1970"),
+        title: "“PROCESARÁN EN CHILE A CONSPIRADOR URUGUAYO”",
+        description:
+          "Santiago. (Chile)... acusado de “correo” de los sediciosos uruguayos y que fue detenido cuando trataba de tomar contacto con extremistas chilenos del Movimiento de Izquierda Revolucionario (MIR)...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-uruguayo-detenido-y-procesado-en-chile/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-uruguayo-detenido-y-procesado-en-chile/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("August 2, 1970"),
+    title: "La clase obrera rechaza el terrorismo",
+    slug: "la-clase-obrera-rechaza-el-terrorismo",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 6)',
+        date: new Date("August 3, 1970"),
+        title: "“OBREROS SE PRONUNCIAN CONTRA LA SUBVERSIÓN”",
+        description:
+          "La CUT-Confederación Uruguaya de Trabajadores-“ante los reiterados actos de subversión de pública notoriedad”, emitió una declaración de cuatro puntos, que en su parte sustancial establece:...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/la-clase-obrera-rechaza-el-terrorismo/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/la-clase-obrera-rechaza-el-terrorismo/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("August 7, 1970"),
+    title: "Dirigentes terroristas detenidos y procesados",
+    slug: "dirigentes-terroristas-detenidos-y-procesados",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("August 8, 1970"),
+        title:
+          "“GOLPE MORTAL AL GRUPO FACCIOSO: NUEVE APRESADOS Y ENTRE ELLOS...”",
+        description:
+          "Un golpe que puede considerarse de suma importancia contra la conocida organización de conspiradores asestó ayer la policía, al detener a nueve de sus integrantes... La nómina de estos detenidos está encabezada por... y seguida por... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/dirigentes-terroristas-detenidos-y-procesados/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/dirigentes-terroristas-detenidos-y-procesados/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 6)',
+        date: new Date("August 8, 1970"),
+        title: "“... INTERVINO EN IMPORTANTES OPERACIONES DEL GRUPO SEDICIOSO”",
+        description:
+          "... pasó a ocupar en poco tiempo, un puesto importante dentro de la organización clandestina... fue reconocido por distintos testigos como uno de los participantes del operativo Pando... Aparece foto.",
+        title1: "“BREVE CURRÍCULUM DEL LÍDER EXTREMISTA DETENIDO AYER”",
+        description1:
+          "... En 1957, integrando el ala izquierda del viejo “PS”, viajó a París con el fin de asistir a la inauguración de un Congreso Juvenil. Tiempo después, su partido lo destinó a “concientizar” las “masas” campesinas del departamento de Paysandú... durante el primer gobierno blanco, compone el grupo sedicioso que asalta el Tiro Suizo de Nueva Helvecia en el Dpto. de Colonia... Más tarde... se retira a las tierras de la localidad de Bella Unión, donde organiza la Unión de Trabajadores Azucareros de Artigas que cumplieron las famosas “marchas”, reiteradamente boicoteadas por el Partido Comunista. Por entonces ya había descartado la posibilidad de acceder al poder por la voluntad popular...",
+        title2: "“...  FUE EL ASESINO DEL FUNCIONARIO DE LA METROPOLITANA”",
+        description2:
+          "... quedó revelado como conspirador... experto fotógrafo, confeccionaba en su laboratorio cédulas falsas y había tomado fotos del Casino Hotel Carrasco donde se efectuó el asalto que reportó a los sediciosos casi 15 millones... Hechos posteriores demostraron que... no era solamente un técnico al servicio de la organización sino, también, un hombre de acción...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/dirigentes-terroristas-detenidos-y-procesados/n_2.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/dirigentes-terroristas-detenidos-y-procesados/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 3)',
+        date: new Date("August 8, 1970"),
+        title: "“DETUVIERON A... y...”",
+        description:
+          "Nueve miembros de una organización, casi todos ellos de “primera línea”... Aparecen fotos.",
+        title1: "“LOS DETENIDOS”",
+        description1:
+          "Entre las detenciones practicadas en el día de ayer por la policía, se señala que los tres apresados más importantes son, por su orden,...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/dirigentes-terroristas-detenidos-y-procesados/n_4.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/dirigentes-terroristas-detenidos-y-procesados/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `
+          <p>“... la Dirección es detenida el viernes 7.</p>
+          <p>Esa misma mañana la policía,..., allana el apartamento de la calle Almería, domicilio de Candán y donde esa tarde se reuniría el Ejecutivo para analizar la situación… Candán los esperaría en la esquina para conducirlos, pese a que Mansilla, Sendic y Martínez Platero conocían la ubicación pero no las señales de alarma. Dentro del apartamento ya estaban detenidos Asdrúbal Pereira y Edith Moraes... A las 13,55 Candán es reconocido y herido en un tiroteo al intentar huir, en momentos en (sic) llegan en una camioneta Bidegain y Picardo, quienes oyen el tiroteo… y son detenidos los dos.</p>
+          <p>Pocos minutos después llegan Sendic y Martínez Platero,..., quienes al ver la camioneta de Bidegain y Picardo rodeada por la policía... deciden ir al apartamento a dar el aviso siendo detenidos también. Casi al mismo tiempo llega Mansilla, quien al ver el despliegue policial abandona la zona… Al poco rato llegan Alicia Rey y Graciela Jorge Panzera,...</p>
+          <p>... al no ver ningún movimiento sospechoso en el lugar (...) deciden entrar en el edificio siendo detenidas...”.</p>
+          `,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "págs. 282-283",
+          author: "Marius",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("August 30, 1970"),
+    title: "Marcha del Silencio contra el terrorismo",
+    slug: "marcha-del-silencio-contra-el-terrorismo",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 17)',
+        date: new Date("August 31, 1970"),
+        title: "“MARCHA CONTRA LA VIOLENCIA EN MINAS”",
+        description:
+          "Minas. Una impresionante Marcha del Silencio se realizó en la tarde de ayer en esta ciudad, en repudio a los actos de violencia que están azotando al país. Más de cinco mil personas que representaban a todas las instituciones minuanas participaron... Fue una reafirmación de fe democrática de un pueblo que quiere progreso en el orden y la paz.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/marcha-del-silencio-contra-el-terrorismo/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/marcha-del-silencio-contra-el-terrorismo/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 17)',
+        date: new Date("September 8, 1970"),
+        title: "“REPUDIANDO VIOLENCIA MANIFESTÓ EL PUEBLO”",
+        description:
+          "T. y Tres... se llevó a cabo ayer la “Manifestación del Silencio”. Enorme cantidad de público, conociendo los nobles propósitos que se defienden, decididamente se plegó a la marcha en defensa de la Libertad y la Democracia, y repudio a las fuerzas que con actos de violencia pretenden la destrucción de las instituciones públicas... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/marcha-del-silencio-contra-el-terrorismo/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/marcha-del-silencio-contra-el-terrorismo/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("January 5, 1971"),
+    title: "MLN-T manifiesta su apoyo al Frente Amplio",
+    slug: "mln-t-manifiesta-su-apoyo-al-frente-amplio",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 17)',
+        date: new Date("January 5, 1971"),
+        title: "“FACCIOSOS DIFUNDEN MATERIAL ESCRITO”",
+        description:
+          "Un bulto conteniendo material escrito de los “tupamaros” fue hallado hoy en un bar de 18 de Julio y Yí... los sediciosos hacían llegar a los distintos medios de difusión tres textos... Uno de los textos constituye un manifiesto... los “tupamaros” proclaman su apoyo al denominado Frente Amplio...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/mln-t-manifiesta-su-apoyo-al-frente-amplio/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/mln-t-manifiesta-su-apoyo-al-frente-amplio/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Por entonces, Sendic se mostró partidario de que el MLN apoyara la conformación de un gran conglomerado de izquierdas que ya tenía nombre: Frente Amplio.</p>
+          <p>–¿Apoyar a la izquierda burguesa? –le respondió Amodio Pérez–. No, ni loco...</p>
+          <p>– Yo apoyo al Frente Amplio–dijo Mujica–,...</p>
+          <p>–Esto no implica abandonar la revolución –respondía Mujica–, sino explorar nuevos caminos que nos acerquen a ella...”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 476",
+          author: "Pernas",
+        },
+        {
+          fragment: `<p>“En diciembre de 1970, el MLN decidió dar su apoyo crítico a la coalición de izquierdas. Si bien entre los militantes de la organización la opinión mayoritaria era que el Frente Amplio era una trampa que pretendía desviar el crecimiento del movimiento de masas y las organizaciones armadas -una verdadera correntada insurreccional- hacia cauces electorales, el MLN publicó un documento de apoyo, consciente de que aislarse de esa correntada podría haber sido un error histórico: <i>“Mantenemos nuestras diferencias de métodos con las organizaciones que forman el Frente y con la valoración táctica del evidente objetivo inmediato: las elecciones. Sin embargo, consideramos conveniente plantear nuestro apoyo al Frente Amplio...”</i>...”.</p>`,
+          year: new Date("2007-1-1"),
+          name: "Cero a la izquierda. Una biografía de Jorge Zabalza",
+          place: "Montevideo - Uruguay",
+          edition: " Letraeñe Ediciones",
+          pages: "págs. 96-97",
+          author: "Leicht",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("February 3, 1971"),
+    title: "Descubren plan terrorista para realizar atentados y robo de armas",
+    slug: "descubren-plan-terrorista-para-realizar-atentados-y-robo-de-armas",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "Acción" (en Portada)',
+        date: new Date("February 4, 1971"),
+        title: "“SE ORDENÓ VOLAR FÁBRICAS, BARRACAS, MOLINOS Y BANCOS”",
+        description:
+          "... el Plan Ñandú, proyecto terrorista capturado en el operativo Clínicas… Aparece fotocopia.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-plan-terrorista-para-realizar-atentados-y-robo-de-armas/n_1.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-plan-terrorista-para-realizar-atentados-y-robo-de-armas/n_1.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 3)',
+        date: new Date("February 4, 1971"),
+        title:
+          "“EL “PLAN ÑANDÚ” DEBÍA PONERSE EN PRÁCTICA ENTRE FEBRERO Y AGOSTO”",
+        description:
+          "Incluía atentados, secuestros, asaltos y golpes promocionales... un bien orquestado programa subversivo... destinado para su puesta en práctica a jóvenes estudiantes radicalizados, integrados lateralmente a las organizaciones subversivas... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-plan-terrorista-para-realizar-atentados-y-robo-de-armas/n_2.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-plan-terrorista-para-realizar-atentados-y-robo-de-armas/n_2.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("February 4, 1971"),
+        title: "“EL MINUCIOSO PLAN TERRORISTA INCLUÍA ATENTADOS PERSONALES”",
+        description:
+          "... del Plan Ñandú, destinado a volar fábricas, comercios y locales de diversión en Montevideo... incluía la destrucción  del Club de Golf, un atentado durante la exposición Rural del Prado, la voladura del Carrasco Polo, etc... Damos aquí la versión completa de esos documentos, incautados durante la Operación Clínicas...",
+        title1: "“EL “PLAN ÑANDÚ” PERTENECE AL FARO”",
+        description1:
+          "... Un plan del grupo terrorista FARO (Fuerzas Armadas Revolucionarias Orientales) para volar plantas industriales, barracas de lana, instituciones bancarias..., la industria, la política y las Fuerzas Armadas... fue dado a conocer... Las Fuerzas Armadas Revolucionarias Orientales...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-plan-terrorista-para-realizar-atentados-y-robo-de-armas/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-plan-terrorista-para-realizar-atentados-y-robo-de-armas/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 12)',
+        date: new Date("February 4, 1971"),
+        title: "“OPERATIVO BALNEARIO SE LLAMABA “MARIANA”",
+        description:
+          "Copamiento de tres comisarías. Un intento de un comando tupamaro de llevar a cabo un operativo en la zona balnearia de Canelones, era conocido… con el nombre de “Mariana”. Tal, lo que surge de la documentación incautada a... el plan tupamaro tenía por objeto... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-plan-terrorista-para-realizar-atentados-y-robo-de-armas/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-plan-terrorista-para-realizar-atentados-y-robo-de-armas/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("February 4, 1971"),
+        title: "“FOTOCOPIAS DE LOS DOCUMENTOS DELICTIVOS”",
+        description:
+          "... Carta de Marcos: “... hasta ahora no hay nada que nos indique que nos equivocamos...”... El Plan “Ñandú”: “... este operativo determinaría un fuerte hostigamiento a las...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-plan-terrorista-para-realizar-atentados-y-robo-de-armas/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-plan-terrorista-para-realizar-atentados-y-robo-de-armas/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("April 18, 1971"),
+    title: "Terrorista asesinado y enterrado por el MLN-T",
+    slug: "terrorista-asesinado-y-enterrado-por-el-mln-t",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 6)',
+        date: new Date("April 19, 1971"),
+        title: "“ENCUENTRAN UN CADÁVER”",
+        description:
+          "Un macabro hallazgo se produjo ayer en los fondos de un abandonado seminario religioso en Felipe Cardozo casi Carlomagno... presentaba un balazo entre ceja y ceja...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-asesinado-y-enterrado-por-el-mln-t/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-asesinado-y-enterrado-por-el-mln-t/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("April 19, 1971"),
+        title: "“ENTERRADO Y CON UN TIRO EN LA CABEZA HALLAN UN HOMBRE”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-asesinado-y-enterrado-por-el-mln-t/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-asesinado-y-enterrado-por-el-mln-t/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 11)',
+        date: new Date("May 16, 1971"),
+        title: "“SEDICIOSOS ASESINARON A UN EX COLABORADOR”",
+        description:
+          "Una venganza entre sediciosos sería el móvil del crimen de ...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-asesinado-y-enterrado-por-el-mln-t/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-asesinado-y-enterrado-por-el-mln-t/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("May 18, 1971"),
+        title: "“... ASESINADO POR LOS SEDICIOSOS”",
+        description:
+          "... había sido ultimado de un tiro en la cabeza y su cuerpo apareció semienterrado cubierto por una frazada y una arpillera...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-asesinado-y-enterrado-por-el-mln-t/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-asesinado-y-enterrado-por-el-mln-t/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `
+          <p class="font-bold">“Roque Arteche</p>
+          <p>Pascasio Báez no fue el único. Luis Nieto conoce de cerca la historia del asesinato de Roque Arteche...</p>
+          <p>... Era un preso común, un ladrón, reclutado en la Cárcel de Punta Carretas por el MLN...</p>
+          <p>... Arteche mató a un parroquiano en un bar...</p>
+          <p>El MLN le dio refugio en uno de sus locales..., y le proporcionó documentos falsos...</p>
+          <p>“Lo llevé a la ciudad de Colonia...”.</p>
+          <p>Una vez el contacto vino fuera de fecha y yo me di cuenta que algo había pasado “Santiago se fue”, me dijo. Ese era el seudónimo de Roque Arteche. Se había llevado una 45 y el sueldo de los dos dueños de casa...</p>
+          <p>... A los quince días, más o menos, Arteche apareció en la carpintería, el local donde había estado antes de ir a Colonia. Me avisaron que estaba allí y fui a verlo enseguida...”</p>
+          <p>... El Comando propuso que se lo llevara a Chile, que se dieran documentos falsos y se rompiese todo vínculo con él...</p>
+          <p>El siguiente paso fue entregar a Arteche a la dirección del MLN para que la sanción fuera aplicada.</p>
+          <p>“A mí me tocó llevarlo al contacto con la Dirección, fue un día a última hora de la tarde, en Castro y Laguna Merín”, recuerda Nieto. “Lo subieron en una Combi, no era gente de nuestra columna, lógicamente”.</p>
+          <p>Nieto no supo más de Arteche. Lo imaginaba en Chile, cuando los diarios informaron del hallazgo de su cadáver...”.</p>
+          `,
+          year: new Date("2018-1-1"),
+          name: "Historias tupamaras. Nuevos testimonios sobre los mitos del MLN",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Fin de Siglo",
+          pages: "págs. 139, 141-143",
+          author: "Haberkorn",
+        },
+        {
+          fragment: `<p>“... J .M. -¿Qué nos puede aportar en relación con los asesinatos por parte del MLN-T de... y Roque Arteche?</p>
+          <p>H. A. P... Roque Arteche era un delincuente común que fue reclutado por Leonel Martínez Platero...</p>
+          <p>... En 1971 estábamos dispuestos a morir y a matar si era necesario y la ejecución de Arteche entraba dentro del código de conducta no escrito que todos dábamos por supuesto. Se permitió que la noticia fuera conocida por el resto de la población carcelaria, como aviso para que los que quisieran hacerse tupamaros supieran a qué atenerse...</p>
+          <p>Cuando Wassen y Armando Blanco fueron detenidos en julio de 1971, fueron conducidos a mi celda... y surgió el tema de Arteche. Fue así que conocí lo sucedido...</p>
+          <p>Cuando se conoció el robo de la casa donde vivía, Arteche la abandonó... El autor material de su muerte fue Armando Blanco y el Ejecutivo estaba integrado por Wassen, Rosencof, Marrero y Engler...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "págs. 192-193",
+          author: "Marius",
+        },
+        {
+          fragment: `<p>“Otro caso análogo es el de Roque Arteche, un tupamaro ex delincuente ajusticiado en 1971. Miembros de la dirección post-Almería le condenaron por haber matado en un altercado al parroquiano de un bar, por haber posteriormente robado dinero y armas en un local del MLN y luego reingresado al mundo de la delincuencia. Reflexiona Zabalza: <i>“También está el caso de Roque Arteche, muerto injustificadamente. Aquí hay otra violación de los derechos humanos...”.</i>”.</p>`,
+          year: new Date("2001-1-1"),
+          name: "La izquierda armada. Ideología, ética e identidad en el MLN-Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Trilce",
+          pages: "pág. 159",
+          author: "Aldrighi",
+        },
+        {
+          fragment: `<p>“Sentado en el patio de Puntas Carretas, Jorge miraba el inmenso muro... Sendic trillaba alrededor de la cancha..., escuchando atentamente los dictados de Eleuterio Fernández, en plena elaboración del Plan Hipopótamo... los dos hermanos Viña,..., bajándole línea a Roque Arteche, un procesado por hurto que tras ganarse la confianza de Leonel Martínez Platero fue reclutado por la organización. Tiempo después fue ejecutado por robar dinero y armas de un local del MLN,... El mensaje de Arteche fue bien claro para los demás presos comunes: los tupamaros daban vida, pero con su confianza no se jodía...”.</p>`,
+          year: new Date("2007-1-1"),
+          name: "Cero a la izquierda. Una biografía de Jorge Zabalza",
+          place: "Montevideo - Uruguay",
+          edition: "Letraeñe Ediciones",
+          pages: "pág. 95",
+          author: "Leicht",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("August 7, 1971"),
+    title: "Inhumana directiva terrorista: rematar al enemigo",
+    slug: "inhumana-directiva-terrorista-rematar-al-enemigo",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("August 7, 1971"),
+        title: "“TUPAMAROS RECOMIENDAN A SUS COMANDOS REMATAR AL ENEMIGO”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/inhumana-directiva-terrorista-rematar-al-enemigo/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/inhumana-directiva-terrorista-rematar-al-enemigo/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("Augustl 7, 1971"),
+        title:
+          "“INSTRUYEN A SEDICIOSOS PARA QUE ODIEN Y ULTIMEN A SUS ENEMIGOS”",
+        description:
+          "... se dan instrucciones muy rigurosas a los militantes, en el sentido de rematar a los enemigos cuando se produzcan enfrentamientos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/inhumana-directiva-terrorista-rematar-al-enemigo/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/inhumana-directiva-terrorista-rematar-al-enemigo/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("September 6, 1971"),
+    title: "Fugan terroristas del Penal de Punta Carretas",
+    slug: "fugan-terroristas-del-penal-de-punta-carretas",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("September 6, 1971"),
+        title: "“106 TUPAMAROS SE FUGARON DEL PENAL”",
+        description: "A través de un túnel... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fugan-terroristas-del-penal-de-punta-carretas/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/fugan-terroristas-del-penal-de-punta-carretas/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("September 6, 1971"),
+        title:
+          "“COPARON DOS CASAS Y TRES VEHÍCULOS PARA FACILITAR LA FUGA DE LOS RECLUSOS”",
+        description:
+          "... los sediciosos comenzaron ayer por “copar” dos casas de familia ubicadas en la misma manzana frente al penal y lindantes por los fondos a través de una tercera finca, actualmente desocupada... Aparece croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fugan-terroristas-del-penal-de-punta-carretas/n_2.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/fugan-terroristas-del-penal-de-punta-carretas/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 4)',
+        date: new Date("September 7, 1971"),
+        title: "“QUEMA DE LOS VEHÍCULOS SE VINCULA A LA FUGA”",
+        description:
+          "Hurtan 14 vehículos... los sediciosos utilizaron durante la fuga dos ómnibus de Cutcsa y dos camiones... varios vehículos y una moto... que secundaron la acción, o bien en los alrededores del penal o bien en el “operativo distracción” que se llevó a cabo en La Teja... Aparecen fotos y croquis.",
+        title1: "“ENTREGÓ A SU FAMILIA”",
+        description1:
+          "La única persona perfectamente identificada, como integrante del grupo que facilitó la fuga... Se trata de... ayer aparece en casa de su tío, el Escribano Curi Zagía, con otra mujer-...- y un hombre joven... A sus tíos y personal empleado los reducen por las armas y ocupan la casa durante varias horas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fugan-terroristas-del-penal-de-punta-carretas/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/fugan-terroristas-del-penal-de-punta-carretas/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("October 19, 1971"),
+    title: "Capturan terroristas. Hallan armas y explosivos",
+    slug: "capturan-terroristas-hallan-armas-y-explosivos",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 24)',
+        date: new Date("October 19, 1971"),
+        title: "“TENÍAN EL ESCONDRIJO EN LA CASA DE UN ARQUITECTO DE UTE”",
+        description:
+          "Cayeron..., servía de refugio a seis cabecillas tupamaros. Ellos son:.., bajo un subsuelo, en un hueco de 4.50 por 2.50 metros... ubicaron el escondrijo a seis sediciosos... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/capturan-terroristas-hallan-armas-y-explosivos/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/capturan-terroristas-hallan-armas-y-explosivos/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("October 20, 1971"),
+        title: "“BAJO TIERRA, CAEN 6 DE LOS FUGADOS”",
+        description:
+          "Había armas, joyas e increíble equipo... seis tupamaros-cinco hombres y una mujer...- vivían en un reducidísimo refugio subterráneo... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/capturan-terroristas-hallan-armas-y-explosivos/n_2.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/capturan-terroristas-hallan-armas-y-explosivos/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("October 20, 1971"),
+        title: "“PUDO HABER CAUTIVOS EN EL “ENTERRADERO” DESCUBIERTO”",
+        description:
+          "... La guarida clandestina habría sido “cárcel del pueblo”...",
+        title1: "“LOS RECAPTURADOS Y SUS ANTECEDENTES”",
+        description1:
+          "... el más importante parece ser... Es uno de los fundadores del grupo “Pinella”... otro es... El mayor es... (tenía antecedentes por contrabando y se ignoraba su convivencia con sediciosos hasta que entregó a..., en el Cerro, varios paquetes...)... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/capturan-terroristas-hallan-armas-y-explosivos/n_4.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/capturan-terroristas-hallan-armas-y-explosivos/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 4)',
+        date: new Date("October 20, 1971"),
+        title: "“INCREÍBLE EQUIPAMIENTO DEL SUBTERRÁNEO CLANDESTINO”",
+        description:
+          "... los delincuentes construían en ese lugar sus lanza-cohetes de ignición eléctrica, un arma que fue creada por guerrilleros comunistas “vietcong”… Dos de esas “bazoocas” caseras ya estaban terminadas... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/capturan-terroristas-hallan-armas-y-explosivos/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/capturan-terroristas-hallan-armas-y-explosivos/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 2)',
+        date: new Date("October 20, 1971"),
+        title: "“RECAPTURARON A SEIS TUPAMAROS EN ESCONDITE SUBTERRÁNEO”",
+        description:
+          "... procediendo a allanarlos... donde se escondían seis integrantes del M.L.N.... a saber:... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/capturan-terroristas-hallan-armas-y-explosivos/n_6.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/capturan-terroristas-hallan-armas-y-explosivos/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“... A primera hora de la mañana, varias patrullas y camionetas del Ejército llegaban a la casona de la calle Tayuyá 1494. Los militares fueron directo al fondo de la residencia.</p>
+          <p>Los tupamaros atinaron a tomar las armas, pero era en vano...</p>
+          <p>-¡Acá adentro nos cocinan! -advirtió Mujica.</p>
+          <p>...Y fueron saliendo con las manos a la vista.</p>
+          <p>... En el sótano, los militares encontraron unas cincuenta armas de las robadas del Centro de Instrucción de la Marina, material para armar bombas caseras –del tipo molotov–, uniformes militares y policiales...”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "págs. 502, 504, 510-511",
+          author: "Pernas",
+        },
+        {
+          fragment: `<p>“Pepe usaba ahora el alias de Emiliano...”.</p>
+          <p>“Un grupo de tupamaros –entre los cuales se encontraba Emiliano– pasó a alojarse en un escondite, en la calle Tayuyá 1494, entre la Avenida Rivera y Caramurú, en el barrio Punta Gorda: la residencia era la del Arquitecto Antonio Mallet Sosa, que trabajaba en la UTE, y les prestó cobertura.</p>
+          <p>Para entrar al escondrijo debían caminar más allá de la casa del fondo –la de Antonio Daniel, hijo del Arquitecto–, entrar a un galpón que se usaba de taller, levantar una tapa bajo una banqueta recostada a la pared y descender por un espacio muy estrecho a la habitación subterránea de casi cinco metros de largo por tres de ancho y dos metros de altura”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "págs. 502, 504",
+          author: "Pernas",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("December 23, 1966"),
+    title: "Descubren células terroristas",
+    slug: "descubren-celulas-terroristas",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("December 24, 1966"),
+        title: "“CINCO CÉLULAS TERRORISTAS”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-celulas-terroristas/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-celulas-terroristas/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 5)',
+        date: new Date("December 24, 1966"),
+        title:
+          "“DESCUBREN NUEVAS CÉLULAS TERRORISTAS Y SE CONOCEN SUS VANDÁLICOS PLANES”",
+        description:
+          "En la finca de José L. Terra 3461 la apariencia de la misma lejos estaba de hacer pensar que en el interior se encontraba un centro de adiestramiento. Su frente lucía una pequeña placa que decía “Clases de Inglés, Francés y Banco”. Las rejas de las puertas y las ventanas estaban cerradas herméticamente. La finca de dos plantas daba la sensación de abandono total. Se dispuso el allanamiento. La casa estaba deshabitada pero en cambio muy bien provista de todos los elementos necesarios para la preparación de guerrillas. En el piso superior habían montado un laboratorio para la fabricación de bombas de efecto retardado,... En otro lugar se encontró una pieza dedicada exclusivamente a la práctica de tiro, y los cajones donde se guardaban los proyectiles utilizados... hallaron numerosos implementos de automotores que fueron hurtados, así como también juegos de placas... encontraron grampas “miguelito”, gran cantidad de ampollas de un estimulante... y reflectores.",
+        subtitle1: "“Todos Identificados”",
+        description1:
+          "Estando todos identificados existe la posibilidad que algunos de ellos intenten dirigirse al interior del país donde habrían otras células terroristas perfectamente disimuladas bajo denominaciones inocentes.",
+        subtitle2: "“5 Células Terroristas”",
+        description2:
+          "Podemos adelantar que la comunidad “Eduardo Pinela” sería una de las cinco células que integran el llamado “Movimiento Campesino 13 de Agosto”. Cada célula está dirigida por cinco elementos de “choque”, es decir gente probada a través de diversos ejercicios. Además de estos cinco elementos de “choque”, cada célula agrupa a simpatizantes que se van seleccionando cuidadosamente para ver si poseen condiciones que les permita ingresar a ese “núcleo selecto”.",
+        subtitle3: "“Habrían Asaltado el Banco Popular”",
+        description3:
+          "Existe la seguridad que el grupo que se tiroteó con la policía es integrado por los mismos que hace un par de meses asaltaron el Banco Popular Paso de la Arena llevándose $ 425.000...",
+        subtitle4: "“Preparación Perfecta”",
+        description4:
+          "Podemos adelantar que quienes se afiliaban a cualquiera de las cinco células terroristas... eran sometidos a diversas pruebas para ver hasta donde respondían. Estas pruebas eran de examen de firmeza ideológica y aprobado los mismos se les entrenaba en escalamientos, deslizamientos por cloacas, carreras, salto de vallas, judo, manejo de armas, etc...",
+        subtitle5: "“Finalidades Tremendas”",
+        description5:
+          "... Todo el dinero así como también armas e implementos, serían destinados a preparar movimientos subversivos de gran envergadura con la malsana ambición, incluso de derribar las autoridades y entronizar una dictadura que al parecer estaría inspirada en los métodos usados por los comunistas de la línea llamada “Pekín”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-celulas-terroristas/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-celulas-terroristas/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("December 24, 1966"),
+        title: "“DESCUBREN NUEVAS...”",
+        subtitle: "“Nombres Falsos y Alias”",
+        description:
+          "Los nombres que están en poder de la policía no serían todos exactos, sino los usados en documentos falsos. De cualquier manera por estos documentos y los alias que usan, la policía cree reconocerlos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-celulas-terroristas/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-celulas-terroristas/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 7)',
+        date: new Date("December 24, 1966"),
+        title:
+          "“SON 5 LAS CÉLULAS DE LOS TERRORISTAS. PENSABAN ATENTAR CONTRA HEBER”",
+        subtitle: "“Algo Sensacional”",
+        description:
+          "..., uno de los tres demorados en la Seccional 12ª, habría manifestado que tenía conocimiento de que se planeaba un atentado contra la vida del Presidente del Consejo de Gobierno Señor Alberto Heber Usher el que tendría lugar en el acto de proclamación de su candidatura a la Presidencia de la República, efectuado en la Plaza de Independencia. Agregó, que ignoraba quienes iban a ser los señalados para llevar a cabo el atentado, pero si sabía que por tres veces habían ido los designados a la Plaza Independencia para estudiar el terreno, desistiéndose del golpe por razones que declara desconocer.",
+        subtitle1: " “Lo de Aguerrondo”",
+        description1:
+          "También dijo este detenido que el atentado cometido contra las residencias del Consejero Heber y del Jefe de la Región Militar Nº 1 General Mario Aguerrondo, el primero en Paraguay y San José y el segundo en Villa Biarritz, consistentes en sendas bombas que causaron daños en las puertas, había sido llevado a cabo con participación de elementos afiliados a esas cinco células.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-celulas-terroristas/n_7.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-celulas-terroristas/n_8.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("December 27, 1966"),
+        title: "“ALLANAMIENTOS Y DETENCIONES”",
+        description:
+          "... con pasos seguros la acción policial en su lucha de desbaratar las peligrosas bandas terroristas echando por tierra sus vandálicos planes, ayer se cumplieron nuevos allanamientos descubriéndose el probable refugio que tenían ubicado en la calle José L. Terra y hasta donde habrían corrido los actores del tiroteo. En la madrugada hubo nuevas capturas.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-celulas-terroristas/n_9.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-celulas-terroristas/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 8)',
+        date: new Date("December 27, 1966"),
+        title: "“OTRA CÉLULA TERRORISTA Y NUEVO JEFE BUSCADO”",
+        description:
+          "... se van confirmando las informaciones que desde un primer momento hemos venido suministrando a través de las distintas crónicas… tenían pensado hechos que irían a cambiar incluso el panorama político del país por medio de la fuerza. De una manera velada dijimos que a través de la intensa preparación militar, aparte de la política, los integrantes de las células se preparaban para hechos de suma importancia, teniendo incluso estudiada y preparada toda la red cloacal de Montevideo de acuerdo a planos perfectamente estudiados. Para tales fines la organización elegía individuos especialmente entrenados y con atributos físicos especiales, a los que se les suministraba máscaras, lámparas e incluso tanques de repuesto llenos de queroseno, recomendándoles que debían seguir las indicaciones al pie de la letra no permitiéndoles ninguna clase de fallas.",
+        subtitle1: "“Como Se Allanó la Casa”",
+        description1:
+          "... fue decisiva la colaboración de la prensa al publicar la foto de los cuatro cabecillas buscados. En efecto, vecinos de allí reconocieron en esa foto a los extraños inquilinos de la vieja casa y comunicaron a la policía sus sospechas. Se cumplió de inmediato la actuación...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-celulas-terroristas/n_11.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-celulas-terroristas/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“En la calle José L. Terra casi Luis Alberto de Herrera, cerquita de la quinta del caudillo, teníamos un local que durante 1965 y 1966 fue base de operaciones central de los tupamaros. “Se dan clases de francés e inglés” decía un cartel en su puerta y, efectivamente, durante el día dábamos cursos de idioma para reforzar la cobertura que justificara luego, el ingreso y salida de gente joven...</p>
+          <p>La pieza del frente, un salón de clases, servía para las reuniones numerosas, pero fundamentalmente para los cursos de armas, explosivos, seguridad, historia, economía, etc.,... En el gran altillo funcionaba nuestro primer laboratorio de explosivos... En un pequeño sótano guardábamos dinamita... Ordenados en depósitos, aquí y allá, diversos implementos para las más diversas tareas: máscaras de gas, picos, palas, linternas, faroles...</p>
+          <p>También en la calle José L. Terra, pero sobre la calle Garibaldi, teníamos el taller central que muy pocos conocían. Era llamado en la jerga interna “el club”...”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 3: el MLN",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "págs. 14-15",
+          author: "Fernández Huidobro",
+        },
+        {
+          fragment: `<p>“Esa noche, o la siguiente, no importa, los compañeros salieron de nuestra base en la calle José L: Terra a poner en el zaguán de la casa de Aguerrondo y en el de la de Ballestrino, bombas...”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 3: el MLN",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "pág. 33",
+          author: "Fernández Huidobro",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("December 26, 1966"),
+    title: "Descubren planes terroristas",
+    slug: "descubren-planes-terroristas",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("December 26, 1966"),
+        title: "“BUSCADOS”",
+        description:
+          "Aparecen fotos de... Continúa intensamente la labor de la policía... Las investigaciones se dirigen ahora, intensamente a lograr la captura de... considerados como importantes engranajes de la insólita máquina de depredación que impunemente venía actuando en nuestro medio desde hace tiempo... se indica... que las “células” de la organización terrorista descubierta están directamente vinculadas al movimiento de extrema izquierda denominado “los Tupamaros” y que como se recordará había tenido triste intervención en los atentados y hechos vandálicos de variada naturaleza.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-planes-terroristas/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-planes-terroristas/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("December 26, 1966"),
+        title: "“LOS TUPAMAROS AUTORES DE PLANES TERRORISTAS”",
+        description:
+          "Continúa la policía trabajando para desenmarañar cantidad de puntos confusos de la sensacional pesquisa que está sirviendo para desbaratar a la temida organización de terroristas que, por lo menos desde el año 1964 venía actuando en el país, animada con el propósito de alterar el panorama político nacional...",
+        subtitle1: "“Las Células”",
+        description1:
+          "Todos estos individuos estaban perfectamente organizados y se desplazaban obedeciendo un plan estricto, dictado por terceros que no tardarán en resultar desenmascarados... Constituían “bases” de reclutamiento y adoctrinamiento. Esas bases, operando primero con criterio selectivo en distintos ambientes y luego obligando mediante “chantajismo” a los escogidos, iban formando grupos identificados con una letra. Nos consta por ejemplo, que la “célula C” está perfectamente descubierta. Se sabe los nombres de quienes la integraban...",
+        subtitle2: "“Grupos de Seis”",
+        description2:
+          "Las células en su fuerza de choque se componen de seis personas. De esas seis se hacía la selección de coordinador militar y coordinador político, quienes se encargaban del enlace con otro par de centros distintos encargados a su vez del contacto con nuevas personas a quienes ni por el nombre conocían a las primeras… Se hicieron averiguaciones que permiten afirmar sin riesgo de errores que el propósito central de todos esos agitadores estriba en lograr una renovación absoluta en el panorama político del país, afectando nuestras principales instituciones y llegando a la contrarrevolución.",
+        subtitle3: "“Los Tupamaros”",
+        description3:
+          "Se admite ya, que forman parte de “los Tupamaros”. Las evidencias están en poder de las autoridades e incluso hay confesiones de parte.",
+        subtitle4: "“Atentados Descubiertos”",
+        description4:
+          "Prácticamente se conoce que los atentados registrados desde un par de años a la fecha, son obra de esta organización. Existen confesiones de algunos culpables y se han logrado pruebas en fincas allanadas por la policía. El de Radio Carve, el ocurrido contra la compañía naviera Moore Mac Cormack, el de los hermanos Heber... el artefacto lanzado contra la casa del ex jefe de policía Cnel. Mario Aguerrondo, en el Instituto Cultural Brasileño, etc. Además de una serie de robos y asaltos... No existen dudas de los numerosos robos de autos cometidos,...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-planes-terroristas/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-planes-terroristas/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 8)',
+        date: new Date("December 26, 1966"),
+        title: "“LOS “TUPAMAROS” CORTINA DE HUMO”",
+        description: "Aparecen fotos de...",
+        subtitle1:
+          "“Cuatro Remitidos. La Organización Derechista. Una Hábil Pantalla Para el Terrorismo Izquierdista”",
+        description1:
+          "Cuando la población quiere reaccionar de una sorpresa, causadas por las revelaciones de la prensa sobre las actividades de las células terroristas en nuestra ciudad, sufre una nueva conmoción ante otras revelaciones que surgen de las pesquisas que viene cumpliendo sin descanso la gente del Departamento de Inteligencia, a órdenes del Comisario Alejandro Otero... organizada en forma casi militar y con ribetes de sociedad secreta, tipo “Mafia” o “Camorra” exige a sus afiliados una absoluta obediencia y la ejecución de las órdenes recibidas sin detenerse siquiera a analizarlas.",
+        subtitle2: "“Más Comprobaciones”",
+        description2:
+          "Detallan la composición de las células y como sus integrantes se compartimentaban, las células tienen autoridades propias y éstas sólo conocen a sus integrantes, las autoridades reciben órdenes de superiores y éstos de un grupo directriz, de tal forma que los dirigentes máximos pueden dormir tranquilos de que no serán denunciados por los que llamaríamos “peones de brega”, por la definitiva razón de que éstos ignoran quienes son.",
+        subtitle3: "“Los Tupamaros”",
+        description3:
+          "Recordará el lector que en la crónica policial ha aparecido con bastante frecuencia una presunta organización derechista denominada “Tupamaros”... Pero ahora se sabe que los tales “Tupamaros” eran una cortina de humo tendida por estos elementos terroristas de izquierda que integran las células...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-planes-terroristas/n_5.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-planes-terroristas/n_6.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“... Cada célula de la Organización tenía ahora un responsable militar y un responsable político que concurrían a dos organismos intermedios denominados Coordinador Militar y Coordinador Político, en los cuales además de discutir nuestro pensamiento, se articulaban los planes organizativos y los planes de acción...”.</p>`,
+          year: new Date("1995-1-1"),
+          name: "Historia de los Tupamaros. Tomo 2: el nacimiento",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "pág. 84",
+          author: "Fernández Huidobro",
+        },
+        {
+          fragment: `<p>“.... Para eso se formaron a iniciativa del Comité Ejecutivo dos organismos nuevos que se llamaron coordinadores: uno político y el otro militar, que se integraron con los responsables políticos y militares de cada célula... Fernández Huidobro en el político y Tabaré Rivero en el militar...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "pág. 240",
+          author: "Marius",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("May 20, 1972"),
+    title: "Ubican hospital terrorista clandestino",
+    slug: "ubican-hospital-terrorista-clandestino",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("May 23, 1972"),
+        title: "“UBICAN EN CAPURRO HOSPITAL SEDICIOSO”",
+        description:
+          "Había un quirófano completo. También un aparato de rayos X. Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ubican-hospital-terrorista-clandestino/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ubican-hospital-terrorista-clandestino/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 6)',
+        date: new Date("May 24, 1972"),
+        title: "“HOSPITAL DE CAMPAÑA MODERNO Y EFICIENTE QUEDÓ DESBARATADO”",
+        description:
+          "Un modernísimo “hospital de campaña” que la organización sediciosa poseía,... fue descubierto… en la noche del pasado sábado 20... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ubican-hospital-terrorista-clandestino/n_2.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ubican-hospital-terrorista-clandestino/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("July 11, 1972"),
+        title: "“COMO FUNCIONABA EL SERVICIO SANITARIO DE LOS TUPAMAROS”",
+        description: "El Comunicado Nº... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ubican-hospital-terrorista-clandestino/n_4.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ubican-hospital-terrorista-clandestino/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("May 22, 1972"),
+    title: "Ubican cárcel del pueblo del MLN-T",
+    slug: "ubican-carcel-del-pueblo-del-mln-t",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("May 22, 1972"),
+        title: "“LOS SEDICIOSOS SE CONECTABAN DIRECTAMENTE POR LAS CLOACAS”",
+        description:
+          "Ubican cárcel del pueblo. En ella estuvo Jackson. Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ubican-carcel-del-pueblo-del-mln-t/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ubican-carcel-del-pueblo-del-mln-t/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 20)',
+        date: new Date("May 22, 1972"),
+        title: "““LA COMIDA ESTABA TODAVÍA CALIENTE”",
+        description:
+          "En el subsuelo de una casa en venta, en apariencia deshabitada,..., ubicaron una de las “cárceles del pueblo”... El escondrijo... se conectaba por medio de un túnel a la red cloacal... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ubican-carcel-del-pueblo-del-mln-t/n_2.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ubican-carcel-del-pueblo-del-mln-t/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 6)',
+        date: new Date("May 23, 1972"),
+        title:
+          "“UBICARON CÁRCEL DONDE ESTUVO BARDESIO Y PROBABLEMENTE JACKSON Y PEREYRA MANELLI”",
+        description:
+          "Una fábrica de granadas y explosivos en general, que a la vez servía como una de las mal llamadas “cárceles del pueblo” de la organización sediciosa... fue descubierta... Aparecen fotos y croquis.",
+        title1: "“SÓTANO TÉTRICO”",
+        description1:
+          "Nosotros estuvimos en el sótano... por espacio de unos quince minutos... la atmósfera se nos hizo francamente irrespirable...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ubican-carcel-del-pueblo-del-mln-t/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ubican-carcel-del-pueblo-del-mln-t/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    seeAlso: [
+      {
+        href: "geoffrey-jackson",
+        text: "Secuestro Geoffrey Jackson",
+      },
+      {
+        href: "daniel-pereira-manelli",
+        text: "Secuestro Doctor Daniel Pereira Manelli",
+      },
+    ],
+  },
+  {
+    date: new Date("May 22, 1972"),
+    title:
+      "Ubican cárcel del pueblo del MLN-T donde ejecutaron al peón rural Pascasio Báez",
+    slug: "ubican-carcel-del-pueblo-del-mln-t-donde-ejecutaron-al-peon-rural-pascasio-baez",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("May 24, 1972"),
+        title: "“TENÍAN ARMAS, UN POLÍGONO DE TIRO Y CERCANA, UNA CÁRCEL”",
+        description: "Hallan casamata tupamara... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ubican-carcel-del-pueblo-del-mln-t-donde-ejecutaron-al-peon-rural-pascasio-baez/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ubican-carcel-del-pueblo-del-mln-t-donde-ejecutaron-al-peon-rural-pascasio-baez/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("May 24, 1972"),
+        title: "“CERCA DE PAN DE AZÚCAR FUE UBICADO EL REDUCTO”",
+        description:
+          "9 detenidos y entre ellos hay un médico... fueron ubicados a escasos kilómetros de Pan de Azúcar, San Carlos y la base aeronaval de Laguna del Sauce, dos refugios (uno más bien es una Cárcel del Pueblo), armas para pertrechar más de cien hombres... que poseía más de 200 hectáreas donde había ubicado su cabaña dedicada exclusivamente a la crianza de ganado Jersey... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ubican-carcel-del-pueblo-del-mln-t-donde-ejecutaron-al-peon-rural-pascasio-baez/n_2.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ubican-carcel-del-pueblo-del-mln-t-donde-ejecutaron-al-peon-rural-pascasio-baez/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("May 25, 1972"),
+        title: "“NUEVE SEDICIOSOS APRESADOS EN MALDONADO TRAS TIROTEO”",
+        description:
+          "... al descubrir dos escondrijos instalados en pleno campo, en una estancia del Depto. de Maldonado, al incautarse de un verdadero arsenal de guerra, y al detener a nueve implicados... Aparecen fotos y croquis.",
+        title1: "“COMPRARON ESTANCIA HACE 5 AÑOS”",
+        description1:
+          "... La primer “tatucera”... Se trata de un enorme sótano, totalmente construido de hormigón y en pleno campo, que mide veinte metros de largo, cuatro metros de ancho y tiene una altura de tres metros con ochenta y cinco centímetros...",
+        title2: "“UN ARSENAL GIGANTESCO”",
+        description2:
+          "La primera “tatucera”... servía además de refugio, como fábrica de explosivos, depósito de armas y polígono de tiro... se incautaron de un verdadero arsenal...:  -64 rifles Springfield... -14 fusiles M -1 -Aparatos lanza granadas... -dos bazookas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ubican-carcel-del-pueblo-del-mln-t-donde-ejecutaron-al-peon-rural-pascasio-baez/n_4.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ubican-carcel-del-pueblo-del-mln-t-donde-ejecutaron-al-peon-rural-pascasio-baez/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 3)',
+        date: new Date("May 25, 1972"),
+        title: "“INICIADOR DE LA SUBVERSIÓN: CAPTURA DE IMPORTANCIA”",
+        description:
+          "... Ellos son:..., propietario de la estancia “Spartacus”... y...,... y el médico cirujano... De todos ellos el más importante es, sin duda,... uno de los fundadores del núcleo denominado “Tupamaros”... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ubican-carcel-del-pueblo-del-mln-t-donde-ejecutaron-al-peon-rural-pascasio-baez/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ubican-carcel-del-pueblo-del-mln-t-donde-ejecutaron-al-peon-rural-pascasio-baez/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 7)',
+        date: new Date("May 25, 1972"),
+        title:
+          "“UBICAN DOS IMPORTANTES REFUGIOS DEL MLN EN MALDONADO: 9 DETENIDOS”",
+        description: "... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ubican-carcel-del-pueblo-del-mln-t-donde-ejecutaron-al-peon-rural-pascasio-baez/n_6.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/ubican-carcel-del-pueblo-del-mln-t-donde-ejecutaron-al-peon-rural-pascasio-baez/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+    ],
+    seeAlso: [
+      {
+        href: "pascasio-baez",
+        text: "Asesinato Pascasio Báez",
+      },
+    ],
+  },
+  {
+    date: new Date("May 27, 1972"),
+    title: "Liberan dos secuestrados de una cárcel del pueblo del MLN-T",
+    slug: "liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("May 27, 1972"),
+        title:
+          "“DE MADRUGADA SE UBICÓ EL REDUCTO: NO HUBO TIROS LUEGO DE TENSO PARLAMENTO”",
+        description:
+          "... localizando la fantasmal “cárcel del pueblo” y rescatando... a los Dres. Ulisses Pereira Reverbel y Carlos Frick Davies, quienes soportaron un cruel cautiverio de más de un año... El fabuloso golpe... provocó enorme júbilo en la población... testimoniando su enorme alegría, con permanentes aplausos..., entonando estrofas del himno o dando vivas a la Patria... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 17)',
+        date: new Date("May 27, 1972"),
+        title: "“DOS HOMBRES ENJAULADOS Y ENTERRADOS EN VIDA”",
+        description:
+          "... el intenso calor y el aire viciado... provocan una sensación de agobio... las paredes y el techo parecen venirse encima... parece imposible transmitir por escrito lo que es aquello... Jaulas para hombres. Las prisiones son tres... Son verdaderas jaulas... Un hombre parado de costado... sólo puede extender el brazo izquierdo... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("May 27, 1972"),
+        title: "“MÁS DE UN AÑO CAUTIVOS AQUÍ”",
+        description: "... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 19)',
+        date: new Date("May 28, 1972"),
+        title:
+          "“MIENTRAS LOS TUPAS PARLAMENTABAN, FRICK Y PEREIRA VIERON, CARA A CARA, LA MUERTE”",
+        description:
+          "Pocos minutos antes de volver a la vida, Carlos Frick Davie y Ulyses Pereira Reverbel estuvieron -impedidos de cualquier acto de defensa -cara a cara con la muerte... Aparece croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_7.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("May 28, 1972"),
+        title:
+          "“EL FANATISMO DE UNA MUJER PUSO EN PELIGRO LA VIDA DE LOS CAUTIVOS”",
+        description:
+          "... rescataron a los Dres. Ulysses Pereira Reverbel y Carlos Frick Davie, tras haber localizado - y dominado - la ignominiosa “cárcel del pueblo”... Allí era el domicilio del matrimonio... Tienen cuatro hijas, cuyas edades oscilan entre 7 y los 12 años... Consultan entre ellos... -“Está bien -dijo un hombre -no tiren,... pues hay niños que nada tienen que ver con esto”... Se entregan... una de las mujeres afectada directamente a la custodia de los Dres. Frick Davie y Pereira Reverbel hubo de ser reducida por sus propios compañeros, pues estaba dispuesta a ultimar a las dos inermes víctimas. Ambos ciudadanos ya habían sido maniatados a la espalda con alambres... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_9.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_9.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 3)',
+        date: new Date("May 28, 1972"),
+        title: "“PEREIRA REVERBEL EN DOS CELDAS DISTINTAS”",
+        description:
+          "Durante su prolongado cautiverio de cuatrocientos veintitrés días, el Dr. Ulysses Pereira Reverbel, estuvo por lo menos en dos cubiles subterráneos... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_10.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_11.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 4)',
+        date: new Date("May 28, 1972"),
+        title: "“HABÍAN TERMINADO CASI NUEVO TÚNEL DE ESCAPE”",
+        description:
+          "... el estado sanitario y la ventilación de las celdas donde eran mantenidos los cautivos, era deficiente… fue comprobado por cronistas de EL DÍA... fueron autorizados a entrar al mismo... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_12.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 12)',
+        date: new Date("May 28, 1972"),
+        title: "“¡LA LIBERTAD LOS DERROTA!”",
+        description: "... Aparecen fotos de ...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_13.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_13.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 3)',
+        date: new Date("May 28, 1972"),
+        title: "“UNA FINCA Y UNA FAMILIA QUE ERAN “INSOSPECHABLES”",
+        description:
+          "... La finca de Juan Paullier 1192,..., fue adquirida hace nueve años por..., un conocido publicista, y su esposa... Tenían cuatro hijas, de 5, 8, 9 y 11 años de edad... es propietario de... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_14.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/n_14.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“... El tema de la cárcel lo abordó Wassen. Según él, tenían ubicada la zona en que se encontraba y su caída era cuestión de tiempo. Aportó otros datos que Wolf confirmó como verdaderos, acerca del vehículo que se usaba por parte de la familia encargada de la cobertura, un (sic) Indio rojo. Recordó la disposición interna de ejecutar a los secuestrados en caso de producirse la caída...</p>
+          <p>“En la casa hay dos botijas”, dijo Wolf...</p>
+          <p>... Cuando la operación se puso en marcha, ya entrada la noche, con Cristi al mando, este (sic) decidió que el negociador fuera yo, y el papel de Wassen quedó reducido a señalar el local...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "pág. 124",
+          author: "Marius",
+        },
+        {
+          fragment: `<p>“El 27 de mayo, las Fuerzas Conjuntas acompañadas por Amodio llegaron a la casa de altas puertas y garaje a la vereda, ubicada en Juan Paullier 1190, casi Charrúa. Hasta allí también fue llevado Nepo: pensó que su presencia junto a la de Amodio podía evitar que sus compañeros, los que custodiaban a los cautivos, cumplieran con la orden que el MLN había dispuesto para casos de allanamiento de una cárcel del pueblo: “matar a los secuestrados”...</p>
+          <p>Wasen decidió dar la cara. Golpeó y le abrieron, mientras Amodio esperaba en la vereda...</p>
+          <p>Bajó hasta el berretín donde estaban los secuestrados. Y luego de un buen rato convenció a los tres tupamaros que vigilaban a los prisioneros de que lo mejor era entregarse...</p>
+          <p>La “cárcel del pueblo” cayó: Pereira Reverbel y Frick Davies salieron con vida”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "págs. 541-542",
+          author: "Pernas",
+        },
+      ],
+    },
+    seeAlso: [
+      {
+        href: "ulysses-pereira-reverbel-primer-secuestro",
+        text: "1er. secuestro - Dr. Ulysses Pereira Reverbel",
+      },
+      {
+        href: "ulysses-pereira-segundo-secuestro",
+        text: "2do. secuestro - Dr. Ulysses Pereira Reverbel",
+      },
+      { href: "carlos-frick", text: "Secuestro Dr. Carlos Frick Davie" },
+    ],
+  },
+  {
+    date: new Date("July 2, 1972"),
+    title: "Ubican cárcel del pueblo del OPR-33",
+    slug: "ubican-carcel-del-pueblo-del-opr",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("July 4, 1972"),
+        title: "“CAE LA CÁRCEL DEL PUEBLO NÚMERO 2”",
+        description:
+          "Fue visitada por Michelle Ray actual esposa de Costa -Gravas... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ubican-carcel-del-pueblo-del-opr/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ubican-carcel-del-pueblo-del-opr/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 24)',
+        date: new Date("July 4, 1972"),
+        title: "“MOLAGUERO, FERNÁNDEZ LLADÓ Y MICHELLE RAY ESTUVIERON ALLÍ”",
+        description:
+          "Cae otro bastión sedicioso. Dos escondrijos donde estuvieron cautivos el industrial Luis Fernández Lladó (recientemente fallecido), la periodista francesa Michelle Ray y el joven Daniel Molaguero... fueron desbaratados... demostrada la conexión existente entre...: la Organización Popular Revolucionaria (“OPR 33”) y el comando “22 de Diciembre”, grupo este último escindido del Movimiento de Liberación Nacional... En cuanto al “22 de Diciembre”... encabezaría..., alias “La Parda”... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ubican-carcel-del-pueblo-del-opr/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/ubican-carcel-del-pueblo-del-opr/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("July 5, 1972"),
+        title: "“TAMBIÉN SE DESMORONA EL GRUPO “OPR 33”: HALLAN DOS CÁRCELES”",
+        description: "... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ubican-carcel-del-pueblo-del-opr/n_4.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ubican-carcel-del-pueblo-del-opr/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("July 5, 1972"),
+        title:
+          "“EN UNA DE LAS CÁRCELES ALLANADAS ESTUVO HASTA HACE POCO MOLAGUERO”",
+        description:
+          "Dos importantes escondrijos de la organización sediciosa “OPR 33” fueron descubiertos... Dichos cubiles habían servido para que los facciosos mantuvieran cautivos al industrial Luis Fernández Lladó, a la periodista francesa Michelle Ray y a quien permanece aún en poder de los terroristas, el joven industrial Sergio Hugo Molaguero... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/ubican-carcel-del-pueblo-del-opr/n_6.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/ubican-carcel-del-pueblo-del-opr/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    seeAlso: [
+      { href: "michelle-ray", text: "Michelle Ray" },
+      { href: "sergio-molaguero", text: "Sergio Molaguero" },
+      { href: "luis-fernandez", text: "Luis Fernández Lladó" },
+      {
+        href: "ubican-carcel-del-pueblo-del-opr",
+        text: "Ubican cárcel del pueblo del OPR-33",
+      },
+    ],
+  },
+  {
+    date: new Date("July 15, 1972"),
+    title: "Descubren cadáveres terroristas enterrados por el MLN-T",
+    slug: "descubren-cadaveres-terroristas-enterrados-por-el-mln-t",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Popular" (Página 7)',
+        date: new Date("July 15, 1972"),
+        title: "“EXHUMARON EN PAYSANDÚ TUPAMARO MUERTO AL ESCAPÁRSELE UN TIRO”",
+        description:
+          "... exhumaron en las costas del Río Queguay, en Paysandú el cadáver de… que según declaraciones de los detenidos, pereció accidentalmente hace dos semanas al escapársele un disparo de un rifle que portaba... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/n_1.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("July 16, 1972"),
+        title: "“HALLAN EN LA TEJA CEMENTERIO TUPA”",
+        description: "En Dionisio Coronel 393 fue sepultada... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 13)',
+        date: new Date("July 16, 1972"),
+        title: "“LA SEDICIOSA MURIO EN HOSPITAL DE CAMPAÑA DE CALLE CORACEROS”",
+        description:
+          "... exhumaron esta tarde los restos mortales de una tupamara que perdió la vida por las lesiones que sufriera en un accidente durante la “jornada negra” del 14 de abril último y a quien sus compañeros enterraron... El cadáver de..., esposa del también faccioso… Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/n_4.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 15)',
+        date: new Date("July 16, 1972"),
+        title:
+          "“EL CEMENTERIO TUPAMARO FUE UN TALLER DE GRANADAS DESBARATADO TIEMPO ATRÁS”",
+        description:
+          "En el lugar donde se exhumó hoy el cadáver de una tupamara enterrado a un metro de profundidad, había funcionado una fábrica de armas, granadas de fragmentación y... desbaratado… el pasado 30 de mayo… Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/n_6.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El País" (Página 3)',
+        date: new Date("July 17, 1972"),
+        title: "“FUE EXHUMADO EL CADÁVER DE UNA SEDICIOSA”",
+        description:
+          "Murió accidentada y sus compañeros la enterraron. El cadáver de una joven sediciosa, muerta a raíz de un accidente callejero... fue exhumado. Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/n_8.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/n_9.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("July 17, 1972"),
+        title:
+          "“ENTERRARON JUNTO A UN ESCONDRIJO A SEDICIOSA MUERTA EN ACCIDENTE”",
+        description:
+          "El cadáver de una sediciosa muerta en un accidente de tránsito y enterrada luego ilegalmente por otros facciosos, fue ubicado y desenterrado... en la finca de Dionisio Coronel 395... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/n_10.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/n_11.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 7)',
+        date: new Date("July 17, 1972"),
+        title: "“EXHUMARON “TUPAMARA” FALLECIDA EN ACCIDENTE”",
+        description:
+          "Junto a un taller de fundición de Dionisio Coronel y Gobernador del Pino allanado hace un mes y medio, fue exhumado ayer el cadáver de... de 20 años, enterrada hace dos meses por los “Tupamaros” luego que pereciera en un accidente de tránsito... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/n_12.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/n_13.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“H. A. P. - Si no recuerdo mal, su nombre era Roxana Leal Rovira. Murió a consecuencia de una infección tras un aborto... El solo hecho de mantener oculto el cuerpo es prueba de los disparates que se cometían...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "pág. 168",
+          author: "Marius",
+        },
+        {
+          fragment: `<p>“Henry Engler</p>
+          <p>“Pero entonces fracasan las otras operaciones, se mata la compañera que iba a coordinar un par de ellas al caerse de una moto...”.”.</p>`,
+          year: new Date("2009-1-1"),
+          name: "Memorias de insurgencia. Historias de vida y militancia en el MLN-Tupamaros. 1965-1975",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Banda Oriental S.R.L.",
+          pages: "págs. 173,187",
+          author: "Aldrighi",
+        },
+        {
+          fragment: `<p>“... Cerca de las cuatro de la mañana, mientras el grupo se aventuraba entre la espesura y el descampado por la costa sur del Queguay, Zabalza ordenó detener la marcha para acamapar (sic) y esperar el día. Carlos Varela -caminando a la vanguardia- pareció no escuchar, y Jorge insistió:</p>
+          <p>-Pará, “Martillo”, vamos a campar por acá.</p>
+          <p>-¡Por fin! -exclamó Varela y no dijo más.</p>
+          <p>Cuando apoyó su Winchester 44 en el suelo, una bala se disparó y Varela -...-cayó fulminado al borde del monte… se turnaron para cavar con cucharas y cuchillos una tumba a la vera del monte...”.</p>`,
+          year: new Date("2007-1-1"),
+          name: "Cero a la izquierda. Una biografía de Jorge Zabalza",
+          place: "Montevideo - Uruguay",
+          edition: "Letraeñe Ediciones",
+          pages: "pág. 116",
+          author: "Leicht",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("August 10, 1972"),
+    title:
+      "Detienen a los cabecillas terroristas José Mujica y Lucía Topolansky",
+    slug: "detienen-a-los-cabecillas-terroristas-jose-mujica-y-lucia-topolansky",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 10)',
+        date: new Date("August 20, 1972"),
+        title:
+          "“DETUVIERON A VARIOS CABECILLAS DE LA ORGANIZACIÓN CLANDESTINA”",
+        description:
+          "Entre ellos...,... y..., uno de los asesinos de Acosta y Lara… Comunicado Nº... “... en el hall de entrada del Liceo Francés... fue reconocida y detenida… la sediciosa... (a) “La Tronca” o “Inés” o “La Flaca”... En el momento de su captura portaba un revólver calibre 38 y una granada de mano... El día 16 se efectuaron las siguientes detenciones: En la intersección de las Avenidas San Martín e Instrucciones... se observó a un individuo que se desplazaba en bicicleta... se entregó sin oponer resistencia e identificado resultó ser:... (a) “Emiliano”... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/detienen-a-los-cabecillas-terroristas-jose-mujica-y-lucia-topolansky/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/detienen-a-los-cabecillas-terroristas-jose-mujica-y-lucia-topolansky/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El País" (Página 6)',
+        date: new Date("August 20, 1972"),
+        title: "“... APRESADA EN UNA “RATONERA”",
+        description:
+          "También otros 9 sediciosos caen en finca... Dos importantes cabecillas cayeron... junto a otros elementos... cuenta con frondosos antecedentes, se la hacía dirigiendo los grupos más agresivos o recalcitrantes del movimiento subversivo. Otros de los capturados... El día 15 fue detenida... la sediciosa... (a) “La Tronca” o “Inés”... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/detienen-a-los-cabecillas-terroristas-jose-mujica-y-lucia-topolansky/n_3.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/detienen-a-los-cabecillas-terroristas-jose-mujica-y-lucia-topolansky/n_4.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 2)',
+        date: new Date("August 20, 1972"),
+        title: "“CAPTURAN A...,... Y OTROS”",
+        description: "Entre martes y miércoles pasado fueron detenidos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/detienen-a-los-cabecillas-terroristas-jose-mujica-y-lucia-topolansky/n_5.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/detienen-a-los-cabecillas-terroristas-jose-mujica-y-lucia-topolansky/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Mujica tanteó la subametralladora, con treinta balas en el cargador, disimulada bajo su grueso sacón grisáceo con cuello de piel de corderito, raído y sucio, en cuyo bolsillo guardaba la granada. Eran las ocho de la noche y estaba llegando en su bicicleta al lugar de contacto, en Instrucciones y San Martín...</p>
+          <p>Los militares que aparecieron entre los árboles lo desarmaron y esposaron...</p>
+          <p>Lo peor para Mujica fue enterarse de que también habían detenido a Lucía.</p>
+          <p>La capturaron al llegar al hall del Liceo Francés, ubicado en Avenida Italia 2501: vio movimientos de civiles sospechosos, pero quedó rodeada en un instante y nada pudo hacer.</p>
+          <p>Al ser detenida, Lucía portaba un revólver 38, y al igual que Pepe, una granada de mano”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Edicione",
+          pages: "págs. 560-561",
+          author: "Pernas",
+        },
+      ],
+    },
+    seeAlso: [
+      {
+        href: "actos-terroristas-14-de-abril",
+        text: "Profesor Armando Acosta y Lara, Capitán de Corbeta Ernesto Motto, Sub Comisiario Óscar Delega, Agentes Carlos Leites y Segundo Goñi",
+      },
+    ],
+  },
+  {
+    date: new Date("September 1, 1972"),
+    title: "Detienen en enfrentamiento al cabecilla terrorista Raúl Sendic",
+    slug: "detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "Acción" (Página 3)',
+        date: new Date("September 1, 1972"),
+        title:
+          "“LA CAÍDA DE... ES UN GOLPE DECISIVO GOLPE CONTRA LOS TUPAMAROS”",
+        description:
+          "La nueva captura del jefe tupamaro...-la primera se produjo en agosto de 1970 en una finca de Almería y Yacó-... descabeza prácticamente a una organización... no sólo es el fundador del MLN, sino también su más importante ideólogo... que ha dirigido la lucha sediciosa desde hace ya una larga década...",
+        title1:
+          "“HAN SIDO CAPTURADOS EN LOS ÚLTIMOS 5 MESES CASI TODOS LOS JEFES TUPAMAROS”",
+        description1:
+          "A partir del 12 de abril ppdo... han ido capturando... a los más importantes cabecillas del MLN... Dos días después... los tupamaros desencadenaron una jornada de violencia...",
+        title2: "“FUNDADOR Y CABECILLA DEL MLN”",
+        description2:
+          "... cuyos seudónimos... son “Bebé” o “Rufo” es ideólogo y fundador... es hijo de una familia de medianos hacendados, militó... mientras cursaba estudios universitarios (es Procurador) en filas socialistas... considerado como el ala izquierdista... Fue de los primeros uruguayos que viajaron a Cuba para conocer el proceso revolucionario desencadenado por Fidel Castro... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_1.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_1.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("September 2, 1972"),
+        title:
+          "“PRECIPITA LA DERROTA DEL SUBMUNDO SEDICIOSO, LA DETENCIÓN DE...”",
+        description:
+          "... considerado el cabecilla principal de la organización subversiva, cayó luego de un enfrentamiento en el que recibió un balazo en el rostro... con la cara atravesada por el disparo..., se encuentra internado en el Hospital Militar... Junto con... fueron apresados... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_2.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("September 2, 1972"),
+        title: "“HERIDO EN EL ROSTRO LUEGO DE RESISTIRSE”",
+        description:
+          "Junto a él-que resultó herido en la boca, de cierta entidad-fueron apresados también... y... El procedimiento... denunciando movimientos sospechosos... tuvo lugar en Sarandí 225 entre Pérez Castellano y Mercado Chico... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_4.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 3)',
+        date: new Date("September 2, 1972"),
+        title: "“INSTRUÍDO EN EL EXTRANJERO”",
+        description: "...",
+        title1: "“CEREBRO DE LOS PRIMEROS GOLPES”",
+        description1:
+          "En la noche del 29 de julio de 1962,... con... y otros rompieron el vidrio de una puerta de la Sociedad de Tiro de Nueva Helvecia... y ese fue el atentado inicial del “MLN”... ser reconocido como el delincuente que conducía el Volkswagen en el que llegaron a la sucursal del Banco de Cobranzas -en Rivera y Arrascaeta-los cañeros y frustrados atracadores...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (en Portada)',
+        date: new Date("September 2, 1972"),
+        title: "“... HERIDO: TENÍAN LA CONTRASEÑA”",
+        description:
+          "La Marina copó la manzana. Un funcionario sabía la Contraseña… Resistió. Su rostro quedó desfigurado por una grave herida... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_6.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 3)',
+        date: new Date("September 2, 1972"),
+        title: "“GRAVEMENTE HERIDO”",
+        description:
+          "... tenían la contraseña: “¿Qué tal...? ¿Está el Sr. Juan?”... Aparecen fotos y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_8.jpg",
+            alt: "noticia publicada por el diario El Popular",
+          },
+          {
+            type: "página diario completa",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_9.jpg",
+            alt: "página diario completa publicada por el diario El Popular",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 17)',
+        date: new Date("September 2, 1972"),
+        title: "“ESTARÍA FUERA DE PELIGRO PERO CON UNA SERIA HERIDA”",
+        description:
+          "Herido por un disparo de fusil que entró por su mejilla izquierda y salió por la derecha... fue intervenido ayer en el Hospital Militar... se asomó a la puerta que conduce a un pasillo interior de la residencia de Sarandí 229... disparó su pistola en dirección a la calle... a su izquierda se encontraba, fusil en mano, un miembro de las Fuerzas Conjuntas. El disparo partió desde la escalera interior... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_10.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_11.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 8)',
+        date: new Date("September 4, 1972"),
+        title:
+          "“MÉDICO SANDUCERO PROCESADO HABÍA HECHO LA CIRUGÍA PLÁSTICA A...”",
+        description:
+          "... Se trata del Dr..., detenido tiempo atrás y procesado... integrante del grupo de apoyo sanitario de la columna 24 cuyo responsable era el Dr... también actuaban los doctores...",
+        title1: "“CAYÓ LA COMPAÑERA DE... Y OTRO IMPORTANTE JEFE SEDICIOSO”",
+        description1:
+          "... En Florida fue capturada la compañera del ex marino... quedó embarazada de su compañero hace ya algún tiempo pero debió abortar por expresa disposición de los cabecillas tupamaros... (a) “Ina”... ex estudiante de magisterio... intentando en dos oportunidades desvincularse de la organización por cuanto planteó discrepancias respecto a su conducción... las dos veces recibió amenazas... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_12.jpg",
+            alt: "noticia publicada por el diario El Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_13.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("September 5, 1972"),
+        title: "“... SUFRIRÍA PARÁLISIS FACIAL PERO NO PERDERÁ EL HABLA”",
+        description: "... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_14.jpg",
+            alt: "noticia publicada por el diario El El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_15.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 8)',
+        date: new Date("September 5, 1972"),
+        title: "“... “GRAVE, EN EVOLUCIÓN FAVORABLE”",
+        description: "... Historia clínica del detenido...",
+        title1: "“OFENSA A TUPAC AMARÚ”",
+        description1:
+          "Lima... dice hoy editorialmente el matutino “La Prensa”... “por acción de los “Tupamaros”, Uruguay está sufriendo el problema del enfrentamiento armado de su propia población civil, en brotes de grupos reducidos pero fanáticos... los focos de guerrilleros, “que, ofendiendo la memoria de nuestro héroe y símbolo Tupac Amarú, se autodenominan Tupamaros, para sembrar el odio y la destrucción”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_16.jpg",
+            alt: "noticia publicada por el diario El El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_17.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 7)',
+        date: new Date("September 5, 1972"),
+        title: "“REVELADOR PARTE MÉDICO SOBRE...”",
+        description: "... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_18.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/detienen-en-enfrentamiento-al-cabecilla-terrorista-raul-sendic/n_19.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+    seeAlso: [
+      {
+        href: "robo-armas-club-de-tiro-suizo",
+        text: "Robo Armamento Club de Tiro Suizo - Colonia",
+      },
+    ],
+  },
+  {
+    date: new Date("September 9, 1972"),
+    title: "Resumen de acciones terroristas período 15 abril-10 setiembre 1972",
+    slug: "resumen-de-acciones-terroristas-periodo-abril-setiembre-milnovecientosteintaydos",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 10)',
+        date: new Date("September 10, 1972"),
+        title:
+          "“15 PERSONAS ASESINADAS Y 24 HERIDAS POR LOS TUPAMAROS DESDE EL 15 DE ABRIL HASTA AHORA”",
+        description: "Completando resumen de las actividades...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/resumen-de-acciones-terroristas-periodo-abril-setiembre-milnovecientosteintaydos/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/resumen-de-acciones-terroristas-periodo-abril-setiembre-milnovecientosteintaydos/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("September 19, 1972"),
+    title: "Incautan avión perteneciente al MLN-T",
+    slug: "incautan-avion-perteneciente-al-mln-t",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("September 20, 1972"),
+        title: "“AVIÓN SEDICIOSO CON PROPIETARIO “LEGAL””",
+        description:
+          "El misterioso “avión de los tupamaros” cayó... junto con su piloto -el faccioso “legal”...-... (a) “Rómulo”… el 19 de noviembre de 1971 transportó a Asunción del Paraguay al faccioso... (a) “Nepo”..., El citado aparato fue comprado por dinero entregado por la organización criminal por intermedio de… (a) Joaquín” quien le proporcionó 9 millones de pesos... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/incautan-avion-perteneciente-al-mln-t/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/incautan-avion-perteneciente-al-mln-t/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 8)',
+        date: new Date("September 20, 1972"),
+        title: "“INCAUTAN AVIÓN TUPAMARO”",
+        description: "Un avión CESSNA 310...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/incautan-avion-perteneciente-al-mln-t/n_3.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/incautan-avion-perteneciente-al-mln-t/n_4.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("March 22, 1973"),
+    title: "Desarticulan intento de reorganización del OPR-33",
+    slug: "desarticulan-intento-de-reorganizacion-del-opr-treinta-y-tres",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 15)',
+        date: new Date("March 29, 1973"),
+        title: "DESBARATARON TENTATIVA DE REORGANIZAR EL “OPR 33”",
+        description:
+          "... desbarató las tentativas de revitalizar el movimiento clandestino... fueron hallados un poderoso arsenal y un equipo completo para la falsificación de documentos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/desarticulan-intento-de-reorganizacion-del-opr-treinta-y-tres/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/desarticulan-intento-de-reorganizacion-del-opr-treinta-y-tres/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 16)',
+        date: new Date("March 29, 1973"),
+        title: "“ASESTAN RUDO GOLPE AL OPR-33: APRESAN 10 JEFES”",
+        description:
+          "... a la organización sediciosa “OPR-33”, rama paralela del M.L.N., al ubicar tres guaridas del movimiento, una... resultó ser la guarida central...-ubicado en Arenal Grande 2129-... sorprendiendo... a los jefes subversivos... Aparecen fotos.",
+        title1: "“SIETE SECUESTROS EFECTUÓ LA ORGANIZACIÓN SEDICIOSA”",
+        description1:
+          "El Grupo “OPR 33” surgió... a raíz de un golpe contra la Casa de Lavalleja... del que robó la bandera original de los 33 Orientales... es una escisión del Movimiento de Liberación Nacional...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/desarticulan-intento-de-reorganizacion-del-opr-treinta-y-tres/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/desarticulan-intento-de-reorganizacion-del-opr-treinta-y-tres/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "Acción" (Página 4)',
+        date: new Date("March 29, 1973"),
+        title: "“ANIQUILAN A LA OPR 33”",
+        description:
+          "... fueron ubicados tres locales del grupo y entre ellos su sede central... Entre los detenidos se encuentra el Jefe Militar, el Jefe de Informaciones y Finanzas y el encargado de la formación ideológica y política...: el primero de los nombrados (...) se encontraba en la clandestinidad desde abril de 1969...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/desarticulan-intento-de-reorganizacion-del-opr-treinta-y-tres/n_5.jpg",
+            alt: "noticia publicada por el diario Acción",
+          },
+          {
+            type: "página diario completa",
+            src: "/desarticulan-intento-de-reorganizacion-del-opr-treinta-y-tres/n_6.jpg",
+            alt: "página diario completa publicada por el diario Acción",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p class="font-bold">“Un duro golpe</p>
+          <p>A fines de marzo sufrimos un nuevo golpe de la represión. Ya en el marco de la reestructura acordada, teníamos una reunión para ver un conjunto de temas. Aspectos organizativos, recomposición de equipos, plan de trabajo para el resto del año y algunos temas puntuales. La reunión era de la nueva dirección, la que ya había quedado establecida que se mantendría en el país: Raúl Cariboni, Mauricio Gatti, Alfredo Pareja, Roger Julien y quien escribe.</p>
+          <p>Terminada la reunión se van Mauricio Gatti y Roger Julien. Cariboni y yo quedamos charlando un tema general. Pareja vivía ahí... Es que la casa estaba al frente, al final del patio interno había una puerta que daba a una escalera que conducía a un amplio fondo. En ese fondo, debajo de la casa, había un sótano que era donde nos reuníamos. Teníamos prevista una escapada desde ese fondo a la casa de unos vecinos ante alguna emergencia.</p>
+          <p>Mauricio Gatti, cuando sale ve un movimiento de milicos a un par de cuadras del local,... Mauricio llama para la casa y avisa... Como esos procedimientos militares eran pan de todos los días, no se le dio especial importancia… De repente sentimos un ruido y miramos hacia la boca del sótano, que además era cerrado, nos estaban apuntando con una metralleta y un arma larga, de costado había un oficial que apuntaba con una pistola… habían dado con la casa que llamábamos: Torres...”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Acción directa anarquista. Una historia de FAU",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Recortes",
+          pages: "págs. 481-482",
+          author: "Mechoso",
+        },
+      ],
+    },
+    seeAlso: [
+      {
+        href: "roban-la-bandera-original-de-los-treinta-y-tres-orientales",
+        text: "Robo Bandera Original de los 33 orientales",
+      },
+    ],
+  },
+  {
+    date: new Date("September 8, 1973"),
+    title: "Descubren arsenal de armas",
+    slug: "descubren-arsenal-de-armas",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Día" (Página 17)',
+        date: new Date("September 8, 1973"),
+        title: "“HALLAN EN MAROÑAS ARSENAL SEDICIOSO”",
+        description:
+          "En una modesta vivienda de Maroñas fue descubierto un nuevo “enterradero” sedicioso... que contenía armas cortas, sub ametralladoras, escopetas, explosivos, medicamentos... se domiciliaba un matrimonio joven con una hijita de tres años...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-arsenal-de-armas/n_1.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-arsenal-de-armas/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("April 30, 1974"),
+    title: "Incautan armamento de la Junta Coordinadora Revolucionaria",
+    slug: "incautan-armamento-de-la-junta-coordinadora-revolucionaria",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El País" (en Portada)',
+        date: new Date("April 30, 1974"),
+        title: "“UN ENORME ARSENAL SEDICIOSO ES INCAUTADO POR LAS AUTORIDADES”",
+        description:
+          "Estrecha conexión entre movimientos terroristas de países sudamericanos... se da cuenta de la formación práctica de una llamada “Junta Coordinadora Revolucionaria” que integran...: el Movimiento de Liberación Nacional (Tupamaros) de Uruguay,  el Movimiento de Izquierda Revolucionario (Mir) de Chile, el Ejército de Liberación Nacional (Eln) de Bolivia y el Ejército Revolucionario del Pueble (Erp) de Argentina... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/incautan-armamento-de-la-junta-coordinadora-revolucionaria/n_1.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/incautan-armamento-de-la-junta-coordinadora-revolucionaria/n_2.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("April 30, 1974"),
+        title: "“ARSENAL”",
+        description:
+          "Armas largas y cortas de gran calibre, municiones y granadas, incautadas... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/incautan-armamento-de-la-junta-coordinadora-revolucionaria/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/incautan-armamento-de-la-junta-coordinadora-revolucionaria/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 7)',
+        date: new Date("April 30, 1974"),
+        title: "“INCAUTAN ARSENAL Y DOCUMENTOS EN PODER DE GRUPOS SEDICIOSOS”",
+        description:
+          "... permitieron la incautación de gran cantidad de material de guerra y la detención de... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/incautan-armamento-de-la-junta-coordinadora-revolucionaria/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/incautan-armamento-de-la-junta-coordinadora-revolucionaria/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El País" (Página 12)',
+        date: new Date("May 22, 1975"),
+        title: "“ARGENTINA: CAEN TRES SEDICIOSOS URUGUAYOS”",
+        description:
+          "En dos operativos simultáneos apresan a 7 terroristas con numeroso armamento. Buenos Aires (Ansa)-Tres uruguayos, dos chilenos y dos argentinos que integraban una organización subversiva internacional denominada “Junta Coordinadora Revolucionaria”...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/incautan-armamento-de-la-junta-coordinadora-revolucionaria/n_7.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/incautan-armamento-de-la-junta-coordinadora-revolucionaria/n_8.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El País" (en Portada)',
+        date: new Date("June 27, 1975"),
+        title:
+          "“INTRODUJERON A URUGUAY ARMAS FABRICADAS ESPECIALMENTE PARA EL TERRORISMO LATINOAMERICANO”",
+        description:
+          "Pistola ametralladora para uso de los extremistas del Cono Sur aquí en Montevideo... se logró incautar la pistola ametralladora J.C.R. 1 (Junta Coordinadora Revolucionaria Modelo 1), armamento fabricado con el aporte de las organizaciones extremistas que operan en el Cono Sur, nucleadas, coordinadas y dirigidas por esta junta marxista, que nuclea... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/incautan-armamento-de-la-junta-coordinadora-revolucionaria/n_9.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/incautan-armamento-de-la-junta-coordinadora-revolucionaria/n_10.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Efraín Martínez Platero salió del Uruguay en octubre de 1972... “Decidí irme para darle cierta continuidad histórica al movimiento, cosa que hasta ese momento no había tenido”.</p>
+          <p>... Luego partió a Argentina primero y a recorrer el continente y el mundo con la misión de formar la Junta de Coordinación Revolucionaria, una asociación de grupos guerrilleros de izquierda.</p>
+          <p>La creación de esta alianza entre el PRT-ERP de Argentina, el MIR de Chile, el ELN de Bolivia y el MLN posibilitó que los uruguayos recibieran dinero, pertrechos y entrenamiento para sus hombres, lo que dio nuevos argumentos a los que querían reiniciar la lucha armada.</p>
+          <p>Alemañy todavía permanecía como clandestino en Montevideo a fines de 1973. Había sido incorporado a la dirección del MLN en Uruguay. Eran cuatro: tres querían reiniciar las acciones armadas y sólo él se oponía.</p>
+          <p>“Cuando gracias a la Junta de Coordinación Revolucionaria aparecieron recursos económicos, armas y hombres entrenados, que los había y muchos, creció la propuesta de volver a atacar en Uruguay...”.”.</p>`,
+          year: new Date("2008-1-1"),
+          name: "Historias tupamaras. Nuevos testimonios sobre los mitos del MLN",
+          place: "Montevideo - Uruguay",
+          edition: "Editorial Fin de Siglo",
+          pages: "págs. 179-180",
+          author: "Haberkorn",
+        },
+        {
+          fragment: `<p class="font-bold">“DOMINGO”</p>
+          <p>Yo fui a la Unión Soviética y de ahí a Cuba, mientras ellos –el Beto (Falero) y Efraín –se vinieron a Buenos Aires.</p>
+          <p>¿Dónde obtenían los recursos para financiar tan frecuentes viajes de los dirigentes?</p>
+          <p>De los secuestros. Yo tengo el record nacional. No tengo el sudamericano porque los Montos me hicieron el de 70 millones de dólares.</p>
+          <p>¿Qué secuestros?</p>
+          <p>En 1973, en Argentina. Tres secuestros, 22 millones de dólares. Tengo uno de quince millones de dólares, el de (Víctor) Samuelson.</p>
+          <p>¿Fueron realizados con el ERP o con la Junta de Coordinación Revolucionaria?</p>
+          <p>No, lo hacíamos todos los de la Junta: el ELN, que no ponía gente, pero le dábamos guita; el MIR, que no operaba en Argentina, pero le dábamos guita también, el PRT y el MLN. Con Samuelson sacamos 15.600.000 dólares. Cinco millones con el de Swissair. Firmaba la Junta.</p>
+          <p>Se mandó plata a Chile para el MIR, se mandó al ELN, nos quedamos nosotros y el toco grande se lo quedó el ERP.</p>
+          <p>¿En qué otros secuestros participó el MLN?</p>
+          <p>Los secuestros fueron tres: el gerente de Swissair Argentina, por el que pagaron cinco millones de dólares, otro que no me acuerdo, y el último es (Víctor) Samuelson con 15 millones 600 mil dólares...”.</p>
+          <p class="font-bold">“EFRAÍN MARTÍNEZ PLATERO</p>
+          <p>¿Cuál fue su itinerario en Europa como representante de la JCR?</p>
+          <p>Yo estaba haciendo las tratativas por la JCR, como representante oficial de la JCR en el exterior. Desde noviembre de 1973 hasta fines de diciembre estuve en Argelia. Fuimos con el Beto (Gabino) Falero y Walter Machado...</p>
+          <p>La JCR se presenta públicamente en febrero de 1974, pero se forma a comienzos de 1973 y opera a lo largo de ese año.</p>
+          <p>Exactamente”.</p>
+          <p class="font-bold">“KIMAL AMIR</p>
+          <p>¿Quiénes concurrían a la JCR como delegados del MLN?</p>
+          <p>Sé que se turnaban. Iba Willy (Whitelaw). Estando Martínez Platero iba él. Pero Efraín viajaba, iba, venía, iba a Cuba, a Europa.</p>
+          <p>... Después, dentro de esos procesos contradictorios que te decía, estaba lo que se invirtió en la fábrica de armas.</p>
+          <p>¿Con quién instaló el MLN esa fábrica?</p>
+          <p>Con el PRT, la JCR...”.</p>`,
+          year: new Date("2009-1-1"),
+          name: "Memorias de insurgencia. Historias de vida y militancia en el MLN-Tupamaros. 1965-1975",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Banda Oriental S.R.L.",
+          pages: "págs. 343, 347-348, 354-355, 361, 369, 373, 423, 442, 447",
+          author: "Aldrighi",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("June 26, 1975"),
+    title: "Desarticulan intento de reorganización del MLN-T",
+    slug: "desarticulan-intento-de-reorganizacion-del-mln-t",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El País" (en Portada)',
+        date: new Date("June 26, 1975"),
+        title:
+          "“DESTRUYEN INTENTO DE REORGANIZAR SEDICIÓN; 3 FACCIOSOS MUERTOS”",
+        description: "Aparecen fotos.",
+        title1:
+          "“CAPTURAN VEINTE CABECILLAS Y DESCUBREN UN ARSENAL; HABÍA POTENTES GRANADAS ARGENTINAS”",
+        description1:
+          "Cayó la camarilla dirigente de la sedición que venía operando en Montevideo con vistas a reorganizar el aplastado movimiento terrorista… Hubo dos combates... Aparece foto e imagen.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/desarticulan-intento-de-reorganizacion-del-mln-t/n_1.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/desarticulan-intento-de-reorganizacion-del-mln-t/n_2.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p class="font-bold">“RAÚL RODRÍGUEZ</p>
+          <p>¿Quiénes fueron los militantes que ingresaron a Uruguay en 1975 para intentar reorganizar el MLN?<p>
+          <p>Los que vinimos como clandestinos en 1975 fuimos el Cholo (Walter) González, el Chato (Humberto) De los Santos, el Caudillo (Pedro) Lerena, Celso Fernández y yo. ... Más para abajo entró clandestino de Buenos Aires otro compañero que no estaba en el organismo de dirección Raúl Melogno...<p>
+          <p>... Me molesta mucho cuando el Flaco Zabalza cuenta en su libro que cuando estaba con (Julio) Marenales en un cuartel, sintieron una gran emoción y un estímulo cuando supieron en 1975 que había caído gente del Partido Comunista, que seguía organizada. En ningún momento menciona que en el mismo año compañeros suyos habían vuelto a luchar a este país y algunos murieron”.<p>
+          <p class="font-bold">“WALTER “CHOLO” GONZÁLEZ</p>
+          <p>¿En qué lugar de Montevideo fue capturado el 25 de mayo de 1975?</p>
+          <p>En Casabó, Bajo Valencia. Venía en bicicleta. Casi me atropellaron. Una camioneta delante de mí. Me apuntaron los tres...</p>
+          <p>¿Venían de una reunión del grupo dirigente?</p>
+          <p>Veníamos. Más atrás venía el Chato (Humberto) De los Santos con este compañero que mataron, Celso Fernández. A mí es de los primeros que agarran.</p> <p>Yo venía en bicicleta y ellos saliendo del monte.: “Juan de Europa” (Raúl Rodríguez) y (Pedro) Lerena. Celso llegó herido de bala al Hospital, muerto”.</p>`,
+          year: new Date("2009-1-1"),
+          name: "Memorias de insurgencia. Historias de vida y militancia en el MLN-Tupamaros. 1965-1975",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Banda Oriental S.R.L.",
+          pages: "págs. 379, 395, 407, 416-416",
+          author: "Aldrighi",
+        },
+        {
+          fragment: ``,
+          year: new Date("2004-1-1"),
+          name: "El Cholo González. Un cañero de Bella Unión",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Trilce",
+          pages: "págs. 105, 112",
+          author: "Gilio",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("December 9, 1975"),
+    title:
+      "Terroristas del MLN-T y del Partido Comunista entrenados en la ex U.R.S.S. y Cuba",
+    slug: "terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("December 9, 1975"),
+        title:
+          "“DESCUBREN CASOS DE JÓVENES URUGUAYOS PREPARADOS EN RUSIA PARA LA SEDICIÓN”",
+        description: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("December 9, 1975"),
+        title:
+          "“DOS VEINTEAÑEROS PROCESADOS YA, HABÍAN RECIBIDO SU ENTRENAMIENTO EN LA U.R.S.S.”",
+        description:
+          "... jóvenes uruguayos han sido preparados en el propio territorio de la Unión Soviética para dedicarse luego, en nuestro país, a la acción de índole sediciosa...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 10)',
+        date: new Date("December 10, 1975"),
+        title: "“INFORMAN SOBRE ACTIVIDADES DEL PROSCRIPTO PARTIDO COMUNISTA”",
+        description:
+          "... “Actividades del proscripto Partido Comunista para el control psíquico y adoctrinamiento sedicioso de jóvenes orientales realizadas en el extranjero...”",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_5.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 8)',
+        date: new Date("March 1, 1976"),
+        title: "“LA VIOLENCIA MUNDIAL COMIENZA EN LAS ESCUELAS DE “KONSOMOL”",
+        description:
+          "... La escuela de guerrillas Konsomol opera no sólo para nuestro país o para América Latina, sino para el mundo entero... La escuela está situada a unos 40 minutos de la Plaza Roja,...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_7.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_8.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 8)',
+        date: new Date("March 4, 1976"),
+        title: "“INSTRUÍAN GRUPOS URUGUAYOS BAJO CONSIGNA DE LA “OLAS””",
+        description:
+          "... Ya en La Habana en los primeros meses de 1967, la OLAS había ordenado la insurrección armada en Bolivia… En Uruguay,..., Vicepresidente de la OLAS encuentra resistencia en los Tupamaros a enviar contingentes a Bolivia y decide, que los dieciocho comunistas previamente seleccionados por el jefe del aparato armado clandestino,... y el primer secretario de la UJC..., realicen el viaje...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_9.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_10.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 8)',
+        date: new Date("March 5, 1976"),
+        title: "“INSTRUÍAN A URUGUAYOS POR ORDEN DE LA “OLAS””",
+        description:
+          "... “El curso comenzó recién en agosto en un campamento militar en Pinar del Río que consistía en tres barracas... Una, era el dormitorio de los comunistas uruguayos, otra el comedor y al tercera alojamiento para Instructores y depósito... La instrucción comenzaba...”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_11.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 8)',
+        date: new Date("March 12, 1976"),
+        title:
+          "“TORNERO EFECTUÓ CURSOS EN CUBA PARA FABRICACIÓN DE ARMAMENTOS”",
+        description: "Al servicio del comunismo. Un tornero de 33 años...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_13.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_14.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 17)',
+        date: new Date("March 14, 1976"),
+        title: "“RECIBIÁN CAPACITACIÓN MILITAR MIEMBROS DEL PARTIDO COMUNISTA”",
+        description:
+          "Cursos especiales-doctrinarios y de capacitación militar-desarrollaban marxistas activos uruguayos en un país comunista...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_15.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_16.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El País" (Página 13)',
+        date: new Date("March 14, 1976"),
+        title: "“MERCENARIOS URUGUAYOS CON LOS PALESTINOS”",
+        description:
+          "Impresionante barbarie reinaba en los campamentos de feyadines aplicándose los tormentos más crueles a quien caía prisionero. Tupamaros en los campamentos... cinco mil fedayines perfectamente entrenados, todos ellos marxistas. Junto a ellos, en la categoría de experimentados, revistaba más de un centenar de elementos que pertenecieron al Ejército Rojo Japonés, al MLN Tupamaros y al Frente de Liberación de Eritrea...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_17.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/terroristas-del-mln-t-y-del-partido-comunista-entrenados-en-la-ex-usrss-y-cuba/n_18.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("December 24, 1975"),
+    title: "Descubren el aparato armado del Partido Comunista del Uruguay",
+    slug: "descubren-el-aparato-armado-del-partido-comunista-del-uruguay",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("December 24, 1975"),
+        title:
+          "“LAS FUERZAS CONJUNTAS DESBARATAN EL APARATO MILITAR DEL COMUNISMO”",
+        description:
+          "Aparecen fotos a cuyo pie dicen: “... se aprecia parte de la profusa documentación subversiva incautada...”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("December 24, 1975"),
+        title:
+          "“DESBARATAN CUERPO MILITAR DEL PARTIDO COMUNISTA Y DETIENEN A DOS DIRIGENTES”",
+        description:
+          "... integrantes del proscripto Partido Comunista habían planificado desórdenes en los centros sindicales y gremiales los días de Navidad y Año Nuevo..., se encontraba el aparato militar clandestino. Éste comprendía dos partes: por un lado el llamado Ejército Popular organizado en grupos de centurias, secciones y grupos, en orden decreciente que encuadraban los potenciales combatientes a ser empleados en todo tipo de operativo subversivo, coincidente con su filosofía de lucha armada como método para alcanzar el poder,...Y por otro lado el aparato logístico que incluía los depósitos de armas, la sección producción, encargada de fabricación de armas para el movimiento, el sector comunicaciones y el sector sanidad… Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_3.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 16)',
+        date: new Date("December 27, 1975"),
+        title: "“COMUNISTAS POSEÍAN AVIONETA Y NAVES PARA VIAJAR AL EXTERIOR”",
+        description:
+          "Aparecen fotos en una de las cuales a su pie dice: “... Descubrieron depósitos de armas. Uno de ellos ubicado en la calle Emilio Romero... Con este arsenal los elementos clandestinos proyectaban comenzar las acciones armadas, para lo cual se cumplían cursos de preparación...”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_4.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_5.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 21)',
+        date: new Date("December 30, 1975"),
+        title:
+          "“GOLPE AL COMUNISMO: MÁS DE CIEN DETENIDOS, 32 BASES ALLANADAS Y 1.000 ARMAS INCAUTADAS”",
+        description:
+          "... 32 escondites descubiertos, una red de teléfonos para 60 abonados neutralizada, 1051 armas y 30 mil proyectiles incautados...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_6.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_7.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 11)',
+        date: new Date("December 30, 1975"),
+        title: "“UN IMPORTANTE ACOPIO DE ARMAS HABÍAN LOGRADO LOS COMUNISTAS”",
+        description:
+          "La subversión comunista había hecho acopio de gran cantidad de armas. Enviaba técnicos a Rusia y Cuba para perfeccionar sus conocimientos y recibía órdenes desde Moscú a través de transmisiones de radio codificadas... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_8.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_9.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 11)',
+        date: new Date("December 31, 1975"),
+        title: "“ARSENAL DEL COMUNISMO CONTRA LA REPÚBLICA”",
+        description:
+          "Aparecen fotos en una de las cuales a su pie dice: “... se aprecia cabalmente la magnitud y potencia de fuego del arsenal clandestino que la filial local del Partido Comunista venía reuniendo desde hace años en el Uruguay con propósitos subversivos,...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_10.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_11.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("January 4, 1976"),
+        title: "“COMUNISMO ES VIOLENCIA”",
+        description:
+          "Tras la proclama de paz y la justicia social- falsas banderas del comunismo internacional-se ocultaba un feroz aparato militar, cuyo objetivo era... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_12.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_12.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 15)',
+        date: new Date("January 4, 1976"),
+        title: "",
+        description: "",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_13.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_13.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 10)',
+        date: new Date("January 20, 1976"),
+        title: "“EXPONEN MATERIAL INCAUTADO AL COMUNISMO”",
+        description:
+          "... “En las fotos, una larga fila de público a la espera para llegar hasta el lugar de exhibición y parte de los armamentos que componen un sector de la muestra”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_14.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_15.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El País" (Página 7)',
+        date: new Date("January 22, 1976"),
+        title: "“FUSIL CON INSÓLITAS CUALIDADES”",
+        description:
+          "Aparece foto a cuyo pie dice: “El AR-15 XM 16 E-1 de fabricación norteamericana, que tenían escondido los comunistas en varios cubiles de Montevideo”.",
+        description1: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_16.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_17.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 9)',
+        date: new Date("January 22, 1976"),
+        title: "“YERNO DE... ACTUABA EN EL APARATO MILITAR COMUNISTA”",
+        description:
+          "... En sus manifestaciones detalló su participación en filas del comunismo. “En 1967... me contacta con una persona que me propone me encargue de cuatro grupos armados de la UJC. Comienzo a verme con los responsables de los mismos que eran… Nos reuníamos en la calle o en fincas,... hacíamos prácticas de tiro y ejercicios en al campo”...",
+        description1: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_18.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-el-aparato-armado-del-partido-comunista-del-uruguay/n_19.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("December 27, 1975"),
+    title: "Descubren cárcel del pueblo del Partido Comunista del Uruguay",
+    slug: "descubren-carcel-del-pueblo-del-partido-comunista-del-uruguay",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 19)',
+        date: new Date("December 27, 1975"),
+        title: "“CÁRCEL DEL PUEBLO” QUE LAS FF.CC. DESBARATARON EN COLÓN”",
+        description:
+          "... una “Cárcel del Pueblo” en la calle Lezica (Colón), local que también era utilizado por los dirigentes de la organización clandestina -Partido Comunista-como refugio o enterradero transitorio... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-carcel-del-pueblo-del-partido-comunista-del-uruguay/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-carcel-del-pueblo-del-partido-comunista-del-uruguay/n_1.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 20)',
+        date: new Date("December 28, 1975"),
+        title:
+          "“REVELAN ACTIVIDAD DESCONOCIDA HASTA HOY DEL PROSCRIPTO PARTIDO COMUNISTA”",
+        description: "Tenían una “cárcel del pueblo”. Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-carcel-del-pueblo-del-partido-comunista-del-uruguay/n_3.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-carcel-del-pueblo-del-partido-comunista-del-uruguay/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("January 8, 1976"),
+    title:
+      "Descubren planes del Partido Comunista del Uruguay para la acción revolucionaria",
+    slug: "descubren-planes-del-partido-comunista-del-uruguay-para-la-accion-revolucionaria",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 14)',
+        date: new Date("January 8, 1976"),
+        title:
+          "“INSTALACIÓN DE “REPÚBLICAS POPULARES” PROPUGNA EL COMUNISMO EN TEXTO SECRETO”",
+        description:
+          "La toma del poder y la instalación de “Repúblicas Populares” en el Continente Sur, formaban parte de los objetivos de los comunistas en nuestro país.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-planes-del-partido-comunista-del-uruguay-para-la-accion-revolucionaria/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-planes-del-partido-comunista-del-uruguay-para-la-accion-revolucionaria/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 8)',
+        date: new Date("January 9, 1976"),
+        title: "“DESCUBRIÓSE PLAN COMUNISTA PARA TOMA VIOLENTA DEL PODER”",
+        description:
+          "Entre los documentos incautados a integrantes del proscripto partido Comunista, se encontró uno que había sido emitido en Praga, durante una de las reuniones periódicas que los izquierdistas latinoamericanos realizaban...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/descubren-planes-del-partido-comunista-del-uruguay-para-la-accion-revolucionaria/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/descubren-planes-del-partido-comunista-del-uruguay-para-la-accion-revolucionaria/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("January 10, 1976"),
+    title:
+      "Conferencia de prensa de tres integrantes del Partido Comunista del Uruguay",
+    slug: "conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El País" (en Portada)',
+        date: new Date("January 11, 1976"),
+        title:
+          "“CÓMO LOS UTILIZÓ EL COMUNISMO: EL RELATO PATÉTICO DE TRES DETENIDOS”",
+        description:
+          "El miedo y la coacción no les permitió zafar del “Partido”... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay/n_1.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay/n_1.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El País" (Página 6)',
+        date: new Date("January 11, 1976"),
+        title: "“3 DETENIDOS APORTAN IMPACTANTES RELATOS”",
+        description:
+          "... “Cuando quise irme hablé con la persona que me había reclutado y ella me dijo que salir de la organización era imposible”... “Veladamente, me amenazaron de forma tal que, también sin meditarlo, seguí en el asunto…”... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay/n_2.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay/n_2.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 15)',
+        date: new Date("January 11, 1976"),
+        title: "“COMUNISMO: TRES DETENIDOS DAN CONFERENCIA DE PRENSA”",
+        description:
+          "Calan en una sutil trama, para verse luego envueltos en una burda red de la que ya no podían salir. De la engañosa amistad se pasaba a la comprometedora relación por medios coercitivos... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay/n_3.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (Página 15)',
+        date: new Date("January 11, 1976"),
+        title: "“ENGAÑO DEL COMUNISMO: CRUDO TESTIMONIO DE TRES DETENIDOS”",
+        description:
+          "Tres detenidos, utilizados por amigos comunistas para ocultar sus actividades subversivas, brindaron a la opinión pública,... una advertencia-avalada por su propia experiencia-sobre los métodos que se vale el “Partido” para conquistar y comprometer a sus adeptos,... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay/n_5.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay/n_6.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("October 29, 1976"),
+    title: "Desarticulan intento de reorganización del PVP, ex OPR-33",
+    slug: "desarticulan-intento-de-reorganizacion-del-pvp-ex-opr-treinta-y-tres",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El País" (en Portada)',
+        date: new Date("October 29, 1976"),
+        title:
+          "“PLANEABAN OLEADA DE CRÍMENES POLÍTICOS. 62 Detenidos de Nueva Organización”",
+        description:
+          "Una organización terrorista que planeaba una ola de atentados y asesinatos en nuestro país fue desbaratada... El aparato subversivo, formado por terroristas que integraban el OPR 33 y el MLN tenía su base militar en Buenos Aires... El grupo, llamado Partido Por la Victoria del Pueblo había comenzado sus operaciones, con fondos obtenidos en un secuestro realizado en Buenos Aires... Aparecen fotos de...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay/n_1.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay/n_2.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El País" (Página 2)',
+        date: new Date("October 29, 1976"),
+        title:
+          "“UN AVISO DE UN JABÓN INEXISTENTE IBA A SEÑALAR EN CLAVE EL DÍA “SEÑALADO””",
+        description: "Aparecen fotos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay/n_3.jpg",
+            alt: "noticia publicada por el diario El País",
+          },
+          {
+            type: "página diario completa",
+            src: "/conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay/n_3.jpg",
+            alt: "página diario completa publicada por el diario El País",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“... El centro en que confluyeron los esfuerzos fue el plan de aparición. O, como se llamó después, la aparición "shock". Consistía en difundir por medios legales (propaganda paga en diarios de circulación nacional, como El Día y El País y banderines y sombreros en la vuelta ciclista) determinados símbolos y eslóganes que después se pensaba retomar por la acción clandestina del partido...</p>
+          <p>Un alto funcionario de una empresa de origen belga, Norberto González Ulmi, estaba organizando en Uruguay la difusión de una propaganda muy específica. “El objetivo de la operación –cuenta el compañero– era difundir en todo el país el símbolo del partido (un mapa del Uruguay con un signo de “X” dentro de una “V”) y ambientar sus consignas...”.”.</p>`,
+          year: new Date("2002-1-1"),
+          name: "Memorias de la resistencia",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Banda Oriental",
+          pages: "pág. 177",
+          author: "Cores",
+        },
+      ],
+    },
+  },
 ];
+
+/*
+
+hrf: "roban-la-bandera-original-de-los-treinta-y-tres-orientales",
+text: "Robo Bandera Original de los 33 orientales",
+
+/*
+
+/*
+
+ vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“Pocos días después, indiscutibles errores de Sendic provocan la caída de un importante reducto. La Policía llegó hasta una chacra que el MLN poseía en Pando, y fueron detenidos ocho compañeros, casi todos de alto rango en el Movimiento, entre los que se encuentran Falero Montes de Oca, Bassini, De Lucía y Pedro Dubra...”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Autobiografía de Amodio Pérez",
+          place: "Montevideo - Uruguay",
+          edition: "Arca Editorial",
+          pages: "págs. 35-36",
+          author: "Pérez",
+        },
+        {
+          fragment: `<p>“Raúl, con su paupérrima credencial cívica, había logrado arrendar un terrenito en la Ruta 75, más allá de Pando.</p>
+          <p>Era una muy pequeña chacrita descampada, en pronunciado declive... Al fondo la cruzaba una cañada cuyos cauces daban la única cobertura...</p>
+          <p>Lo primero que hicimos fue montar una carpa contra la cañada. Luego comenzamos a clavar los piques del futuro rancho de fajina… Un tumulto de herramientas, armas y materiales de todo tipo, metidos allí...</p>
+          <p>En poco más de una semana los compañeros plantaron un rancho... Pronto sería mejorado y ampliado, pero ya teníamos nueva base...”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 3: el MLN",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "págs. 163-164",
+          author: "Fernández Huidobro",
+        },
+        {
+          fragment: `<p>“... A mediados de diciembre cae una chacra en Pando, donde son detenidos Falero, Bassini y Pedro Dubra que constituían el comando de una de las columnas recientemente formadas...</p>
+          <p>... Se perdía un comando íntegro, en el que estaba Falero, un hombre con una gran experiencia militar y seguro tanto en la planificación como en la ejecución, Bassini, en ese momento único experto en explosivos y gran cantidad de materiales...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "pág. 268",
+          author: "Marius",
+        },
+      ],
+    },
+
+*/

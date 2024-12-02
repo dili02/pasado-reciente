@@ -1,6 +1,7 @@
 import { ApologyForCrimeInImagesDefinition } from "@/db/data";
 import React from "react";
 import { Image } from "lucide-react";
+import SectionTitle from "./section-title";
 
 type Props = {
   crimeImages: ApologyForCrimeInImagesDefinition[];
@@ -9,12 +10,17 @@ type Props = {
 export default function ApologyForCrimeInImages({ crimeImages }: Props) {
   return (
     <div>
-      <h2
+      {/* <h2
         className="uppercase text-3xl text-center font-extrabold text-orange-950 scroll-mt-6 flex items-center justify-center gap-2"
         id="apology"
       >
         <Image className="w-8 h-8" /> Apología del delito en imágenes
-      </h2>
+      </h2> */}
+
+      <SectionTitle id="apology">
+        <Image className="hidden lg:block w-7 h-7 2xl:w-8 2xl:h-8" />
+        Apología del delito en imágenes
+      </SectionTitle>
 
       <div className="py-8">
         {crimeImages.map((apology) => (

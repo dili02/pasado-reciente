@@ -29,7 +29,7 @@ export default async function page({}: Props) {
   );
   return (
     <section className="container mx-auto py-8">
-      <h1 className="uppercase text-3xl text-center font-extrabold text-orange-950">
+      <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold lg:tracking-tight xl:tracking-tighter uppercase text-orange-900 text-center">
         secuestros
       </h1>
 

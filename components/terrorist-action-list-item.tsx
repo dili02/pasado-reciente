@@ -47,7 +47,7 @@ export default function TerroristActionListItem({ action }: Props) {
           </div>
 
           {action.moneyTheft?.usd && (
-            <Badge className="text-sm text-orange-500 bg-orange-100 py-2 px-4 rounded-3xl font-extrabold hover:bg-orange-100">
+            <Badge className="text-sm text-orange-500 bg-orange-100 py-2 px-4 rounded-xl font-extrabold hover:bg-orange-100">
               {formatCurrency(action.moneyTheft?.usd)}
             </Badge>
           )}

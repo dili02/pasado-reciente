@@ -1,6 +1,7 @@
 import { Book } from "@/db/data";
 import { BookOpenCheck } from "lucide-react";
 import React from "react";
+import SectionTitle from "./section-title";
 
 type Props = {};
 
@@ -11,13 +12,18 @@ export default function ActionVindicated({
 }) {
   return (
     <div className="min-h-screen">
-      <h2
-        className="uppercase text-3xl text-center font-extrabold text-orange-950 scroll-mt-6 flex items-center justify-center gap-2"
+      {/* <h2
+        className="uppercase text-3xl font-extrabold text-orange-950 scroll-mt-6 flex justify-center gap-2"
         id="vindicated"
       >
         <BookOpenCheck className="w-8 h-8 mt-1" /> acciones reivindicadas por
         los movimientos terroristas
-      </h2>
+      </h2> */}
+
+      <SectionTitle id="vindicated">
+        <BookOpenCheck className="hidden lg:block w-7 h-7 2xl:w-8 2xl:h-8" />
+        acciones reivindicadas por los movimientos terroristas
+      </SectionTitle>
 
       <p className="py-4">
         Las acciones terroristas del llamado Pasado Reciente son reconocidas y
@@ -25,8 +31,8 @@ export default function ActionVindicated({
         pública.
       </p>
 
-      {actionVidicated.books.map((book) => (
-        <div key={book.name} className="text-base py-2 px-8 bg-orange-50">
+      {actionVidicated.books.map((book, index) => (
+        <div key={index} className="text-base py-2 px-8 bg-orange-50">
           <div
             className="pt-8 bg-orange-50"
             dangerouslySetInnerHTML={{ __html: book.fragment }}

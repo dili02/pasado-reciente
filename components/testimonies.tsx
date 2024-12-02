@@ -1,6 +1,7 @@
 import { VideosTerroristActionDefinition } from "@/db/data";
 import { MonitorPlay } from "lucide-react";
 import React from "react";
+import SectionTitle from "./section-title";
 
 type Props = {
   videos: VideosTerroristActionDefinition[];
@@ -9,13 +10,18 @@ type Props = {
 export default function Testimonies({ videos }: Props) {
   return (
     <div>
-      <h2
+      {/* <h2
         className="uppercase text-3xl text-center font-extrabold text-orange-950 scroll-mt-6 flex items-center justify-center gap-2"
         id="testimonies"
       >
         <MonitorPlay className="w-8 h-8" /> Relatos de familiares de víctimas
         del terrorismo.
-      </h2>
+      </h2> */}
+
+      <SectionTitle id="testimonies">
+        <MonitorPlay className="hidden lg:block w-7 h-7 2xl:w-8 2xl:h-8" />
+        Relatos de familiares de víctimas del terrorismo.
+      </SectionTitle>
 
       {videos.map((video) => (
         <div className="rounded shadow-lg py-2" key={video.src}>

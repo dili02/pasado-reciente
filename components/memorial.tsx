@@ -1,17 +1,32 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-// import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { Suspense } from "react";
+import { ImageSkeleton, TitleSkeleton } from "./skeletons";
+import { TerroristActionDefinition } from "@/db/data";
 
-type Props = {};
+type Props = {
+  actions: TerroristActionDefinition[];
+};
 
-export default function Memorial({}: Props) {
+function getCurrentMonth() {
+  const montFormatter = new Intl.DateTimeFormat("es-UY", { month: "long" });
+
+  return montFormatter.format(new Date());
+}
+
+export default function Memorial({ actions }: Props) {
   const [dateTime, setDateTime] = useState<string>("");
   const [currentMonth, setCurrentMonth] = useState<string>("");
+  const [terroristActions, setTerroristActions] = useState<
+    [] | TerroristActionDefinition[]
+  >([]);
+  const [currentMonthNumber, setCurrentMonthNumber] = useState<number>(
+    new Date().getMonth()
+  );
 
   useEffect(() => {
     const now = new Date();
@@ -20,92 +35,82 @@ export default function Memorial({}: Props) {
     const monthFormatter = new Intl.DateTimeFormat("es-UY", { month: "long" });
     const getCurrentMonth = monthFormatter.format(new Date()).toLowerCase();
     setCurrentMonth(getCurrentMonth);
+
+    listActions(currentMonthNumber);
   }, []);
 
-  // TODO: delete console.log
-  console.log(dateTime);
-  // console.log(month);
+  const listActions = (month: number) => {
+    const actionsToList = actions
+      .filter((action) => action.date.getMonth() === month)
+      .sort((a, b) => a.date.getTime() - b.date.getTime());
+    setTerroristActions(actionsToList);
+  };
+
+  const actionsDates = terroristActions.map((date) => date.date);
+  const initDate = new Date(actionsDates[0]).getFullYear();
+  const endDate = new Date(actionsDates[actionsDates.length - 1]).getFullYear();
 
   return (
-    <div className="flex flex-col justify-center items-center gap-y-4 lg:max-w-[450px]">
-      <h2 className="uppercase text-center font-semibold text-lg">
-        <span className="pr-2"> Memorial del Mes de</span>
-        <time dateTime={getCurrentMonth()}>{currentMonth}</time>
-      </h2>
+    <div className="flex flex-col justify-center items-center gap-y-4 w-full">
+      {!currentMonth && <TitleSkeleton />}
+      {currentMonth && (
+        <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold lg:tracking-tight xl:tracking-tighter uppercase text-center">
+          Memorial del Mes de{" "}
+          <time dateTime={getCurrentMonth()}>{currentMonth}</time>
+        </h2>
+      )}
 
-      {/* TODO: get years automatically */}
-      <h4 className="text-center lg:text-sm text-gray-500">
-        Acciones terroristas llevadas a cabo por los movimientos subversivos
-        durante el período 1965-1972
-      </h4>
+      {/* <p>{initDate}</p>
+      <p>{endDate}</p> */}
 
-      <span className="text-xs hidden">{dateTime}</span>
+      {!initDate && !endDate ? (
+        <TitleSkeleton />
+      ) : (
+        <h4 className="text-lg text-center text-orange-500">
+          Acciones terroristas llevadas a cabo por los movimientos subversivos
+          durante el período{" "}
+          <time
+            dateTime={initDate.toString()}
+            aria-label={`Año ${initDate.toString()}`}
+          >
+            {initDate}
+          </time>
+          -
+          <time
+            dateTime={endDate.toString()}
+            aria-label={`Año ${endDate.toString()}`}
+          >
+            {endDate}
+          </time>
+        </h4>
+      )}
 
-      <img
-        src={`/efemerides/${currentMonth}.png`}
-        className=""
-        alt={`memorial del mes de ${getCurrentMonth()}`}
-      />
+      {/* <span className="text-xs">{dateTime}</span> */}
+
+      <div>
+        {!currentMonth && <ImageSkeleton />}
+        {currentMonth && (
+          <img
+            src={`/efemerides/${currentMonth}.png`}
+            className=""
+            alt={`memorial del mes de ${currentMonth}`}
+            // width={318}
+            // height={350}
+          />
+        )}
+      </div>
 
       <Button
-        className="bg-orange-500 hover:bg-orange-400 w-52 lg:w-[320px]"
+        className="bg-orange-500 text-orange-50 hover:bg-orange-400 w-52 lg:w-[320px]"
         asChild
       >
         <Link
           href="/efemerides"
           className="flex items-center justify-center gap-2"
         >
-          <span>Ver Efemérides</span> <ChevronRight className="h-5 w-5" />
+          <span>Ir a Efemérides</span> <ChevronRight className="h-5 w-5" />
         </Link>
       </Button>
     </div>
   );
-}
-
-function getCurrentMonth() {
-  const montFormatter = new Intl.DateTimeFormat("es-UY", { month: "long" });
-
-  return montFormatter.format(new Date());
-}
-
-// TODO: delete functions
-async function getToday() {
-  const date = new Date();
-
-  return new Intl.DateTimeFormat("es-UY", {
-    dateStyle: "full",
-    timeStyle: "long",
-  }).format(date);
-  // const today = new Intl.DateTimeFormat("es-UY", {
-  //   dateStyle: "full",
-  //   timeStyle: "long",
-  //   timeZone: "Montevideo/Uruguay",
-  // });
-
-  // return today.format(new Date());
-
-  // return new Date();
-}
-
-export function getMonth(): string {
-  const months = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
-  ];
-
-  // Usamos new Date() para obtener la fecha actual del servidor
-  const currentDate = new Date();
-
-  // Obtenemos el índice del mes (0-11) y lo usamos para obtener el nombre del mes
-  return months[currentDate.getMonth()];
 }

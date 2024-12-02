@@ -68,17 +68,24 @@ export default function TableOfContet({ action }: Props) {
 
   return (
     <nav className="p-6">
-      <div className="flex items-center gap-2 border-b-2 mb-4">
-        <ScrollText className="w-5 h-5 mb-4" />
-        <h2 className="font-semibold mb-4 text-center">Tabla de Contenido</h2>
+      <div className="flex items-start justify-center gap-2 border-b-2 mb-4">
+        <ScrollText className="w-5 h-5" />
+        <h2 className="font-semibold mb-4 text-center text-sm xl:text-base">
+          Tabla de Contenido
+        </h2>
       </div>
 
       {action.newsPapers && (
-        <Link href="#notices" className="flex gap-2 py-2">
-          <Newspaper className="w-8 h-8 -mt-1.5" />
-          <span className="text-sm">
+        <Link
+          href="#notices"
+          className="flex gap-1 py-1 text-xs xl:text-base items-center"
+        >
+          {/* <Newspaper className="w-8 h-8 -mt-1.5" /> */}
+          <Newspaper className="w-4 h-4 xl:w-5 xl:h-5" />
+          {/* <span className="text-sm">
             Noticias publicadas por diarios de la época.
-          </span>
+          </span> */}
+          <span className="">Noticias Diarios.</span>
         </Link>
         // <Link
         //   href={`#notices`}
@@ -96,34 +103,54 @@ export default function TableOfContet({ action }: Props) {
       )}
 
       {action.apologyForCrimeInImages && (
-        <Link href="#apology" className="flex gap-2 py-2">
-          <Image className="w-6 h-6 -mt-0.5" />
-          <span className="text-sm">Apología del delito en imágenes.</span>
+        <Link
+          href="#apology"
+          className="flex gap-1 py-1 text-xs xl:text-base items-center"
+        >
+          {/* <Image className="w-6 h-6 -mt-0.5" /> */}
+          <Image className="w-4 h-4 xl:w-5 xl:h-5" />
+          {/* <span className="text-sm">Apología del delito en imágenes.</span> */}
+          <span className="">Delito en Imágenes.</span>
         </Link>
       )}
 
       {action.virtualMemorial && (
-        <Link href="#virtual-memorial" className="flex gap-2 py-2 items-center">
-          <MapPin className="w-5 h-5" />
-          <span className="text-sm">Memoria Virtual.</span>
+        <Link
+          href="#virtual-memorial"
+          className="flex gap-1 py-1 text-xs xl:text-base items-center"
+        >
+          {/* <MapPin className="w-5 h-5" /> */}
+          <MapPin className="w-4 h-5 xl:w-5 xl:h-5" />
+          {/* <span className="text-sm">Memoria Virtual.</span> */}
+          <span className="">Memoria Virtual.</span>
         </Link>
       )}
 
       {action.vindicatedActions && (
-        <Link href="#vindicated" className="flex gap-2 py-2">
-          <BookOpenCheck className="w-10 h-10 -mt-2" />
-          <span className="text-sm">
+        <Link
+          href="#vindicated"
+          className="flex gap-1 py-1 text-xs xl:text-base items-center"
+        >
+          {/* <BookOpenCheck className="w-10 h-10 -mt-2" /> */}
+          <BookOpenCheck className="w-4 h-4 xl:w-5 xl:h-5" />
+          {/* <span className="text-sm">
             Acciones reivindicadas por los movimientos terroristas.
-          </span>
+          </span> */}
+          <span className="">Acciones Reivindicadas.</span>
         </Link>
       )}
 
       {action.videos && (
-        <Link href="#testimonies" className="flex gap-2 py-2">
-          <MonitorPlay className="w-10 h-10 -mt-2" />
-          <span className="text-sm">
+        <Link
+          href="#testimonies"
+          className="flex gap-1 py-1 text-xs xl:text-base items-center"
+        >
+          {/* <MonitorPlay className="w-10 h-10 -mt-2" /> */}
+          <MonitorPlay className="w-4 h-4 xl:w-5 xl:h-5" />
+          {/* <span className="text-sm">
             Relatos de familiares de víctimas del terrorismo.
-          </span>
+          </span> */}
+          <span className="">Relatos familiares.</span>
         </Link>
       )}
 
@@ -215,12 +242,12 @@ export default function TableOfContet({ action }: Props) {
 function SeeAlso({ seeAlso }: { seeAlso: { href: string; text: string }[] }) {
   return (
     <div>
-      <h2 className="font-semibold mb-4 border-b-2 py-2 border-b-primary-foreground text-center">
+      <h2 className="font-semibold mb-4 border-b-2 py-2 border-black text-center text-base">
         Ver también
       </h2>
       {seeAlso.map((item) => (
         <Link
-          className={`flex py-2 rounded transition-all duration-300 ease-in-out flex-row gap-2 text-sm`}
+          className={`flex py-2 rounded transition-all duration-300 ease-in-out flex-row gap-2 text-xs xl:text-base`}
           href={item.href}
           key={item.href}
         >

@@ -17,9 +17,6 @@ function getFormattedDateToString(date: Date): string {
 }
 
 export default async function page({}: Props) {
-  // const terroristActionKills = await api.getKills();
-  // console.log(terroristActionKills);
-
   const terroristActionMurders = await api.getAllMurders();
 
   const terroristActionMurdersDates = terroristActionMurders.map(
@@ -34,19 +31,9 @@ export default async function page({}: Props) {
     terroristActionMurdersDates[terroristActionMurdersDates.length - 1]
   );
 
-  // const terroristActionDates = terroristActionKills.map((date) => date.date);
-  // const initDate = new Intl.DateTimeFormat("es-UY", {
-  //   dateStyle: "medium",
-  // }).format(terroristActionDates[0]);
-  // console.log(initDate);
-  // const endDate = new Intl.DateTimeFormat("es-UY", {
-  //   dateStyle: "medium",
-  // }).format(terroristActionDates[terroristActionDates.length - 1]);
-  // console.log(endDate);
-
   return (
     <section className="container mx-auto py-8">
-      <h1 className="uppercase text-3xl text-center font-extrabold text-orange-950">
+      <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold lg:tracking-tight xl:tracking-tighter uppercase text-orange-900 text-center">
         asesinatos
       </h1>
 

@@ -39,8 +39,8 @@ export default async function page({ params }: Props) {
   const action = await api.getActionBySlug(params.slug);
 
   return (
-    <section className="container mx-auto flex flex-row">
-      <div className="w-full lg:w-4/5">
+    <section className="px-8 w-full lg:px-4 flex flex-row 2xl:container 2xl:px-0">
+      <div className="w-full lg:w-9/12 xl:w-9.5/12">
         {action.victims?.map((victim, index) => (
           <Victim key={index} victim={victim} date={action.date} />
         ))}
@@ -64,7 +64,7 @@ export default async function page({ params }: Props) {
         {action.videos && <Testimonies videos={action.videos} />}
       </div>
 
-      <div className="hidden lg:flex  w-1/5 lg:mb-0 lg:sticky lg:top-0 lg:self-start">
+      <div className="hidden lg:flex lg:w-3/12 xl:w-2.5/12 lg:mb-0 lg:sticky lg:top-0 lg:self-start">
         <TableOfContet action={action} />
       </div>
     </section>

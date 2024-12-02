@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { Icons } from "./icons";
 import { Newspaper } from "lucide-react";
+import SectionTitle from "./section-title";
 
 type Props = {};
 
@@ -19,16 +20,22 @@ export default function NewspapersNotices({
 }) {
   return (
     <div className="py-8 text-base">
-      <h3
-        className="uppercase text-3xl text-center font-extrabold text-orange-950 scroll-mt-6 flex items-center justify-center gap-2"
+      {/* text-3xl */}
+      {/* <h3
+        className="uppercase text-xl md:text-2xl text-center font-extrabold text-orange-950 scroll-mt-6 flex items-center justify-center gap-2"
         id="notices"
       >
-        <Newspaper className="w-8 h-8" /> noticias publicadas por diarios de la
-        época
-      </h3>
+        <Newspaper className="hidden sm:block sm:w-5 sm:h-5 md:w-7 md:h-7 w-8 h-8" />
+        noticias publicadas por diarios de la época
+      </h3> */}
 
-      {notices?.map((notice) => (
-        <div key={notice.name} className="py-6">
+      <SectionTitle id="notices">
+        <Newspaper className="hidden lg:block w-7 h-7 2xl:w-8 2xl:h-8" />
+        noticias publicadas por diarios de la época
+      </SectionTitle>
+
+      {notices?.map((notice, index) => (
+        <div key={index} className="py-6">
           <p className="text-center text-lg font-bold">{notice.name}</p>
 
           {notice.date && (
@@ -118,7 +125,9 @@ export default function NewspapersNotices({
           {notice.subDescription && <p className="">{notice.subDescription}</p>}
 
           {notice.title1 && (
-            <h4 className="text-center font-bold">TÍTULO: {notice.title1}</h4>
+            <h4 className="text-center font-bold text-lg">
+              TÍTULO: {notice.title1}
+            </h4>
           )}
 
           {notice.description1 && <p className="">{notice.description1}</p>}
@@ -187,18 +196,34 @@ export default function NewspapersNotices({
             <p className="">{notice.subDescription4}</p>
           )}
 
+          {notice.title5 && (
+            <h4 className="text-center font-bold text-lg">
+              TÍTULO: {notice.title5}
+            </h4>
+          )}
+
+          {notice.description5 && <p className="">{notice.description5}</p>}
+
+          {notice.title6 && (
+            <h4 className="text-center font-bold text-lg">
+              TÍTULO: {notice.title6}
+            </h4>
+          )}
+
+          {notice.description4 && <p className="">{notice.description6}</p>}
+
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between py-6">
             {notice.images?.map((image) => (
               <Link
                 href={image.src}
                 target="_blank"
                 className="flex items-center gap-2 font-bold text-[#007664] py-2"
-                key={image.src}
+                key={image.type}
               >
                 <p className=" text-base uppercase underline">
                   IR A LA {image.type}
                 </p>
-                <Icons.newspaper className="h-6 w-6" />
+                <Icons.newspaper className="hidden sm:block h-6 w-6" />
               </Link>
             ))}
           </div>

@@ -49,12 +49,12 @@ export default function Header({}: Props) {
   const pathname = usePathname();
 
   return (
-    <header className="bg-orange-500 lg:bg-orange-100">
+    <header className="bg-orange-500 lg:bg-orange-50 w-full">
       <div className="container mx-auto flex justify-between items-center lg:justify-center">
         <Link href="/">
           <div className="lg:hidden flex items-center gap-4">
-            <Icons.uruguay className="h-8 w-8" />
-            <h1 className="font-extrabold text-sm sm:text-lg md:text-xl">
+            {/* <Icons.uruguay className="h-8 w-8" /> */}
+            <h1 className="font-extrabold text-xs sm:text-base md:text-xl text-orange-50">
               Museo de la Memoria del Pasado Reciente
             </h1>
           </div>
@@ -76,7 +76,7 @@ export default function Header({}: Props) {
           className="lg:hidden p-2"
           aria-label="Toggle navigation menu"
         >
-          {isNavOpen === false && <Menu className="w-12 h-12" />}
+          {isNavOpen === false && <Menu className="w-10 h-10" />}
           {isNavOpen === true && <X className="w-10 h-10" />}
         </button>
       </div>
@@ -84,19 +84,19 @@ export default function Header({}: Props) {
       <nav
         className={`bg-orange-500 ${isNavOpen ? "block" : "hidden"} lg:block`}
       >
-        <div className="container mx-auto px-4">
+        <div className="px-4 2xl:container 2xl:mx-auto ">
           <ul className="flex flex-col items-center lg:flex-row justify-center py-2">
             {navItems.map((item, index) => (
               <li key={index} className="my-1 md:my-0 md:mx-2">
                 <Link
                   href={`${item.href}`}
-                  className={`text-orange-100 hover:text-orange-900 flex items-center font-bold text-lg lg:text-base transition-colors duration-200 py-4 lg:py-1 ${
+                  className={`text-orange-100 hover:text-orange-900 flex items-center font-bold text-lg lg:text-sm xl:text-lg transition-colors duration-200 py-4 lg:py-1 ${
                     item.href?.split("/")[1] === pathname.split("/")[1] &&
                     "text-orange-900"
                   }`}
                 >
                   {item.icon}
-                  <span className="ml-2">{item.name}</span>
+                  <span className="ml-2 text-base">{item.name}</span>
                 </Link>
               </li>
             ))}
