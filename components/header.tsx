@@ -84,19 +84,19 @@ export default function Header({}: Props) {
       <nav
         className={`bg-orange-500 ${isNavOpen ? "block" : "hidden"} lg:block`}
       >
-        <div className="px-4 2xl:container 2xl:mx-auto ">
-          <ul className="flex flex-col items-center lg:flex-row justify-center py-2">
+        <div className="px-4 2xl:container 2xl:mx-auto">
+          <ul className="flex flex-col items-center lg:flex-row justify-center py-2 xl:gap-4 2xl:gap-6">
             {navItems.map((item, index) => (
               <li key={index} className="my-1 md:my-0 md:mx-2">
                 <Link
                   href={`${item.href}`}
-                  className={`text-orange-100 hover:text-orange-900 flex items-center font-bold text-lg lg:text-sm xl:text-lg transition-colors duration-200 py-4 lg:py-1 ${
+                  className={`text-orange-50 hover:text-orange-900 flex items-center font-bold transition-colors duration-200 py-4 lg:py-1 ${
                     item.href?.split("/")[1] === pathname.split("/")[1] &&
                     "text-orange-900"
                   }`}
                 >
                   {item.icon}
-                  <span className="ml-2 text-base">{item.name}</span>
+                  <span className="ml-2">{item.name}</span>
                 </Link>
               </li>
             ))}

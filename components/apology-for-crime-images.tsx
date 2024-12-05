@@ -9,7 +9,7 @@ type Props = {
 
 export default function ApologyForCrimeInImages({ crimeImages }: Props) {
   return (
-    <div>
+    <div className="">
       {/* <h2
         className="uppercase text-3xl text-center font-extrabold text-orange-950 scroll-mt-6 flex items-center justify-center gap-2"
         id="apology"

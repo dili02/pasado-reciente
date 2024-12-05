@@ -19,7 +19,7 @@ export default function NewspapersNotices({
   notices: NewsPaperDefinition[];
 }) {
   return (
-    <div className="py-8 text-base">
+    <div className="py-8">
       {/* text-3xl */}
       {/* <h3
         className="uppercase text-xl md:text-2xl text-center font-extrabold text-orange-950 scroll-mt-6 flex items-center justify-center gap-2"

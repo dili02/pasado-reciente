@@ -68,7 +68,7 @@ export default function TableOfContet({ action }: Props) {
 
   return (
     <nav className="p-6">
-      <div className="flex items-start justify-center gap-2 border-b-2 mb-4">
+      <div className="flex items-start gap-2 border-b-2 mb-4">
         <ScrollText className="w-5 h-5" />
         <h2 className="font-semibold mb-4 text-center text-sm xl:text-base">
           Tabla de Contenido
@@ -241,8 +241,8 @@ export default function TableOfContet({ action }: Props) {
 
 function SeeAlso({ seeAlso }: { seeAlso: { href: string; text: string }[] }) {
   return (
-    <div>
-      <h2 className="font-semibold mb-4 border-b-2 py-2 border-black text-center text-base">
+    <div className="mt-4">
+      <h2 className="font-semibold mb-4 border-b-2 py-2 border-black text-base">
         Ver también
       </h2>
       {seeAlso.map((item) => (

@@ -22,11 +22,11 @@ export default async function Satistics({}: Props) {
   // console.log(calculatePercentage())
 
   return (
-    <div className="my-8">
+    <div className="">
       <div className="flex items-center gap-2">
-        <ChartPie className="w-8 h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12" />
+        {/* <ChartPie className="w-8 h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12" /> */}
         <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold lg:tracking-tight xl:tracking-tighter uppercase">
-          Estadísticas
+          Resumen
         </h2>
       </div>
 
@@ -36,7 +36,7 @@ export default async function Satistics({}: Props) {
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 place-items-center my-8">
-        <div className="flex items-center py-3 w-full">
+        <div className="flex items-center p-4 rounded-xl w-full bg-orange-200">
           <span className="w-12 h-12 shrink-0 mr-4 rounded-full bg-orange-500 flex items-center justify-center">
             <Icons.shot className="w-8 h-8 text-orange-50" />
           </span>
@@ -49,7 +49,7 @@ export default async function Satistics({}: Props) {
                 {murders} / {actions}
               </span>
             </div>
-            <div className="overflow-hidden bg-blue-50 h-1.5 rounded-full w-full">
+            <div className="overflow-hidden bg-orange-50 h-1.5 rounded-full w-full">
               <span
                 className="h-full bg-orange-500 w-full block rounded-full"
                 style={{
@@ -60,7 +60,7 @@ export default async function Satistics({}: Props) {
           </div>
         </div>
 
-        <div className="flex items-center py-3 w-full">
+        <div className="flex items-center p-4 rounded-xl w-full bg-orange-200">
           <span className="w-12 h-12 shrink-0 mr-4 rounded-full bg-orange-500 flex items-center justify-center">
             <Icons.prisoner className="w-8 h-8 text-orange-50" />
           </span>
@@ -73,7 +73,7 @@ export default async function Satistics({}: Props) {
                 {kidnappings} / {actions}
               </span>
             </div>
-            <div className="overflow-hidden bg-blue-50 h-1.5 rounded-full w-full">
+            <div className="overflow-hidden bg-orange-50 h-1.5 rounded-full w-full">
               <span
                 className="h-full bg-orange-500 w-full block rounded-full"
                 style={{
@@ -84,7 +84,7 @@ export default async function Satistics({}: Props) {
           </div>
         </div>
 
-        <div className="flex items-center py-3 w-full">
+        <div className="flex items-center p-4 rounded-xl w-full bg-orange-200">
           <span className="w-12 h-12 shrink-0 mr-4 rounded-full bg-orange-500 flex items-center justify-center">
             <Icons.timeDinamite className="w-8 h-8 text-orange-50" />
           </span>
@@ -97,7 +97,7 @@ export default async function Satistics({}: Props) {
                 {attcks} / {actions}
               </span>
             </div>
-            <div className="overflow-hidden bg-blue-50 h-1.5 rounded-full w-full">
+            <div className="overflow-hidden bg-orange-50 h-1.5 rounded-full w-full">
               <span
                 className="h-full bg-orange-500 w-full block rounded-full"
                 style={{
@@ -108,7 +108,7 @@ export default async function Satistics({}: Props) {
           </div>
         </div>
 
-        <div className="flex items-center py-3 w-full">
+        <div className="flex items-center p-4 rounded-xl w-full bg-orange-200">
           <span className="w-12 h-12 shrink-0 mr-4 rounded-full bg-orange-500 flex items-center justify-center">
             <Icons.heist className="w-8 h-8 text-orange-50" />
           </span>
@@ -121,7 +121,7 @@ export default async function Satistics({}: Props) {
                 {moneyThef} / {actions}
               </span>
             </div>
-            <div className="overflow-hidden bg-blue-50 h-1.5 rounded-full w-full">
+            <div className="overflow-hidden bg-orange-50 h-1.5 rounded-full w-full">
               <span
                 className="h-full bg-orange-500 w-full block rounded-full"
                 style={{
@@ -132,7 +132,7 @@ export default async function Satistics({}: Props) {
           </div>
         </div>
 
-        <div className="flex items-center py-3 w-full">
+        <div className="flex items-center p-4 rounded-xl w-full bg-orange-200">
           <span className="w-12 h-12 shrink-0 mr-4 rounded-full bg-orange-500 flex items-center justify-center">
             <Icons.gun className="w-8 h-8 text-orange-50" />
           </span>
@@ -145,7 +145,7 @@ export default async function Satistics({}: Props) {
                 {explosiveWeaponsTheft} / {actions}
               </span>
             </div>
-            <div className="overflow-hidden bg-blue-50 h-1.5 rounded-full w-full">
+            <div className="overflow-hidden bg-orange-50 h-1.5 rounded-full w-full">
               <span
                 className="h-full bg-orange-500 w-full block rounded-full"
                 style={{
@@ -159,7 +159,7 @@ export default async function Satistics({}: Props) {
           </div>
         </div>
 
-        <div className="flex items-center py-3 w-full">
+        <div className="flex items-center p-4 rounded-xl w-full bg-orange-200">
           <span className="w-12 h-12 shrink-0 mr-4 rounded-full bg-orange-500 flex items-center justify-center">
             <Icons.punch className="w-8 h-8 text-orange-50" />
           </span>
@@ -172,7 +172,7 @@ export default async function Satistics({}: Props) {
                 {otherAcctions} / {actions}
               </span>
             </div>
-            <div className="overflow-hidden bg-blue-50 h-1.5 rounded-full w-full">
+            <div className="overflow-hidden bg-orange-50 h-1.5 rounded-full w-full">
               <span
                 className="h-full bg-orange-500 w-full block rounded-full"
                 style={{
@@ -185,8 +185,4 @@ export default async function Satistics({}: Props) {
       </div>
     </div>
   );
-}
-
-{
-  /* <h3 className="font-medium text-lg">Area Liveability Score</h3>; */
 }

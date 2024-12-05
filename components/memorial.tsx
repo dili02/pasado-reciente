@@ -51,10 +51,10 @@ export default function Memorial({ actions }: Props) {
   const endDate = new Date(actionsDates[actionsDates.length - 1]).getFullYear();
 
   return (
-    <div className="flex flex-col justify-center items-center gap-y-4 w-full">
+    <div className="my-4 flex flex-col items-center justify-center lg:col-span-2 lg:bg-orange-300 lg:p-4 lg:rounded-xl lg:text-black">
       {!currentMonth && <TitleSkeleton />}
       {currentMonth && (
-        <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold lg:tracking-tight xl:tracking-tighter uppercase text-center">
+        <h2 className="text-4xl font-bold uppercase text-center lg:text-xl lg:tracking-tight">
           Memorial del Mes de{" "}
           <time dateTime={getCurrentMonth()}>{currentMonth}</time>
         </h2>
@@ -66,7 +66,7 @@ export default function Memorial({ actions }: Props) {
       {!initDate && !endDate ? (
         <TitleSkeleton />
       ) : (
-        <h4 className="text-lg text-center text-orange-500">
+        <p className="text-center py-4 lg:text-sm">
           Acciones terroristas llevadas a cabo por los movimientos subversivos
           durante el período{" "}
           <time
@@ -82,12 +82,12 @@ export default function Memorial({ actions }: Props) {
           >
             {endDate}
           </time>
-        </h4>
+        </p>
       )}
 
       {/* <span className="text-xs">{dateTime}</span> */}
 
-      <div>
+      <div className="">
         {!currentMonth && <ImageSkeleton />}
         {currentMonth && (
           <img
@@ -100,7 +100,14 @@ export default function Memorial({ actions }: Props) {
         )}
       </div>
 
-      <Button
+      <Link
+        href="/efemerides"
+        className="flex items-center justify-center gap-2 mt-2"
+      >
+        <span>Ir a Efemérides</span> <ChevronRight className="h-5 w-5" />
+      </Link>
+
+      {/* <Button
         className="bg-orange-500 text-orange-50 hover:bg-orange-400 w-52 lg:w-[320px]"
         asChild
       >
@@ -110,7 +117,7 @@ export default function Memorial({ actions }: Props) {
         >
           <span>Ir a Efemérides</span> <ChevronRight className="h-5 w-5" />
         </Link>
-      </Button>
+      </Button> */}
     </div>
   );
 }
