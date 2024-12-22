@@ -48,9 +48,9 @@ export default async function page({ params }: Props) {
         )}
       </div>
 
-      <div className="hidden lg:flex lg:w-3/12 xl:w-2.5/12 lg:mb-0 lg:sticky lg:top-0 lg:self-start">
+      <aside className="hidden lg:flex lg:w-3/12 xl:w-2.5/12 lg:mb-0 lg:sticky lg:top-0 lg:self-start">
         <TableOfContet action={action} />
-      </div>
+      </aside>
       {/* {action.fact && (
         <h1 className="text-center uppercase text-2xl md:text-4xl font-extrabold text-[#f40] mt-8">
           HECHO: {action.fact}

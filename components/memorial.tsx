@@ -51,7 +51,7 @@ export default function Memorial({ actions }: Props) {
   const endDate = new Date(actionsDates[actionsDates.length - 1]).getFullYear();
 
   return (
-    <div className="my-4 flex flex-col items-center justify-center lg:col-span-2 lg:bg-orange-300 lg:p-4 lg:rounded-xl lg:text-black">
+    <div className="my-4 flex flex-col items-center justify-center lg:col-span-2 bg-orange-300 p-4 rounded-xl lg:text-black">
       {!currentMonth && <TitleSkeleton />}
       {currentMonth && (
         <h2 className="text-4xl font-bold uppercase text-center lg:text-xl lg:tracking-tight">
@@ -102,7 +102,7 @@ export default function Memorial({ actions }: Props) {
 
       <Link
         href="/efemerides"
-        className="flex items-center justify-center gap-2 mt-2"
+        className="flex items-center justify-center gap-2 mt-2 hover:text-orange-900 transition-colors hover:duration-500 hover:ease-out"
       >
         <span>Ir a Efemérides</span> <ChevronRight className="h-5 w-5" />
       </Link>

@@ -13550,7 +13550,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("July 15, 1969"),
     title: "Descubren laboratorio de bombas",
     slug: "descubren-laboratorio-de-bombas",
-    type: "atentados",
+    type: "otras-acciones",
     newsPapers: [
       {
         name: 'Diario "El Diario" (Página 22)',
@@ -13597,7 +13597,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     date: new Date("July 26, 1969"),
     title: "Descubren laboratorio de bombas",
     slug: "descubren-otro-laboratorio-de-bombas",
-    type: "atentados",
+    type: "otras-acciones",
     newsPapers: [
       {
         name: 'Diario "El Día" (Página 22)',
@@ -17380,7 +17380,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
       {
         name: 'Diario "Acción" (en Portada)',
         date: new Date("December 22, 1966"),
-        title: "“BOMBAS Y BALAZOS EN LA 12ª : DEJARON UN COMPAÑERO MUERTO”",
+        title: "“BOMBAS Y BALAZOS EN LA 12ª: DEJARON UN COMPAÑERO MUERTO”",
         description:
           "... Aparecen fotos a cuyo pie dice: “Nuevamente hoy, delincuentes han resistido a la Policía...”",
         images: [
@@ -17423,6 +17423,24 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
       {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("December 23, 1966"),
+        title: "“EL TRÁGICO TIROTEO REVELA ACCIÓN DE GRUPOS TERRORISTAS”",
+        description: "Relata los detalles de los acontecimientos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_4.jpg",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_4.jpg",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
         name: 'Diario "El Día" (Página 5)',
         date: new Date("December 23, 1966"),
         title:
@@ -17454,12 +17472,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_7.jpg",
+            src: "/terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_7.jpg",
             alt: "noticia publicada por el diario El Día",
           },
           {
             type: "página diario completa",
-            src: "terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_8.jpg",
+            src: "/terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_8.jpg",
             alt: "página diario completa publicada por el diario El Día",
           },
         ],
@@ -17473,12 +17491,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_9.jpg",
+            src: "/terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_9.jpg",
             alt: "noticia publicada por el diario El Popular",
           },
           {
             type: "página diario completa",
-            src: "terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_10.jpg",
+            src: "/terrorista-muerto-en-tiroteo-descubren-actividades-y-planes-terroristas/n_10.jpg",
             alt: "página diario completa publicada por el diario El Popular",
           },
         ],
@@ -17571,6 +17589,31 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“El local de la “comunidad”, que pretendía pasar por club social, constaba de una pieza bastante cómoda a nivel de la calle y otra abajo, como de sótano,...</p>
+          <p>El MIR le alquiló la pieza de arriba a los de la “orga” que empezaron a reunirse en la de abajo. Por las noches, Huidobro, Pinela, Robaina –...– y todos los demás miembros de su grupo de La Tela confluían con Pepe, el Flaco Belletti, el Canario Arizaga...</p>
+          <p>Gracias al impulso precursor de Eduardo Pinela... se va formando el “coordinador” de estos grupos con mentalidad revolucionaria. La sede para esta coordinación era el local de La Teja.</p>
+          <p>El local pasó a llamarse Base Eduardo Pinela, y su grupo, Movimiento de Apoyo Campesino (MAC)...”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "págs. 250,253,257",
+          author: "Pernas",
+        },
+        {
+          fragment: `<p>“... En La Teja, en la Base Eduardo Pinela, teníamos un gimnasio donde ciertos compañeros enseñaban elementos de defensa personal...”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 3: el MLN",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "pág. 15",
+          author: "Fernández Huidobro",
+        },
+      ],
+    },
   },
   {
     date: new Date("December 28, 1966"),
@@ -17818,12 +17861,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_10.jpg",
+            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_8.jpg",
             alt: "noticia publicada por el diario Acción",
           },
           {
             type: "página diario completa",
-            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_11.jpg",
+            src: "/actividades-terroristas-desarrolladas-vinculos-internacionales/n_9.jpg",
             alt: "página diario completa publicada por el diario Acción",
           },
         ],
@@ -19564,7 +19607,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           },
           {
             type: "página diario completa",
-            src: "/procesan-a-la-esposa-de-lider-terrorista/n_10.jpg",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_9.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -19582,12 +19625,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/procesan-a-la-esposa-de-lider-terrorista/n_11.jpg",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_10.jpg",
             alt: "noticia publicada por el diario El Día",
           },
           {
             type: "página diario completa",
-            src: "/procesan-a-la-esposa-de-lider-terrorista/n_12.jpg",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_11.jpg",
             alt: "página diario completa publicada por el diario El Día",
           },
         ],
@@ -19601,12 +19644,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/procesan-a-la-esposa-de-lider-terrorista/n_13.jpg",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_12.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/procesan-a-la-esposa-de-lider-terrorista/n_14.jpg",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_13.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -19620,12 +19663,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/procesan-a-la-esposa-de-lider-terrorista/n_15.jpg",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_14.jpg",
             alt: "noticia publicada por el diario El Día",
           },
           {
             type: "página diario completa",
-            src: "/procesan-a-la-esposa-de-lider-terrorista/n_16.jpg",
+            src: "/procesan-a-la-esposa-de-lider-terrorista/n_15.jpg",
             alt: "página diario completa publicada por el diario El Día",
           },
         ],
@@ -19956,12 +19999,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/terroristas-intentan-volar-club-comunista/n_1.jpg",
+            src: "/terroristas-intentan-volar-club-comunista/n_3.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/terroristas-intentan-volar-club-comunista/n_2.jpg",
+            src: "/terroristas-intentan-volar-club-comunista/n_4.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -20040,7 +20083,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
       {
-        name: 'Diario "El Diario" (Página 3)',
+        name: 'Diario "El Día" (Página 3)',
         date: new Date("August 12, 1970"),
         title: "“PROCESARÁN EN CHILE A CONSPIRADOR URUGUAYO”",
         description:
@@ -20049,12 +20092,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
           {
             type: "noticia publicada",
             src: "/terrorista-uruguayo-detenido-y-procesado-en-chile/n_5.jpg",
-            alt: "noticia publicada por el diario El Diario",
+            alt: "noticia publicada por el diario El Día",
           },
           {
             type: "página diario completa",
             src: "/terrorista-uruguayo-detenido-y-procesado-en-chile/n_6.jpg",
-            alt: "página diario completa publicada por el diario El Diario",
+            alt: "página diario completa publicada por el diario El Día",
           },
         ],
       },
@@ -22514,7 +22557,11 @@ export const TerroristActions: TerroristActionDefinition[] = [
           author: "Aldrighi",
         },
         {
-          fragment: ``,
+          fragment: `<p>-Hasta que caíste en el 75. ¿Cómo fue?
+          <p>-Habíamos tenido una reunión con un muchacho de FUNSA que estaba clandestino y había vuelto de Buenos Aires con Lerena y con Juan de Europa.</p>
+          <p>-¿Así se llamaba?</p>
+          <p>-Se llamaba Juan Rodríguez pero le decíamos Juan de Europa porque había estado en Europa y había venido para Uruguay, para el Comité Central a fin de resolver el gran problema: ¿qué hacíamos?, ¿cómo nos insertábamos?, ¿cómo conseguíamos algún fierro...</p>
+          <p>-Cuando, un día, volvía yo, en bicicleta de una reunión en Santa Catalina, en la subida de Casabó, se me atraviesa una camioneta con tres milicos adentro que me atajan...”.</p>`,
           year: new Date("2004-1-1"),
           name: "El Cholo González. Un cañero de Bella Unión",
           place: "Montevideo - Uruguay",
@@ -22961,12 +23008,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/descubren-carcel-del-pueblo-del-partido-comunista-del-uruguay/n_3.jpg",
+            src: "/descubren-carcel-del-pueblo-del-partido-comunista-del-uruguay/n_2.jpg",
             alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
-            src: "/descubren-carcel-del-pueblo-del-partido-comunista-del-uruguay/n_4.jpg",
+            src: "/descubren-carcel-del-pueblo-del-partido-comunista-del-uruguay/n_3.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -23123,12 +23170,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay/n_1.jpg",
+            src: "/desarticulan-intento-de-reorganizacion-del-pvp-ex-opr-treinta-y-tres/n_1.jpg",
             alt: "noticia publicada por el diario El País",
           },
           {
             type: "página diario completa",
-            src: "/conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay/n_2.jpg",
+            src: "/desarticulan-intento-de-reorganizacion-del-pvp-ex-opr-treinta-y-tres/n_2.jpg",
             alt: "página diario completa publicada por el diario El País",
           },
         ],
@@ -23142,12 +23189,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay/n_3.jpg",
+            src: "/desarticulan-intento-de-reorganizacion-del-pvp-ex-opr-treinta-y-tres/n_3.jpg",
             alt: "noticia publicada por el diario El País",
           },
           {
             type: "página diario completa",
-            src: "/conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay/n_3.jpg",
+            src: "/desarticulan-intento-de-reorganizacion-del-pvp-ex-opr-treinta-y-tres/n_3.jpg",
             alt: "página diario completa publicada por el diario El País",
           },
         ],

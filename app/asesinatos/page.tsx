@@ -5,10 +5,15 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 // import { api } from "@/db/api";
 import { api } from "@/db/data";
+import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 
 type Props = {};
+
+// export const metadata: Metadata = {
+//   title: "Asesinatos",
+// };
 
 function getFormattedDateToString(date: Date): string {
   return new Intl.DateTimeFormat("es-UY", { dateStyle: "medium" }).format(

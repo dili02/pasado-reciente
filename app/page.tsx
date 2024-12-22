@@ -9,15 +9,17 @@ export default async function Home() {
   const actions = await API.getAllAcitions();
 
   return (
-    <section className="container grid grid-cols-1 lg:grid-cols-6 w-full lg:gap-4">
-      <div className="my-4 col-span-6 lg:col-span-4 lg:bg-orange-400 lg:p-4 lg:rounded-xl lg:text-orange-50">
-        <p className="text-xl capitalize tracking-tight">bienvenidos</p>
+    <section className="container grid grid-cols-1 lg:grid-cols-6 w-full lg:gap-4 mt-8">
+      {/* <p className="text-2xl col-span-6 tracking-tight text-center mt-8 font-bold lg:text-3xl">
+        Bienvenidos/as
+      </p> */}
 
-        <p className="my-8 text-5xl uppercase font-bold lg:text-6xl lg:text-orange-50 lg:tracking-tight xl:text-7xl xl:tracking-tighter">
+      <div className="my-4 col-span-6 lg:col-span-4 bg-orange-500 p-4 rounded-xl text-orange-50">
+        <p className="my-8 text-5xl uppercase font-bold lg:text-6xl text-orange-900 lg:tracking-tight xl:text-7xl xl:tracking-tighter">
           nunca más <br className="hidden lg:block" /> terrorismo
         </p>
 
-        <p className="text-lg mt-4 lg:text-orange-50">
+        <p className="text-lg mt-4 text-orange-50">
           La presente hemeroteca fue confeccionada exclusivamente con noticias
           periodísticas de las décadas del 60 y 70 escaneadas de las páginas
           originales de los diarios. De esta manera se podrá acceder al relato
@@ -33,7 +35,13 @@ export default async function Home() {
 
       <Memorial actions={actions} />
 
-      <div className="bg-orange-200 col-span-6 lg:p-4 lg:rounded-xl">
+      <div className="col-span-6 mb-4 mt-2 bg-orange-50 p-4 rounded-xl border-orange-500 border-2 text-center text-xl xl:text-2xl 2xl:text-3xl">
+        RECOPILACIÓN DE ALREDEDOR DE{" "}
+        <span className="font-extrabold text-orange-600">200</span> ACCIONES
+        TERRORISTAS DESDE 1963 A 1976
+      </div>
+
+      <div className="bg-orange-200 col-span-6 lg:p-4 lg:py-8 lg:rounded-xl">
         <h2 className="p-4 text-4xl lg:text-5xl xl:text-6xl font-bold lg:tracking-tight xl:tracking-tighter uppercase lg:p-0">
           testimonios
         </h2>
@@ -65,9 +73,9 @@ export default async function Home() {
         </div>
       </div>
 
-      <div className="bg-orange-50 col-span-6 lg:p-4 lg:rounded-xl p-4">
+      {/* <div className="bg-orange-50 col-span-6 lg:p-4 lg:rounded-xl p-4">
         <Satistics />
-      </div>
+      </div> */}
     </section>
 
     // <section className="container mx-auto flex flex-col items-center justify-center">
