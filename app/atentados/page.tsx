@@ -21,12 +21,12 @@ export default async function page({}: Props) {
   );
 
   return (
-    <section className="container mx-auto py-8">
-      <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold lg:tracking-tight xl:tracking-tighter uppercase text-orange-900 text-center">
+    <section className="container mx-auto py-4">
+      <h1 className="text-center font-heading text-4xl font-semibold sm:text-5xl tracking-tight uppercase text-orange-500">
         atentados
       </h1>
 
-      <p className="text-center font-bold text-xl text-orange-500">
+      <p className="text-center font-bold text-xl text-black/50">
         entre el <time dateTime={initDate}>{initDate}</time> y el{" "}
         <time dateTime={endDate}>{endDate}</time>{" "}
       </p>

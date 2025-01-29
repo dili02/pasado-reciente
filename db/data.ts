@@ -149,6 +149,9 @@ export type ImageDefinition = {
   alt: string;
 };
 
+/**
+ * Represents a book.
+ */
 export type Book = {
   fragment: string;
   year?: Date;
@@ -199,6 +202,18 @@ export const api = {
     if (!action) throw new Error(`Accion Terrorista no encontrada`);
 
     return action;
+  },
+
+  getActionsByYear: async (
+    year: string
+  ): Promise<TerroristActionDefinition[]> => {
+    const actions = TerroristActions.filter(
+      (action) => action.date.getFullYear() === Number(year)
+    );
+
+    if (!actions) throw new Error(`Accion Terrorista no encontrada`);
+
+    return actions;
   },
 
   getAllKidnappings: async (): Promise<TerroristActionDefinition[]> => {
@@ -22272,7 +22287,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           "... a la organización sediciosa “OPR-33”, rama paralela del M.L.N., al ubicar tres guaridas del movimiento, una... resultó ser la guarida central...-ubicado en Arenal Grande 2129-... sorprendiendo... a los jefes subversivos... Aparecen fotos.",
         title1: "“SIETE SECUESTROS EFECTUÓ LA ORGANIZACIÓN SEDICIOSA”",
         description1:
-          "El Grupo “OPR 33” surgió... a raíz de un golpe contra la Casa de Lavalleja... del que robó la bandera original de los 33 Orientales... es una escisión del Movimiento de Liberación Nacional...",
+          "El Grupo “OPR 33” surgió... a raíz de un golpe contra la Casa de Lavalleja... del que robó la bandera original de los 33 Orientales... es una descisión del Movimiento de Liberación Nacional...",
         images: [
           {
             type: "noticia publicada",
@@ -23214,6 +23229,417 @@ export const TerroristActions: TerroristActionDefinition[] = [
         },
       ],
     },
+  },
+  {
+    date: new Date("November 29, 1969"),
+    title: "Armamento en Ferretjans Ltda",
+    slug: "armamento-en-ferretjans-ltda",
+    type: "robo-armamento-explosivos",
+    newsPapers: [
+      {
+        name: "Diario “Acción” (en Portada)",
+        date: new Date("November 24, 1969"),
+        title:
+          "“DOCE ASALTANTES ROBARON ARMAS EN COMPRA Y VENTA.  AMENAZARON  A 10 EMPLEADOS, 6 CLIENTES Y UN MOZO EN CASA FERRETJANS; CUATRO MUJERES EN LA BANDA. RECONOCEN A…, BUSCADO POR SECUESTRO”",
+        description: "Aparecen fotos",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/armamento-en-ferretjans-ltda/n-1.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/armamento-en-ferretjans-ltda/n-2.jpg",
+            alt: "página diario completa publicada por el diario “Acción”",
+          },
+        ],
+      },
+      {
+        name: "Diario “Acción” (Página 6)",
+        date: new Date("November 24, 1969"),
+        title: "“Doce Asaltantes Robaron” ",
+        subtitle: "“Hurto voluminoso”",
+        description:
+          "... Aparece foto a cuyo pie dice: “Ya pasado el nerviosismo... las empleadas Teresa Arosteguy y Luz López de López...”",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/armamento-en-ferretjans-ltda/n-3.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/armamento-en-ferretjans-ltda/n-4.jpg",
+            alt: "página diario completa publicada por el diario “Acción”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 20)",
+        date: new Date("November 24, 1969"),
+        title: "“ARMAS CORTAS Y LARGAS ROBO GRUPO EXTREMISTA”",
+        description:
+          "Un comando integrado por once extremistas (ocho hombres y tres mujeres) asaltó la casa... “Ferretjans Hnos.” llevándose armas cortas y largas, miras telescópicas, cuchillos, prismáticos... avaluados en $ 700.000... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/armamento-en-ferretjans-ltda/n-5.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/armamento-en-ferretjans-ltda/n-6.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Día” (Página 7)",
+        date: new Date("November 25, 1969"),
+        title: "“... HABRÍA DIRIGIDO EL ASALTO EXTREMISTA DE AYER”",
+        subtitle: "“Toman armas; una incidencia”",
+        description:
+          "... les pusieron cadenillas, fabricadas con alambre a los efectos de inmovilizarles las manos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/armamento-en-ferretjans-ltda/n-7.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/armamento-en-ferretjans-ltda/n-8.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("November 3, 1969"),
+    title: "Armamento en firma importadora",
+    slug: "armamento-en-firma-importadora",
+    type: "robo-armamento-explosivos",
+    newsPapers: [
+      {
+        name: "Diario “Acción” (en Portada)",
+        date: new Date("November 3, 1969"),
+        title: "“ASALTAN IMPORTADOR DE ARMAS EN LA CIUDAD VIEJA”",
+        description: "",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/armamento-en-firma-importadora/n-1.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/armamento-en-firma-importadora/n-2.jpg",
+            alt: "página diario completa publicada por el diario “Acción”",
+          },
+        ],
+      },
+      {
+        name: "Diario “Acción” (Página 6)",
+        date: new Date("November 3, 1969"),
+        title: "“ASALTAN IMPORTADOR DE ARMAS EN LA CIUDAD VIEJA”",
+        description:
+          "Nueve pistolas automáticas y once revólveres... fueron llevadas en un golpe de mano consumado por tres hombres... uno de ellos presentando Carnet Policial falso...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/armamento-en-firma-importadora/n-3.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/armamento-en-firma-importadora/n-4.jpg",
+            alt: "página diario completa publicada por el diario “Acción”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("October 17, 1971"),
+    title: "Armamento en armería Melo - Cerro Largo",
+    slug: "armamento-en-armeria-melo-cerro-largo",
+    type: "robo-armamento-explosivos",
+    newsPapers: [
+      {
+        name: "Diario “El Diario” (Página 21)",
+        date: new Date("October 18, 1971"),
+        title: "“SAQUEARON UNA ARMERÍA EN MELO”",
+        description:
+          "Melo-Fue asaltada una armería ubicada en la calle Luis Alberto de Herrera por tres desconocidos quienes tras encañonar a uno de sus propietarios, lograron apoderarse de la totalidad de las armas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/armamento-en-armeria-melo-cerro-largo/n-1.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/armamento-en-armeria-melo-cerro-largo/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Día” (Página 5)",
+        date: new Date("October 20, 1971"),
+        title:
+          "“ENTRE ELLOS UN EVADIDO. TREINTA Y TRES: SEIS SEDICIOSOS APRESADOS”",
+        description:
+          "Aparecen fotos. Treinta y Tres-... dos hombres interceptaron el paso-en el centro de la capital de Cerro Largo- al taxímetro conducido por el Sr. Juan Francisco Molla... lo obligaron a descender y lo maniataron con alambres quedando custodiado por otro individuo...",
+        subtitle1: "“Enterraron las Armas”",
+        subDescription1:
+          "... En un monte cercano a “Picada de las Bochas” bajo un pino, depositaron el arsenal robado… Antes de llegar a la capital olimareña se materializó la detención del quinteto...",
+        subtitle2: "“Las Armas Robadas”",
+        subDescription2:
+          "... 28 revólveres calibre 32,38 y 44, 13 escopetas de calibre 12 y 16, 5 rifles calibre 22, 9 pistolas, una carabina y 150 proyectiles...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/armamento-en-armeria-melo-cerro-largo/n-3.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/armamento-en-armeria-melo-cerro-largo/n-4.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 21)",
+        date: new Date("October 29, 1971"),
+        title: "“REMITIERON AL GRUPO QUE ROBO LA ARMARIA DE MELO”",
+        description:
+          "La Justicia de Treinta y Tres dispuso el procesamiento y remisión a la Cárcel de... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/armamento-en-armeria-melo-cerro-largo/n-5.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/armamento-en-armeria-melo-cerro-largo/n-6.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("October 7, 1971"),
+    title: "Armamento en taller armería - Salto",
+    slug: "armamento-en-taller-armeria-salto",
+    type: "robo-armamento-explosivos",
+    newsPapers: [
+      {
+        name: "Diario “Acción” (Página 7)",
+        date: new Date("October 8, 1971"),
+        title:
+          "“ROBARON MÁS DE 30 ARMAS, CUCHILLOS Y MUNICIONES A UN ARMERO DE SALTO”",
+        description:
+          "Salto fue el escenario de una nueva acción de los grupos armados que operan en el Interior de la República desde hace varios meses,... El taller donde Marcos Ancelotti repara armas está ubicado en la calle sarandí 175... penetraron al local tres hombres y una mujer jóvenes... uno de los hombres le tomó por el cuello desde atrás y lo encañonaba con un revólver... la muchacha se dirigía a la planta alta y reducía a dos señoras...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/armamento-en-taller-armeria-salto/n-1.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/armamento-en-taller-armeria-salto/n-2.jpg",
+            alt: "página diario completa publicada por el diario “Acción”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Día” (en Portada)",
+        date: new Date("October 8, 1971"),
+        title: "“VARIAS ARMAS Y MUNICIONES SE LLEVARON DE ARMERÍA EN SALTO”",
+        description:
+          "Aparecen fotos. Salto-... a la hora 8.15 en el taller de armería de la calle Sarandí 175... penetraron al local tres hombres y una mujer... el dueño fue abrazado por detrás mientras otro lo encañonaba con un revólver... la muchacha se dirigía a la planta alta donde reducía a dos señoras... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/armamento-en-taller-armeria-salto/n-3.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/armamento-en-taller-armeria-salto/n-4.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("May 22, 1969"),
+    title: "Armamento en armería Uruguay - Montevideo",
+    slug: "armamento-en-armeria-uruguay-montevideo",
+    type: "robo-armamento-explosivos",
+    newsPapers: [
+      {
+        name: "Diario “Acción” (Página 6)",
+        date: new Date("May 22, 1969"),
+        title:
+          "“TUPAMAROS ASALTARON ARMERÍA DE LA GALERÍA URUGUAY: SE LLEVARON  24 ARMAS”",
+        description:
+          "Aparece foto. Un comando de la organización “Tupamaros”, integrado por tres hombres y una mujer atracó esta madrugada la armería ubicada en el local 9º de la  Galería “Uruguay”... tras amenazar con armas de fuego al sereno del local, lo ataron y amordazaron...",
+        subtitle: "“Todas las armas”",
+        subDescription:
+          "El dueño del Local 9... Carlos Suane (oriental, soltero de 23 años) hijo del propietario de “La Armería El Cazador” atracada por los Tupamaros en las primeras incursiones...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/armamento-en-armeria-uruguay-montevideo/n-1.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/armamento-en-armeria-uruguay-montevideo/n-2.jpg",
+            alt: "página diario completa publicada por el diario “Acción”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Día” (Página 8)",
+        date: new Date("May 23, 1969"),
+        title: "“LOS TUPAMAROS ROBAN UNA ARMERÍA EN PLENO CENTRO”",
+        description:
+          "Aparece foto. Ayer de madrugada fue asaltada la armería “Uruguay”... el sereno fue obligado a sentarse en la escalera que conduce al subsuelo... habían maniatado sus muñecas con cadenillas de alambre... habían grabado una estrella con una T en el centro... se encontraron volantes del auto-llamado MLN...",
+        subtitle: "“LAS ARMAS ROBADAS”",
+        subDescription: "En cuanto a la nómina es la siguiente...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/armamento-en-armeria-uruguay-montevideo/n-3.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/armamento-en-armeria-uruguay-montevideo/n-4.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("July 31, 1969"),
+    title: "Armamento a coleccionistas particulares",
+    slug: "armamento-a-coleccionistas-particulares",
+    type: "robo-armamento-explosivos",
+    newsPapers: [
+      {
+        name: "Diario “El Diario” (en Portada)",
+        date: new Date("July 31, 1969"),
+        title: "“EN BUSCA DE ARMAS ASALTARON AYER A TRES COLECCIONISTAS”",
+        description: "",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/armamento-a-coleccionistas-particulares/n-1.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/armamento-a-coleccionistas-particulares/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 18)",
+        date: new Date("July 31, 1969"),
+        title: "“ARMAS DE GRUESO CALIBRE ROBAN LOS DESCONOCIDOS”",
+        description:
+          "Aparecen fotos. A última hora de la tarde de ayer se consumaron tres asaltos contra residencias de coleccionistas de armas... más de 50 armas largas y cortas...",
+        subtitle: "El primero de los asaltos",
+        subDescription:
+          "A la hora 18 y 45 el coleccionista Enrique Nin se hallaba cumpliendo sus funciones... en una conocida firma que fabrica y vende automóviles... Su esposa se hallaba en una peluquería… seis hombres jóvenes un grupo de hombres llegaba al domicilio de ambos (el apartamento 14 de la calle Médanos 1129) y tras violentar el tambor de la cerradura de la puerta...",
+        subtitle1: "Otro en una casa del Prado",
+        subDescription1:
+          "... el segundo en la residencia del Sr. Antonio Bado en la calle Gil 982... un hombre vestido de policía pidió para entrar... la señora se negó... los cuatro desconocidos encerraron en una habitación a la señora de Bado, sus invitadas y a los niños. Robaron todas las armas...",
+        subtitle2: "Tercer golpe en Pocitos",
+        subDescription2:
+          "... se produce a las 19 y 30 en el domicilio del Sr. Enrique Gómez Haedo ubicado en la calle Tomás Diago 770... Llegaron dos jóvenes, uno empuñaba una pistola... otros seis hombres y una mujer arramblaban (sic) varias armas de caza y de colección...",
+        subtitle3: "Pesquisas inmediatas",
+        subDescription3:
+          "El total de los tres delitos permitieron apoderarse de más de cincuenta armas... y centenares de proyectiles.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/armamento-a-coleccionistas-particulares/n-3.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/armamento-a-coleccionistas-particulares/n-4.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("September 8, 1970"),
+    title: "Explosivos en Cantera Montevideo",
+    slug: "explosivos-en-cantera-montevideo",
+    type: "robo-armamento-explosivos",
+    newsPapers: [
+      {
+        name: "Diario “El Diario” (Página 22)",
+        date: new Date("September 8, 1970"),
+        title: "“EN RAPIDO  OPERATIVO ROBARON VARIOS CAJONES DE EXPLOSIVOS”",
+        description:
+          "Aparecen fotos. .... poco después de las 11 horas del día de hoy, un grupo de unos diez hombres y dos mujeres llegó a la Cantera Montevideo S.A., ubicada en el camino Pavia 3112 a 300 metros de Camino Carrasco, y tras reducir a obreros y vecinos robó cuatro cajones de explosivos gelatinados, mechas y  fulminantes... Juan Kotelcka es un sexagenario fue reducido por un hombre y una mujer que lo hicieron caminar hasta la administración... fueron llegando su señora, su suegra y cuatro obreros... Mientras dos hombres les apuntaban con armas largas... Un niño que atinaba a pasar por el lugar a caballo fue obligado a descender del animal y a sumarse al resto...",
+        subtitle: "“UN CURIOSO OBSERVADOR”",
+        subDescription:
+          "A pocos metros del polvorín, se levantó un rancho en el que viven Luis Petrone de 53 años con su hijo y su nuera.... Se acercó unos pasos a mirar... uno de los sujetos a punta de pistola lo llevó hasta el polvorín... La nuera de Petrone, Nelly Pérez de Petrone, fue obligada a acercarse al polvorín con sus dos pequeñas hijitas de un año y medio y cinco meses...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/explosivos-en-cantera-montevideo/n-1.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/explosivos-en-cantera-montevideo/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Día” (Página 7)",
+        date: new Date("September 9, 1970"),
+        title: "“Asaltan Cantera Llevándose más de 80 Kgs. de Explosivo (sic)”",
+        description:
+          "Aparecen fotos y croquis. Un numeroso grupo de sediciosos asaltó ayer las canteras “Montevideo” llevándose más de 80 kilogramos de explosivos, fulminantes y mechas...",
+        subtitle: "“INMOVILIZAN A TODOS”",
+        subDescription:
+          "... dominaron a todas las personas incluidas las mujeres y una niña pequeña... provistos de armas cortas, revólveres y pistolas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/explosivos-en-cantera-montevideo/n-3.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/explosivos-en-cantera-montevideo/n-4.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+    ],
   },
 ];
 

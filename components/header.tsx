@@ -6,6 +6,9 @@ import React from "react";
 import { Icons } from "./icons";
 import { AlertTriangle, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { Newsreader } from "next/font/google";
+
+const newsreader = Newsreader({ subsets: ["latin"] });
 
 type Props = {};
 
@@ -54,46 +57,56 @@ export default function Header({}: Props) {
         <Link href="/">
           <div className="lg:hidden flex items-center gap-4">
             {/* <Icons.uruguay className="h-8 w-8" /> */}
-            <h1 className="font-extrabold text-xs sm:text-base md:text-xl text-orange-50">
+            <h1
+              className={`${newsreader.className} text-lg tracking-widest text-orange-50 font-extrabold`}
+            >
               Museo de la Memoria del Pasado Reciente
             </h1>
           </div>
 
           <div className="hidden lg:block py-4">
-            <h1 className="font-extrabold lg:text-2xl">
+            {/* <h1 className="font-extrabold lg:text-2xl"> */}
+            <h1
+              className={`${newsreader.className} font-extrabold lg:text-4xl tracking-wider`}
+            >
               Museo de la Memoria del Pasado Reciente
             </h1>
 
             <p className="flex items-center gap-2 md:w-full md:justify-center">
-              <Icons.uruguay className="h-8 w-8 hidden lg:block" />
-              <span className="hidden lg:block lg:text-2xl">Uruguay</span>
+              {/* <Icons.uruguay className="h-8 w-8 hidden lg:block" /> */}
+              {/* <span className="hidden lg:block lg:text-xl">Uruguay</span> */}
+              <span
+                className={`${newsreader.className} hidden lg:block lg:text-3xl tracking-wider`}
+              >
+                Uruguay
+              </span>
             </p>
           </div>
         </Link>
 
         <button
           onClick={() => setIsNavOpen((isNavOpen) => !isNavOpen)}
-          className="lg:hidden p-2"
+          className="lg:hidden p-2 text-orange-50"
           aria-label="Toggle navigation menu"
         >
-          {isNavOpen === false && <Menu className="w-10 h-10" />}
-          {isNavOpen === true && <X className="w-10 h-10" />}
+          {isNavOpen === false && <Menu className="w-14 h-14" />}
+          {isNavOpen === true && <X className="w-14 h-14" />}
         </button>
       </div>
 
       <nav
         className={`bg-orange-600 ${isNavOpen ? "block" : "hidden"} lg:block`}
       >
-        <div className="px-4 2xl:container 2xl:mx-auto">
+        <div className="px-4 text-sm xl:text-base 2xl:container 2xl:mx-auto">
           <ul className="flex flex-col items-center lg:flex-row justify-center py-2 xl:gap-4 2xl:gap-6">
             {navItems.map((item, index) => (
               <li key={index} className="my-1 md:my-0 md:mx-2">
                 <Link
                   href={`${item.href}`}
                   // hover:text-orange-900 transition-colors hover:duration-500 hover:ease-out
-                  className={`text-orange-50 hover:text-orange-900 hover:transition-colors hover:duration-500 hover:ease-out flex items-center font-bold py-4 lg:py-1 ${
+                  className={`text-orange-50 hover:text-black hover:transition-colors hover:duration-500 hover:ease-out flex items-center font-bold py-4 lg:py-1 ${
                     item.href?.split("/")[1] === pathname.split("/")[1] &&
-                    "text-orange-900"
+                    "text-black/95"
                   }`}
                 >
                   {item.icon}

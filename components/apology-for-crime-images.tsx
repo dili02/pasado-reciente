@@ -22,10 +22,10 @@ export default function ApologyForCrimeInImages({ crimeImages }: Props) {
         Apología del delito en imágenes
       </SectionTitle>
 
-      <div className="py-8">
+      <div className="py-4">
         {crimeImages.map((apology) => (
           <div key={apology.title}>
-            <h3 className="font-bold text-center uppercase text-xl text-orange-500">
+            <h3 className="font-bold text-center uppercase text-xl text-black">
               {apology.title}
             </h3>
 
@@ -33,9 +33,9 @@ export default function ApologyForCrimeInImages({ crimeImages }: Props) {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 py-4">
               {apology.images.map((image) => (
-                <div key={image.src}>
+                <div key={image.src} className="bg-white">
                   <img src={image.src} alt={image.alt} />
-                  <p className="text-base py-2">{image.alt}</p>
+                  <p className="text-base px-4">{image.alt}</p>
                 </div>
               ))}
             </div>

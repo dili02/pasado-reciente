@@ -67,7 +67,7 @@
   * {
     @apply border-border;
   }
-  body {
+  /*body {
     @apply bg-orange-100;
-  }
+  }*/
 }

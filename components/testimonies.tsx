@@ -25,7 +25,7 @@ export default function Testimonies({ videos }: Props) {
 
       {videos.map((video) => (
         <div className="rounded shadow-lg py-2" key={video.src}>
-          <h3 className="font-bold text-center uppercase text-xl text-orange-500 py-2 scroll-mt-6">
+          <h3 className="font-bold text-center uppercase text-xl py-2 scroll-mt-6">
             {video.title}
           </h3>
 

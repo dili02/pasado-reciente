@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import { Suspense } from "react";
 import { ImageSkeleton, TitleSkeleton } from "./skeletons";
 import { TerroristActionDefinition } from "@/db/data";
@@ -51,10 +51,10 @@ export default function Memorial({ actions }: Props) {
   const endDate = new Date(actionsDates[actionsDates.length - 1]).getFullYear();
 
   return (
-    <div className="my-4 flex flex-col items-center justify-center lg:col-span-2 bg-orange-300 p-4 rounded-xl lg:text-black">
+    <div className="my-4 flex flex-col items-center justify-center lg:col-span-2 p-4 rounded-xl lg:text-black">
       {!currentMonth && <TitleSkeleton />}
       {currentMonth && (
-        <h2 className="text-4xl font-bold uppercase text-center lg:text-xl lg:tracking-tight">
+        <h2 className="text-3xl font-bold uppercase text-center">
           Memorial del Mes de{" "}
           <time dateTime={getCurrentMonth()}>{currentMonth}</time>
         </h2>
@@ -102,9 +102,9 @@ export default function Memorial({ actions }: Props) {
 
       <Link
         href="/efemerides"
-        className="flex items-center justify-center gap-2 mt-2 hover:text-orange-900 transition-colors hover:duration-500 hover:ease-out"
+        className="flex items-center justify-center gap-2 mt-2 hover:bg-orange-500/85 transition-colors hover:duration-500 hover:ease-out bg-orange-500 py-2 px-4 rounded-md text-orange-50"
       >
-        <span>Ir a Efemérides</span> <ChevronRight className="h-5 w-5" />
+        <span>Ir a efemérides</span> <ArrowRight size={18} />
       </Link>
 
       {/* <Button
