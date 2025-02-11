@@ -6,6 +6,7 @@ import {
   BookOpenCheck,
   Calendar,
   Image,
+  Info,
   MapPin,
   MonitorPlay,
   Newspaper,
@@ -35,11 +36,11 @@ export default function TerroristActionListItem({ action }: Props) {
   return (
     <li
       key={action.slug}
-      className="rounded-lg shadow-md overflow-hidden hover:shadow-lg hover:-translate-y-1 transition ease-in-out duration-500 bg-orange-50"
+      className="rounded-lg shadow-md overflow-hidden hover:shadow-lg hover:-translate-y-1 transition ease-in-out duration-500 bg-orange-50 border border-orange-600"
     >
       <Link href={`/${action.type}/${action.slug}`} className="block p-4">
         <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-2 text-orange-500">
+          <div className="flex items-center gap-2 text-orange-900">
             <Calendar className="w-4 h-4" />
             <time className="text-sm">
               {getFormattedDateToString(action.date)}
@@ -47,39 +48,44 @@ export default function TerroristActionListItem({ action }: Props) {
           </div>
 
           {action.moneyTheft?.usd && (
-            <Badge className="text-sm text-orange-500 bg-orange-100 py-2 px-4 rounded-xl font-extrabold hover:bg-orange-100">
+            <Badge className="text-sm text-orange-600 bg-orange-100 py-2 px-4 rounded-xl font-extrabold hover:bg-orange-100">
               {formatCurrency(action.moneyTheft?.usd)}
             </Badge>
           )}
         </div>
 
-        <h2 className="text-base font-semibold line-clamp-2">{action.title}</h2>
+        <h2 className="font-semibold line-clamp-2">{action.title}</h2>
 
         <div className="py-2 flex flex-col sm:flex-row sm:items-center sm:gap-2 sm:py-0">
           <span className="text-gray-500">Contenido:</span>
           <div className="flex items-center gap-2 py-2">
+            {action.victims && (
+              <span className="bg-orange-100 text-orange-600 p-2 rounded-md">
+                <Info className="w-5 h-5" />
+              </span>
+            )}
             {action.newsPapers && (
-              <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
+              <span className="bg-orange-100 text-orange-600 p-2 rounded-md">
                 <Newspaper className="w-5 h-5" />
               </span>
             )}
             {action.apologyForCrimeInImages && (
-              <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
+              <span className="bg-orange-100 text-orange-600 p-2 rounded-md">
                 <Image className="w-5 h-5" />
               </span>
             )}
             {action.virtualMemorial && (
-              <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
+              <span className="bg-orange-100 text-orange-600 p-2 rounded-md">
                 <MapPin className="w-5 h-5" />
               </span>
             )}
             {action.vindicatedActions && (
-              <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
+              <span className="bg-orange-100 text-orange-600 p-2 rounded-md">
                 <BookOpenCheck className="w-5 h-5" />
               </span>
             )}
             {action.videos && (
-              <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
+              <span className="bg-orange-100 text-orange-600 p-2 rounded-md">
                 <MonitorPlay className="w-5 h-5" />
               </span>
             )}

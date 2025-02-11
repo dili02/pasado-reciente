@@ -24,12 +24,6 @@ import Testimonies from "@/components/testimonies";
 
 type Props = { params: { slug: string } };
 
-// export async function generateStaticParams() {
-//   const actions = await api.getAll();
-
-//   return actions.map((action) => ({ slug: action.slug }));
-// }
-
 export async function generateStaticParams() {
   const actions = await api.getAllMurders();
 
@@ -44,19 +38,7 @@ function getFormattedDateToString(date: Date): string {
 
 export default async function page({ params }: Props) {
   const action = await api.getActionBySlug(params.slug);
-  // console.log("ACTION", action);
 
-  // const victimsTotal = action.victims?.length ?? 0;
-  // const victims = action.victims?.map((victim) => victim);
-  // console.log("VICTIMS", victims);
-  //   console.log(action.vindicated?.description.split("\n")[0]);
-  //   const actionVindicatedDescriptionSplited =
-  //     action.vindicated?.description.split("\n");
-  //   console.log(actionVindicatedDescriptionSplited);
-  // console.log(action.videos);
-
-  // flex flex-wrap justify-center gap-4 p-4
-  // flex flex-col justify-center gap-x-4 md:flex-row md:flex-wrap md:justify-self-auto
   return (
     <section className="px-8 w-full lg:px-4 flex flex-row 2xl:container 2xl:px-0">
       <div className="w-full lg:w-9/12 xl:w-9.5/12 flex flex-wrap justify-center gap-4 p-4">

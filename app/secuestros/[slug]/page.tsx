@@ -17,7 +17,7 @@ import {
   VictimsInfoDefinition,
   VideosTerroristActionDefinition,
 } from "@/db/data";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ImageOff } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -81,11 +81,18 @@ function VictimInfo({
   return (
     <div className="flex p-4 ml-5 md:p-10 bg-orange-400">
       <div className="w-full bg-orange-50 flex gap-2 pr-2">
-        <img
+        {victim.info?.avatar ? <div>imager</div> : <div>no image</div>}
+        {/* {!victim.info?.avatar && (
+          <div className="w-24 h-24 bg-orange-200 flex items-center justify-center">
+            <ImageOff className="text-orange-100" />
+          </div>
+        )} */}
+        {/* <img
           src={victim.info?.avatar?.src}
           alt={victim.info?.avatar?.alt}
           className="w-24 h-24"
-        />
+        /> */}
+
         <div className="py-2">
           <p>{victim.info?.name}</p>
           {victim.info?.deceased && (

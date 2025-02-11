@@ -1,6 +1,7 @@
 import { VictimsDefinition, VictimsInfoDefinition } from "@/db/data";
 import React from "react";
 import { cn } from "@/lib/utils";
+import { ImageOff } from "lucide-react";
 
 // import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -45,15 +46,24 @@ export function VictimInfo({
     );
   }
   return (
-    <div className="flex flex-col w-[250px] h-full bg-orange-50 rounded-xl">
+    <div className="flex flex-col w-[250px] h-full rounded-xl">
       <div className="relative w-[250px]">
-        <img
+        {info?.avatar ? (
+          <img
+            src={info?.avatar?.src}
+            alt={info?.avatar?.alt}
+            className="w-[250px] h-[250px] rounded-xl"
+          />
+        ) : (
+          <div className="w-[250px] h-[250px] bg-orange-200 flex items-center justify-center rounded-xl">
+            <ImageOff className="text-orange-100 w-32 h-32" />
+          </div>
+        )}
+        {/* <img
           src={info?.avatar?.src}
           alt={info?.avatar?.alt}
-          // layout="fill"
-          // objectFit="cover"
-          className="rounded-t-lg w-[250px] h-[250px]"
-        />
+          className="w-[250px] h-[250px] rounded-xl"
+        /> */}
       </div>
       <div className="flex-grow p-1">
         <h2 className="font-extrabold text-center text-orange-500">
@@ -99,9 +109,7 @@ export function VictimInfo({
           {info.childs && (
             <p className="">
               Hijos:
-              {info.childs === 1
-                ? ` ${info.childs} hijo`
-                : ` ${info.childs} hijos`}
+              {info.childs === 1 ? ` ${info.childs}` : ` ${info.childs}`}
               {info.childsDescription && (
                 <span className="pl-2">{info.childsDescription}</span>
               )}
@@ -112,9 +120,7 @@ export function VictimInfo({
           {info.daughter && (
             <p className="">
               Hijos:
-              {info.daughter === 1
-                ? ` ${info.daughter} hija`
-                : ` ${info.daughter} hijas`}
+              {info.daughter === 1 ? ` ${info.daughter}` : ` ${info.daughter}`}
               {info.childsDescription && (
                 <span className="">{info.childsDescription}</span>
               )}

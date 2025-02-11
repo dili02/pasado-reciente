@@ -3,8 +3,10 @@ import { JetBrains_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 import TailwindIndicator from "@/components/tailwind-inicator";
 import Header from "@/components/header";
+import Link from "next/link";
 
 const jetBrainsMono = JetBrains_Mono({ subsets: ["latin"] });
+const newsreader = Newsreader({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
@@ -30,9 +32,20 @@ export default function RootLayout({
       >
         <div className="inset-0 bg-[url('/bg.jpg')] opacity-50 fixed -z-10" />
 
-        <div className="lg:min-h-[15vh]">
-          <Header />
-        </div>
+        <header className="container text-center py-4">
+          <Link href="/">
+            <h1
+              className={`${newsreader.className} text-2xl lg:text-4xl text-black font-extrabold`}
+            >
+              Museo de la Memoria del Pasado Reciente
+            </h1>
+            <span
+              className={`${newsreader.className} text-2xl lg:text-4xl text-black`}
+            >
+              Uruguay
+            </span>
+          </Link>
+        </header>
 
         <main className="">{children}</main>
 

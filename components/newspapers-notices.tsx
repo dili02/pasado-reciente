@@ -217,7 +217,7 @@ export default function NewspapersNotices({
               <Link
                 href={image.src}
                 target="_blank"
-                className="flex items-center gap-2 font-bold text-[#007664] py-2"
+                className="flex items-center gap-2 font-bold text-black py-2 transition-transform duration-300 hover:scale-105"
                 key={image.type}
               >
                 <p className=" text-base uppercase underline">

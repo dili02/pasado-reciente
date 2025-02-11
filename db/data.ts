@@ -726,7 +726,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           marital: "casado",
           childs: 2,
           childsDescription: "menores de edad",
-          otherDescription: "(uno de tan solo un día)",
+          otherDescription: " (uno de tan solo un día)",
           avatar: {
             src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/avatar_1.png",
             alt: "imagen de Carlos Burgeño",
@@ -738,7 +738,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           name: "Sgto. Radio Patrulla Enrique Fernández",
           age: 44,
           childs: 2,
-          childsDescription: " menores de edad",
+          childsDescription: "menores de edad",
           marital: "casado",
           avatar: {
             src: "/acciones-terroristas-y-robos-a-sedes-bancarias-en-la-ciudad-de-pando/avatar_2.png",
@@ -2533,7 +2533,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           name: "Agente Armando Leses",
           age: 38,
           marital: "casado",
-          childs: 2,
+          childs: 4,
           childsDescription: "menores de edad",
           avatar: {
             src: "/armando-leses/a.png",
@@ -3231,7 +3231,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 42,
           childs: 5,
           childsDescription: "(3 menores de edad)",
-          // marital: "soltero",
+          marital: "casado",
           avatar: {
             src: "/aides-perez/a.png",
             alt: "imagen del Agente Aides Pérez",
@@ -3496,7 +3496,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 37,
           marital: "casado",
           daughter: 1,
-          childsDescription: "menor de edad",
+          childsDescription: " menor de edad",
           avatar: {
             src: "/juan-bentancur/a.png",
             alt: "imagen de Juan Bentancur",
@@ -3737,7 +3737,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 54,
           marital: "casado",
           childs: 3,
-          childsDescription: "1 menor de edad",
+          childsDescription: "(1 menor de edad)",
           avatar: {
             src: "/juan-alvarez/a.png",
             alt: "imagen de Juan Álvarez",
@@ -3927,7 +3927,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 27,
           marital: "casado",
           childs: 1,
-          childsDescription: " menor de edad",
+          childsDescription: "menor de edad",
           avatar: {
             src: "/wilder-soto-y-nelson-lima/a_2.png",
             alt: "imagen de Nelson Lima",
@@ -4430,7 +4430,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 50,
           marital: "casado",
           childs: 2,
-          childsDescription: " menores de edad",
+          childsDescription: "menores de edad",
           avatar: {
             src: "/rodolfo-leoncino/a.png",
             alt: "imagen de Rodolfo Leoncino",
@@ -4623,7 +4623,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 58,
           marital: "casado",
           childs: 3,
-          childsDescription: " (2 menores de edad)",
+          childsDescription: "(2 menores de edad)",
           avatar: {
             src: "/francisco-godoy/a.png",
             alt: "imagen de Agente Francisco Godoy",
@@ -4770,7 +4770,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 50,
           marital: "casado",
           childs: 3,
-          childsDescription: " menores de edad",
+          childsDescription: "menores de edad",
           avatar: {
             src: "/accion-terrorista-a-comisaria-de-soca/a.png",
             alt: "imagen de Oficial Ayudante Juan Sánchez",
@@ -5020,7 +5020,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 28,
           marital: "casado",
           childs: 1,
-          childsDescription: " menor de edad",
+          childsDescription: "menor de edad",
           avatar: {
             src: "/actos-terroristas-14-de-abril/a_3.png",
             alt: "imagen de Sub Comisario Óscar Delega",
@@ -5033,7 +5033,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 43,
           marital: "casado",
           childs: 4,
-          childsDescription: " menores de edad, (1 de 8 meses)",
+          childsDescription: "menores de edad, (1 de 8 meses)",
           avatar: {
             src: "/actos-terroristas-14-de-abril/a_4.png",
             alt: "imagen de Agente Carlos Leites",
@@ -5574,7 +5574,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 33,
           marital: "casado",
           childs: 2,
-          childsDescription: " menores de edad",
+          childsDescription: "menores de edad",
           avatar: {
             src: "/wilfredo-busconi/a_1.png",
             alt: "imagen de Capitán Wilfredo Busconi",
@@ -5774,7 +5774,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 27,
           marital: "casado",
           childs: 2,
-          childsDescription: " menores de edad",
+          childsDescription: "menores de edad",
           avatar: {
             src: "/acto-terrorista-de-cuatro-integrantes-del-ejercito/a_1.png",
             alt: "imagen de Soldado Gaudencio Núñez",
@@ -6390,7 +6390,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 49,
           marital: "casado",
           childs: 2,
-          childsDescription: " menores de edad",
+          childsDescription: "menores de edad",
           avatar: {
             src: "/vicente-orosa/a_1.png",
             alt: "imagen de Vicente Orosa (Español), chofer de CUTCSA",
@@ -6518,7 +6518,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 43,
           marital: "casado",
           childs: 3,
-          childsDescription: " menores de edad",
+          childsDescription: "menores de edad",
           avatar: {
             src: "/luis-barbizan/a_1.png",
             alt: "imagen de Luis Barbizón",
@@ -6606,7 +6606,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 49,
           marital: "casado",
           childs: 3,
-          childsDescription: " 1 menor de edad",
+          childsDescription: "(1 menor de edad)",
           avatar: {
             src: "/artigas-alvarez/a_1.png",
             alt: "imagen de Coronel Artigas Álvarez",
@@ -6770,7 +6770,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 42,
           marital: "casado",
           childs: 8,
-          childsDescription: " menores de edad",
+          childsDescription: "menores de edad",
           avatar: {
             src: "/darwin-fernandez/a_1.png",
             alt: "imagen de Inspector Darwin Fernández",
@@ -7098,8 +7098,8 @@ export const TerroristActions: TerroristActionDefinition[] = [
           name: "Soldado Nelson Vique",
           age: 31,
           marital: "casado",
-          childs: 3,
-          childsDescription: " menores de edad",
+          childs: 2,
+          childsDescription: "menores de edad",
           avatar: {
             src: "/nelson-vique-y-manuel-tobio/a_1.png",
             alt: "imagen de Soldado Nelson Vique",
@@ -7237,7 +7237,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 32,
           marital: "casado",
           childs: 3,
-          childsDescription: " menores de edad (1 de 11 meses)",
+          childsDescription: "menores de edad (1 de 11 meses)",
           avatar: {
             src: "/julio-gutierrez/a_1.png",
             alt: "imagen de Capitán Julio Gutiérrez",
@@ -7656,7 +7656,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           },
           {
             type: "página diario completa",
-            src: "/ulysses-pereira-reverbel-priimer-secuestro/n_32.jpg",
+            src: "/ulysses-pereira-reverbel-primer-secuestro/n_31.jpg",
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
@@ -7758,7 +7758,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 44,
           marital: "casado",
           childs: 3,
-          childsDescription: " menores de edad",
+          childsDescription: "menores de edad",
           nationality: "Italiano",
           avatar: {
             src: "/doctor-gaetano-pellegrini-giampietro/a.png",
@@ -7943,7 +7943,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           age: 40,
           marital: "casado",
           childs: 2,
-          childsDescription: " menores de edad",
+          childsDescription: "menores de edad",
           nationality: "Argentino, nacionalizado Uruguayo",
           avatar: {
             src: "/daniel-pereira-manelli/a.png",
@@ -10276,7 +10276,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           marital: "casado",
           // nationality: "Argentino",
           childs: 6,
-          childsDescription: " (4 menores de edad)",
+          childsDescription: "(4 menores de edad)",
           avatar: {
             src: "/luis-fernandez/a.png",
             alt: "imagen de Luis Fernández Lladó",
@@ -10695,7 +10695,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           marital: "casado",
           // nationality: "Francesa",
           childs: 4,
-          childsDescription: " (1 hijo menor de edad)",
+          childsDescription: "(1 menor de edad)",
           avatar: {
             src: "/homero-farina/a.png",
             alt: "imagen de Homero Fariña",
@@ -14033,7 +14033,8 @@ export const TerroristActions: TerroristActionDefinition[] = [
   },
   {
     date: new Date("June 11, 1970"),
-    title: "Policía baleado",
+    title:
+      "Policía baleado durante el asalto al Banco Español y Territorial sucursal La Teja",
     slug: "policia-baleado-espino",
     type: "atentados",
     newsPapers: [
@@ -22280,7 +22281,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
       {
-        name: 'Diario "El Día" (Página 16)',
+        name: 'Diario "El Diario" (Página 16)',
         date: new Date("March 29, 1973"),
         title: "“ASESTAN RUDO GOLPE AL OPR-33: APRESAN 10 JEFES”",
         description:
@@ -22292,12 +22293,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
           {
             type: "noticia publicada",
             src: "/desarticulan-intento-de-reorganizacion-del-opr-treinta-y-tres/n_3.jpg",
-            alt: "noticia publicada por el diario El Día",
+            alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
             src: "/desarticulan-intento-de-reorganizacion-del-opr-treinta-y-tres/n_4.jpg",
-            alt: "página diario completa publicada por el diario El Día",
+            alt: "página diario completa publicada por el diario El Diario",
           },
         ],
       },
@@ -22351,7 +22352,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     type: "otras-acciones",
     newsPapers: [
       {
-        name: 'Diario "El Día" (Página 17)',
+        name: 'Diario "El Diario" (Página 17)',
         date: new Date("September 8, 1973"),
         title: "“HALLAN EN MAROÑAS ARSENAL SEDICIOSO”",
         description:
@@ -22360,12 +22361,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
           {
             type: "noticia publicada",
             src: "/descubren-arsenal-de-armas/n_1.jpg",
-            alt: "noticia publicada por el diario El Día",
+            alt: "noticia publicada por el diario El Diario",
           },
           {
             type: "página diario completa",
             src: "/descubren-arsenal-de-armas/n_2.jpg",
-            alt: "página diario completa publicada por el diario El Día",
+            alt: "página diario completa publicada por el diario El Diario",
           },
         ],
       },
@@ -22988,6 +22989,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    seeAlso: [
+      {
+        href: "conferencia-de-prensa-de-tres-integrantes-del-partido-comunista-del-uruguay",
+        text: "Conferencia de prensa de tres integrantes del Partido Comunista del Uruguay",
+      },
+    ],
   },
   {
     date: new Date("December 27, 1975"),
@@ -23015,7 +23022,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
       {
-        name: 'Diario "El Diario" (Página 20)',
+        name: 'Diario "El Día" (Página 20)',
         date: new Date("December 28, 1975"),
         title:
           "“REVELAN ACTIVIDAD DESCONOCIDA HASTA HOY DEL PROSCRIPTO PARTIDO COMUNISTA”",
@@ -23024,12 +23031,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
           {
             type: "noticia publicada",
             src: "/descubren-carcel-del-pueblo-del-partido-comunista-del-uruguay/n_2.jpg",
-            alt: "noticia publicada por el diario El Diario",
+            alt: "noticia publicada por el diario El Día",
           },
           {
             type: "página diario completa",
             src: "/descubren-carcel-del-pueblo-del-partido-comunista-del-uruguay/n_3.jpg",
-            alt: "página diario completa publicada por el diario El Diario",
+            alt: "página diario completa publicada por el diario El Día",
           },
         ],
       },
@@ -23166,6 +23173,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
+      },
+    ],
+    seeAlso: [
+      {
+        href: "descubren-el-aparato-armado-del-partido-comunista-del-uruguay",
+        text: "Descubren el aparato armado del Partido Comunista del Uruguay",
       },
     ],
   },
@@ -23490,7 +23503,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
         name: "Diario “Acción” (Página 6)",
         date: new Date("May 22, 1969"),
         title:
-          "“TUPAMAROS ASALTARON ARMERÍA DE LA GALERÍA URUGUAY: SE LLEVARON  24 ARMAS”",
+          "“TUPAMAROS ASALTARON ARMERÍA DE LA GALERÍA URUGUAY: SE LLEVARON 24 ARMAS”",
         description:
           "Aparece foto. Un comando de la organización “Tupamaros”, integrado por tres hombres y una mujer atracó esta madrugada la armería ubicada en el local 9º de la  Galería “Uruguay”... tras amenazar con armas de fuego al sereno del local, lo ataron y amordazaron...",
         subtitle: "“Todas las armas”",
@@ -23641,9 +23654,1197 @@ export const TerroristActions: TerroristActionDefinition[] = [
       },
     ],
   },
+  {
+    date: new Date("May 6, 1970"),
+    title: "Inmobiliaria Brusco",
+    slug: "inmobiliaria-brusco",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 1000000, usd: 4000 },
+    newsPapers: [
+      {
+        name: "Diario “El Día” (Página 11)",
+        date: new Date("May 7, 1970"),
+        title: "“INMOBILIARIA ASALTADA POR PRESUNTOS CONSPIRADORES”",
+        description: "Aparecen fotos.",
+        subtitle: "“Números por Nombres”",
+        subDescription:
+          "... Tras el aviso que se trataba de un golpe revolucionario... aduciendo que era destinada a promover el mayor bienestar... De ocho a diez elementos... surgieron de entre las personas aglomeradas esgrimiendo armas de fuego... de inmediato el desconocido que parecía ser el jefe... “5 y 6 a la puerta”... “2 corte los cables telefónicos”...",
+        subtitle1: "“$ 1.000.000 y Documentos”",
+        subDescription1: "...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/inmobiliaria-brusco/n-1.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/inmobiliaria-brusco/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("Febrary 10, 1971"),
+    title: "Cambio Menéndez",
+    slug: "cambio-menendez",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 1000000, usd: 16032 },
+    newsPapers: [
+      {
+        name: "Diario “El Diario” (Página 18)",
+        date: new Date("Febrary 10, 1971"),
+        title: "“ATRIBUYEN A SEDICIOSOS UN EXTRAÑO SECUESTRO Y ASALTO”",
+        description:
+          "... se llevaron cuatro millones de pesos, tras haber mantenido secuestrado por doce horas, y en su domicilio, a uno de los cajeros junto a su esposa y sus dos pequeñas hijas.",
+        subtitle: "“Visita nocturna”",
+        subDescription:
+          "Anoche a las 21 y 15 se presentaron tres hombres jóvenes en la residencia del Cajero Enrique Isern... dominaron a la señora de Isern y las hijas de dos y tres años de edad... permanecieron custodiando a la pareja durante doce horas...",
+        subtitle1: "“El asalto”",
+        subDescription1:
+          "... Los hombres se llevaron en un vehículo al cajero y una mujer se fue con la señora de Isern custodiándola por la calle. Eran las 8 y 45 cuando arribaron al Cambio Menéndez, el otro cajero Eduardo Da Horta... habían transcurrido cinco minutos cuando apareció Isern con tres individuos... le manifestó a sus compañeros: “Mirá que tienen secuestrada a mi mujer”... después llamó por teléfono la Sra. de Isern anunciando que había sido liberada y se dirigía a su domicilio, donde las niñas habían quedado solas.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/cambio-menendez/n-1.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/cambio-menendez/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("May 29, 1970"),
+    title: "National Cash Register",
+    slug: "national-cash-register",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 3900000, usd: 15637 },
+    newsPapers: [
+      {
+        name: "Diario “El Día” (Página 3)",
+        date: new Date("May 30, 1970"),
+        title: "“CONSPIRADORES ROBARON $ 3.900.000 EN ASALTO”",
+        description:
+          "...Tres hombres y una mujer integrantes de una organización de elementos asociados para atentar contra la Constitución asaltaron ayer una empresa norteamericana, fugaron con $ 3.900.000 destinados al pago de sueldos de funcionarios de la misma. Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/national-cash-register/n-1.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/national-cash-register/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("Febrary 27, 1970"),
+    title: "Banco de Cobranzas sucursal Buceo",
+    slug: "banco-de-cobranzas-sucursal-buceo-1970",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 62000, usd: 2485 },
+    newsPapers: [
+      {
+        name: "Diario “El Diario” (Página 18)",
+        date: new Date("Febrary 27, 1970"),
+        title: "“... INTENTO GOLPE”",
+        description:
+          "Cuatro conspiradores atracaron esta tarde una sucursal bancaria ubicada en el Buceo... huyeron con 620.000 pesos... uno de los maleantes fue identificado.... Uno de los secuestradores del Dr. Gaetano Peliegrini (sic) Giampetro e implicado en el asesinato del guardia Zambrano de la Metropolitana...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-cobranzas-sucursal-buceo-1970/n-1.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-cobranzas-sucursal-buceo-1970/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("October 13, 1971"),
+    title: "Cooperativa Nacional de Productores de Leche-CONAPROLE",
+    slug: "cooperativa-nacional-de-productores-de-leche-conaprole",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 7546217, usd: 37736 },
+    newsPapers: [
+      {
+        name: "Diario “El Día” (Página 13)",
+        date: new Date("October 14, 1971"),
+        title: "“12 PERSONAS ROBAN EN CONAPROLE $ 7:546.217”",
+        description:
+          "El parte oficial dice lo siguiente: “Próximo a la hora 17.30 frente a la planchada de CONAPROLE se detuvo un camión y dos camionetas... un grupo de personas... dominando a los empleados con armas de fuego… de los cofres sustrajeron en efectivo la suma de $ 7:546.217 y cheques por valor de $ 1:869.000”.",
+        subtitle: "“Disfrazados con Mamelucos”",
+        subDescription:
+          "N. de R.-... vestían mamelucos similares a los que usan los obreros de Conaprole... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/cooperativa-nacional-de-productores-de-leche-conaprole/n-1.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/cooperativa-nacional-de-productores-de-leche-conaprole/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 16)",
+        date: new Date("November 13, 1971"),
+        title: "“PROCESAN A SEDICIOSOS: UNO ASALTO A CONAPROLE”",
+        description:
+          "La figura más importante es... quien cayó en Punta del Este... En su domicilio se halló uno de los mamelucos... que asaltó Conaprole...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/cooperativa-nacional-de-productores-de-leche-conaprole/n-3.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/cooperativa-nacional-de-productores-de-leche-conaprole/n-4.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("Febrary 27, 1970"),
+    title: "Molinos Gramon",
+    slug: "molinos-gramon",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 350000, usd: 1403 },
+    newsPapers: [
+      {
+        name: "Diario “El Diario” (Página 16)",
+        date: new Date("Febrary 27, 1970"),
+        title: "“DOS ASALTOS A MANO ARMADA EN BREVE LAPSO DE DOS HORAS”",
+        subtitle: "“EN MOLINOS GRAMON”",
+        subDescription:
+          "... en molinos “Gramon” de la calle Paraguay No. 2253 esquina Gral. Freire... Al lugar concurrieron cinco individuos jóvenes, uno portaba una metralleta y los restantes armas cortas de grueso calibre… hurtaron $ 350.000...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/molinos-gramon/n-1.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/molinos-gramon/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("January 13, 1971"),
+    title: "Caja de Jubilaciones y Pensiones Rurales - Florida",
+    slug: "caja-de-jubilaciones-y-pensiones-rurales-florida",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 4000000, usd: 16032 },
+    newsPapers: [
+      {
+        name: "Diario “Acción” (en Portada)",
+        date: new Date("January 14, 1971"),
+        title:
+          "“Terroristas Asaltan Caja de Trabajadores Rurales en Florida. ROBAN 4 MILLONES A JUBILADOS Y PENSIONISTAS”",
+        description:
+          "Un grupo sedicioso asaltó esta madrugada la Caja de Jubilados y Pensionistas Rurales de Florida llevándose los cuatro millones de pesos con los que hoy debía comenzar el pago de las remuneraciones a cientos de personas de modesta condición...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/caja-de-jubilaciones-y-pensiones-rurales-florida/n-1.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/caja-de-jubilaciones-y-pensiones-rurales-florida/n-2.jpg",
+            alt: "página diario completa publicada por el diario “Acción”",
+          },
+        ],
+      },
+      {
+        name: "Diario “Acción” (Página 7)",
+        date: new Date("January 14, 1971"),
+        title:
+          "“Un Grupo Sedicioso Robó los 4 Millones de Pesos que Debía Pagar a Miles de Ancianos la Caja de Jubilaciones y Pensiones de los Trabajadores Rurales de Florida. Varios sospechosos presos. “HAZAÑA” TERRORISTA”",
+        description:
+          "Florida. (de nuestro corresponsal).-... ubicada en la calle Juan I. Cardozo 561... Existe coincidencia en atribuir... a los grupos sediciosos... por las leyendas que inscribieron en las paredes del local...",
+        subtitle1: "“Hurto en la madrugada”",
+        subDescription1:
+          "La Caja Rural funciona en horario matutino... a las 14 horas de ayer la Caja cerró definitivamente sus puertas... Esta mañana a las 7 y 15 horas... los funcionarios comprobaron que dos de las cajas fuertes emplazadas en una oficina estaban entreabiertas... las dos únicas cajas en las que habían sido depositadas gruesas sumas de dinero...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/caja-de-jubilaciones-y-pensiones-rurales-florida/n-3.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/caja-de-jubilaciones-y-pensiones-rurales-florida/n-4.jpg",
+            alt: "página diario completa publicada por el diario “Acción”",
+          },
+        ],
+      },
+      {
+        name: "Diario “Acción” (Página 3)",
+        date: new Date("January 15, 1971"),
+        title: "“ROBO TERRORISTA A LA CAJA DE JUBILACIONES: 8 PRESOS”",
+        description:
+          "... antes de retirarse del local pintaron en las paredes de uno de los baños una estrella de seis puntas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/caja-de-jubilaciones-y-pensiones-rurales-florida/n-5.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/caja-de-jubilaciones-y-pensiones-rurales-florida/n-6.jpg",
+            alt: "página diario completa publicada por el diario “Acción”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("April 4, 1970"),
+    title: "Empresa tabacalera Sucesión Horacio Maihlos",
+    slug: "empresa-tabacalera-sucesion-horacio-maihlos",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 100000000, usd: 400962 },
+    newsPapers: [
+      {
+        name: "Diario “El Diario” (en Portada)",
+        date: new Date("April 5, 1970"),
+        title:
+          "“SE LLEVARON 25.000 LIBRAS ESTERLINAS, ORO EN LINGOTES, ARMAS, 2 TRASMISORES (sic) Y LOS LIBROS. LOS SEDICIOSOS DIERON GOLPE POR 100 MILLONES A MAILHOS”",
+        description: "Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/empresa-tabacalera-sucesion-horacio-maihlos/n-1.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/empresa-tabacalera-sucesion-horacio-maihlos/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 17)",
+        date: new Date("April 5, 1970"),
+        title:
+          "“DURANTE TODA LA NOCHE TRABAJARON PARA LLEVARSE LA CAJA DE HIERRO. De 30 a 40 Hombres en el Operativo”",
+        description:
+          "Aparecen fotos al pie de una de las cuales dice:... funcionario de confianza de la “Sucesión Horacio Mailhos”... El espectacular golpe que insumió ocho horas se desarrolló en la residencia ubicada en la Avda. 8 de Octubre 2285 esquina 18 de Julio... fue entregado por un empleado “de confianza” que hacía 12 años cumplía funciones. Se trata de... quien desde hace unas horas entró en la clandestinidad.",
+        subtitle: "“Mansión a cargo de cuidadores”",
+        subDescription:
+          "... un matrimonio de españoles, integrado por José Cortizar, casado de 65 años; su esposa Aracelis Salgueiro de Cortizar, de 60 años y su hija,..., oriental de 15 años...",
+        subtitle1: ": “Una visita nocturna”",
+        subDescription1:
+          "Anoche, a las 21.05 horas, llamó a la casa de los Mailhos el empleado de la firma,... y al ser atendido por José Cortizar... franqueó la puerta... apareció una pareja joven y lo encañonaron con armas de grueso calibre... Fue llevado junto a su esposa y la hija de ambos quedando encerrados en una habitación...",
+        subtitle2: "“Reconstrucción del golpe”",
+        subDescription2:
+          "Con el asesoramiento de... los sediciosos se habrían dividido el trabajo... retiraron cinco escopetas, cuatro rifles y dos revólveres calibre .38...",
+        subtitle3: "“La operación más compleja”",
+        subDescription3:
+          "En cuanto al monto del asalto... se estima puede superar los 100 millones de pesos.",
+        title4: "“... EL SABADO ENTREGO EL ASALTO Y AYUDO”",
+        description4:
+          "..., abril 4 de 1970, hasta la victoria siempre”. Esta frase, escrita con tiza en un pizarrón de los escritorios...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/empresa-tabacalera-sucesion-horacio-maihlos/n-3.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/empresa-tabacalera-sucesion-horacio-maihlos/n-3.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("May 7, 1971"),
+    title: "Compañía naviera Moore-McCormack Uruguaya S. A.",
+    slug: "compania-naviera-moore-ccormack-uruguaya-sa",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 150000, usd: 601 },
+    newsPapers: [
+      {
+        name: "Diario “Acción” (Página 7)",
+        date: new Date("May 7, 1971"),
+        title: "“ASALTO. Se llevan $ 150.000 de Moore Mc Cormack”",
+        description:
+          "Cuatro hombres jóvenes atracaron esta mañana las oficinas de la Compañía Naviera Moore-McCormack, ubicada en Rambla Franklin Delano Roosevelt 460, Piso 1º. logrando llevarse 150.000 pesos tras inmovilizar con poderosas armas de fuego al Gerente, nueve funcionarios, cinco clientes y un mozo de un bar...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/compania-naviera-moore-ccormack-uruguaya-sa/n-1.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/compania-naviera-moore-ccormack-uruguaya-sa/n-2.jpg",
+            alt: "página diario completa publicada por el diario “Acción”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("December 29, 1970"),
+    title: "Oficina Eizmendi-Schiavone",
+    slug: "oficina-eizmendi-schiavone",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 12000000, usd: 49679 },
+    newsPapers: [
+      {
+        name: "Diario “El Día” (Página 10)",
+        date: new Date("December 30, 1970"),
+        title: "“AL PARECER SEDICIOSOS ROBARON $ 12.000.000”",
+        description:
+          "...una oficina ubicada en la calle Cuareim 1682... dicho comercio se dedica a la compra y venta de ganado y hacienda siendo propiedad de Cándido Eizmendi Graña y Alejandro Schiavone... En la mañana de ayer se hizo presente una pareja correctamente vestidos... los condujeron ante el Encargado del negocio, Sr. Pedro Osores Nogueira... los condujo hasta su escritorio... se vio encañonado  ante una pistola... Cinco personas fueron obligadas a permanecer de cara a la pared, en tanto los conspiradores procedían a maniatarlos con hilo sisal y amordazarlos. Osores Nogueira… con el arma que empuñaba la joven en la sien, se vió obligado a firmar tres cheques de $ 4.000.000 cada uno… quitándole $ 250.000 a Osores, $ 100.000 de un escritorio y $ 40.000 a una empleada...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/oficina-eizmendi-schiavone/n-1.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/oficina-eizmendi-schiavone/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("May 27, 1970"),
+    title: "Remesero del Banco de Cobranzas",
+    slug: "remesero-del-banco-de-cobranzas",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 3805000, usd: 15256 },
+    newsPapers: [
+      {
+        name: "Diario “El Día” (en Portada)",
+        date: new Date("May 28, 1970"),
+        title: "“AUDAZ ATRACO CONTRA UN BANCO; SERIAN SEDICIOSOS”",
+        description:
+          "A las 19 de la tarde de ayer se produjo en perjuicio del Banco de Cobranzas (sic) por un total de $ 3.805.000 más cheques y acciones cuyo monto aún no se ha establecido... tras haber recorrido varias agencias... llegó a la sucursal sita en Brandzen 196... la camioneta “Commer” en la que viajaba el remesero del Banco, Sr. Dionisio Contreras... el chofer José Lara y un agente de investigaciones vestido de particular Oscar Paulino... Ingresaba al banco el remesero Contreras... mientras esperaban la salida del remesero, fueron sorprendidos por tres individuos jóvenes... ascendieron al coche y se pusieron en marcha... hasta Soca y Feliciano Rodríguez donde abandonaron al chofer y funcionario...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/remesero-del-banco-de-cobranzas/n-1.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/remesero-del-banco-de-cobranzas/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("August 28, 1972"),
+    title: "Joyería Rosselló S. A.",
+    slug: "joyeria-rossello-sa",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 50000000, usd: 58144 },
+    newsPapers: [
+      {
+        name: "Diario “El Diario” (Página 20)",
+        date: new Date("August 28, 1972"),
+        title: "“CON INCREIBLE AUDACIA OBRARON LOS PISTOLEROS”",
+        description:
+          "Aparece croquis. ... La firma “Roselló” se encuentra en la calle Sarandí No. 624 entre Juan Carlos Gómez y Bartolomé Mitre.",
+        subtitle: "“UNA HABIL ESTRATAGEMA”",
+        subDescription:
+          "Hoy, a la hora 10 y 45, se encontraban en el comercio sus dos propietarios, ocho empleados y cinco clientes... no pudo evitarse que entraran los asaltantes. Do (sic) de ellos, fingiendo ser personas allegadas a la Iglesia... les fue librado el acceso... ingresaron otros cuatro individuos, que sacaron a relucir armas de fuego...",
+        subtitle1: "“DESVALIJAN EL COMERCIO”",
+        subDescription1:
+          "... dejaron vacíos los escaparates y las vitrinas, arramblando con las joyas y relojes en exposición...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/joyeria-rossello-sa/n-1.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/joyeria-rossello-sa/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Día” (en Portada)",
+        date: new Date("August 29, 1972"),
+        title:
+          "“COPARON Y SAQUEARON LA JOYERIA ROSSELLO. 50 Millones en Alhajas”",
+        description:
+          "Aparece croquis. Un abundante botín en alhajas de oro y platino… y relojes de calidad, obtuvo ayer la banda… con valores estimados alrededor de 50 millones de pesos...",
+        subtitle: "“Se Acabó la Farsa”",
+        subDescription:
+          "... Uno de los dueños trató de escapar y un pistolero le colocó el caño de su arma en la cabeza... forzó a sus víctimas a echarse en el suelo del taller y les ataron las muñecas con trozos de alambre retorcido. Las personas sometidas a tal violencia física y moral, quedaron acostadas inmovilizadas y vigiladas por uno de los canallas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/joyeria-rossello-sa/n-3.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/joyeria-rossello-sa/n-3.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 16)",
+        date: new Date("August 29, 1972"),
+        title: "“RECONOCEN A DOS ASALTANTES DE LA JOYERIA ROSSELLO”",
+        description:
+          "Dos de los pistoleros que ayer asaltaron la joyería Roselló S.A. y fueron reconocidos, se trata de dos conspiradores requeridos...",
+        subtitle: "“VESTIAN SOTANAS Y UNIFORMES”",
+        subDescription:
+          "Dos de ellos vestían sotanas y aparentabas ser sacerdotes... después entraron al comercio cuatro compinches vestidos como militares...",
+        subtitle1: "“ERAN DEL “OPR 33””",
+        subDescription1:
+          "... los maleantes dijeron pertenecer a una organización sediciosa, luego se comprobó cuando los testigos reconocieron a dos de los pistoleros de la galería de facciosos requeridos... son elementos pertenecientes a la autodenominada “Organización Popular Revolucionaria 33” (OPR) 33).",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/joyeria-rossello-sa/n-4.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/joyeria-rossello-sa/n-5.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("February 24, 1970"),
+    title: "Banco de la República Oriental del Uruguay - Salto",
+    slug: "banco-de-la-republica-oriental-del-uruguay-salto",
+    type: "robo-dinero",
+    moneyTheft: { uyu: 20242500, usd: 80192 },
+    newsPapers: [
+      {
+        name: "Diario “El Diario” (Página 18)",
+        date: new Date("February 24, 1970"),
+        title: "“EL MAYOR ROBO QUE SE CONOCE EN TODO EL PAIS: 20 MILLONES”",
+        subtitle: "“Una puerta abierta”",
+        subDescription:
+          "... esta mañana a la hora 7: 30 comenzaron a llegar a la sede del Banco República... los empleados de la institución... estaba abierta una puerta que da a la calle Zorrilla... aseguró el portero había cerrado... los funcionarios observaron que estaba forzada la puerta del tesoro.",
+        subtitle1: "“Cómo habría sido el robo”",
+        subDescription1:
+          "Anoche, el subcontador... trabajó en el Banco hasta la hora 20.30… se estima que... facilitó el acceso a varios compinches...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-la-republica-oriental-del-uruguay-salto/n-1.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-la-republica-oriental-del-uruguay-salto/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Día” (en Portada)",
+        date: new Date("February 25, 1970"),
+        title: "“ROBARON EN SALTO  MÁS DE 20 MILLONES EN EL BANCO REPÚBLICA”",
+        description:
+          "Salto, 24- Un sensacional robo,... fue comprobado en la mañana de hoy en la Sucursal del Banco de la República en esta ciudad... se entrevistaron con el subgerente contador y cajero de la Institución, quienes manifestaron que del Tesoro faltaban $ 20.242.500 y U$S 132... Coincide con la desaparición del dinero, la de un funcionario de la Sucursal, al que no ha sido posible localizar.",
+        subtitle: "“Quién es el funcionario”",
+        subDescription: "es... funcionario desde hace unos 20 años...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-la-republica-oriental-del-uruguay-salto/n-3.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-la-republica-oriental-del-uruguay-salto/n-4.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Día” (Página 10)",
+        date: new Date("June 4, 1972"),
+        title: "“Cayó el Faccioso que Entregó Asalto al BROU de Salto”",
+        description:
+          "Aparecen fotos. Nota de Redacción-... -ahora capturado en la finca de la calle Joaquín Requena- fue el entregador del asalto a la sucursal Salto del Banco República...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/banco-de-la-republica-oriental-del-uruguay-salto/n-5.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/banco-de-la-republica-oriental-del-uruguay-salto/n-6.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("February 5, 1971"),
+    title: "Richard Brown",
+    slug: "richard-brown",
+    type: "asesinatos",
+    newsPapers: [
+      {
+        name: "Diario “Acción” (Página 2)",
+        date: new Date("February 5, 1971"),
+        title:
+          "“ACRIBILLAN AL DUEÑO DE UNA FIRMA IMPORTADORA DE LIBROS Y REVISTAS”",
+        description:
+          "Tres jóvenes ingresaron al comercio y esgrimiendo armas cortas, redujeron a ocho empleados y a Richard George Brown... Brown extrajo un revólver... los rapiñeros comenzaron a disparar contra el contador, quien recibió tres balazos...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/richard-brown/n-1.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/richard-brown/n-1.jpg",
+            alt: "página diario completa publicada por el diario “Acción”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Día” (Página 8)",
+        date: new Date("February 6, 1971"),
+        title: "“UN EMPLEADO MUERTO AL BALEARSE CON RAPIÑEROS”",
+        description:
+          "Aparecen fotos. El episodio se desarrolló en DISA, comercio dedicado a la importación de libros y revistas, ubicado en Paysandú 876, entre Andes y Convención...El apoderado de una firma comercial perdió la vida al tirotearse con tres rapiñeros que ingresaron a robar el establecimiento... Richard Brown Olaondo, oriental, casado de 46 años y padre de dos niñas...  decidió resistir la infame acción... extrajo el revólver y enfrentó al rapiñero... empezaron los disparos... Brown Olaonda ya herido...",
+        subtitle1: "“Muere en el Maciel”",
+        subDescription1:
+          "... Presentaba dos balazos: uno le había interesado la región epigástrica y el otro la zona lumbar.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/richard-brown/n-2.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/richard-brown/n-3.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+    ],
+    victims: [
+      {
+        info: {
+          name: "Richard Brown",
+          age: 46,
+          childs: 2,
+          childsDescription: "menores de edad",
+          marital: "casado",
+          avatar: {
+            src: "/richard-brown/avatar.png",
+            alt: "imagen de Richard Brown",
+          },
+        },
+      },
+    ],
+  },
+  {
+    date: new Date("February 13, 1972"),
+    title: "Agente Rosibel Do canto",
+    slug: "agente-rosibel-do-canto",
+    type: "asesinatos",
+    newsPapers: [
+      {
+        name: "Diario “El Día” (en Portada)",
+        date: new Date("February 14, 1972"),
+        title: "“CRIMINALES PRÓFUGOS ATACAN A UN POLICÍA Y LO ASESINAN”",
+        description:
+          "...Un joven agente de la Seccional 10ª fue asesinado ayer por dos delincuentes que lo derribaron de su motocicleta... le hicieron un disparo fatal en el bajo vientre... La víctima del cobarde homicidio fue el policía de la Dirección de Seguridad, Rosibel Do Canto, soltero de 24 años de edad... Ayer de mañana, aproximadamente a la hora 8, el agente Do Canto concurría a prestar servicio, piloteando la moto de su propiedad... en la esquina de Campoamor y Estado de Israel mientras circulaba a baja velocidad, dos individuos lo interceptaron...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/agente-rosibel-do-canto/n-1.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/agente-rosibel-do-canto/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 17)",
+        date: new Date("February 14, 1972"),
+        title: "“DE UN BALAZO ULTIMARON A UN POLICÍA Y ESCAPAN”",
+        description:
+          "...Un funcionario policial de la Seccional 10ª fue ultimado ayer de un balazo en el bajo vientre... iba de particular guiando una motocicleta... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/agente-rosibel-do-canto/n-3.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/agente-rosibel-do-canto/n-4.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+    ],
+    victims: [
+      {
+        info: {
+          name: "Agente Rosibel Do canto",
+          age: 24,
+          marital: "soltero",
+          avatar: {
+            src: "/agente-rosibel-do-canto/avatar.png",
+            alt: "imagen de Agente Rosibel Do canto",
+          },
+        },
+      },
+    ],
+  },
+  {
+    date: new Date("October 14, 1971"),
+    title: "Sargento Policía Santos Ferreira",
+    slug: "sargento-policia-santos-ferreira",
+    type: "asesinatos",
+    newsPapers: [
+      {
+        name: "Diario “El Día” (Página 7)",
+        date: new Date("October 16, 1971"),
+        title: "“EN ESTADO GRAVE POLICÍA BALEADO POR ATRACADORES”",
+        description:
+          "Un policía, afectado al servicio de guardia de un cobrador de UTE resultó herido a quemarropa por dos maleantes que atracaron el local donde se encontraba éste... Finca donde realizaba sus cobranzas el Sr. Bernardo Martínez Kleiger,... Custodiándole había un Sargento de policía Santos Alcides Ferreira Chavez... llegaron al lugar dos hombres... uno de ellos extrajo un arma... El Sargento intentó extraer su arma... dispararon sobre él a quemarropa, ocasionándole tres heridas de bala en el tórax...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/sargento-policia-santos-ferreira/n-1.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/sargento-policia-santos-ferreira/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 17)",
+        date: new Date("October 22, 1971"),
+        title: "“MURIÓ HOY EL SARGENTO BALEADO POR RAPIÑEROS”",
+        description:
+          "rágico epílogo tuvo lugar hoy un intento de asalto registrado... El sargento Santos Alcides Ferreira Chavez (oriental, casado de 46 años) que impidió la rapiña enfrentando a los atracadores, falleció hoy a consecuencia de las graves heridas... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/sargento-policia-santos-ferreira/n-3.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/sargento-policia-santos-ferreira/n-4.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+    ],
+    victims: [
+      {
+        info: {
+          name: "Sargento Policía Santos Ferreira",
+          age: 46,
+          marital: "casado",
+          avatar: {
+            src: "/sargento-policia-santos-ferreira/avatar.png",
+            alt: "imagen de Sargento Policía Santos Ferreira",
+          },
+        },
+      },
+    ],
+  },
+  {
+    date: new Date("April 20, 1972"),
+    title: "Soldado Luis Núñez",
+    slug: "soldado-luis-nunez",
+    type: "asesinatos",
+    newsPapers: [
+      {
+        name: "Diario “El Día” (en Portada)",
+        date: new Date("April 21, 1972"),
+        title: "“SOLDADO MUERTO EN ACCIÓN DE LAS FUERZAS CONJUNTAS”",
+        description:
+          "Oficina de Prensa de las Fuerzas Conjuntas. Mientras se realizaba un procedimiento a cargo de las Fuerzas Conjuntas... se produjo un tiroteo en el cual resultó herido el soldado del Ejército Luis Alberto Núñez... falleciendo posteriormente...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/soldado-luis-nunez/n-1.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/soldado-luis-nunez/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+    ],
+    victims: [
+      {
+        info: {
+          name: "Soldado Luis Núñez",
+          age: 21,
+          marital: "soltero",
+          avatar: {
+            src: "/soldado-luis-nunez/avatar.png",
+            alt: "imagen de Soldado Luis Núñez",
+          },
+        },
+      },
+    ],
+  },
+  {
+    date: new Date("February 23, 1973"),
+    title: "Agente Carlos Tranquilo",
+    slug: "agente-carlos-tranquilo",
+    type: "asesinatos",
+    newsPapers: [
+      {
+        name: "Diario “El Día” (en Portada)",
+        date: new Date("February 23, 1973"),
+        title: "“POLICIA ASESINADO ANOCHE”",
+        description: "Aparecen fotos.",
+        subtitle1: "Custodiaba el Domicilio del ex Ministro Rovira",
+        subDescription1:
+          "... el Agente Carlos Luis Tranquilo Ryckeboer se encontraba de servicio en el domicilio del ex ministro del Interior...observó a una persona en actitud sospechosa... Al aproximarse para solicitarle documentos, el mafioso extrajo en revólver efectuando tres disparos que fueron a herir de muerte al integrante de las Fuerzas Conjuntas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/agente-carlos-tranquilo/n-1.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/agente-carlos-tranquilo/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+    ],
+    victims: [
+      {
+        info: {
+          name: "Agente Carlos Tranquilo",
+          age: 25,
+          marital: "casado",
+          avatar: {
+            src: "/agente-carlos-tranquilo/avatar.png",
+            alt: "imagen de Agente Carlos Tranquilo",
+          },
+        },
+      },
+    ],
+  },
+  {
+    date: new Date("May 15, 1971"),
+    title: "Agente Perugorría",
+    slug: "agente-perugorria",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: "Diario “El Día” (en Portada)",
+        date: new Date("May 16, 1971"),
+        title: "“FACCIOSOS HIEREN A AGENTE POLICIAL”",
+        description: "Aparece foto.",
+        subDescription1:
+          "Anoche se produjo un dramático episodio en el Cine “Lutecia” ubicado en Gral. Flores casi Concepción Arenal... un modesto agente policial de apellido Perugorría resultó gravemente herido de un balazo... en el citado cine llegaron tres individuos entre ellos una mujer... Una pareja de dirigió al cajero-acompañado de su esposa- mostrándole las armas... otro individuo se dirigía a la cabina de proyección y obligaba-bajo amenaza de un arma-a que el encargado interrumpiera la película y pasara una placa con un mensaje de la conocida organización sediciosa...",
+        subtitle2: "“Presencia de un Policía”",
+        subDescription2:
+          "... los sediciosos llegaron al cine “Lutecia” en una camioneta... tras ellos unos minutos después arribaron policías de radio patrulla...",
+        subtitle3: "“Sedicioso Herido en una Pierna”",
+        subDescription3:
+          "...los ocupantes del patrullero entraron al cine cuando partían los sediciosos y se produjo el enfrentamiento y Pedrugorría fue gravemente herido...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/agente-perugorria/n-1.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/agente-perugorria/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: "Diario “Acción” (Página 8)",
+        date: new Date("May 17, 1971"),
+        title: "“ANTE EL JUEZ. 29 Detenidos por un Tiroteo en un Cine”",
+        description:
+          "Al cierre de esta edición comparecieron ante el Juez de Instrucción de 5º. Turno... 15 personas mayores de edad… Los 14 restantes, todos menores de edad, serán sometidos a la Justicia...",
+        subtitle2: "“El comunicado oficial”",
+        subDescription2:
+          "... en una recorrida que efectuaba el patrullero No. 10 al llegar donde funciona el cine Lutecia constató algo anormal... un funcionario penetró al hall... un desconocido lo encañonó con una pistola y le quitó la metralleta... el chofer que observaba los acontecimientos, dio la voz de alerta... los desconocidos salieron del cine llevando como escudo al referido agente... éste logró eludir la presión de sus atacantes... el desconocido que le arrebatara la metralleta efectuó una ráfaga... el otro agente resultó herido en la región lumbar.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/agente-perugorria/n-3.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/agente-perugorria/n-4.jpg",
+            alt: "página diario completa publicada por el diario “Acción”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("April 22, 1972"),
+    title: "Puesto militar de control en Fray Bentos - Río Negro",
+    slug: "puesto-militar-de-control-en-fray-bentos-rio-negro",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: "Diario “El Diario” (Página 18)",
+        date: new Date("April 24, 1972"),
+        title: "“RIO NEGRO: RECHAZARON UN ATAQUE DE LOS FACCIOSOS”",
+        description:
+          "Un grupo de facciosos atacó anteanoche un puesto de las Fuerzas Conjuntas, en el cruce de las rutas 2 y 24, hiriendo en ambas piernas a uno de los soldados... los sediciosos intentaron “copar” el puesto intimando la rendición a sus defensores. Los efectivos repelieron el fuego y lograron poner en fuga a sus atacantes...",
+        subtitle1: "“Recio tiroteo”",
+        subDescription1:
+          "El comunicado referente a este episodio dice: A las 21 horas del día de ayer, tres integrantes de las Fuerzas Conjuntas que estaban de guardia en el Puesto de Control... a 16 kilómetros de la ciudad de Fray Bentos, fueron atacados en forma sorpresiva y a mansalva... el Jefe de Grupo atacado ordenó repeler el fuego...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/puesto-militar-de-control-en-fray-bentos-rio-negro/n-1.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/puesto-militar-de-control-en-fray-bentos-rio-negro/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("June 27, 1972"),
+    title: "Oficial y Soldado emboscados y heridos",
+    slug: "oficial-y-soldado-emboscados-y-heridos",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: "Diario “El Diario” (en Portada)",
+        date: new Date("June 27, 1972"),
+        title: "“TUPAMAROS EMBOSCADOS HIEREN A DOS MILITARES ESTA MAÑANA”",
+        description: "Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/oficial-y-soldado-emboscados-y-heridos/n-1.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/oficial-y-soldado-emboscados-y-heridos/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 20)",
+        date: new Date("June 22, 1972"),
+        title: "“FRANCOTIRADORES ATACAN A MILITARES: 2 HERIDOS”",
+        description: "Aparece croquis.",
+        subDescription1:
+          "Dos francotiradores tupamaros, emboscados tras los arbustos de la plazoleta Madame Curie, ametrallaron una camioneta policial (sic) e hirieron gravemente a un teniente coronel y a un soldado del Ejército... los disparos penetraron en el vehículo por el parabrisas delantero izquierdo y por el costado del mismo lado. El conductor, un soldado, recibió un impacto en la espalda. El teniente coronel... sufrió tres heridas de bala en el cuello...",
+        subtitle2: "“SOSPECHOSOS AVISTADOS”",
+        subDescription2:
+          "... Alcanzado por el proyectil el chofer perdió el control de la camioneta que se estrelló contra el cordón de la vereda de la Avenida Larrañaga...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/oficial-y-soldado-emboscados-y-heridos/n-3.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/oficial-y-soldado-emboscados-y-heridos/n-4.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("September 14, 1970"),
+    title: "Agencia de noticias internacional Press Wireless",
+    slug: "agencia-de-noticias-internacional-press-wireless",
+    type: "atentados",
+    newsPapers: [
+      {
+        name: "Diario “El Día” (Página 4)",
+        date: new Date("September 15, 1970"),
+        title:
+          "“Obra de Facciosos. ATENTADO CONTRA AGENCIA NOTICIOSA: TRES DETENIDOS”",
+        description:
+          "Aparece foto y croquis. Tres jóvenes integrantes de una conocida y antigua organización de conspiradores fueron detenidos en una de las cabeceras del puente de Santiago Vázquez, ubicado en la barra del río Santa Lucía... Habían hecho estallar una bomba... en la planta de la agencia de noticias Press Wireless a la altura del Km. 23 de la Ruta 1...",
+        subtitle: "“Pescadores Disimulados”",
+        subDescription:
+          "... a las 19 y 40 ...Tres jóvenes que portaban bolsos, lograron eludir la vigilancia estricta establecida en ambos accesos sobre el puente de Santa Lucía...",
+        subtitle1: "“Sorprenden al Encargado”",
+        subDescription1:
+          "... el encargado de la planta se encontraba solo... de nacionalidad alemana vio a dos muchachones... repentinamente extrajeron un revólver cada uno... amordazándole y maniatándole las manos por detrás...",
+        subtitle2: "“Estruendo y Destrucción”",
+        subDescription2:
+          "... El tercer desconocido estuvo tres minutos dentro del local y mencionó: “Todo está pronto, vámonos rápido”. Llevaron al encargado a un monte próximo... el encargado logró zafarse y oyó un estruendo...",
+        subtitle3: "“Prewi Aislada para Transmitir”",
+        subDescription3:
+          "... la incomunicación de la agencia con Santiago de Chile, Río de Janeiro, Nueva York y Bogotá es total...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/agencia-de-noticias-internacional-press-wireless/n-1.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/agencia-de-noticias-internacional-press-wireless/n-1.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 17)",
+        date: new Date("September 15, 1970"),
+        title:
+          "“ACTUANDO COMO PESCADORES BURLARON LA VIGILANCIA POLICIAL LOS TRES SUJETOS”",
+        subtitle: "“Los Hechos”",
+        subDescription:
+          "Mediante la presentación de documentos de identidad los sediciosos lograron obviar los controles policiales... el encargado de la planta (Harry Saurhagen, alemán de 32 años) vio a dos muchachos... extrajeron un revólver cada uno y se identificaban como sediciosos... llevaron al encargado hasta un monte próximo amordazándolo y maniatándolo... Apareció un tercer sujeto... estuvo dentro del local pocos minutos... “Todo está pronto. Vámonos rápido”... Los delincuentes instalaron una bomba de alto poder explosivo...",
+        subtitle1: "“La Situación de la Planta”",
+        subDescription1:
+          "Las pérdidas fueron millonarias y la filial de ITT quedó aislada del mundo... Aparecen foto y croquis.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/agencia-de-noticias-internacional-press-wireless/n-2.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/agencia-de-noticias-internacional-press-wireless/n-3.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 15)",
+        date: new Date("September 18, 1970"),
+        title: "“DINAMITEROS PROCESADOS”",
+        description:
+          "El Juez de Instrucción de 1er. Turno procesó en la víspera a los tres jóvenes... por “asociación para delinquir”, “atentado a la Constitución en el grado de conspiración” y “estragos”.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/agencia-de-noticias-internacional-press-wireless/n-4.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/agencia-de-noticias-internacional-press-wireless/n-5.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    date: new Date("February 24, 1970"),
+    title: "Agente Nelson Bardesio",
+    slug: "agente-nelson-bardesio",
+    type: "secuestros",
+    newsPapers: [
+      {
+        name: "Diario “El Diario” (en Portada)",
+        date: new Date("February 25, 1970"),
+        title: "“SEDICIOSOS SECUESTRARON A UN FOTOGRAFO  DE LA POLICIA”",
+        description: "",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/agente-nelson-bardesio/n-1.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/agente-nelson-bardesio/n-2.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 18)",
+        date: new Date("February 25, 1970"),
+        title: "“SEIS SEDICIOSOS TOMARON PARTE EN EL SECUESTRO”",
+        description:
+          "A la hora 18 y 10 se presentaron en el estudio fotográfico en el Parque Rodó, seis hombres y una mujer integrantes de la organización criminal que asola el país... Los delincuentes que portaban armas de fuego irrumpieron en el lugar. El integrante de las Fuerzas Conjuntas Nelson Bardesio... su madre una señora de 60 años de edad y un compañero del primero. Estos dos últimos fueron esposados y golpeados salvajemente con una cachiporra... los sujetos se retiraron del local, llevándose secuestrado a Bardesio... volvieron a poner de manifiesto su delirio criminal, al ensañarse brutal y cobardemente con una anciana de 60 años indefensa...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/agente-nelson-bardesio/n-3.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/agente-nelson-bardesio/n-4.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 16)",
+        date: new Date("May 17, 1972"),
+        title: "“BARDESIO FUE LIBERADO LUEGO DE DURA PRISION”",
+        subtitle: "“Liberado en Avda. Larrañaga”",
+        description:
+          "... Bardesio fue liberado antenoche en la Avda. Larrañaga y Marne... El 24 de abril fue secuestrado por los sediciosos el presidente de la Cámara de Diputados, Héctor Gutiérrez Ruiz... se le hizo “interrogar”, de acuerdo a un cuestionario de antemano preparado por los secuestradores... a Nelson Bardesio.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/agente-nelson-bardesio/n-5.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/agente-nelson-bardesio/n-6.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El Diario” (Página 18)",
+        date: new Date("May 23, 1972"),
+        title: "“Gutiérrez Ruiz vio a Bardesio en la Calle Constitución”",
+        description:
+          "Aparece croquis. Hasta no hace mucho tiempo la casona de la calle Constitución, donde ayer apareció una de las denominadas “cárceles tupamaras”... donde-ya no hay dudas- estuvieron secuestrado el Embajador inglés Geoffrey Jackson y el funcionario policial Nelson Bardesio... allí se estima que se entrevistaron Bardesio y Gutiérrez Ruiz.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/agente-nelson-bardesio/n-7.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/agente-nelson-bardesio/n-8.jpg",
+            alt: "página diario completa publicada por el diario “El Diario”",
+          },
+        ],
+      },
+    ],
+    seeAlso: [
+      {
+        href: "/secuestros/geoffrey-jackson",
+        text: "Geoffrey Jackson",
+      },
+    ],
+    victims: [
+      {
+        info: {
+          name: "Agente Nelson Bardesio",
+          age: 31,
+          marital: "casado",
+        },
+      },
+    ],
+  },
+  {
+    date: new Date("June 11, 1970"),
+    title: "Banco Español y Territorial sucursal La Teja",
+    slug: "policia-baleado-espino",
+    type: "robo-dinero",
+    moneyTheft: {
+      uyu: 5000000,
+      usd: 18909,
+    },
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 22)',
+        date: new Date("June 11, 1970"),
+        title:
+          "“BALEARON UN POLICÍA PARA ROBAR CASI 5 MILLONES EN UN BANCO DE LA TEJA”",
+        description:
+          "Casi cinco millones de pesos se llevaron a primera hora de esta tarde cuatro individuos que asaltaron la agencia La Teja del Banco Español y Territorial. Al penetrar al local, asaltado por primera vez un año atrás, lucharon encarnizadamente con un funcionario policial de guardia, sobre quien tiraron a quemarropa hiriéndolo... tras lo cual lo castigaron con la culata de sus armas...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/policia-baleado-espino/n_1.jpg",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/policia-baleado-espino/n_2.jpg",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 /*
+
 
 hrf: "roban-la-bandera-original-de-los-treinta-y-tres-orientales",
 text: "Robo Bandera Original de los 33 orientales",

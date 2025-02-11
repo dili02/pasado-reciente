@@ -1,11 +1,45 @@
-import Stats from "@/components/stats";
-import { api as API, VideosTerroristActionDefinition } from "@/db/data";
+import { Icons } from "@/components/icons";
 import Link from "next/link";
-import Memorial from "@/components/memorial";
-import Satistics from "@/components/statistics";
-import { ArrowRight, Calendar } from "lucide-react";
+import React from "react";
+import { api as API, VideosTerroristActionDefinition } from "@/db/data";
+import MemorialClient, { EfemeridesClient } from "@/components/memorial-client";
 
-export default async function Home() {
+type Props = {};
+
+const navItems = [
+  {
+    name: "Asesinatos",
+    icon: <Icons.shot className="w-7 h-7" />,
+    href: "/asesinatos",
+  },
+  {
+    name: "Secuestros",
+    icon: <Icons.prisoner className="w-7 h-7" />,
+    href: "/secuestros",
+  },
+  {
+    name: "Atentados",
+    icon: <Icons.timeDinamite className="w-7 h-7" />,
+    href: "/atentados",
+  },
+  {
+    name: "Robo Dinero",
+    icon: <Icons.heist className="w-7 h-7" />,
+    href: "/robo-dinero",
+  },
+  {
+    name: "Robo Armas/Explosivos",
+    icon: <Icons.gun className="w-6 h-6" />,
+    href: "/robo-armamento-explosivos",
+  },
+  {
+    name: "Otras Acciones",
+    icon: <Icons.punch className="w-7 h-7" />,
+    href: "/otras-acciones",
+  },
+];
+
+export default async function page({}: Props) {
   const terroristActionWithVideos = await API.getAllWithVideo();
 
   const actions = await API.getAllAcitions();
@@ -15,81 +49,109 @@ export default async function Home() {
   const chronological = Array.from(new Set(years.sort((a, b) => a - b)));
 
   return (
-    <section className="container">
-      <p className="text-4xl sm:text-5xl text-center my-4 font-extrabold bg-gradient-to-br from-orange-700 via-orange-300 to-orange-600 bg-clip-text tracking-tighter text-transparent lg:mt-8 lg:mb-0">
-        RECOPILACIÓN DE ALREDEDOR DE 200 ACCIONES TERRORISTAS DESDE 1963 A 1976
-      </p>
-
-      <div className="flex flex-col items-center gap-10 sm:gap-14 lg:flex-row">
-        <div className="flex flex-1 flex-col items-center gap-8 lg:items-start lg:gap-10">
-          <div className="flex">
-            <span className="text-xl font-bold text-gray-500">Bienvenidos</span>
-            {/* <ArrowRight size={16} /> */}
-          </div>
-          <h1 className="max-w-2xl text-center font-heading text-4xl font-semibold sm:text-5xl lg:text-left tracking-wide uppercase text-orange-500">
-            nunca más terrorismo
-          </h1>
-          <p className="max-w-2xl text-center text-base text-muted-foreground lg:text-left">
-            La presente hemeroteca fue confeccionada exclusivamente con noticias
-            periodísticas de las décadas del 60 y 70 escaneadas de las páginas
-            originales de los diarios. De esta manera se podrá acceder al relato
-            cronológico documentado exento de opiniones y/o relatos alejados en
-            el tiempo y contexto en que sucedieron los hechos. En virtud del
-            tiempo transcurrido, es necesario precisar que el inicio de los
-            hechos se dieron en el marco de un gobierno democrático surgido de
-            elecciones libres, el cual, al igual que la sociedad de la época, se
-            vieron sorprendidos ante los embates de una situación ajena a los
-            hábitos de convivencia, como lo demuestran estas publicaciones.
-          </p>
-        </div>
-
-        <div className="relative flex-1">
-          <Memorial actions={actions} />
-          <div className="absolute inset-0 -z-10 bg-primary/20 [filter:blur(180px)]" />
-        </div>
-      </div>
-
-      <div className="mt-2">
-        <h2 className="max-w-2xl text-center font-heading text-4xl font-semibold sm:text-5xl lg:text-left tracking-wide uppercase mb-4 text-orange-500">
-          RESUMEN CRONOLÓGICO
-        </h2>
-
-        {/* <div className="grid gap-4 grid-cols-[repeat(auto-fill,_minmax(100px,_1fr))]"> */}
-        <div className="grid gap-4 grid-cols-3 md:grid-cols-7 place-items-center">
-          {chronological.map((year, index) => (
-            <Link href={`/${year}`} key={index}>
-              <div className="relative shadow-md overflow-hidden hover:shadow-lg hover:-translate-y-1 transition ease-in-out duration-500">
-                <CalendarSVG />
-
-                <div
-                  className="absolute z-10 text-orange-500 font-bold"
-                  style={{
-                    left: "24%",
-                    top: "50%",
-                    width: "87.5%",
-                    height: "88%",
-                  }}
-                >
-                  {year}
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-16">
-        <h2 className="max-w-2xl text-center font-heading text-4xl font-semibold sm:text-5xl lg:text-left tracking-wide uppercase text-orange-500">
-          testimonios
-        </h2>
-        <p className="text-lg py-2 text-gray-500">
-          Relatos de familiares de víctimas del terrorismo.
+    <div className="container">
+      <div className="mb-8 lg:mb-2">
+        <p className="font-bold text-orange-600 text-center mb-4 xl:text-lg">
+          Bienvenidos/as
         </p>
 
-        <div className="grid grid-cols-1 gap-3 lg:grid-cols-3 py-4">
+        <p className="text-center xl:text-lg">
+          La presente hemeroteca fue confeccionada exclusivamente con noticias
+          periodísticas de las décadas del 60 y 70 escaneadas de las páginas
+          originales de los diarios. De esta manera se podrá acceder al relato
+          cronológico documentado exento de opiniones y/o relatos alejados en el
+          tiempo y contexto en que sucedieron los hechos. En virtud del tiempo
+          transcurrido, es necesario precisar que el inicio de los hechos se
+          dieron en el marco de un gobierno democrático surgido de elecciones
+          libres, el cual, al igual que la sociedad de la época, se vieron
+          sorprendidos ante los embates de una situación ajena a los hábitos de
+          convivencia, como lo demuestran estas publicaciones.
+        </p>
+
+        <div className="my-12">
+          <p className="text-4xl sm:text-5xl text-center font-extrabold bg-gradient-to-br from-orange-700 via-orange-300 to-orange-600 bg-clip-text tracking-tighter text-transparent lg:mb-0">
+            RECOPILACIÓN DE ALREDEDOR DE 230 ACCIONES TERRORISTAS DESDE 1963 A
+            1976
+          </p>
+        </div>
+      </div>
+
+      {/* ACCOINES TERRORISTAS  & RESUMEN CRONOLOGICO  */}
+      <div className="grid gap-4 grid-cols-1 lg:grid-cols-3 xl:mt-8">
+        {/* ACCOINES TERRORISTAS */}
+        <div className="bg-orange-300 rounded-lg p-4 shadow-lg">
+          <h2 className="text-center uppercase text-4xl lg:text-xl xl:text-2xl font-extrabold">
+            acciones terroristas
+          </h2>
+          <nav>
+            <ul className="mt-8 grid gap-6 lg:gap-6 xl:gap-7 place-items-center md:grid md:grid-cols-2 lg:flex lg:flex-col lg:justify-around">
+              {navItems.map((item, index) => (
+                <li
+                  key={index}
+                  className="bg-black rounded-md w-full lg:w-72 py-3 transition-transform duration-300 hover:scale-105"
+                >
+                  <Link
+                    href={`${item.href}`}
+                    className="flex items-center justify-center gap-2 text-orange-100 font-bold"
+                  >
+                    {item.icon}
+                    <span className="">{item.name}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        {/* RESUMEN CRONOLOGICO */}
+        <div className="bg-orange-300 rounded-lg p-4 shadow-lg">
+          <div className="mt-8 lg:mt-0">
+            <h2 className="text-center uppercase text-4xl lg:text-xl xl:text-2xl font-extrabold">
+              resumen cronológico
+            </h2>
+            <div className="mt-8 grid gap-4 lg:gap-4 xl:gap-6 grid-cols-3 md:grid-cols-3 lg:grid-cols-3 place-items-center">
+              {chronological.map((year, index) => (
+                <Link href={`/cronologico/${year}`} key={index}>
+                  <div className="relative overflow-hidden hover:shadow-lg transition-transform duration-300 hover:scale-105">
+                    <CalendarSVG />
+
+                    <div
+                      className="absolute z-10 font-bold text-black text-lg"
+                      style={{
+                        left: "20%",
+                        top: "47.5%",
+                        width: "87.5%",
+                        height: "88%",
+                      }}
+                    >
+                      {year}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* EFEMERIDES */}
+        <div className="mt-8 lg:mt-0">
+          <div className="bg-orange-300 rounded-lg p-4 shadow-lg">
+            <EfemeridesClient actions={actions} />
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-8">
+        <h2 className="text-center uppercase text-xl xl:text-3xl font-extrabold text-orange-600">
+          testimonios
+        </h2>
+        <p className="text-center xl:text-lg text-orange-600">
+          Relatos de familiares de víctimas del terrorismo.
+        </p>
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 py-4">
           {terroristActionWithVideos.map((video) => (
             <div
-              className="rounded shadow-lg bg-black text-orange-400"
+              className="shadow-lg bg-orange-50 transition-transform duration-300 hover:scale-105 rounded-xl"
               key={video.src}
             >
               <iframe
@@ -99,16 +161,16 @@ export default async function Home() {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
-                className="w-full h-96 lg:h-52"
+                className="w-full h-44 lg:h-44 rounded-t-xl"
               ></iframe>
-              <div className="p-2 text-base text-primary-foreground">
+              <div className="p-2 text-sm text-black text-center">
                 <Link href={video.slug}>{video.title}</Link>
               </div>
             </div>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 
@@ -117,6 +179,7 @@ function CalendarSVG() {
     <svg
       width="72"
       height="72"
+      // className="2xl:w-20 2xl:h-20"
       viewBox="0 0 26 28"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -126,20 +189,5 @@ function CalendarSVG() {
         fill="black"
       />
     </svg>
-  );
-}
-
-function Calendarrrrr() {
-  return (
-    <div className="relative transition-all duration-300">
-      <CalendarSVG />
-
-      <div
-        className="absolute z-10"
-        style={{ left: "12%", width: "87.5%", height: "88%" }}
-      >
-        year
-      </div>
-    </div>
   );
 }

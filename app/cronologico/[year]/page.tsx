@@ -5,6 +5,7 @@ import {
   BookOpenCheck,
   Calendar,
   Image,
+  Info,
   MapPin,
   MonitorPlay,
   Newspaper,
@@ -39,10 +40,14 @@ export default async function page({ params }: Props) {
     );
   }
 
+  const sortedActions = actions
+    .map((action) => action)
+    .sort((a, b) => a.date.getTime() - b.date.getTime());
+
   return (
     <div className="container mt-4">
       <ul className="grid grid-cols-1 lg:grid-cols-2 py-8 gap-6">
-        {actions.map((action, index) => (
+        {sortedActions.map((action, index) => (
           <li
             key={index}
             className="border border-orange-400 p-2 bg-orange-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg hover:-translate-y-1 transition ease-in-out duration-500"
@@ -81,6 +86,11 @@ export default async function page({ params }: Props) {
               <div className="py-2 flex flex-col sm:flex-row sm:items-center sm:gap-2 sm:py-0">
                 <span className="text-gray-500">Contenido:</span>
                 <div className="flex items-center gap-2 py-2">
+                  {action.victims && (
+                    <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
+                      <Info className="w-5 h-5" />
+                    </span>
+                  )}
                   {action.newsPapers && (
                     <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
                       <Newspaper className="w-5 h-5" />
