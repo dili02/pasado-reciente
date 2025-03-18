@@ -18,8 +18,14 @@ export async function generateStaticParams() {
 
   const years = actions.map((action) => action.date.getFullYear());
 
+  // const arrayFrom = Array.from(new Set(years.sort((a, b) => a - b))).toString();
+
+  return years.map((year) => ({
+    year: year.toString(),
+  }));
+
   // return Array.from(new Set(years.sort((a, b) => a - b))).toString();
-  return Array.from(new Set(years.sort((a, b) => a - b)));
+  // return Array.from(new Set(years.sort((a, b) => a - b)));
 }
 
 export default async function page({ params }: Props) {

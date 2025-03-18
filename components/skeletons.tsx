@@ -20,7 +20,7 @@ export { Skeleton };
 
 export function ImageSkeleton({}: Props) {
   return (
-    <Skeleton className="h-[350px] w-[318px] rounded-xl bg-orange-200 flex items-center justify-center">
+    <Skeleton className="h-[350px] w-[318px] rounded-xl bg-[#e4d8b4] flex items-center justify-center">
       <svg
         className="w-28 h-28 text-orange-500"
         aria-hidden="true"

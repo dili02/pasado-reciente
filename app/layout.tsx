@@ -28,9 +28,10 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${jetBrainsMono.className} bg-gradient-to-b from-orange-50 via-amber-50 to-orange-50`}
+        // className={`${jetBrainsMono.className} bg-gradient-to-b from-orange-50 via-amber-50 to-orange-50`}
+        className={`${jetBrainsMono.className} bg-[#e4d8b4]`}
       >
-        <div className="inset-0 bg-[url('/bg.jpg')] opacity-50 fixed -z-10" />
+        {/* <div className="inset-0 bg-[url('/bg.jpg')] opacity-50 fixed -z-10" /> */}
 
         <header className="container text-center py-4">
           <Link href="/">

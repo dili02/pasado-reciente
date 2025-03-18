@@ -386,7 +386,7 @@ export function EfemeridesClient({ actions }: Props) {
     <div className="flex flex-col items-center justify-center">
       {!currentMonth && <TitleSkeleton />}
       {currentMonth && (
-        <h2 className="text-center uppercase text-4xl lg:text-xl xl:text-2xl font-extrabold flex items-center gap-2">
+        <h2 className="text-center text-white uppercase text-4xl lg:text-xl xl:text-2xl font-extrabold flex items-center gap-2">
           Memorial
           <time dateTime={getCurrentMonth()}>{currentMonth}</time>
         </h2>
@@ -395,8 +395,8 @@ export function EfemeridesClient({ actions }: Props) {
       {!initDate && !endDate ? (
         <TitleSkeleton />
       ) : (
-        <p className="text-sm lg:text-xs xl:text-base text-center text-black">
-          Acciones terroristas llevadas a cabo por los movimientos subversivos
+        <p className="text-sm lg:text-xs xl:text-base text-center text-white">
+          Acciones terroristas llevadas a cabo por los movimientos terroristas
           durante el período{" "}
           <time
             dateTime={initDate.toString()}
@@ -425,7 +425,7 @@ export function EfemeridesClient({ actions }: Props) {
 
       <Link
         href="/efemerides"
-        className="flex items-center justify-center gap-2 text-orange-100 hover:duration-500 hover:ease-out bg-black py-3 px-4 rounded-md font-bold transition-transform duration-300 hover:scale-105 w-full md:w-80 lg:w-72"
+        className="flex items-center justify-center gap-2 text-black hover:duration-500 hover:ease-out bg-yellow-200 py-3 px-4 rounded-md font-bold transition-transform duration-300 hover:scale-105 w-full md:w-80 lg:w-72"
       >
         <span>Ir a efemérides</span> <ArrowRight size={18} />
       </Link>
