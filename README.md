@@ -13,7 +13,7 @@ Hemeroteca fue confeccionada exclusivamente con noticias periodísticas de las d
 ## 📋 Requisitos Previos
 
 - Node.js 18.x o superior
-- npm (recomendado) o npm
+- npm (recomendado) o pnpm
 - Git
 
 ## 💻 Configuración de Desarrollo
@@ -56,7 +56,6 @@ Generar una exportación estática de la aplicación:
 
 ```bash
 npm build
-npm export
 ```
 
 Los archivos estáticos se generarán en el directorio `out`.
@@ -104,15 +103,3 @@ pm2 start npm --name "pasado-reciente" -- start
 - [Next.js](https://nextjs.org/) - Framework de React
 - [Tailwind CSS](https://tailwindcss.com/) - Framework de CSS
 - [TypeScript](https://www.typescriptlang.org/) - Seguridad de tipos
-
-## 🤝 Contribuir
-
-1. Haz un fork del repositorio
-2. Crea tu rama de características (`git checkout -b feature/caracteristica-asombrosa`)
-3. Haz commit de tus cambios (`git commit -m 'Agregar característica asombrosa'`)
-4. Haz push a la rama (`git push origin feature/caracteristica-asombrosa`)
-5. Abre un Pull Request
-
-## 📄 Licencia
-
-Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.

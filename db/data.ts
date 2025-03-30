@@ -3470,7 +3470,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
           },
           {
             src: "/walter-custodio/i_2.jpg",
-            alt: "Un tercer Terrorista dispara por la espalda al Sargento Walter Custodio.",
+            alt: "La mujer terrorista dispara por la espalda al Sargento Walter Custodio.",
           },
           {
             src: "/walter-custodio/i_3.jpg",
@@ -24294,7 +24294,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
   },
   {
     date: new Date("February 13, 1972"),
-    title: "Agente Rosibel Do canto",
+    title: "Agente Rosibel Do Canto",
     slug: "agente-rosibel-do-canto",
     type: "asesinatos",
     newsPapers: [

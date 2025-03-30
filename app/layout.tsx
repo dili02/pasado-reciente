@@ -8,12 +8,13 @@ const jetBrainsMono = JetBrains_Mono({ subsets: ["latin"] });
 const newsreader = Newsreader({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.pasadoreciente.com/"),
   title: {
     default: "Pasado Reciente",
     template: "%s | Pasado Reciente",
   },
   description:
-    "Hemeroteca confeccionada con noticias periodísticas de las décadas del 60 y 70 escaneadas de las páginas originales de los diarios. De esta manera se podrá acceder al relato cronológico documentado exento de opiniones y/o relatos alejados en el tiempo y contexto en que sucedieron los hechos.",
+    "Museo de la Memoria del Pasado Reciente contiene noticias escaneadas de las páginas originales de la prensa sobre asesinatos, secuestros, atentados, robo de dinero, armas, explosivos, bancos y otras acciones cometidas por terroristas en Uruguay en las décadas de 1960 y 1970",
 };
 
 export default function RootLayout({
@@ -41,21 +42,8 @@ export default function RootLayout({
 
         <main className="">{children}</main>
 
-        {/* <footer className="bg-orange-300 py-12 bg-opacity-10">
-          <div className="container mx-auto px-4 text-center text-gray-900">
-            <p>Made with 💗 by RoadsideCoder</p>
-          </div>
-        </footer> */}
-
         <TailwindIndicator />
       </body>
-      {/* <body className={jetBrainsMono.className}>
-        <Header />
-
-        <main className="">{children}</main>
-
-        <TailwindIndicator />
-      </body> */}
     </html>
   );
 }
