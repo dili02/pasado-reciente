@@ -35,7 +35,8 @@ export default function Efemerides({ actions }: Props) {
     setCurrentMonth(new Date().getMonth());
 
     listActions(currentMonth);
-  }, [currentMonth, listActions]);
+  }, []);
+  // }, [currentMonth, listActions]);
 
   return (
     <section>

@@ -1,11 +1,11 @@
 import { Icons } from "@/components/icons";
 import Link from "next/link";
-import { api as API, VideosTerroristActionDefinition } from "@/db/data";
+import { api as API } from "@/db/data";
 import Intro from "@/components/home/intro";
 import IntroTerroristActions from "@/components/home/intro-terrorist-actions";
 import IntroChronologicalSummary from "@/components/home/intro-chronological-summary";
 import IntroMemorial from "@/components/home/intro-memorial";
-import { Metadata } from "next/types";
+import { Metadata } from "next";
 
 type Props = {};
 

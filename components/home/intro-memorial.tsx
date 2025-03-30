@@ -45,7 +45,8 @@ export default function IntroMemorial({ actions }: Props) {
     setCurrentMonth(getCurrentMonth);
 
     listActions(currentMonthNumber);
-  }, [listActions, currentMonth]);
+  }, []);
+  // }, [listActions, currentMonth]);
 
   const actionsDates = terroristActions.map((date) => date.date);
   const initDate = new Date(actionsDates[0]).getFullYear();

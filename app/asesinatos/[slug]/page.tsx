@@ -7,12 +7,12 @@ import VirtualMemorial from "@/components/virtual-memorial";
 import NewspapersNotices from "@/components/newspapers-notices";
 import TableOfContet from "@/components/common/table-of-content";
 import Testimonies from "@/components/testimonies";
-import { Metadata } from "next/types";
+import type { Metadata } from "next";
 
-type Props = { params: { slug: string } };
+type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   const action = await api.getActionBySlug(slug);
   return {
     title: action.title,
@@ -32,7 +32,7 @@ function getFormattedDateToString(date: Date): string {
 }
 
 export default async function page({ params }: Props) {
-  const action = await api.getActionBySlug(params.slug);
+  const action = await api.getActionBySlug((await params).slug);
 
   return (
     <section className="px-8 w-full lg:px-4 flex flex-row 2xl:container 2xl:px-0">
