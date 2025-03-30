@@ -19,8 +19,6 @@ export default async function Satistics({}: Props) {
   const moneyThef = await API.countMoneyThef();
   const otherAcctions = await API.countAllOtherAcctions();
 
-  // console.log(calculatePercentage())
-
   return (
     <div className="">
       <div className="flex items-center gap-2">

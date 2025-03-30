@@ -14,7 +14,7 @@ export default async function IntroChronologicalSummary({}: Props) {
   return (
     <div className="bg-[#FF9900] rounded-lg p-4 shadow-lg">
       <div className="mt-8 lg:mt-0">
-        <h2 className="text-center text-[#e4d8b4] uppercase text-4xl lg:text-xl xl:text-2xl font-extrabold">
+        <h2 className="text-center text-black uppercase text-4xl lg:text-xl xl:text-2xl font-extrabold">
           resumen cronológico
         </h2>
         <div className="mt-8 grid gap-4 lg:gap-4 xl:gap-6 grid-cols-3 md:grid-cols-3 lg:grid-cols-3 place-items-center">

@@ -1,17 +1,4 @@
-import {
-  api,
-  ApologyForCrimeInImagesDefinition,
-  Book,
-  ImageDefinition,
-  NewPapeImageDefinition,
-  NewsPaperDefinition,
-  VictimsDefinition,
-  VictimsInfoDefinition,
-  VideosTerroristActionDefinition,
-} from "@/db/data";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
-import React from "react";
+import { api } from "@/db/data";
 import ActionVindicated from "@/components/action-vindicated";
 import ApologyForCrimeInImages from "@/components/apology-for-crime-images";
 import Victim from "@/components/victim-info";
@@ -19,8 +6,17 @@ import VirtualMemorial from "@/components/virtual-memorial";
 import NewspapersNotices from "@/components/newspapers-notices";
 import TableOfContet from "@/components/common/table-of-content";
 import Testimonies from "@/components/testimonies";
+import { Metadata } from "next/types";
 
 type Props = { params: { slug: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = params;
+  const action = await api.getActionBySlug(slug);
+  return {
+    title: action.title,
+  };
+}
 
 export async function generateStaticParams() {
   const actions = await api.getAllMurders();

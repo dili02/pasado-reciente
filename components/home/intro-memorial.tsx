@@ -53,12 +53,12 @@ export default function IntroMemorial({ actions }: Props) {
 
   if (!currentMonth || !initDate || !endDate) return <IntroMemeorialSkeleton />;
 
+  // return <IntroMemeorialSkeleton />;
+
   return (
     <div className="bg-[#FF6600] rounded-lg p-4 shadow-lg">
-      {/* {!currentMonth && <TitleSkeleton />} */}
-
       {currentMonth && (
-        <h2 className="text-center text-[#e4d8b4] uppercase text-4xl lg:text-xl xl:text-2xl font-extrabold">
+        <h2 className="text-center text-black uppercase text-4xl lg:text-xl xl:text-2xl font-extrabold">
           Memorial de <time dateTime={getCurrentMonth()}>{currentMonth}</time>
         </h2>
       )}
@@ -66,7 +66,7 @@ export default function IntroMemorial({ actions }: Props) {
       {!initDate && !endDate ? (
         <TitleSkeleton />
       ) : (
-        <p className="text-center py-4 max-w-2xl text-[#e4d8b4] ">
+        <p className="text-center py-4 max-w-2xl text-black">
           Acciones terroristas llevadas a cabo por los movimientos subversivos
           durante el período{" "}
           <time
@@ -92,15 +92,15 @@ export default function IntroMemorial({ actions }: Props) {
             src={`/efemerides/${currentMonth}.png`}
             className=""
             alt={`memorial del mes de ${currentMonth}`}
-            // width={258}
-            // height={290}
+            width={318}
+            height={350}
           />
         )}
       </div>
 
       <Link
         href="/efemerides"
-        className="flex items-center justify-center gap-2 mt-2 text-black hover:duration-500 hover:ease-out bg-yellow-300 py-2 px-4 rounded-md font-bold mb-2 transition-transform duration-300 hover:scale-105 md:w-72 lg:w-full"
+        className="flex items-center justify-center gap-2 mt-2 text-black hover:duration-500 hover:ease-out bg-yellow-300 py-2 px-4 rounded-md font-bold mb-2 transition-transform duration-300 hover:scale-105"
       >
         <span>Ir a efemérides</span> <ArrowRight size={18} />
       </Link>
@@ -110,12 +110,10 @@ export default function IntroMemorial({ actions }: Props) {
 
 function IntroMemeorialSkeleton() {
   return (
-    <div className="bg-[#FF6600] rounded-lg p-4 shadow-lg flex flex-col items-center">
-      <div className="h-7 w-full bg-[#e4d8b4] rounded-md mb-2" />
-      <div className="h-4 w-full bg-[#e4d8b4] rounded-md my-1" />
-      <div className="h-4 w-full bg-[#e4d8b4] rounded-md my-1" />
-      <div className="h-4 w-[50%] bg-[#e4d8b4] rounded-md my-1" />
+    <div className="bg-[#FF6600] rounded-lg p-4 shadow-lg flex flex-col items-center justify-between">
+      <TitleSkeleton />
       <ImageSkeleton />
+      <TitleSkeleton />
     </div>
   );
 }

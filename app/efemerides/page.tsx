@@ -1,12 +1,13 @@
 import Efemerides from "@/components/efemerides";
-import { Icons } from "@/components/icons";
 import TitlePageClient from "@/components/title-page-client";
-import { Button } from "@/components/ui/button";
 import { api as API } from "@/db/data";
-import Link from "next/link";
-import React from "react";
+import { Metadata } from "next/types";
 
 type Props = {};
+
+export const metadata: Metadata = {
+  title: "Efemérides",
+};
 
 function getFormattedDateToString(date: Date): string {
   return new Intl.DateTimeFormat("es-UY", { dateStyle: "medium" }).format(

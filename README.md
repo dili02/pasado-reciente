@@ -21,7 +21,7 @@ Hemeroteca fue confeccionada exclusivamente con noticias periodísticas de las d
 1. Clonar el repositorio:
 
 ```bash
-git clone https://github.com/yourusername/pasado-reciente.git
+git clone https://github.com/dili02/pasado-reciente.git
 cd pasado-reciente
 ```
 

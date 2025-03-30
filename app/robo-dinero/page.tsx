@@ -1,12 +1,12 @@
-import { Icons } from "@/components/icons";
 import TerroristActionListItem from "@/components/terrorist-action-list-item";
-import { Badge } from "@/components/ui/badge";
 import { api, TerroristActionDefinition } from "@/db/data";
-import { Calendar } from "lucide-react";
-import Link from "next/link";
-import React from "react";
+import { Metadata } from "next/types";
 
 type Props = {};
+
+export const metadata: Metadata = {
+  title: "Robo Dinero",
+};
 
 function getFormattedDateToString(date: Date): string {
   return new Intl.DateTimeFormat("es-UY", { dateStyle: "medium" }).format(
@@ -38,11 +38,11 @@ export default async function page({}: Props) {
 
   return (
     <section className="container mx-auto py-4">
-      <h1 className="text-center font-heading text-4xl font-semibold sm:text-5xl tracking-tight uppercase text-orange-500">
+      <h1 className="text-center font-heading text-4xl font-semibold sm:text-5xl tracking-tight uppercase text-orange-700">
         robo de dinero
       </h1>
 
-      <p className="text-center font-bold text-xl text-black/50">
+      <p className="text-center font-bold text-xl text-black">
         entre el <time dateTime={initDate}>{initDate}</time> y el{" "}
         <time dateTime={endDate}>{endDate}</time>{" "}
       </p>

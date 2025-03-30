@@ -2,24 +2,11 @@ import ActionVindicated from "@/components/action-vindicated";
 import ApologyForCrimeInImages from "@/components/apology-for-crime-images";
 import TableOfContet from "@/components/common/table-of-content";
 import NewspapersNotices from "@/components/newspapers-notices";
-import Notice from "@/components/notice";
 import Testimonies from "@/components/testimonies";
 import Victim from "@/components/victim-info";
 import VirtualMemorial from "@/components/virtual-memorial";
-import {
-  api,
-  ApologyForCrimeInImagesDefinition,
-  Book,
-  ImageDefinition,
-  NewPapeImageDefinition,
-  NewsPaperDefinition,
-  VictimsDefinition,
-  VictimsInfoDefinition,
-  VideosTerroristActionDefinition,
-} from "@/db/data";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
-import React from "react";
+import { api } from "@/db/data";
+import { Metadata } from "next/types";
 
 type Props = { params: { slug: string } };
 
@@ -27,6 +14,14 @@ export async function generateStaticParams() {
   const actions = await api.getAllAtacks();
 
   return actions.map((action) => ({ slug: action.slug }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const action = await api.getActionBySlug(params.slug);
+  return {
+    title: action.title,
+    // description: "",
+  };
 }
 
 function getFormattedDateToString(date: Date): string {

@@ -1,5 +1,4 @@
-import React from "react";
-import { api as API, VideosTerroristActionDefinition } from "@/db/data";
+import { api as API } from "@/db/data";
 import Link from "next/link";
 import {
   BookOpenCheck,
@@ -10,8 +9,13 @@ import {
   MonitorPlay,
   Newspaper,
 } from "lucide-react";
+import { Metadata } from "next/types";
 
 type Props = { params: { year: string } };
+
+export const metadata: Metadata = {
+  title: "Cronológico",
+};
 
 export async function generateStaticParams() {
   const actions = await API.getAllAcitions();
@@ -52,6 +56,9 @@ export default async function page({ params }: Props) {
 
   return (
     <div className="container mt-4">
+      <h1 className="text-center font-heading text-4xl font-semibold sm:text-5xl tracking-tight uppercase text-orange-700">
+        {params.year}
+      </h1>
       <ul className="grid grid-cols-1 lg:grid-cols-2 py-8 gap-6">
         {sortedActions.map((action, index) => (
           <li

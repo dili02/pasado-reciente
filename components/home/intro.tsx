@@ -5,7 +5,7 @@ type Props = {};
 export default function Intro({}: Props) {
   return (
     <section className="mb-8 lg:mb-2">
-      <p className="font-bold text-orange-600 text-center mb-4 xl:text-lg">
+      <p className="font-bold text-black text-center mb-4 xl:text-lg">
         Bienvenidos
       </p>
 
@@ -22,7 +22,7 @@ export default function Intro({}: Props) {
         convivencia, como lo demuestran estas publicaciones.
       </p>
 
-      <div className="my-12">
+      <div className="my-12 bg-orange-50 py-4 rounded-lg">
         <p className="text-4xl sm:text-5xl text-center font-extrabold bg-gradient-to-br from-orange-700 via-orange-300 to-orange-600 bg-clip-text tracking-tighter text-transparent lg:mb-0">
           RECOPILACIÓN DE ALREDEDOR DE 230 ACCIONES TERRORISTAS DESDE 1963 A
           1976

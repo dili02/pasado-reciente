@@ -23,7 +23,6 @@ export default function TerroristActionListItem({ action }: Props) {
       new Date(date)
     );
   }
-  //   console.log("TerroristActionListItem", action);
 
   function formatCurrency(amount: number) {
     return new Intl.NumberFormat("es-UY", {
@@ -40,7 +39,7 @@ export default function TerroristActionListItem({ action }: Props) {
     >
       <Link href={`/${action.type}/${action.slug}`} className="block p-4">
         <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-2 text-orange-900">
+          <div className="flex items-center gap-2 text-orange-600 font-semibold">
             <Calendar className="w-4 h-4" />
             <time className="text-sm">
               {getFormattedDateToString(action.date)}
@@ -54,7 +53,9 @@ export default function TerroristActionListItem({ action }: Props) {
           )}
         </div>
 
-        <h2 className="font-semibold line-clamp-2">{action.title}</h2>
+        <h2 className="font-semibold text-black line-clamp-2">
+          {action.title}
+        </h2>
 
         <div className="py-2 flex flex-col sm:flex-row sm:items-center sm:gap-2 sm:py-0">
           <span className="text-gray-500">Contenido:</span>

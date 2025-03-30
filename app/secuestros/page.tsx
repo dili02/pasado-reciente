@@ -1,10 +1,12 @@
-import { Icons } from "@/components/icons";
 import TerroristActionListItem from "@/components/terrorist-action-list-item";
 import { api } from "@/db/data";
-import Link from "next/link";
-import React from "react";
+import { Metadata } from "next/types";
 
 type Props = {};
+
+export const metadata: Metadata = {
+  title: "Secuestros",
+};
 
 function getFormattedDateToString(date: Date): string {
   return new Intl.DateTimeFormat("es-UY", { dateStyle: "medium" }).format(
@@ -14,7 +16,6 @@ function getFormattedDateToString(date: Date): string {
 
 export default async function page({}: Props) {
   const terroristActionKidnapped = await api.getAllKidnappings();
-  //   console.log(terroristActionKidnapped);
 
   const terroristActionKidnappedDates = terroristActionKidnapped.map(
     (date) => date.date
@@ -29,11 +30,11 @@ export default async function page({}: Props) {
   );
   return (
     <section className="container mx-auto py-4">
-      <h1 className="text-center font-heading text-4xl font-semibold sm:text-5xl tracking-tight uppercase text-orange-500">
+      <h1 className="text-center font-heading text-4xl font-semibold sm:text-5xl tracking-tight uppercase text-orange-700">
         secuestros
       </h1>
 
-      <p className="text-center font-bold text-xl text-black/50">
+      <p className="text-center font-bold text-xl text-black">
         entre el <time dateTime={initDate}>{initDate}</time> y el{" "}
         <time dateTime={endDate}>{endDate}</time>{" "}
       </p>

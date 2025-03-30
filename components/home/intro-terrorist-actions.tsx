@@ -40,7 +40,7 @@ const navItems = [
 export default function IntroTerroristActions({}: Props) {
   return (
     <div className="bg-[#FF6600] rounded-lg p-4 shadow-lg">
-      <h2 className="text-center text-[#e4d8b4] uppercase text-4xl lg:text-xl xl:text-2xl font-extrabold">
+      <h2 className="text-center text-black uppercase text-4xl lg:text-xl xl:text-2xl font-extrabold">
         acciones terroristas
       </h2>
       <nav>

@@ -35,5 +35,5 @@ export function ImageSkeleton({}: Props) {
 }
 
 export function TitleSkeleton({}: Props) {
-  return <Skeleton className="h-8 w-full bg-orange-200 my-2" />;
+  return <Skeleton className="h-8 w-full bg-[#e4d8b4]" />;
 }

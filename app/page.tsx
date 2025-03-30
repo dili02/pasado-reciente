@@ -1,13 +1,17 @@
 import { Icons } from "@/components/icons";
 import Link from "next/link";
-import React from "react";
 import { api as API, VideosTerroristActionDefinition } from "@/db/data";
 import Intro from "@/components/home/intro";
 import IntroTerroristActions from "@/components/home/intro-terrorist-actions";
 import IntroChronologicalSummary from "@/components/home/intro-chronological-summary";
 import IntroMemorial from "@/components/home/intro-memorial";
+import { Metadata } from "next/types";
 
 type Props = {};
+
+export const metadata: Metadata = {
+  title: "Inicio",
+};
 
 const navItems = [
   {
@@ -63,7 +67,7 @@ export default async function page({}: Props) {
         <h2 className="text-center uppercase text-xl xl:text-3xl font-extrabold text-black">
           testimonios
         </h2>
-        <p className="text-center xl:text-lg text-orange-600">
+        <p className="text-center xl:text-lg text-black">
           Relatos de familiares de víctimas del terrorismo.
         </p>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 py-4">

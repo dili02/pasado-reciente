@@ -31,10 +31,10 @@ export default function TitlePageClient({ children }: Props) {
     <>
       {!currentMonth ? (
         <div className="flex items-center justify-center h-screen">
-          <Loader2 className="w-12 h-12 text-orange-500 animate-spin" />
+          <Loader2 className="w-12 h-12 text-orange-700 animate-spin" />
         </div>
       ) : (
-        <h1 className="text-center font-heading text-4xl font-semibold sm:text-5xl tracking-tight uppercase text-orange-500">
+        <h1 className="text-center font-heading text-4xl font-semibold sm:text-5xl tracking-tight uppercase text-orange-700">
           {children} {currentMonth}
         </h1>
       )}

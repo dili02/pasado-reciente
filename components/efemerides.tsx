@@ -9,7 +9,7 @@ import {
   BookOpenCheck,
 } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import { useState, useEffect } from "react";
 import { Badge } from "./ui/badge";
 
 type Props = {
@@ -17,14 +17,14 @@ type Props = {
 };
 
 export default function Efemerides({ actions }: Props) {
-  const [currentMonth, setCurrentMonth] = React.useState<number>(
+  const [currentMonth, setCurrentMonth] = useState<number>(
     new Date().getMonth()
   );
-  const [terroristActions, setTerroristActions] = React.useState<
+  const [terroristActions, setTerroristActions] = useState<
     [] | TerroristActionDefinition[]
   >([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setCurrentMonth(new Date().getMonth());
 
     listActions(currentMonth);
