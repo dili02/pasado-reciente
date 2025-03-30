@@ -45,15 +45,13 @@ export default function IntroMemorial({ actions }: Props) {
     setCurrentMonth(getCurrentMonth);
 
     listActions(currentMonthNumber);
-  }, []);
+  }, [listActions, currentMonth]);
 
   const actionsDates = terroristActions.map((date) => date.date);
   const initDate = new Date(actionsDates[0]).getFullYear();
   const endDate = new Date(actionsDates[actionsDates.length - 1]).getFullYear();
 
   if (!currentMonth || !initDate || !endDate) return <IntroMemeorialSkeleton />;
-
-  // return <IntroMemeorialSkeleton />;
 
   return (
     <div className="bg-[#FF6600] rounded-lg p-4 shadow-lg">

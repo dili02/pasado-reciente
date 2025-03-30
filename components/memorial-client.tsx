@@ -45,7 +45,7 @@ export default function MemorialClient({ actions }: Props) {
     setCurrentMonth(getCurrentMonth);
 
     listActions(currentMonthNumber);
-  }, []);
+  }, [listActions, currentMonthNumber]);
 
   const actionsDates = terroristActions.map((date) => date.date);
   const initDate = new Date(actionsDates[0]).getFullYear();

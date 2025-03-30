@@ -24,18 +24,18 @@ export default function Efemerides({ actions }: Props) {
     [] | TerroristActionDefinition[]
   >([]);
 
-  useEffect(() => {
-    setCurrentMonth(new Date().getMonth());
-
-    listActions(currentMonth);
-  }, []);
-
   const listActions = (month: number) => {
     const actionsToList = actions
       .filter((action) => action.date.getMonth() === month)
       .sort((a, b) => a.date.getTime() - b.date.getTime());
     setTerroristActions(actionsToList);
   };
+
+  useEffect(() => {
+    setCurrentMonth(new Date().getMonth());
+
+    listActions(currentMonth);
+  }, [currentMonth, listActions]);
 
   return (
     <section>
