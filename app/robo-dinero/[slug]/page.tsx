@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const actions = await api.getAllAtacks();
+  const actions = await api.getAllMoneyTheft();
 
   return actions.map((action) => ({ slug: action.slug }));
 }

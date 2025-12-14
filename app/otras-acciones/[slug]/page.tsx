@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const actions = await api.getAllMurders();
+  const actions = await api.getAllOtherAcctions();
 
   return actions.map((action) => ({ slug: action.slug }));
 }
