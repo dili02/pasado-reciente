@@ -128,7 +128,7 @@ type NoticeDefinition = {
       subtittle2?: string;
       subtitledescription2?: string;
       images?: NewPapeImageDefinition[];
-    }
+    },
   ];
 };
 
@@ -180,7 +180,7 @@ export const api = {
   },
 
   getMemorialActions: async (
-    month: number
+    month: number,
   ): Promise<TerroristActionDefinition[]> => {
     return TerroristActions.filter((action) => action.date.getMonth() === month) // Filtrar acciones por tipo
       .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
@@ -205,10 +205,10 @@ export const api = {
   },
 
   getActionsByYear: async (
-    year: string
+    year: string,
   ): Promise<TerroristActionDefinition[]> => {
     const actions = TerroristActions.filter(
-      (action) => action.date.getFullYear() === Number(year)
+      (action) => action.date.getFullYear() === Number(year),
     );
 
     if (!actions) throw new Error(`Accion Terrorista no encontrada`);
@@ -240,14 +240,14 @@ export const api = {
     TerroristActionDefinition[]
   > => {
     return TerroristActions.filter(
-      (action) => action.type === "robo-armamento-explosivos"
+      (action) => action.type === "robo-armamento-explosivos",
     ) // Filtrar acciones por tipo
       .sort((a, b) => a.date.getTime() - b.date.getTime()); // Ordenar por fecha ascendente
   },
 
   countExplosiveWeaponsTheft: async (): Promise<number> => {
     return TerroristActions.filter(
-      (action) => action.type === "robo-armamento-explosivos"
+      (action) => action.type === "robo-armamento-explosivos",
     ).length;
   },
 
@@ -263,7 +263,7 @@ export const api = {
 
   getTotalAmountMoneyTheft: async (): Promise<number> => {
     return TerroristActions.filter(
-      (action) => action.type === "robo-dinero"
+      (action) => action.type === "robo-dinero",
     ).reduce((acc, value) => acc + value.moneyTheft?.usd!, 0);
   },
 
@@ -279,7 +279,7 @@ export const api = {
 
   getAllWithVideo: async () => {
     const terroristActionsWithVideo = TerroristActions.filter(
-      (action) => action.videos
+      (action) => action.videos,
     ).flatMap((action) =>
       action.videos!.map((video) => ({
         id: video.id,
@@ -287,7 +287,7 @@ export const api = {
         src: video.src,
         slug: video.slug,
         date: video.date,
-      }))
+      })),
     );
 
     return terroristActionsWithVideo;
@@ -561,6 +561,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
             alt: "noticia publicada por el diario el dia",
           },
         ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/antonio-silveira-regalado/1966_10_Regalado.webp",
+        alt: "Aquí, en plena democracia, el 27/12/66 fue asesinado por Terroristas Antonio Silveira Regalado, perteneciente a la Policía Nacional, de 40 años de edad, casado, 2 hijos menores de edad.",
       },
     ],
   },
@@ -9224,6 +9230,38 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    apologyForCrimeInImages: [
+      {
+        title:
+          "Sedicioso ejecutado por la propia Organización Roque Arteche, 40 años.",
+        description:
+          "Tupamaros asesinan un integrante de su organización. La dirección del MLN decidió ejecutar a Roque Arteche delincuente común que había sido reclutado dentro del Penal de Punta Carretas. El motivo de su asesinato se debió al robo de dinero a la familia que lo albergaba luego de haber recuperado su libertad. Su cuerpo fue encontrado enterrado y con un disparo en la cabeza.",
+        images: [
+          {
+            src: "/geoffrey-jackson/i_1.webp",
+            alt: "Sediciosos decidiendo “Pena de Muerte” de Arteche.",
+          },
+          {
+            src: "/geoffrey-jackson/i_2.webp",
+            alt: "Sediciosos se reúnen con Arteche y es entregado.",
+          },
+          {
+            src: "/geoffrey-jackson/i_3.webp",
+            alt: "Sedicioso ejecuta “Pena de Muerte” de Arteche.",
+          },
+          {
+            src: "/geoffrey-jackson/i_4.webp",
+            alt: "El cadáver de Arteche semienterrado es descubierto por un cazador y sus perros.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/geoffrey-jackson/1971_arteche.webp",
+        alt: "Aquí, en plena democracia, el 18/04/71 fue ejecutado y sepultado por Terroristas, el sedicioso Roque Arteche, de 40 años de edad.",
+      },
+    ],
     vindicatedActions: {
       books: [
         {
@@ -10006,6 +10044,34 @@ export const TerroristActions: TerroristActionDefinition[] = [
             alt: "página diario completa publicada por el diario El Popular",
           },
         ],
+      },
+    ],
+    apologyForCrimeInImages: [
+      {
+        title:
+          "Ex Secretario de Estado secuestrado por sediciosos. Dr. Carlos Frick Davie, 63 años de edad. Casado, 5 hijos.",
+        description:
+          "El Dr. Carlos Frick Davie fue secuestrado violentamente en la vía pública.",
+        images: [
+          {
+            src: "/carlos-frick/i_1.webp",
+            alt: "El Dr. Carlos Frick Davie es abordado violentamente en su vehículo por sediciosos armados.",
+          },
+          {
+            src: "/carlos-frick/i_2.webp",
+            alt: "El Dr. Carlos Frick Davie indefenso, es agredido por un comando sedicioso.",
+          },
+          {
+            src: "/carlos-frick/i_3.webp",
+            alt: "El Dr. Carlos Frick Davie desvanecido y herido, es trasladado a otro vehículo para ser conducido a su cautiverio. Un vecino del secuestrado intenta impedir la acción terrorista.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/carlos-frick/memorial.webp",
+        alt: "Aquí, en plena democracia, el 14/05/71 fue secuestrado violentamente por un comando del MLN-T, el Dr. Carlos Frik Davie, ex Secretario de Estado, de 63 años de edad, casado, 5 hijos.",
       },
     ],
     vindicatedActions: {
@@ -13523,6 +13589,34 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    apologyForCrimeInImages: [
+      {
+        title:
+          "Dos niños de corta edad heridos por artefacto explosivo manipulado por Terroristas",
+        description:
+          "Dos hermanos de 5 y 3 años de edad resultaron heridos de consideración mientras Terroristas manipulaban artefactos explosivos en una finca.",
+        images: [
+          {
+            src: "/ninos-heridos-en-explosion-en-refugio-terrorista/ilustration1.webp",
+            alt: "Dos terroristas preparan artefactos explosivos en el fondo de una vivienda.",
+          },
+          {
+            src: "/ninos-heridos-en-explosion-en-refugio-terrorista/ilustration2.webp",
+            alt: "Negligencia de los terroristas provoca una explosión.",
+          },
+          {
+            src: "/ninos-heridos-en-explosion-en-refugio-terrorista/ilustration3.webp",
+            alt: "Familiares auxilian a los niños gravemente heridos. Terroristas resultaron lesionados.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/ninos-heridos-en-explosion-en-refugio-terrorista/1969_explosion.webp",
+        alt: "Aquí, en plena democracia, el 26/04/69 dos hermanos de 3 y 5 años de edad resultaron heridos por la detonación de artefactos explosivos manipulados por Terroristas.",
+      },
+    ],
     vindicatedActions: {
       books: [
         {
@@ -14630,6 +14724,38 @@ export const TerroristActions: TerroristActionDefinition[] = [
             alt: "página diario completa publicada por el diario El Día",
           },
         ],
+      },
+    ],
+    apologyForCrimeInImages: [
+      {
+        title:
+          "Empleada queda inválida por explosión provocada por sediciosos.",
+        description:
+          "Hilaria Quirino, 48 años, divorciada, cuatro hijos menores de edad, una de ellas, minusválida, quedó gravemente herida por explosión causada por integrantes del MLN-T.",
+        images: [
+          {
+            src: "/bombas-en-club-bowling-de-carrasco/i_1.webp",
+            alt: "Terroristas copan instalaciones del Bowling de Carrasco.",
+          },
+          {
+            src: "/bombas-en-club-bowling-de-carrasco/i_2.webp",
+            alt: "Terroristas derraman combustible sobre artefactos explosivos.",
+          },
+          {
+            src: "/bombas-en-club-bowling-de-carrasco/i_3.webp",
+            alt: "Hilaria Quirino, queda gravemente herida por explosión y es rescatada por dos ciudadanos.",
+          },
+          {
+            src: "/bombas-en-club-bowling-de-carrasco/i_4.webp",
+            alt: "Carrasco Bowling Club destruido por la explosión causada por terroristas.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/bombas-en-club-bowling-de-carrasco/1970_bowling.webp",
+        alt: "Aquí, en plena democracia, el 29/09/70 quedó gravemente herida por una explosión provocada por Terroristas, Hilaria Quirino, de 48 años, divorciada, cuatro hijos menores de edad, una de ellas inválida.",
       },
     ],
     vindicatedActions: {
@@ -16565,8 +16691,8 @@ export const TerroristActions: TerroristActionDefinition[] = [
   },
   {
     date: new Date("April 07, 1970"),
-    title: "Frigorífico Carrasco",
-    slug: "frigorifico-carrasco",
+    title: "Frigorífico Castro",
+    slug: "frigorifico-castro",
     type: "robo-dinero",
     moneyTheft: { uyu: 300000, usd: 1200 },
     newsPapers: [
@@ -19312,6 +19438,33 @@ export const TerroristActions: TerroristActionDefinition[] = [
             alt: "página diario completa publicada por el diario El Diario",
           },
         ],
+      },
+    ],
+    apologyForCrimeInImages: [
+      {
+        title: "Sediciosos roban Símbolo Nacional Patrio",
+        description:
+          "La Bandera de los Treinta y Tres Orientales “original” que flameara en 1825 en la Playa de la Agraciada, fue robada por Terroristas del OPR-33.",
+        images: [
+          {
+            src: "/roban-la-bandera-original-de-los-treinta-y-tres-orientales/ilustration1.webp",
+            alt: "Terroristas copan la sede del Museo Histórico Nacional, Casa del Gral. Juan A. Lavalleja.",
+          },
+          {
+            src: "/roban-la-bandera-original-de-los-treinta-y-tres-orientales/ilustration2.webp",
+            alt: "Un terrorista roba la Bandera original de los Treinta y Tres Orientales utilizada en 1825.",
+          },
+          {
+            src: "/roban-la-bandera-original-de-los-treinta-y-tres-orientales/ilustration3.webp",
+            alt: "El grupo terrorista OPR-33 se atribuyó el robo de la Bandera de los Treinta y Tres Orientales. Símbolo Espiritual del Estado (Símbolo Patrio) aún desaparecido.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/roban-la-bandera-original-de-los-treinta-y-tres-orientales/1969_bandera.webp",
+        alt: "Aquí, en plena democracia, el 16/07/69 fue robada por Terroristas, la bandera original de los Treinta y Tres Orientales utilizada en 1825.",
       },
     ],
     vindicatedActions: {
@@ -24711,44 +24864,44 @@ export const TerroristActions: TerroristActionDefinition[] = [
     ],
   },
   {
-    date: new Date("February 24, 1970"),
+    date: new Date("February 24, 1972"),
     title: "Agente Nelson Bardesio",
     slug: "agente-nelson-bardesio",
     type: "secuestros",
     newsPapers: [
       {
         name: "Diario “El Diario” (en Portada)",
-        date: new Date("February 25, 1970"),
-        title: "“SEDICIOSOS SECUESTRARON A UN FOTOGRAFO  DE LA POLICIA”",
+        date: new Date("February 25, 1972"),
+        title: "“SEDICIOSOS SECUESTRARON A UN FOTOGRAFO DE LA POLICIA”",
         description: "",
         images: [
           {
             type: "noticia publicada",
-            src: "/agente-nelson-bardesio/n-1.jpg",
+            src: "/agente-nelson-bardesio/n-1.webp",
             alt: "noticia publicada por el diario “El Diario”",
           },
           {
             type: "página diario completa",
-            src: "/agente-nelson-bardesio/n-2.jpg",
+            src: "/agente-nelson-bardesio/n-2.webp",
             alt: "página diario completa publicada por el diario “El Diario”",
           },
         ],
       },
       {
         name: "Diario “El Diario” (Página 18)",
-        date: new Date("February 25, 1970"),
+        date: new Date("February 25, 1972"),
         title: "“SEIS SEDICIOSOS TOMARON PARTE EN EL SECUESTRO”",
         description:
           "A la hora 18 y 10 se presentaron en el estudio fotográfico en el Parque Rodó, seis hombres y una mujer integrantes de la organización criminal que asola el país... Los delincuentes que portaban armas de fuego irrumpieron en el lugar. El integrante de las Fuerzas Conjuntas Nelson Bardesio... su madre una señora de 60 años de edad y un compañero del primero. Estos dos últimos fueron esposados y golpeados salvajemente con una cachiporra... los sujetos se retiraron del local, llevándose secuestrado a Bardesio... volvieron a poner de manifiesto su delirio criminal, al ensañarse brutal y cobardemente con una anciana de 60 años indefensa...",
         images: [
           {
             type: "noticia publicada",
-            src: "/agente-nelson-bardesio/n-3.jpg",
+            src: "/agente-nelson-bardesio/n-3.webp",
             alt: "noticia publicada por el diario “El Diario”",
           },
           {
             type: "página diario completa",
-            src: "/agente-nelson-bardesio/n-4.jpg",
+            src: "/agente-nelson-bardesio/n-4.webp",
             alt: "página diario completa publicada por el diario “El Diario”",
           },
         ],
@@ -24763,12 +24916,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/agente-nelson-bardesio/n-5.jpg",
+            src: "/agente-nelson-bardesio/n-5.webp",
             alt: "noticia publicada por el diario “El Diario”",
           },
           {
             type: "página diario completa",
-            src: "/agente-nelson-bardesio/n-6.jpg",
+            src: "/agente-nelson-bardesio/n-6.webp",
             alt: "página diario completa publicada por el diario “El Diario”",
           },
         ],
@@ -24782,12 +24935,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         images: [
           {
             type: "noticia publicada",
-            src: "/agente-nelson-bardesio/n-7.jpg",
+            src: "/agente-nelson-bardesio/n-7.webp",
             alt: "noticia publicada por el diario “El Diario”",
           },
           {
             type: "página diario completa",
-            src: "/agente-nelson-bardesio/n-8.jpg",
+            src: "/agente-nelson-bardesio/n-8.webp",
             alt: "página diario completa publicada por el diario “El Diario”",
           },
         ],
@@ -24841,9 +24994,284 @@ export const TerroristActions: TerroristActionDefinition[] = [
       },
     ],
   },
+  {
+    date: new Date("June 30, 1964"),
+    title: "Intento terrorista robo de sueldos empleados de Sudamtex",
+    slug: "intento-terrorista-robo-de-sueldos-empleados-de-sudamtex",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (Página 18)',
+        date: new Date("July 1, 1964"),
+        title:
+          "“QUISIERON ASALTAR AL PAGADOR DE LA FIRMA: LE FRUSTRARON EL GOLPE”",
+        description:
+          "Uno de ellos está detenido y el otro pudo huir... Se frustró el golpe, deteniendo los policías a uno de los atracadores,... oriental, casado, de 28 años de edad... El exitoso procedimiento que impidió se apoderaran los asaltantes de una suma superior a los $ 20.000... proyectaban adquirir con el producto del atraco una pequeña chacra y no volver a delinquir...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/intento-terrorista-robo-de-sueldos-empleados-de-sudamtex/n_1.webp",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/intento-terrorista-robo-de-sueldos-empleados-de-sudamtex/n_2.webp",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>"–Pepe, arrímate que te cuento como es la cosa –le dijo Germán Vidal..</p>
+          <p>–Cerrá ahí y vení, Pepe –le insistió... Etchenique...</p>
+          <p>David le arrimó una silla y Belleti completó el cuarteto en torno a la mesa sobre la que había un mapa de esos que se conseguían en las estaciones de servicio.</p>
+          <p>–El hombre llegaría por acá –Vidal recorrió con el dedo la calle Lavalleja hasta llegar a Acevedo Díaz, donde se ubicaba el depósito de la textil Sudamtex...</p>
+          <p>–La idea es pararlo, sacarle el portafolio y rajar... –explicó Vidal.</p>
+          <p>–No hay problema –aseguró Pepe.</p>
+          <p>A la hora indicada, Pepe y David–en el asiento trasero– llegaban a la zona de la Universidad de la República, a dos cuadras del objetivo. Bajaron por Acevedo Díaz, pasaron frente al IAVA, y observaron que en la puerta de la fábrica Sudamtex había unos empleados...</p>
+          <p>La gerencia de la textil había tomado el recaudo de montar una guardia especial de dos operarios para ese último día del mes en que el contador debía retirar unos veinte mil pesos del banco y volver a la empresa a fin de pagar los sueldos.</p>
+          <p>Los funcionarios de la guardia especial advirtieron los movimientos sospechosos de una moto aún más sospechosa, y al dar aviso a la administración de la fábrica, desde allí se telefoneó a la policía.</p>
+          <p>-¡La cana, la cana!-advirtió Mujica con el corazón a mil...</p>
+          <p>Cuando David echaba mano a su arma, la moto trastabilló y aunque Pepe la dominó la policía ya estaba encima...</p>
+          <p>Pepe ni amagó a sacar su revólver, que quedó con sus seis balas en el tambor...”</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "págs. 271, 273-275",
+          author: "Pernas",
+        },
+        {
+          fragment: `<p>“Ahora, 1964, pocos días después de la caída de los tres cañeros, ya retirado del deporte y por eso en moto, Mujica también va, con la moto, en cana.</p>
+          <p>Otro fracaso casi de la misma índole que el de Arrascaeta y Rivera; como para llover sobre mojado...</p>
+          <p>Lo de Mujica pasó desapercibido. Pasó como un delito común, desapercibido para el mundo exterior...”.</p>`,
+          year: new Date("1994-1-1"),
+          name: "Historia de los Tupamaros. Tomo 1: los orígenes",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "pág. 146",
+          author: "Fernández Huidobro",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("October 27, 1973"),
+    title:
+      "Fallece estudiante terrorista manipulando una bomba en Centro Educativo Público",
+    slug: "fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico",
+    type: "otras-acciones",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Portada)',
+        date: new Date("October 27, 1973"),
+        title: "“EXPLOSIÓN EN LA FACULTAD DE INGENIERÍA: MURIÓ UN ALUMNO”",
+        description:
+          "La víctima,..., manipulaba una bomba de alto poder... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_1.webp",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_2.webp",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Página 17)',
+        date: new Date("October 27, 1973"),
+        title: "“INGENIERÍA: ENCONTRARON MÁS EXPLOSIVOS EN UN ESCONDRIJO”",
+        description:
+          "Un estudiante español..., que cursaba el quinto año de la Facultad de Ingeniería, resultó muerto esta mañana como consecuencia de una potente explosión que se produjo...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_3.webp",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_4.webp",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Página 11)',
+        date: new Date("October 28, 1973"),
+        title: "“MATERIAL SEDICIOSO, ARMAS Y PANFLETOS HALLAN EN FACULTADES”",
+        description:
+          "Extensa recorrida realizaron los distintos medios de prensa por distintas facultades y la Universidad de la República... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_5.webp",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_6.webp",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("October 28, 1973"),
+        title:
+          "“TRÁGICA EXPLOSIÓN PONE AL DESCUBIERTO ARSENAL EN LA FACULTAD DE INGENIERÍA”",
+        description:
+          "En el interior de la Facultad de Ingeniería,... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_7.webp",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_7.webp",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Página 15)',
+        date: new Date("October 28, 1973"),
+        title:
+          "“EN LA FACULTAD DE INGENIERÍA MURIÓ UN ESTUDIANTE AL ESTALLAR UNA BOMBA QUE MANIPULABA; HALLAN UN VERDADERO ARSENAL”",
+        description:
+          "Una bomba de tremendo poder que estalló ayer en el primer piso de la Facultad de Ingeniería y mató instantáneamente-causándole horribles mutilaciones- a un estudiante de 22 años de edad. La víctima se llamaba... Integraba el “Grupo de Acción Unificadora”... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_8.webp",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_9.webp",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Página 7)',
+        date: new Date("October 29, 1973"),
+        title:
+          "“PROPAGANDA SUBVERSIVA EN OCHO LOCALES; EN VARIOS DE ELLOS, MATERIAL DE ACCIÓN DIRECTA”",
+        description:
+          "... La prensa recorrió facultades... participaron periodistas (incluso de dos canales de televisión argentinos)... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_10.webp",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_10.webp",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("October 30, 1973"),
+        title: "“VIVIERON EN PASAJE BAJO EL PARANINFO”",
+        description:
+          "Una extensa cavidad ubicada precisamente debajo del estrado del Paraninfo de la Universidad y diversos... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_11.webp",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_12.webp",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Página 16)',
+        date: new Date("October 30, 1973"),
+        title: "“DESCUBRIERON UN ESCONDRIJO BAJO TARIMA DEL PARANINFO”",
+        description:
+          "Fueron ubicados ayer..., dos escondrijos perfectamente disimulados...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_13.webp",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_14.webp",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Página 9)',
+        date: new Date("April 6, 1974"),
+        title: "“25 PROCESADOS POR LA EXPLOSIÓN EN LA FACULTAD DE INGENIERÍA”",
+        description:
+          "... Las mismas,..., estuvieron vinculadas a los trágicos episodios de notoriedad ocurridos el pasado 27 de octubre en la Facultad de Ingeniería, a raíz de los cuales perdiera la vida... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_15.webp",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/fallece-estudiante-terrorista-manipulando-una-bomba-en-centro-educativo-publico/n_16.webp",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 /*
+
+apologyForCrimeInImages: [
+      {
+        title:
+          "Ex Secretario de Estado secuestrado por sediciosos. Dr. Carlos Frick Davie, 63 años de edad. Casado, 5 hijos.",
+        description:
+          "El Dr. Carlos Frick Davie fue secuestrado violentamente en la vía pública.",
+        images: [
+          {
+            src: "/carlos-frick/i_1.webp",
+            alt: "El Dr. Carlos Frick Davie es abordado violentamente en su vehículo por sediciosos armados.",
+          },
+          {
+            src: "/carlos-frick/i_2.webp",
+            alt: "El Dr. Carlos Frick Davie indefenso, es agredido por un comando sedicioso.",
+          },
+          {
+            src: "/carlos-frick/i_3.webp",
+            alt: "El Dr. Carlos Frick Davie desvanecido y herido, es trasladado a otro vehículo para ser conducido a su cautiverio. Un vecino del secuestrado intenta impedir la acción terrorista.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/carlos-frick/memorial.webp",
+        alt: "Aquí, en plena democracia, el 14/05/71 fue secuestrado violentamente por un comando del MLN-T, el Dr. Carlos Frik Davie, ex Secretario de Estado, de 63 años de edad, casado, 5 hijos.",
+      },
+    ],
 
 
 hrf: "roban-la-bandera-original-de-los-treinta-y-tres-orientales",

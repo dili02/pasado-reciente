@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
-import { Icons } from "./icons";
-import { AlertTriangle, Menu, X } from "lucide-react";
+import { Icons } from "@/components/icons";
+import { AlertTriangle, Menu, X, Search } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Newsreader } from "next/font/google";
+import SearchModal from "@/components/search-modal";
 
 const newsreader = Newsreader({ subsets: ["latin"] });
 
@@ -45,135 +46,127 @@ const navItems = [
   },
 ];
 
-// TODO: bg-color navigation
-// TODO: color active funconality when active link
 export default function Header({}: Props) {
-  const [isNavOpen, setIsNavOpen] = React.useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const pathname = usePathname();
 
   return (
-    <header className="bg-orange-500 lg:bg-orange-50 w-full">
-      <div className="container mx-auto flex justify-between items-center lg:justify-center">
-        <Link href="/">
-          <div className="lg:hidden flex items-center gap-4">
-            {/* <Icons.uruguay className="h-8 w-8" /> */}
+    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm border-b-2 border-primary/20">
+      <div className="container mx-auto px-4">
+        {/* Branding Section */}
+        <div className="flex flex-col items-center justify-center py-6 border-b border-muted/50">
+          <Link href="/" className="group text-center">
             <h1
-              className={`${newsreader.className} text-lg tracking-widest text-orange-50 font-extrabold`}
+              className={`${newsreader.className} text-3xl md:text-5xl font-black uppercase tracking-tighter text-foreground group-hover:text-primary transition-colors duration-500`}
             >
-              Museo de la Memoria del Pasado Reciente
+              Museo de la Memoria <br /> del Pasado Reciente
             </h1>
-          </div>
-
-          <div className="hidden lg:block py-4">
-            {/* <h1 className="font-extrabold lg:text-2xl"> */}
-            <h1
-              className={`${newsreader.className} font-extrabold lg:text-4xl tracking-wider`}
-            >
-              Museo de la Memoria del Pasado Reciente
-            </h1>
-
-            <p className="flex items-center gap-2 md:w-full md:justify-center">
-              {/* <Icons.uruguay className="h-8 w-8 hidden lg:block" /> */}
-              {/* <span className="hidden lg:block lg:text-xl">Uruguay</span> */}
+            <div className="flex items-center justify-center gap-4 mt-2">
+              <div className="h-px w-10 md:w-20 bg-primary/40" />
               <span
-                className={`${newsreader.className} hidden lg:block lg:text-3xl tracking-wider`}
+                className={`${newsreader.className} text-lg md:text-xl font-medium italic text-muted-foreground uppercase tracking-[0.2em]`}
               >
                 Uruguay
               </span>
-            </p>
-          </div>
-        </Link>
-
-        <button
-          onClick={() => setIsNavOpen((isNavOpen) => !isNavOpen)}
-          className="lg:hidden p-2 text-orange-50"
-          aria-label="Toggle navigation menu"
-        >
-          {isNavOpen === false && <Menu className="w-14 h-14" />}
-          {isNavOpen === true && <X className="w-14 h-14" />}
-        </button>
-      </div>
-
-      <nav
-        className={`bg-orange-600 ${isNavOpen ? "block" : "hidden"} lg:block`}
-      >
-        <div className="px-4 text-sm xl:text-base 2xl:container 2xl:mx-auto">
-          <ul className="flex flex-col items-center lg:flex-row justify-center py-2 xl:gap-4 2xl:gap-6">
-            {navItems.map((item, index) => (
-              <li key={index} className="my-1 md:my-0 md:mx-2">
-                <Link
-                  href={`${item.href}`}
-                  // hover:text-orange-900 transition-colors hover:duration-500 hover:ease-out
-                  className={`text-orange-50 hover:text-black hover:transition-colors hover:duration-500 hover:ease-out flex items-center font-bold py-4 lg:py-1 ${
-                    item.href?.split("/")[1] === pathname.split("/")[1] &&
-                    "text-black/95"
-                  }`}
-                >
-                  {item.icon}
-                  <span className="ml-2">{item.name}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+              <div className="h-px w-10 md:w-20 bg-primary/40" />
+            </div>
+          </Link>
         </div>
-      </nav>
-    </header>
-  );
-}
 
-/*
-
-<div className="py-4 text-lg md:text-xl">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center lg:justify-center">
-            <Link
-              href={`/`}
-              className="flex justify-center items-center gap-2 sm:text-xl md:text-2xl bg-red-400"
-            >
-              <div className="flex lg:flex-col justify-center items-center gap-2">
-                <Icons.uruguay className="h-8 w-8 lg:hidden" />
-                <h1 className="font-extrabold lg:text-2xl">
-                  Museo de la Memoria del Pasado Reciente
-                </h1>
-
-                <p className="flex items-center gap-2 md:w-full md:justify-center">
-                  <Icons.uruguay className="h-8 w-8 hidden lg:block" />
-                  <span className="hidden lg:block">Uruguay</span>
-                </p>
-              </div>
-            </Link>
-
+        {/* Navigation Row */}
+        <div className="flex h-12 md:h-14 items-center justify-between lg:justify-center relative">
+          {/* Persistent Search Icon for Mobile/Tablet (Visible until Desktop Nav takes over) */}
+          <div className="lg:hidden flex items-center">
             <button
-              onClick={() => setIsNavOpen((isNavOpen) => !isNavOpen)}
-              className="lg:hidden p-2"
-              aria-label="Toggle navigation menu"
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors"
+              aria-label="Buscar"
             >
-              {isNavOpen === false && <Menu className="w-14 h-14" />}
-              {isNavOpen === true && <X className="w-14 h-14" />}
+              <Search size={22} />
+            </button>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+            {navItems.map((item, index) => {
+              const isActive = pathname.startsWith(item.href);
+              return (
+                <Link
+                  key={index}
+                  href={item.href}
+                  className={`relative py-1 text-xs xl:text-sm font-bold uppercase tracking-widest transition-all duration-300
+                    ${
+                      isActive
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-primary"
+                    }`}
+                >
+                  {item.name}
+                  {isActive && (
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary animate-in fade-in slide-in-from-left-2" />
+                  )}
+                </Link>
+              );
+            })}
+
+            {/* Desktop Search Button */}
+            <div className="flex items-center ml-2 pl-4 border-l border-border/50">
+              <button
+                onClick={() => setIsSearchOpen(true)}
+                className="p-1 text-muted-foreground hover:text-primary transition-all duration-300 group flex items-center gap-2"
+                aria-label="Buscar"
+              >
+                <Search
+                  size={18}
+                  className="group-hover:scale-110 transition-transform"
+                />
+                <span className="text-[10px] font-black uppercase tracking-widest hidden xl:block">
+                  Buscar
+                </span>
+              </button>
+            </div>
+          </nav>
+
+          {/* Mobile Menu Trigger (Right side) */}
+          <div className="lg:hidden flex items-center">
+            <button
+              onClick={() => setIsNavOpen(!isNavOpen)}
+              className="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors"
+              aria-label="Menú"
+            >
+              {isNavOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           </div>
         </div>
       </div>
 
-      <nav className={`bg-primary ${isNavOpen ? "block" : "hidden"} lg:block`}>
-        <div className="container mx-auto px-4">
-          <ul className="flex flex-col items-center lg:flex-row justify-center py-2">
-            {navItems.map((item, index) => (
-              <li key={index} className="my-1 md:my-0 md:mx-2">
-                <Link
-                  href={`${item.href}`}
-                  className={`flex items-center font-bold text-xl lg:text-sm xl:text-base text-primary-foreground hover:text-muted-foreground transition-colors duration-200 py-4 lg:py-1 ${
-                    item.href?.split("/")[1] === pathname.split("/")[1] &&
-                    "text-muted-foreground"
-                  }`}
-                >
-                  {item.icon}
-                  <span className="ml-2">{item.name}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </nav>
+      {/* Mobile Menu Content */}
+      <div
+        className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out ${isNavOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"}`}
+      >
+        <nav className="bg-card border-t border-border p-6 flex flex-col gap-4">
+          {navItems.map((item, index) => {
+            const isActive = pathname.startsWith(item.href);
+            return (
+              <Link
+                key={index}
+                href={item.href}
+                onClick={() => setIsNavOpen(false)}
+                className={`text-lg font-black uppercase tracking-tighter py-2 border-b border-border/50
+                  ${isActive ? "text-primary" : "text-foreground"}`}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
 
-*/
+      <SearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
+    </header>
+  );
+}

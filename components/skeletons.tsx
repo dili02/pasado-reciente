@@ -1,7 +1,4 @@
 import React from "react";
-
-type Props = {};
-
 import { cn } from "@/lib/utils";
 
 function Skeleton({
@@ -10,7 +7,10 @@ function Skeleton({
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn("animate-pulse rounded-md bg-muted", className)}
+      className={cn(
+        "relative overflow-hidden rounded-md bg-muted/40 before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-foreground/5 before:to-transparent",
+        className
+      )}
       {...props}
     />
   );
@@ -18,22 +18,51 @@ function Skeleton({
 
 export { Skeleton };
 
-export function ImageSkeleton({}: Props) {
+export function ImageSkeleton({ className }: { className?: string }) {
   return (
-    <Skeleton className="h-[350px] w-[318px] rounded-xl bg-[#e4d8b4] flex items-center justify-center">
-      <svg
-        className="w-28 h-28 text-orange-500"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-        viewBox="0 0 20 18"
-      >
-        <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
-      </svg>
+    <Skeleton className={cn("aspect-square w-full rounded-sm flex items-center justify-center bg-muted/20", className)}>
+      <div className="w-12 h-12 border-2 border-foreground/5 rounded-full flex items-center justify-center">
+        <div className="w-6 h-0.5 bg-foreground/10 rotate-45 absolute" />
+        <div className="w-6 h-0.5 bg-foreground/10 -rotate-45 absolute" />
+      </div>
     </Skeleton>
   );
 }
 
-export function TitleSkeleton({}: Props) {
-  return <Skeleton className="h-8 w-full bg-[#e4d8b4]" />;
+export function TitleSkeleton({ className }: { className?: string }) {
+  return <Skeleton className={cn("h-8 w-3/4 mb-4", className)} />;
+}
+
+export function TextSkeleton({ lines = 3 }: { lines?: number }) {
+  return (
+    <div className="space-y-2">
+      {Array.from({ length: lines }).map((_, i) => (
+        <Skeleton 
+          key={i} 
+          className={cn(
+            "h-4", 
+            i === lines - 1 ? "w-2/3" : "w-full"
+          )} 
+        />
+      ))}
+    </div>
+  );
+}
+
+export function CardSkeleton() {
+  return (
+    <div className="p-6 border-b border-border space-y-4">
+      <div className="flex justify-between items-center">
+        <Skeleton className="h-3 w-24" />
+        <Skeleton className="h-3 w-16" />
+      </div>
+      <TitleSkeleton className="h-10 w-full" />
+      <TextSkeleton lines={2} />
+      <div className="flex gap-2 pt-2">
+        <Skeleton className="h-4 w-4 rounded-full" />
+        <Skeleton className="h-4 w-4 rounded-full" />
+        <Skeleton className="h-4 w-4 rounded-full" />
+      </div>
+    </div>
+  );
 }

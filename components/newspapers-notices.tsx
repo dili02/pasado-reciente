@@ -3,13 +3,16 @@ import Link from "next/link";
 import React from "react";
 import { Icons } from "./icons";
 import { Newspaper } from "lucide-react";
+import { Newsreader } from "next/font/google";
 import SectionTitle from "./section-title";
 
 type Props = {};
 
+const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
+
 function getFormattedDateToString(date: Date): string {
   return new Intl.DateTimeFormat("es-UY", { dateStyle: "long" }).format(
-    new Date(date)
+    new Date(date),
   );
 }
 
@@ -29,13 +32,22 @@ export default function NewspapersNotices({
         noticias publicadas por diarios de la época
       </h3> */}
 
-      <SectionTitle id="notices">
-        <Newspaper className="hidden lg:block w-7 h-7 2xl:w-8 2xl:h-8" />
-        noticias publicadas por diarios de la época
-      </SectionTitle>
+      <header className="flex items-center gap-4 border-b border-foreground pb-2 mb-8">
+        {/* <Image className="w-8 h-8 text-primary hidden lg:block" /> */}
+        <Newspaper className="w-8 h-8 text-primary hidden lg:block" />
+        <h2
+          id="notices"
+          className={`${newsreader.className} text-3xl font-black uppercase tracking-tighter`}
+        >
+          noticias publicadas por diarios de la época
+        </h2>
+      </header>
 
       {notices?.map((notice, index) => (
-        <div key={index} className="py-6">
+        <div
+          key={index}
+          className="py-6 leading-loose lg:text-lg lg:leading-loose"
+        >
           <p className="text-center text-lg font-bold">{notice.name}</p>
 
           {notice.date && (

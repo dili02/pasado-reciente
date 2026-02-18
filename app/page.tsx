@@ -6,8 +6,9 @@ import IntroTerroristActions from "@/components/home/intro-terrorist-actions";
 import IntroChronologicalSummary from "@/components/home/intro-chronological-summary";
 import IntroMemorial from "@/components/home/intro-memorial";
 import { Metadata } from "next";
-import { AccionesDataTable } from "@/components/data-table/data-table-acciones";
-import { AccionTerrorista } from "@/components/data-table/data-table-types";
+import { Newsreader } from "next/font/google";
+
+const newsreader = Newsreader({ subsets: ["latin"] });
 
 type Props = {};
 
@@ -49,96 +50,82 @@ const navItems = [
 ];
 
 export default async function page({}: Props) {
-  // const terroristActionWithVideos = await API.getAllWithVideo();
-
-  // const actions = await API.getAllAcitions();
-
+  const terroristActionWithVideos = await API.getAllWithVideo();
   const actions = await API.getAllAcitions();
 
-  function DataTableMapper(
-    data: TerroristActionDefinition[]
-  ): AccionTerrorista[] {
-    return data.map((action) => ({
-      id: action.slug,
-      fecha: action.date.toLocaleDateString(),
-      tipoAccion: action.type as AccionTerrorista["tipoAccion"],
-      accion: action.title,
-      completada: false,
-    }));
-  }
-
-  const mappedData = DataTableMapper(actions);
-
-  // console.log("mappedData", mappedData);
-
   return (
-    <div className="container mx-auto">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">
-          Registro de Acciones Terroristas
-        </h1>
-        <p className="text-muted-foreground mt-2">
-          Gestiona y monitorea las acciones registradas con filtros y búsqueda
-          avanzada.
-        </p>
+    <div className="max-w-6xl mx-auto px-4 py-12">
+      <div className="border-b-2 border-foreground pb-8 mb-8">
+        <Intro />
       </div>
 
-      <AccionesDataTable initialData={mappedData} />
+      <h2
+        className={`${newsreader.className} text-4xl font-black uppercase tracking-tighter mb-8`}
+      >
+        Acceso directo a la prensa original de la época.
+      </h2>
 
-      {/* <ul>
-        {mappedData.map((action) => (
-          <li
-            key={action.accion}
-            className="flex items-center justify-center gap-2 my-2"
+      <main className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        {/* Left Sidebar: Acciones */}
+        <aside className="lg:col-span-1 border-r border-border pr-8">
+          <IntroTerroristActions />
+        </aside>
+
+        {/* Center: Memorial (The Lead Story) */}
+        <section className="lg:col-span-2 px-4">
+          <IntroMemorial actions={actions} />
+        </section>
+
+        {/* Right Sidebar: Chronology */}
+        <aside className="lg:col-span-1 border-l border-border pl-8">
+          <IntroChronologicalSummary />
+        </aside>
+      </main>
+
+      <section className="mt-24 pt-12 border-t-2 border-foreground">
+        <header className="flex items-center justify-between mb-12">
+          <h2
+            className={`${newsreader.className} text-4xl font-black uppercase tracking-tighter`}
           >
-            <div>{action.fecha}</div>
-            <div>{action.tipoAccion}</div>
-            <div>{action.accion}</div>
-          </li>
-        ))}
-      </ul> */}
+            Testimonios
+            {/* <span className="text-primary italic">Documentos Vivos</span> */}
+          </h2>
+          <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+            Archivo Audiovisual Seleccionado
+          </div>
+        </header>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {terroristActionWithVideos.map((video) => (
+            <div className="group border-b border-border pb-6" key={video.src}>
+              <div className="aspect-video bg-black/5 mb-4 relative overflow-hidden">
+                <iframe
+                  src={video.src}
+                  title={video.title}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 opacity-90"
+                ></iframe>
+                <div className="absolute top-0 left-0 bg-primary px-2 py-1 text-[8px] font-black text-white uppercase tracking-widest translate-y-[-100%] group-hover:translate-y-0 transition-transform">
+                  Video / Documento
+                </div>
+              </div>
+              <Link
+                href={video.slug}
+                className={`${newsreader.className} text-xl font-bold leading-tight hover:text-primary transition-colors block mb-2`}
+              >
+                {video.title}
+              </Link>
+              <p className="text-[10px] font-bold uppercase text-muted-foreground tracking-widest">
+                Categoría: Testimonios Directos
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
-    // <div className="container">
-    //   <Intro />
-
-    //   <div className="grid gap-4 grid-cols-1 lg:grid-cols-3 xl:mt-8">
-    //     <IntroTerroristActions />
-
-    //     <IntroChronologicalSummary />
-
-    //     <IntroMemorial actions={actions} />
-    //   </div>
-
-    //   <div className="mt-8">
-    //     <h2 className="text-center uppercase text-xl xl:text-3xl font-extrabold text-black">
-    //       testimonios
-    //     </h2>
-    //     <p className="text-center xl:text-lg text-black">
-    //       Relatos de familiares de víctimas del terrorismo.
-    //     </p>
-    //     <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 py-4">
-    //       {terroristActionWithVideos.map((video) => (
-    //         <div
-    //           className="shadow-lg bg-orange-50 transition-transform duration-300 hover:scale-105 rounded-xl"
-    //           key={video.src}
-    //         >
-    //           <iframe
-    //             src={video.src}
-    //             title={video.title}
-    //             frameBorder="0"
-    //             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    //             referrerPolicy="strict-origin-when-cross-origin"
-    //             allowFullScreen
-    //             className="w-full h-44 lg:h-44 rounded-t-xl"
-    //           ></iframe>
-    //           <div className="p-2 text-sm text-black text-center">
-    //             <Link href={video.slug}>{video.title}</Link>
-    //           </div>
-    //         </div>
-    //       ))}
-    //     </div>
-    //   </div>
-    // </div>
   );
 }
 

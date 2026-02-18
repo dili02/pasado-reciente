@@ -26,9 +26,12 @@ export default function Victim({
 
 function getFormattedDateToString(date: Date): string {
   return new Intl.DateTimeFormat("es-UY", { dateStyle: "long" }).format(
-    new Date(date)
+    new Date(date),
   );
 }
+
+import { Newsreader } from "next/font/google";
+const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
 
 export function VictimInfo({
   info,
@@ -39,92 +42,94 @@ export function VictimInfo({
 }) {
   function getFormattedDateToString(date: Date): string {
     return new Intl.DateTimeFormat("es-UY", { dateStyle: "long" }).format(
-      new Date(date)
+      new Date(date),
     );
   }
   return (
-    <div className="flex flex-col w-[250px] h-full rounded-xl">
-      <div className="relative w-[250px]">
-        {info?.avatar ? (
-          <img
-            src={info?.avatar?.src}
-            alt={info?.avatar?.alt}
-            className="w-[250px] h-[250px] rounded-xl"
-          />
-        ) : (
-          <div className="w-[250px] h-[250px] bg-orange-200 flex items-center justify-center rounded-xl">
-            <ImageOff className="text-orange-100 w-32 h-32" />
+    <div className="flex flex-col md:flex-row max-w-4xl mx-auto gap-8 py-8 border-b border-border/50 last:border-0">
+      <div className="w-full md:w-64 flex-shrink-0">
+        <div className="relative group">
+          {info?.avatar ? (
+            <img
+              src={info?.avatar?.src}
+              alt={info?.avatar?.alt}
+              className="w-full aspect-square object-cover grayscale group-hover:grayscale-0 transition-all duration-700 rounded-sm shadow-md"
+            />
+          ) : (
+            <div className="w-full aspect-square bg-muted flex items-center justify-center rounded-sm">
+              <ImageOff className="text-muted-foreground/30 w-16 h-16" />
+            </div>
+          )}
+          <div className="absolute top-0 left-0 w-full h-full border border-black/5 pointer-events-none" />
+        </div>
+      </div>
+
+      <div className="flex-1">
+        <h3
+          className={`${newsreader.className} text-3xl font-black mb-4 tracking-tighter`}
+        >
+          {info.name}
+        </h3>
+
+        <div className="grid grid-cols-1 gap-y-1 gap-x-8 mb-6">
+          <div className="space-y-1">
+            <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-widest text-primary">
+              Fecha
+            </span>
+            <div className="text-sm lg:text-base font-bold leading-tight">
+              {info?.deceased ? (
+                <p>
+                  Fallecido el{" "}
+                  <time>{getFormattedDateToString(info?.deceased)}</time>
+                </p>
+              ) : info?.kidnapping ? (
+                <div className="space-y-1">
+                  <p>
+                    Secuestro:{" "}
+                    <time>
+                      {getFormattedDateToString(info.kidnapping.init)}
+                    </time>
+                  </p>
+                  <p>
+                    Liberación:{" "}
+                    <time>{getFormattedDateToString(info.kidnapping.end)}</time>
+                  </p>
+                  <p className="text-xs text-primary/80 font-black uppercase tracking-tighter italic">
+                    Duración: {info.kidnapping.days}{" "}
+                    {info.kidnapping.description}
+                  </p>
+                </div>
+              ) : (
+                <p>
+                  <time>{getFormattedDateToString(date)}</time>
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-1">
+            <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-widest text-primary">
+              Información Personal
+            </span>
+            <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm lg:text-base font-medium text-muted-foreground">
+              {info?.nationality && <span>{info?.nationality}</span>}
+              {info?.age && <span>{info?.age} años</span>}
+              {info?.marital && <span>{info?.marital}</span>}
+            </div>
+          </div>
+        </div>
+
+        {(info.childs || info.daughter) && (
+          <div className="px-4 py-3 bg-muted/30 border-l-2 border-primary rounded-r-sm">
+            <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-widest text-muted-foreground block mb-1">
+              Hijos
+            </span>
+            <p className="text-[13px] lg:text-base leading-relaxed font-medium">
+              {info.childs || info.daughter} {info.childsDescription}{" "}
+              {info.otherDescription}
+            </p>
           </div>
         )}
-        {/* <img
-          src={info?.avatar?.src}
-          alt={info?.avatar?.alt}
-          className="w-[250px] h-[250px] rounded-xl"
-        /> */}
-      </div>
-      <div className="flex-grow p-1">
-        <h2 className="font-extrabold text-center text-orange-700">
-          {info.name}
-        </h2>
-
-        <div>
-          {info?.deceased && (
-            <p className="text-sm">
-              <time>{getFormattedDateToString(info?.deceased)}</time>
-            </p>
-          )}
-
-          {!info?.deceased && !info?.kidnapping && (
-            <p className="text-center text-sm">
-              <time>{getFormattedDateToString(date)}</time>
-            </p>
-          )}
-
-          {info?.kidnapping && (
-            <p className="text-center text-sm">
-              <time>{getFormattedDateToString(info.kidnapping.init)}</time>
-              <span className="mx-2">al</span>
-              <time className="">
-                {getFormattedDateToString(info.kidnapping.end)}
-              </time>
-              <span className="ml-2">
-                ({info?.kidnapping.days} {info?.kidnapping.description})
-              </span>
-            </p>
-          )}
-        </div>
-
-        <div className="text-center text-gray-500 text-sm py-1">
-          {info?.nationality && (
-            <p className="text-sm">Nacionalidad: {info?.nationality}</p>
-          )}
-
-          {info?.age && <p className="">Edad: {info?.age} años</p>}
-
-          {info?.marital && <p className="">Estado civil: {info?.marital}</p>}
-
-          {info.childs && (
-            <p className="">
-              Hijos:
-              {info.childs === 1 ? ` ${info.childs}` : ` ${info.childs}`}
-              {info.childsDescription && (
-                <span className="pl-2">{info.childsDescription}</span>
-              )}
-              <span className="">{info.otherDescription}</span>
-            </p>
-          )}
-
-          {info.daughter && (
-            <p className="">
-              Hijos:
-              {info.daughter === 1 ? ` ${info.daughter}` : ` ${info.daughter}`}
-              {info.childsDescription && (
-                <span className="">{info.childsDescription}</span>
-              )}
-              <span className="">{info.otherDescription}</span>
-            </p>
-          )}
-        </div>
       </div>
     </div>
   );

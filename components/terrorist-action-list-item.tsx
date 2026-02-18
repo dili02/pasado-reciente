@@ -11,7 +11,9 @@ import {
   MonitorPlay,
   Newspaper,
 } from "lucide-react";
-import { Badge } from "./ui/badge";
+import { Newsreader } from "next/font/google";
+
+const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
 
 type Props = {
   action: TerroristActionDefinition;
@@ -19,8 +21,8 @@ type Props = {
 
 export default function TerroristActionListItem({ action }: Props) {
   function getFormattedDateToString(date: Date): string {
-    return new Intl.DateTimeFormat("es-UY", { dateStyle: "medium" }).format(
-      new Date(date)
+    return new Intl.DateTimeFormat("es-UY", { dateStyle: "long" }).format(
+      new Date(date),
     );
   }
 
@@ -32,70 +34,66 @@ export default function TerroristActionListItem({ action }: Props) {
       currencyDisplay: "code",
     }).format(amount);
   }
+
   return (
     <li
       key={action.slug}
-      className="rounded-lg shadow-md overflow-hidden hover:shadow-lg hover:-translate-y-1 transition ease-in-out duration-500 bg-orange-50 border border-orange-600"
+      className="group bg-card border border-border border-l-4 border-l-primary shadow-sm hover:shadow-md transition-all duration-300 rounded-sm"
     >
-      <Link href={`/${action.type}/${action.slug}`} className="block p-4">
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-2 text-orange-600 font-semibold">
-            <Calendar className="w-4 h-4" />
-            <time className="text-sm">
+      <Link
+        href={`/${action.type}/${action.slug}`}
+        className="flex flex-col h-full p-6"
+      >
+        <header className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+            <Calendar className="w-4 h-4 lg:w-5 lg:h-5 text-primary" />
+            <time className="lg:text-sm">
               {getFormattedDateToString(action.date)}
             </time>
           </div>
 
           {action.moneyTheft?.usd && (
-            <Badge className="text-sm text-orange-600 bg-orange-100 py-2 px-4 rounded-xl font-extrabold hover:bg-orange-100">
+            <span className="text-[10px] lg:text-[12px] font-black bg-foreground text-background px-2 py-0.5 rounded-sm">
               {formatCurrency(action.moneyTheft?.usd)}
-            </Badge>
+            </span>
           )}
-        </div>
+        </header>
 
-        <h2 className="font-semibold text-black line-clamp-2">
+        <h2
+          className={`${newsreader.className} text-2xl font-black leading-tight mb-4 group-hover:text-primary transition-colors line-clamp-2 min-h-[3.5rem] flex-1`}
+        >
           {action.title}
         </h2>
 
-        <div className="py-2 flex flex-col sm:flex-row sm:items-center sm:gap-2 sm:py-0">
-          <span className="text-gray-500">Contenido:</span>
-          <div className="flex items-center gap-2 py-2">
-            {action.victims && (
-              <span className="bg-orange-100 text-orange-600 p-2 rounded-md">
-                <Info className="w-5 h-5" />
-              </span>
-            )}
-            {action.newsPapers && (
-              <span className="bg-orange-100 text-orange-600 p-2 rounded-md">
-                <Newspaper className="w-5 h-5" />
-              </span>
-            )}
-            {action.apologyForCrimeInImages && (
-              <span className="bg-orange-100 text-orange-600 p-2 rounded-md">
-                <Image className="w-5 h-5" />
-              </span>
-            )}
-            {action.virtualMemorial && (
-              <span className="bg-orange-100 text-orange-600 p-2 rounded-md">
-                <MapPin className="w-5 h-5" />
-              </span>
-            )}
-            {action.vindicatedActions && (
-              <span className="bg-orange-100 text-orange-600 p-2 rounded-md">
-                <BookOpenCheck className="w-5 h-5" />
-              </span>
-            )}
-            {action.videos && (
-              <span className="bg-orange-100 text-orange-600 p-2 rounded-md">
-                <MonitorPlay className="w-5 h-5" />
-              </span>
-            )}
+        <footer className="flex items-center justify-between pt-4 border-t border-border/50">
+          <div className="flex gap-3">
+            {[
+              { icon: Info, shown: action.victims },
+              { icon: Newspaper, shown: action.newsPapers },
+              { icon: Image, shown: action.apologyForCrimeInImages },
+              { icon: MapPin, shown: action.virtualMemorial },
+              { icon: BookOpenCheck, shown: action.vindicatedActions },
+              { icon: MonitorPlay, shown: action.videos },
+            ]
+              .filter((i) => i.shown)
+              .map((item, idx) => (
+                <item.icon
+                  key={idx}
+                  className="w-4 h-4 lg:w-6 lg:h-6 text-muted-foreground/60 group-hover:text-primary transition-colors"
+                />
+              ))}
           </div>
-        </div>
+          <span className="text-[9px] lg:text-[12px] font-bold uppercase tracking-widest text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity">
+            Abrir documento{" "}
+            <ArrowRight className="inline w-3 h-3 ml-1 lg:w-6 lg:h-6" />
+          </span>
+        </footer>
       </Link>
     </li>
   );
 }
+
+import { ArrowRight } from "lucide-react";
 
 /*
 
