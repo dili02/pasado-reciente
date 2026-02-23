@@ -54,7 +54,7 @@ export default async function page({}: Props) {
   const actions = await API.getAllAcitions();
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
+    <div className="max-w-7xl mx-auto px-4 py-12">
       <div className="border-b-2 border-foreground pb-8 mb-8">
         <Intro />
       </div>

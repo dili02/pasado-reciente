@@ -32,7 +32,7 @@ export default async function IntroChronologicalSummary({}: Props) {
             <div className="relative group transition-all duration-300 hover:scale-105">
               <CalendarSVG />
               <div
-                className="absolute z-10 font-black text-black text-[12px]"
+                className="absolute z-10 font-black text-black text-[12px] lg:text-[14px]"
                 style={{
                   left: "10%",
                   top: "35%",

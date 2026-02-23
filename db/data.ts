@@ -9230,38 +9230,38 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
-    apologyForCrimeInImages: [
-      {
-        title:
-          "Sedicioso ejecutado por la propia Organización Roque Arteche, 40 años.",
-        description:
-          "Tupamaros asesinan un integrante de su organización. La dirección del MLN decidió ejecutar a Roque Arteche delincuente común que había sido reclutado dentro del Penal de Punta Carretas. El motivo de su asesinato se debió al robo de dinero a la familia que lo albergaba luego de haber recuperado su libertad. Su cuerpo fue encontrado enterrado y con un disparo en la cabeza.",
-        images: [
-          {
-            src: "/geoffrey-jackson/i_1.webp",
-            alt: "Sediciosos decidiendo “Pena de Muerte” de Arteche.",
-          },
-          {
-            src: "/geoffrey-jackson/i_2.webp",
-            alt: "Sediciosos se reúnen con Arteche y es entregado.",
-          },
-          {
-            src: "/geoffrey-jackson/i_3.webp",
-            alt: "Sedicioso ejecuta “Pena de Muerte” de Arteche.",
-          },
-          {
-            src: "/geoffrey-jackson/i_4.webp",
-            alt: "El cadáver de Arteche semienterrado es descubierto por un cazador y sus perros.",
-          },
-        ],
-      },
-    ],
-    virtualMemorial: [
-      {
-        src: "/geoffrey-jackson/1971_arteche.webp",
-        alt: "Aquí, en plena democracia, el 18/04/71 fue ejecutado y sepultado por Terroristas, el sedicioso Roque Arteche, de 40 años de edad.",
-      },
-    ],
+    // apologyForCrimeInImages: [
+    //   {
+    //     title:
+    //       "Sedicioso ejecutado por la propia Organización Roque Arteche, 40 años.",
+    //     description:
+    //       "Tupamaros asesinan un integrante de su organización. La dirección del MLN decidió ejecutar a Roque Arteche delincuente común que había sido reclutado dentro del Penal de Punta Carretas. El motivo de su asesinato se debió al robo de dinero a la familia que lo albergaba luego de haber recuperado su libertad. Su cuerpo fue encontrado enterrado y con un disparo en la cabeza.",
+    //     images: [
+    //       {
+    //         src: "/geoffrey-jackson/i_1.webp",
+    //         alt: "Sediciosos decidiendo “Pena de Muerte” de Arteche.",
+    //       },
+    //       {
+    //         src: "/geoffrey-jackson/i_2.webp",
+    //         alt: "Sediciosos se reúnen con Arteche y es entregado.",
+    //       },
+    //       {
+    //         src: "/geoffrey-jackson/i_3.webp",
+    //         alt: "Sedicioso ejecuta “Pena de Muerte” de Arteche.",
+    //       },
+    //       {
+    //         src: "/geoffrey-jackson/i_4.webp",
+    //         alt: "El cadáver de Arteche semienterrado es descubierto por un cazador y sus perros.",
+    //       },
+    //     ],
+    //   },
+    // ],
+    // virtualMemorial: [
+    //   {
+    //     src: "/geoffrey-jackson/1971_arteche.webp",
+    //     alt: "Aquí, en plena democracia, el 18/04/71 fue ejecutado y sepultado por Terroristas, el sedicioso Roque Arteche, de 40 años de edad.",
+    //   },
+    // ],
     vindicatedActions: {
       books: [
         {
@@ -10737,6 +10737,17 @@ export const TerroristActions: TerroristActionDefinition[] = [
           edition: "Editorial Recortes",
           pages: "págs. 402-405",
           author: "Mechoso",
+        },
+        {
+          fragment: `<p>Efraín Martínez Platero</p>
+          <p>... Cuando salimos de Argelia pasamos por París y decidimos ir a ver a Costa Gravas para darle las gracias por todo lo que había hecho, lo que había significado la película (Estado de Sitio) para el MLN. Estuvimos los tres con él -Falero, Machado y yo- y con Michelle Ray en su casa...”.</p>
+          `,
+          year: new Date("2009-1-1"),
+          name: "Memorias de insurgencia. Historias de vida y militancia en el MLN-Tupamaros. 1965-1975",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Banda Oriental S.R.L.",
+          pages: "pág. 372",
+          author: "Aldrighi",
         },
       ],
     },
@@ -20679,6 +20690,38 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    apologyForCrimeInImages: [
+      {
+        title:
+          "Sedicioso ejecutado por la propia Organización Roque Arteche, 40 años.",
+        description:
+          "Tupamaros asesinan un integrante de su organización. La dirección del MLN decidió ejecutar a Roque Arteche delincuente común que había sido reclutado dentro del Penal de Punta Carretas. El motivo de su asesinato se debió al robo de dinero a la familia que lo albergaba luego de haber recuperado su libertad. Su cuerpo fue encontrado enterrado y con un disparo en la cabeza.",
+        images: [
+          {
+            src: "/terrorista-asesinado-y-enterrado-por-el-mln-t/i_1.webp",
+            alt: "Sediciosos decidiendo “Pena de Muerte” de Arteche.",
+          },
+          {
+            src: "/terrorista-asesinado-y-enterrado-por-el-mln-t/i_2.webp",
+            alt: "Sediciosos se reúnen con Arteche y es entregado.",
+          },
+          {
+            src: "/terrorista-asesinado-y-enterrado-por-el-mln-t/i_3.webp",
+            alt: "Sedicioso ejecuta “Pena de Muerte” de Arteche.",
+          },
+          {
+            src: "/terrorista-asesinado-y-enterrado-por-el-mln-t/i_4.webp",
+            alt: "El cadáver de Arteche semienterrado es descubierto por un cazador y sus perros.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/terrorista-asesinado-y-enterrado-por-el-mln-t/1971_arteche.webp",
+        alt: "Aquí, en plena democracia, el 18/04/71 fue ejecutado y sepultado por Terroristas, el sedicioso Roque Arteche, de 40 años de edad.",
+      },
+    ],
     vindicatedActions: {
       books: [
         {
@@ -21700,6 +21743,38 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    apologyForCrimeInImages: [
+      {
+        title:
+          "Cárcel clandestina terrorista “rescate de dos ciudadanos en cautiverio”",
+        description:
+          "El Dr. Ulisses Pereira Reverbel, 54 años, Presidente de U.T.E. (Usinas y Teléfonos del Estado) y el Dr. Carlos Frick Davie, 63 años, casado, 5 hijos, ex ministro de Ganadería, Agricultura y Pesca, luego de más de un año siendo prisioneros de terroristas fueron rescatados por las Fuerzas Conjuntas.",
+        images: [
+          {
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/i_1.webp",
+            alt: "Previo al rescate de los secuestrados, matrimonio terrorista e hijas se retiran de la finca, sede de la “Cárcel Clandestina”.",
+          },
+          {
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/i_2.webp",
+            alt: "Amenazados de muerte los cautivos en la Cárcel del Pueblo, Ulisses Pereira Reverbel y Carlos Frick Davie, previo a su rescate.",
+          },
+          {
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/i_3.webp",
+            alt: "Vecinos se concentraron espontáneamente y aplaudieron a las Fuerzas Conjuntas por el rescate de los ciudadanos cautivos de los terroristas.",
+          },
+          {
+            src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/i_4.webp",
+            alt: "“Cárcel del Pueblo”, túnel de acceso e interior de la celda-jaula.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/liberan-dos-secuestrados-de-una-carcel-del-pueblo-del-mln-t/memorial.webp",
+        alt: "Aquí, en plena democracia, el 27/05/72 fueron rescatados de un Centro de Detención clandestino, el Dr. Ulysses Pereira Reverbel, 54 años y el Dr. Carlos Fick Davie, 63 años, casado, 5 hijos. Permanecieron cautivos 423 y 377 días respectivamente.",
+      },
+    ],
     vindicatedActions: {
       books: [
         {
@@ -21971,6 +22046,38 @@ export const TerroristActions: TerroristActionDefinition[] = [
             alt: "página diario completa publicada por el diario El Popular",
           },
         ],
+      },
+    ],
+    apologyForCrimeInImages: [
+      {
+        title:
+          "Exhuman cadáver de sediciosa enterrada clandestinamente por la propia organización subversiva en finca particular.",
+        description:
+          "Susana Leal Rovira, 26 años, casada, integrante de un comando sedicioso, falleció a consecuencia de las graves heridas sufridas en un accidente de tránsito, en circunstancias de dirigirse a llevar a cabo una acción armada. Fue enterrada en forma clandestina por decisión de la propia organización.",
+        images: [
+          {
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/i_1.webp",
+            alt: "Susana Leal es trasladada a un hospital clandestino del MLN-T.",
+          },
+          {
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/i_2.webp",
+            alt: "Sediciosos decidiendo el enterramiento clandestino de Susana Leal.",
+          },
+          {
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/i_3.webp",
+            alt: "Susana Leal es enterrada por integrantes del MLN-T en una finca de la organización.",
+          },
+          {
+            src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/i_4.webp",
+            alt: "El cuerpo de Susana Leal es exhumado.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/descubren-cadaveres-terroristas-enterrados-por-el-mln-t/memorial.webp",
+        alt: "Aquí, en plena democracia, el 16/07/72 fue exhumado el cuerpo de la integrante del MLN-T Susana Leal, 26 años, casada. Fue sepultada meses antes por decisión de la propia organización subersiva.",
       },
     ],
     vindicatedActions: {
@@ -24647,7 +24754,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
   },
   {
     date: new Date("May 15, 1971"),
-    title: "Agente Perugorría",
+    title: "Agente Luis Perugorría",
     slug: "agente-perugorria",
     type: "atentados",
     newsPapers: [
@@ -25239,6 +25346,98 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“... El 27 de octubre estalló una bomba en la Facultad de Ingeniería... La explosión fue en la cabina de proyección del Salón de Actos, un lugar de acceso restringido... Tres integrantes de los GAU tenían llave para entrar ahí... Aprovechando su acceso habían habilitado un escondrijo en un ducto de aire acondicionado, donde guardaban documentos y materiales peligrosos... Marcos Caridad era un notorio integrante de los GAU.”</p>`,
+          year: new Date("2018-1-1"),
+          name: "Los GAU. Una Historia del Pasado Reciente (1967-1985). Vivencias y recuerdos",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Banda Oriental",
+          pages: "págs. 113-114",
+          author: "Martín Ponce De León - Enrique Rubio",
+        },
+      ],
+    },
+  },
+  {
+    date: new Date("May 14, 1971"),
+    title: "Intento de secuestro de Alfredo Deambrois",
+    slug: "intento-de-secuestro-de-alfredo-deambrois",
+    type: "secuestros",
+    newsPapers: [
+      {
+        name: 'Diario "El Diario" (en Página 16)',
+        date: new Date("May 14, 1971"),
+        title: "“EL INDUSTRIAL SE RESISTIÓ Y FUE HERIDO EN UN OMÓPLATO”",
+        description:
+          "Alfredo Deambrois, conocido empresario industrial de 63 años, escapó milagrosamente con vida a un atentado a balazos... a quemarropa... y recibió en el omóplato uno de los veinte balazos… Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/intento-de-secuestro-de-alfredo-deambrois/n_1.webp",
+            alt: "noticia publicada por el diario El Diario",
+          },
+          {
+            type: "página diario completa",
+            src: "/intento-de-secuestro-de-alfredo-deambrois/n_2.webp",
+            alt: "página diario completa publicada por el diario El Diario",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("May 15, 1971"),
+        title:
+          "“DE AMBROIS: RESISTIÓ AL SECUESTRO POR TERCERA VEZ; RECIBIÓ UN TIRO”",
+        description:
+          "El Sr. Alfredo Deambrois,..., recibió un balazo en el omóplato derecho cuando intentó resistir la acción de 5 maleantes-cuatro hombres y una mujer-... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/intento-de-secuestro-de-alfredo-deambrois/n_3.webp",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/intento-de-secuestro-de-alfredo-deambrois/n_4.webp",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Diario" (en Página 17)',
+        date: new Date("August 20, 1972"),
+        title: "“ES TUPAMARO EL HEREDERO DE CONOCIDO INDUSTRIAL”",
+        description:
+          "El hijo y principal heredero de un conocido industrial a quien los tupamaros intentaron secuestrar... vinculado a la organización subversiva fue detenido en Paysandú... un comando sedicioso pretendió secuestrar a Deambrois el 14 de mayo de 1971 cuando abandonaba su domicilio...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/intento-de-secuestro-de-alfredo-deambrois/n_5.webp",
+            alt: "noticia publicada por el diario El Día",
+          },
+          {
+            type: "página diario completa",
+            src: "/intento-de-secuestro-de-alfredo-deambrois/n_6.webp",
+            alt: "página diario completa publicada por el diario El Día",
+          },
+        ],
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>“… El 14 de mayo el MLN… Ese mismo día fracasa el intento de capturar a Alfredo Deambrosis (sic)”.</p>`,
+          year: new Date("1988-1-1"),
+          name: "La tregua armada",
+          place: "Montevideo - Uruguay",
+          edition: "TAE Editorial",
+          pages: "pág. 82",
+          author: "Fernández Huidobro",
+        },
+      ],
+    },
   },
 ];
 
@@ -25318,3 +25517,11 @@ text: "Robo Bandera Original de los 33 orientales",
     },
 
 */
+
+/**
+* arteche
+*
+
+
+
+ */

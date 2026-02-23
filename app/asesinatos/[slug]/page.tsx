@@ -42,26 +42,26 @@ export default async function page({ params }: Props) {
     <main className="max-w-6xl mx-auto px-4 py-12">
       <header className="pb-6">
         <div className="flex items-center gap-2 mb-4">
-          {/* <span className="bg-primary text-white text-[10px] px-2 py-0.5 font-black uppercase tracking-widest">
-             Documento de Archivo
-          </span> */}
-          <span className="text-[10px] lg:text-[24px] font-bold text-muted-foreground uppercase tracking-widest">
+          <span className="bg-primary text-white text-[10px] lg:text-[12px] px-2 lg:px-4 py-0.5 lg:py-1 font-black uppercase tracking-widest">
             {action.type} / Uruguay
           </span>
+          {/* <span className="text-[10px] lg:text-[24px] font-bold text-muted-foreground uppercase tracking-widest">
+            {action.type} / Uruguay
+          </span> */}
         </div>
-        {/* <h1
+        <h1
           className={`${newsreader.className} text-5xl md:text-7xl font-black leading-none tracking-tighter mb-6`}
         >
           {action.title}
-        </h1> */}
-        {/* <div className="flex items-center justify-between pt-4 border-t border-border">
+        </h1>
+        <div className="flex items-center justify-between pt-4 border-t border-border">
           <span className="text-xs font-black uppercase tracking-widest italic">
             Fecha del Suceso: {formattedDate}
           </span>
           <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
-            Expediente Digital
+            Hermoteca Digital
           </span>
-        </div> */}
+        </div>
       </header>
 
       <div className="flex flex-col gap-16">

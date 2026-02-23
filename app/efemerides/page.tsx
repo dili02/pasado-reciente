@@ -50,20 +50,20 @@ export default function EfemeridesPage() {
   }
 
   return (
-    <main className="max-w-4xl mx-auto px-4 py-12">
+    <main className="max-w-6xl mx-auto px-4 py-12">
       <header className="mb-12 border-b-4 border-foreground pb-6">
         <div className="flex items-center gap-2 mb-4">
-          <span className="bg-primary text-white text-[10px] px-2 py-0.5 font-black uppercase tracking-widest">
-            Suplemento Histórico
-          </span>
-          <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+          <span className="bg-primary text-white text-[10px] lg:text-[12px] px-2 lg:px-4 py-0.5 lg:py-1 font-black uppercase tracking-widest">
             Efemérides / Uruguay
           </span>
+          {/* <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+            Efemérides / Uruguay
+          </span> */}
         </div>
         <h1
           className={`${newsreader.className} text-5xl md:text-7xl font-black leading-none tracking-tighter mb-6 capitalize`}
         >
-          Efemérides de {currentMonthName}
+          Efemérides del mes de {currentMonthName}
         </h1>
         <div className="flex items-center justify-between pt-4 border-t border-border">
           <span className="text-xs font-black uppercase tracking-widest italic text-primary">

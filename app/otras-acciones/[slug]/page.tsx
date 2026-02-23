@@ -26,7 +26,7 @@ export async function generateStaticParams() {
 
 function getFormattedDateToString(date: Date): string {
   return new Intl.DateTimeFormat("es-UY", { dateStyle: "long" }).format(
-    new Date(date)
+    new Date(date),
   );
 }
 
@@ -38,17 +38,19 @@ export default async function page({ params }: Props) {
   const formattedDate = getFormattedDateToString(action.date);
 
   return (
-    <main className="max-w-4xl mx-auto px-4 py-12">
+    <main className="max-w-6xl mx-auto px-4 py-12">
       <header className="mb-12 border-b-4 border-foreground pb-6">
         <div className="flex items-center gap-2 mb-4">
-          <span className="bg-primary text-white text-[10px] px-2 py-0.5 font-black uppercase tracking-widest">
-             Documento de Archivo
-          </span>
-          <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+          <span className="bg-primary text-white text-[10px]  lg:text-[12px] px-2 lg:px-4 py-0.5 lg:py-1 font-black uppercase tracking-widest">
             OTRAS ACCIONES / Uruguay
           </span>
+          {/* <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+            OTRAS ACCIONES / Uruguay
+          </span> */}
         </div>
-        <h1 className={`${newsreader.className} text-5xl md:text-7xl font-black leading-none tracking-tighter mb-6`}>
+        <h1
+          className={`${newsreader.className} text-5xl md:text-7xl font-black leading-none tracking-tighter mb-6`}
+        >
           {action.title}
         </h1>
         <div className="flex items-center justify-between pt-4 border-t border-border">
@@ -56,7 +58,7 @@ export default async function page({ params }: Props) {
             Fecha del Suceso: {formattedDate}
           </span>
           <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
-            Expediente Digital
+            Hermoteca Digital
           </span>
         </div>
       </header>
@@ -65,7 +67,9 @@ export default async function page({ params }: Props) {
         {/* Sección de Víctimas */}
         {action.victims && action.victims.length > 0 && (
           <section id="victims" className="scroll-mt-20">
-            <h2 className={`${newsreader.className} text-3xl font-black uppercase border-b border-foreground mb-8 pb-2`}>
+            <h2
+              className={`${newsreader.className} text-3xl font-black uppercase border-b border-foreground mb-8 pb-2`}
+            >
               Víctimas y Afectados
             </h2>
             <div className="flex flex-col gap-8">
@@ -79,14 +83,16 @@ export default async function page({ params }: Props) {
         {/* Evidencias de Prensa */}
         {action.newsPapers && (
           <section id="notices" className="scroll-mt-20">
-             <NewspapersNotices notices={action.newsPapers} />
+            <NewspapersNotices notices={action.newsPapers} />
           </section>
         )}
 
         {/* Imágenes y Reivindicaciones */}
         <div className="grid grid-cols-1 gap-16">
           {action.apologyForCrimeInImages && (
-            <ApologyForCrimeInImages crimeImages={action.apologyForCrimeInImages} />
+            <ApologyForCrimeInImages
+              crimeImages={action.apologyForCrimeInImages}
+            />
           )}
 
           {action.virtualMemorial && (
@@ -102,12 +108,15 @@ export default async function page({ params }: Props) {
       </div>
 
       <div className="mt-20 pt-12 border-t-2 border-foreground flex justify-between items-center">
-         <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground">
-            Archivo General <br/> del Pasado Reciente
-         </div>
-         <a href="#" className="text-xs font-black uppercase tracking-widest hover:text-primary transition-colors">
-            Volver Arriba ↑
-         </a>
+        <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground">
+          Archivo General <br /> del Pasado Reciente
+        </div>
+        <a
+          href="#"
+          className="text-xs font-black uppercase tracking-widest hover:text-primary transition-colors"
+        >
+          Volver Arriba ↑
+        </a>
       </div>
     </main>
   );

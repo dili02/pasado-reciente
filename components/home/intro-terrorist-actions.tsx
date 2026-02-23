@@ -71,7 +71,7 @@ export default function IntroTerroristActions({}: Props) {
                       className: "w-5 h-5",
                     })}
                   </div>
-                  <span className="text-[11px] font-bold uppercase tracking-[0.2em] group-hover:text-primary transition-colors">
+                  <span className="text-[12px] lg:text-[12px] font-bold uppercase tracking-[0.2em] group-hover:text-primary transition-colors">
                     {item.name}
                   </span>
                 </div>

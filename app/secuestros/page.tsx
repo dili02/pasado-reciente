@@ -61,8 +61,8 @@ export default async function page({}: Props) {
       <div className="mb-8 border-b border-border pb-8 flex flex-col items-end justify-end">
         <p className="text-right max-w-2xl text-lg text-muted-foreground leading-relaxed italic">
           Recopilación histórica de hechos de privaciones de libertad y
-          secuestros políticos realizados por terroristas documentados en la
-          prensa nacional.
+          secuestros realizados por terroristas documentados en la prensa
+          nacional.
         </p>
         <p className="mt-2 flex gap-4 text-[10px] lg:text-[12px] font-black uppercase tracking-widest text-muted-foreground">
           Periodo: {initDate} — {endDate}
