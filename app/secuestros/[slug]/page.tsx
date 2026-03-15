@@ -67,11 +67,11 @@ export default async function page({ params }: Props) {
         {/* Sección de Víctimas */}
         {action.victims && action.victims.length > 0 && (
           <section id="victims" className="scroll-mt-20">
-            <h2
+            {/* <h2
               className={`${newsreader.className} text-3xl font-black uppercase border-b border-foreground mb-8 pb-2`}
             >
               Personas Secuestradas / Detenidas
-            </h2>
+            </h2> */}
             <div className="flex flex-col gap-8">
               {action.victims.map((victim, index) => (
                 <Victim key={index} victim={victim} date={action.date} />

@@ -5665,6 +5665,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    virtualMemorial: [
+      {
+        src: "/wilfredo-busconi/memorial.webp",
+        alt: "Aquí, el 17/04/1972 durante un procedemiento en una sede del partido Comunista de Uruguay, fue herido de muerte el Capitán Wilfredo Busconi, de 33 años de edad, casado y dos hijos menores de edad.",
+      },
+    ],
   },
   {
     date: new Date("May 04, 1972 03:24:00"),
@@ -7330,6 +7336,12 @@ export const TerroristActions: TerroristActionDefinition[] = [
         ],
       },
     ],
+    virtualMemorial: [
+      {
+        src: "/julio-gutierrez/memorial.webp",
+        alt: "Aquí, el 21/04/197 durante un procedemiento en una finca ocupada por 3 terroristas, fue herido de muerte el Capitán Julio Gutierrez, de 32 años de edad, casado y tres hijos menores de edad. Fallecio el 12/07/1974 a causa de la heridas",
+      },
+    ],
   },
   {
     date: new Date("August 07, 1968 03:24:00"),
@@ -8155,7 +8167,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
             init: new Date("July 31, 1970"),
             end: new Date("August 09, 1970"),
             days: 9,
-            description: "días secuestrado. Ejecutado en cautiverio",
+            description: " días secuestrado. Ejecutado en cautiverio",
           },
         },
       },
@@ -25065,6 +25077,16 @@ export const TerroristActions: TerroristActionDefinition[] = [
           name: "Agente Nelson Bardesio",
           age: 31,
           marital: "casado",
+          avatar: {
+            src: "/agente-nelson-bardesio/bardesio.webp",
+            alt: "imagen del agente nelson bardesio",
+          },
+          kidnapping: {
+            init: new Date("February 24, 1972"),
+            end: new Date("May 15, 1972"),
+            days: 81,
+            description: "días en cautiverio",
+          },
         },
       },
     ],

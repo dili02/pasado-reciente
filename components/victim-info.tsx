@@ -94,9 +94,9 @@ export function VictimInfo({
                     Liberación:{" "}
                     <time>{getFormattedDateToString(info.kidnapping.end)}</time>
                   </p>
-                  <p className="text-xs text-primary/80 font-black uppercase tracking-tighter italic">
-                    Duración: {info.kidnapping.days}{" "}
-                    {info.kidnapping.description}
+                  <p className="text-xs lg:text-sm text-primary/80 font-black uppercase tracking-tighter italic">
+                    <span>{info.kidnapping.days}</span>
+                    <span className="ml-1">{info.kidnapping.description}</span>
                   </p>
                 </div>
               ) : (
@@ -108,10 +108,10 @@ export function VictimInfo({
           </div>
 
           <div className="space-y-1">
-            <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-widest text-primary">
+            {/* <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-widest text-primary">
               Información Personal
-            </span>
-            <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm lg:text-base font-medium text-muted-foreground">
+            </span> */}
+            <div className="flex flex-wrap gap-x-2 gap-y-1 text-sm lg:text-base font-medium text-muted-foreground">
               {info?.nationality && <span>{info?.nationality}</span>}
               {info?.age && <span>{info?.age} años</span>}
               {info?.marital && <span>{info?.marital}</span>}
@@ -124,7 +124,7 @@ export function VictimInfo({
             <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-widest text-muted-foreground block mb-1">
               Hijos
             </span>
-            <p className="text-[13px] lg:text-base leading-relaxed font-medium">
+            <p className="text-xs lg:text-base leading-relaxed font-medium">
               {info.childs || info.daughter} {info.childsDescription}{" "}
               {info.otherDescription}
             </p>

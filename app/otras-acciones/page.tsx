@@ -56,9 +56,9 @@ export default async function page({}: Props) {
 
       <div className="mb-8 border-b border-border pb-8 flex flex-col items-end justify-end">
         <p className="text-right max-w-xl text-lg text-muted-foreground leading-relaxed italic">
-          Recopilación de operativos diversos, interferencias, ocupaciones y
-          otras acciones realizadas por terroristas que no entran en las
-          categorías principales, documentados en la prensa nacional.
+          Actividades delictivas de apoyo a la estrategia terrorista para llegar
+          al poder por la vía armada documentadas en la prensa nacional de la
+          época.
         </p>
         <p className="mt-2 flex gap-4 text-[10px] lg:text-[12px] font-black uppercase tracking-widest text-muted-foreground">
           Periodo: {initDate} — {endDate}

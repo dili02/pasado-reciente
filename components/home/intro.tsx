@@ -58,9 +58,9 @@ export default function Intro({}: Props) {
 
         <div className="w-full mt-16 border-y-4 border-black py-8 group bg-muted/40">
           <div className="flex flex-col items-center relative">
-            <span className="absolute -top-11 left-1/2 -translate-x-1/2 bg-background px-4 text-[10px] font-black uppercase tracking-widest text-primary">
+            {/* <span className="absolute -top-11 left-1/2 -translate-x-1/2 bg-background px-4 text-[10px] font-black uppercase tracking-widest text-primary">
               Titular del día
-            </span>
+            </span> */}
             <p className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none text-center">
               RECOPILACIÓN HISTÓRICA
             </p>

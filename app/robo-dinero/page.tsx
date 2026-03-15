@@ -69,9 +69,8 @@ export default async function page({}: Props) {
 
       <div className="mb-8 border-b border-border pb-8 flex flex-col items-end justify-end">
         <p className="text-right max-w-3xl text-lg text-muted-foreground leading-relaxed italic">
-          Recopilación histórica de ataques, expropiaciones, asaltos a entidades
-          bancarias y comerciales realizados por terroristas documentados en la
-          prensa nacional.
+          Asaltos a bancos y empresas privadas documentados en la prensa
+          nacional de la época.
         </p>
         <p className="mt-2 flex gap-4 text-[10px] lg:text-[12px] font-black uppercase tracking-widest text-muted-foreground">
           Periodo: {initDate} — {endDate}

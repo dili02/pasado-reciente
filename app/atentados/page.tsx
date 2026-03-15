@@ -61,9 +61,9 @@ export default async function page({}: Props) {
 
       <div className="mb-8 border-b border-border pb-8 flex flex-col items-end justify-end">
         <p className="text-right max-w-2xl text-lg text-muted-foreground leading-relaxed italic">
-          Recopilación histórica de ataques con explosivos, sabotajes y
-          atentados contra la propiedad y la integridad física realizados por
-          terroristas documentados en la prensa nacional
+          Ataques con bombas, y atentados contra la integridad física y la
+          propiedad pública y privada documentados en la prensa nacional de la
+          época.
         </p>
         <p className="mt-2 flex gap-4 text-[10px] lg:text-[12px] font-black uppercase tracking-widest text-muted-foreground">
           Periodo: {initDate} — {endDate}
