@@ -40,6 +40,8 @@ export default function VirtualMemorial({ virtualMemorial }: Props) {
           alt={memorial.alt}
           className="py-3 w-full"
           key={memorial.src}
+          loading="lazy"
+          decoding="async"
         />
       ))}
     </div>

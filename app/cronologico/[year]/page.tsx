@@ -10,6 +10,7 @@ import {
   Newspaper,
 } from "lucide-react";
 import { Metadata } from "next/types";
+import TerroristActionListItem from "@/components/terrorist-action-list-item";
 
 type Props = { params: { year: string } };
 
@@ -46,7 +47,7 @@ export default async function page({ params }: Props) {
 
   function getFormattedDateToString(date: Date): string {
     return new Intl.DateTimeFormat("es-UY", { dateStyle: "medium" }).format(
-      new Date(date)
+      new Date(date),
     );
   }
 
@@ -55,86 +56,20 @@ export default async function page({ params }: Props) {
     .sort((a, b) => a.date.getTime() - b.date.getTime());
 
   return (
-    <div className="container mt-4">
-      <h1 className="text-center font-heading text-4xl font-semibold sm:text-5xl tracking-tight uppercase text-orange-700">
-        {params.year}
-      </h1>
-      <ul className="grid grid-cols-1 lg:grid-cols-2 py-8 gap-6">
-        {sortedActions.map((action, index) => (
-          <li
-            key={index}
-            className="border border-orange-400 p-2 bg-orange-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg hover:-translate-y-1 transition ease-in-out duration-500"
-          >
-            <Link href={`/${action.type}/${action.slug}`}>
-              <div className="flex items-center justify-between my-2">
-                <div className="font-bold text-orange-500">
-                  {action.type === "atentados" && <span>ATENTADOS</span>}
-                  {action.type === "otras-acciones" && (
-                    <span>OTRAS ACCIONES</span>
-                  )}
-                  {action.type === "asesinatos" && <span>ASESINATOS</span>}
-                  {action.type === "robo-armamento-explosivos" && (
-                    <span>ROBO ARMAMENTO / EXPLOSIVOS</span>
-                  )}
-                  {action.type === "robo-dinero" && <span>ROBO DINERO</span>}
-                  {action.type === "secuestros" && <span>SECUESTROS</span>}
-                </div>
+    <section className="max-w-7xl mx-auto px-2 xs:px-4 py-6 xs:py-12 overflow-x-hidden">
+      <header className="mb-6 xs:mb-12 border-b-4 border-foreground pb-2 xs:pb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <h1
+          className={`text-2xl xs:text-4xl md:text-6xl lg:text-8xl font-black uppercase tracking-tighter leading-none`}
+        >
+          {params.year}
+        </h1>
+      </header>
 
-                {action.moneyTheft?.usd && (
-                  <span className="text-sm text-orange-500 bg-orange-100 py-2 px-4 rounded-xl font-extrabold hover:bg-orange-100">
-                    {formatCurrency(action.moneyTheft?.usd)}
-                  </span>
-                )}
-              </div>
-
-              <div className="flex items-center gap-2 text-orange-500 mb-2">
-                <Calendar className="w-5 h-5" />
-                <time className="text-sm">
-                  {getFormattedDateToString(action.date)}
-                </time>
-              </div>
-
-              <h2 className="text-base font-semibold">{action.title}</h2>
-
-              <div className="py-2 flex flex-col sm:flex-row sm:items-center sm:gap-2 sm:py-0">
-                <span className="text-gray-500">Contenido:</span>
-                <div className="flex items-center gap-2 py-2">
-                  {action.victims && (
-                    <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
-                      <Info className="w-5 h-5" />
-                    </span>
-                  )}
-                  {action.newsPapers && (
-                    <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
-                      <Newspaper className="w-5 h-5" />
-                    </span>
-                  )}
-                  {action.apologyForCrimeInImages && (
-                    <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
-                      <Image className="w-5 h-5" />
-                    </span>
-                  )}
-                  {action.virtualMemorial && (
-                    <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
-                      <MapPin className="w-5 h-5" />
-                    </span>
-                  )}
-                  {action.vindicatedActions && (
-                    <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
-                      <BookOpenCheck className="w-5 h-5" />
-                    </span>
-                  )}
-                  {action.videos && (
-                    <span className="bg-orange-100 text-orange-500 p-2 rounded-md">
-                      <MonitorPlay className="w-5 h-5" />
-                    </span>
-                  )}
-                </div>
-              </div>
-            </Link>
-          </li>
+      <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 xs:gap-8">
+        {actions.map((action) => (
+          <TerroristActionListItem action={action} key={action.slug} />
         ))}
       </ul>
-    </div>
+    </section>
   );
 }

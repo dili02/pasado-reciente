@@ -1,9 +1,6 @@
 import Link from "next/link";
 import React from "react";
 import { api as API } from "@/db/data";
-import { Newsreader } from "next/font/google";
-
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
 
 type Props = {};
 
@@ -15,16 +12,10 @@ export default async function IntroChronologicalSummary({}: Props) {
   return (
     <div className="flex flex-col h-full bg-background text-foreground">
       <header className="mb-6 border-b-4 border-foreground pb-2">
-        <h2
-          className={`${newsreader.className} text-2xl text-primary uppercase tracking-tighter`}
-        >
+        <h2 className="font-[family-name:var(--font-newsreader)] text-2xl text-primary uppercase tracking-tighter font-bold">
           cronológico
         </h2>
       </header>
-
-      {/* <p className="text-xs text-muted-foreground mr-4 mb-8 italic">
-        Navegación cronológica por ejemplares digitalizados.
-      </p> */}
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 place-items-center">
         {chronological.map((year, index) => (
@@ -32,16 +23,12 @@ export default async function IntroChronologicalSummary({}: Props) {
             <div className="relative group transition-all duration-300 hover:scale-105">
               <CalendarSVG />
               <div
-                className="absolute z-10 font-black text-black text-[12px] lg:text-[14px]"
+                className="absolute z-10 font-black text-black text-sm lg:text-md bg-paper flex justify-center items-center"
                 style={{
                   left: "10%",
-                  top: "35%",
+                  top: "40%",
                   width: "80%",
                   height: "55%",
-                  backgroundColor: "#e4d8b4",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
                 }}
               >
                 {year}
@@ -66,8 +53,8 @@ export default async function IntroChronologicalSummary({}: Props) {
 function CalendarSVG() {
   return (
     <svg
-      width="48"
-      height="48"
+      width="64"
+      height="64"
       viewBox="0 0 26 28"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

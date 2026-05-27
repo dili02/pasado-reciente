@@ -53,6 +53,8 @@ export function VictimInfo({
             <img
               src={info?.avatar?.src}
               alt={info?.avatar?.alt}
+              loading="lazy"
+              decoding="async"
               className="w-full aspect-square object-cover grayscale group-hover:grayscale-0 transition-all duration-700 rounded-sm shadow-md"
             />
           ) : (
@@ -73,7 +75,7 @@ export function VictimInfo({
 
         <div className="grid grid-cols-1 gap-y-1 gap-x-8 mb-6">
           <div className="space-y-1">
-            <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-widest text-primary">
+            <span className="text-xs lg:text-[12px] font-black uppercase tracking-widest text-primary">
               Fecha
             </span>
             <div className="text-sm lg:text-base font-bold leading-tight">
@@ -108,7 +110,7 @@ export function VictimInfo({
           </div>
 
           <div className="space-y-1">
-            {/* <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-widest text-primary">
+            {/* <span className="text-xs lg:text-[12px] font-black uppercase tracking-widest text-primary">
               Información Personal
             </span> */}
             <div className="flex flex-wrap gap-x-2 gap-y-1 text-sm lg:text-base font-medium text-muted-foreground">
@@ -121,7 +123,7 @@ export function VictimInfo({
 
         {(info.childs || info.daughter) && (
           <div className="px-4 py-3 bg-muted/30 border-l-2 border-primary rounded-r-sm">
-            <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-widest text-muted-foreground block mb-1">
+            <span className="text-xs lg:text-[12px] font-black uppercase tracking-widest text-muted-foreground block mb-1">
               Hijos
             </span>
             <p className="text-xs lg:text-base leading-relaxed font-medium">

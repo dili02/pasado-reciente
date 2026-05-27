@@ -10,7 +10,7 @@ export default function Intro({}: Props) {
     <section className="py-12 md:py-20 relative overflow-hidden">
       <div className="flex flex-col items-center text-center">
         <header className="mb-12 w-full">
-          {/* <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-[0.3em] border-b-2 border-foreground pb-2 mb-12">
+          {/* <div className="flex justify-between items-center text-xs font-black uppercase tracking-[0.3em] border-b-2 border-foreground pb-2 mb-12">
             <span>Volumen I / No. 001</span>
             <span>Edición Digital</span>
             <span>
@@ -24,7 +24,7 @@ export default function Intro({}: Props) {
           </div> */}
 
           <h2
-            className={`${newsreaderItalic.className} text-2xl md:text-3xl text-primary font-medium mb-4`}
+            className={`${newsreaderItalic.className} text-2xl md:text-3xl lg:text-4xl text-primary font-medium mb-4`}
           >
             Bienvenidos al Museo Digital del Pasado Reciente
           </h2>
@@ -58,14 +58,14 @@ export default function Intro({}: Props) {
 
         <div className="w-full mt-16 border-y-4 border-black py-8 group bg-muted/40">
           <div className="flex flex-col items-center relative">
-            {/* <span className="absolute -top-11 left-1/2 -translate-x-1/2 bg-background px-4 text-[10px] font-black uppercase tracking-widest text-primary">
+            {/* <span className="absolute -top-11 left-1/2 -translate-x-1/2 bg-background px-4 text-xs font-black uppercase tracking-widest text-primary">
               Titular del día
             </span> */}
-            <p className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none text-center">
+            <p className="text-4xl md:text-8xl font-black tracking-tighter uppercase leading-none text-center">
               RECOPILACIÓN HISTÓRICA
             </p>
             <p
-              className={`${newsreaderItalic.className} text-xl md:text-3xl mt-4 text-muted-foreground`}
+              className={`${newsreaderItalic.className} text-xl md:text-3xl mt-4 text-primary font-bold`}
             >
               Más de 230 acciones terroristas documentadas (1963 - 1976)
             </p>

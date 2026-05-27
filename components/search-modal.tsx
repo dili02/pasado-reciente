@@ -48,6 +48,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   useEffect(() => {
     if (query.trim().length < 2) {
       setResults([]);
+      setIsLoading(false);
       return;
     }
 
@@ -84,7 +85,8 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
           <Search className="w-5 h-5 text-primary" />
           <input
             ref={inputRef}
-            type="text"
+            type="search"
+            aria-label="Buscar acciones terroristas"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Buscar en el archivo histórico..."
@@ -109,7 +111,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             </div>
           ) : results.length > 0 ? (
             <div className="space-y-1">
-              <p className="px-3 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground border-b border-border/50 mb-2">
+              <p className="px-3 py-2 text-xs font-black uppercase tracking-[0.3em] text-muted-foreground border-b border-border/50 mb-2">
                 Resultados del Archivo ({results.length})
               </p>
               {results.map((action) => (
@@ -124,10 +126,10 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[9px] font-black uppercase tracking-widest text-primary px-1.5 py-0.5 border border-primary/30 rounded-full">
+                      <span className="text-xs font-black uppercase tracking-widest text-primary px-1.5 py-0.5 border border-primary/30 rounded-full">
                         {action.type.replace(/-/g, " ")}
                       </span>
-                      <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">
+                      <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
                         {new Date(action.date).getFullYear()}
                       </span>
                     </div>
@@ -159,12 +161,12 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
                 <Icons.museum className="w-8 h-8 text-muted-foreground/30" />
               </div>
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-2">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground mb-2">
                 Consejo de Búsqueda
               </p>
               <p className="text-sm font-medium text-muted-foreground max-w-xs">
-                Busque por nombre de la víctima, lugar del hecho, organización o
-                año.
+                Busque por nombre o apellido de la víctima, lugar del hecho,
+                etc.
               </p>
             </div>
           )}
@@ -173,16 +175,16 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
         {/* Modal Footer */}
         <div className="p-3 bg-muted/50 border-t border-border flex justify-between items-center">
           <div className="flex gap-4">
-            <div className="flex items-center gap-1.5">
-              <kbd className="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded shadow-sm font-bold">
+            <div className="hidden md:flex items-center gap-1.5 ">
+              <kbd className="px-1.5 py-0.5 text-xs bg-background border border-border rounded shadow-sm font-bold">
                 ESC
               </kbd>
-              <span className="text-[9px] font-bold text-muted-foreground uppercase">
+              <span className="text-xs font-bold text-muted-foreground uppercase">
                 Cerrar
               </span>
             </div>
           </div>
-          <div className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">
+          <div className="text-xs font-black uppercase tracking-widest text-muted-foreground/60">
             Museo de la Memoria | Hemeroteca Digital
           </div>
         </div>

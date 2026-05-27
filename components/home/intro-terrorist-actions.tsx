@@ -50,12 +50,7 @@ export default function IntroTerroristActions({}: Props) {
         >
           Acciones
         </h2>
-        {/* <span className="text-[10px] font-bold text-primary mb-1">LIVE DATA</span> */}
       </header>
-
-      {/* <p className="text-xs text-muted-foreground mb-8 italic">
-        Categorización técnica de los operativos documentados en prensa.
-      </p> */}
 
       <nav className="flex-1">
         <ul className="flex flex-col gap-0 border-t border-border">

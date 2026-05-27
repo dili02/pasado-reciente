@@ -31,7 +31,7 @@ export default function ApologyForCrimeInImages({ crimeImages }: Props) {
         <h2
           className={`${newsreader.className} text-3xl font-black uppercase tracking-tighter`}
         >
-          Apología del delito en imágenes
+          Delito en imágenes
         </h2>
       </header>
 
@@ -49,7 +49,12 @@ export default function ApologyForCrimeInImages({ crimeImages }: Props) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 py-4">
               {apology.images.map((image) => (
                 <div key={image.src} className="bg-white">
-                  <img src={image.src} alt={image.alt} />
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
                   <p className="text-base lg:text-lg px-4">{image.alt}</p>
                 </div>
               ))}

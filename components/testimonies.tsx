@@ -13,21 +13,7 @@ const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
 export default function Testimonies({ videos }: Props) {
   return (
     <div>
-      {/* <h2
-        className="uppercase text-3xl text-center font-extrabold text-orange-950 scroll-mt-6 flex items-center justify-center gap-2"
-        id="testimonies"
-      >
-        <MonitorPlay className="w-8 h-8" /> Relatos de familiares de víctimas
-        del terrorismo.
-      </h2> */}
-
-      {/* <SectionTitle id="testimonies">
-        <MonitorPlay className="hidden lg:block w-7 h-7 2xl:w-8 2xl:h-8" />
-        Relatos de familiares de víctimas del terrorismo.
-      </SectionTitle> */}
-
       <header className="flex items-center gap-4 border-b border-foreground pb-2 mb-8">
-        {/* <Image className="w-8 h-8 text-primary hidden lg:block" /> */}
         <MonitorPlay className="w-8 h-8 text-primary hidden lg:block" />
         <h2
           id="testimonies"
