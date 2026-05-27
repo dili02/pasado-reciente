@@ -6,46 +6,64 @@
   :root {
     --background: 40 30% 95%; /* #f5f3ef - Pergamino muy claro y suave */
     --foreground: 222 47% 11%; /* Carboncillo profundo */
-    
+
     --card: 40 25% 98%;
     --card-foreground: 222 47% 11%;
-    
+
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
-    
-    --primary: 24 95% 50%;    /* Naranja Original */
+
+    --primary: 24 85% 45%; /* Naranja Original */
     --primary-foreground: 40 30% 98%;
-    
-    --secondary: 35 30% 45%;  /* Bronce envejecido */
+
+    --secondary: 35 30% 45%; /* Bronce envejecido */
     --secondary-foreground: 40 30% 98%;
-    
+
     --muted: 40 10% 85%;
-    --muted-foreground: 40 10% 40%;
-    
+    --muted-foreground: 40 15% 35%;
+
     --accent: 24 95% 60%;
     --accent-foreground: 40 30% 10%;
-    
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    
+
     --border: 40 15% 80%;
     --input: 40 15% 80%;
     --ring: 24 95% 50%;
-    
+
     --radius: 0.5rem; /* Bordes más rectos para look editorial */
   }
 
   .dark {
     --background: 222 47% 5%;
     --foreground: 40 30% 90%;
-    
+
     --card: 222 47% 8%;
     --card-foreground: 40 30% 90%;
-    
+
+    --popover: 222 47% 8%;
+    --popover-foreground: 40 30% 90%;
+
     --primary: 15 65% 55%;
     --primary-foreground: 222 47% 5%;
-    
+
+    --secondary: 35 30% 45%;
+    --secondary-foreground: 40 30% 90%;
+
+    --muted: 222 47% 15%;
+    --muted-foreground: 40 30% 70%;
+
+    --accent: 24 95% 60%;
+    --accent-foreground: 222 47% 5%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
     --border: 222 47% 15%;
+    --input: 222 47% 15%;
+    --ring: 15 65% 55%;
+    --paper: 40 25% 75%; /* Color de papel/crema para modo dark */
   }
 }
 
@@ -56,5 +74,9 @@
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+  }
+  *:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
   }
 }

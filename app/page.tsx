@@ -6,9 +6,6 @@ import IntroTerroristActions from "@/components/home/intro-terrorist-actions";
 import IntroChronologicalSummary from "@/components/home/intro-chronological-summary";
 import IntroMemorial from "@/components/home/intro-memorial";
 import { Metadata } from "next";
-import { Newsreader } from "next/font/google";
-
-const newsreader = Newsreader({ subsets: ["latin"] });
 
 type Props = {};
 
@@ -59,9 +56,7 @@ export default async function page({}: Props) {
         <Intro />
       </div>
 
-      <h2
-        className={`${newsreader.className} text-4xl font-black uppercase tracking-tighter mb-8`}
-      >
+      <h2 className="font-[family-name:var(--font-newsreader)] text-2xl xs:text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter mb-8">
         Acceso directo a la prensa original de la época.
       </h2>
 
@@ -83,13 +78,11 @@ export default async function page({}: Props) {
       </main>
 
       <section className="mt-24 pt-12 border-t-2 border-foreground">
-        <header className="flex items-center justify-between mb-12">
-          <h2
-            className={`${newsreader.className} text-4xl font-black uppercase tracking-tighter`}
-          >
+        <header className="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
+          <h2 className="font-[family-name:var(--font-newsreader)] text-2xl xs:text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter">
             Testimonios
-            {/* <span className="text-primary italic">Documentos Vivos</span> */}
           </h2>
+
           <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
             Archivo Audiovisual Seleccionado
           </div>
@@ -108,13 +101,13 @@ export default async function page({}: Props) {
                   allowFullScreen
                   className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 opacity-90"
                 ></iframe>
-                <div className="absolute top-0 left-0 bg-primary px-2 py-1 text-[8px] font-black text-white uppercase tracking-widest translate-y-[-100%] group-hover:translate-y-0 transition-transform">
+                <div className="absolute top-0 left-0 bg-primary px-2 py-1 text-[10px] font-black text-white uppercase tracking-widest translate-y-[-100%] group-hover:translate-y-0 transition-transform">
                   Video / Documento
                 </div>
               </div>
               <Link
                 href={video.slug}
-                className={`${newsreader.className} text-xl font-bold leading-tight hover:text-primary transition-colors block mb-2`}
+                className="font-[family-name:var(--font-newsreader)] text-xl font-bold leading-tight hover:text-primary transition-colors block mb-2"
               >
                 {video.title}
               </Link>
@@ -128,5 +121,3 @@ export default async function page({}: Props) {
     </div>
   );
 }
-
-// neceseito crear una data-table con shacdn, totalmente funcional (ordenable, filtros, buscar, etc), que se guarde en el localsotrage, que reciba un array de acciones terroristas, con las propiedades fecha: date.toLocaleDateString(), es tipo de accion = | "asesinatos" | "atentados" | "secuestros" | "robo-armamento-explosivos" | "robo-dinero" | "otras-acciones" (estos tienen que ser un badge y cada tipo de un diferente color),  un texto que es la accion (que cuando sea mas ancha que la fila termine con ..., por ejemeple asesinato de...), un check que cuando este activo se tache toda la linea y que quede almacenada la data en el local storage

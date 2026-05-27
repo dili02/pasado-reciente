@@ -53,18 +53,15 @@ export function AccionesDataTable({
   initialData = [],
 }: AccionesDataTableProps) {
   const [data, setData] = React.useState<AccionTerrorista[]>(
-    () => initialData ?? []
+    () => initialData ?? [],
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
-
-  console.log("initialData", initialData);
-  console.log("data", data);
 
   // Cargar datos del localStorage al montar
   React.useEffect(() => {
@@ -86,7 +83,7 @@ export function AccionesDataTable({
 
   const handleToggleCompletada = (id: string, checked: boolean) => {
     const newData = data.map((item) =>
-      item.id === id ? { ...item, completada: checked } : item
+      item.id === id ? { ...item, completada: checked } : item,
     );
     setData(newData);
     accionesStorage.set(newData);
@@ -195,13 +192,6 @@ export function AccionesDataTable({
                 Copiar ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              {/* <DropdownMenuItem
-                onClick={() => handleDelete(row.original.id)}
-                className="text-destructive"
-              >
-                <Trash2 className="mr-2 h-4 w-4" />
-                Eliminar
-              </DropdownMenuItem> */}
             </DropdownMenuContent>
           </DropdownMenu>
         );
@@ -307,7 +297,7 @@ export function AccionesDataTable({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -327,7 +317,7 @@ export function AccionesDataTable({
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -346,11 +336,6 @@ export function AccionesDataTable({
           </TableBody>
         </Table>
       </div>
-      {/* <div className="flex items-center justify-end py-4">
-        <div className="text-sm text-muted-foreground">
-          {table.getFilteredRowModel().rows.length} acción(es) total.
-        </div>
-      </div> */}
     </div>
   );
 }

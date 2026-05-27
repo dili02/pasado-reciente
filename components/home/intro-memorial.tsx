@@ -4,10 +4,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { ArrowRight, AlertTriangle } from "lucide-react";
 import { Skeleton } from "../skeletons";
-import { Newsreader } from "next/font/google";
-
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
-const newsreaderItalic = Newsreader({ subsets: ["latin"], style: "italic" });
+import { Button } from "@/components/ui/button";
 
 // Define a safe type for actions coming from the server
 type SafeAction = {
@@ -89,9 +86,7 @@ export default function IntroMemorial({ actions = [] }: Props) {
       <article className="flex flex-col bg-background border border-border/50 p-8 rounded-sm h-full justify-center">
         <div className="flex flex-col items-center text-center">
           <AlertTriangle className="w-12 h-12 text-muted-foreground/30 mb-4" />
-          <h3
-            className={`${newsreader.className} text-xl font-bold uppercase mb-2`}
-          >
+          <h3 className="font-[family-name:var(--font-newsreader)] text-xl font-bold uppercase mb-2">
             Sin Registros este mes
           </h3>
           <p className="text-sm text-muted-foreground italic mb-6">
@@ -100,7 +95,7 @@ export default function IntroMemorial({ actions = [] }: Props) {
           </p>
           <Link
             href="/efemerides"
-            className="inline-flex items-center gap-4 border-2 border-foreground hover:bg-foreground hover:text-background transition-all px-8 py-3 rounded-sm font-black uppercase tracking-widest text-[10px]"
+            className="inline-flex items-center gap-4 border-2 border-foreground hover:bg-foreground hover:text-background transition-all px-8 py-3 rounded-sm font-black uppercase tracking-widest text-xs"
           >
             <span>ir a efemérides</span>
             <ArrowRight size={14} />
@@ -113,25 +108,10 @@ export default function IntroMemorial({ actions = [] }: Props) {
   return (
     <article className="flex flex-col bg-background animate-in fade-in duration-700">
       <header className="mb-6 border-b-4 border-foreground pb-2 flex justify-between items-end">
-        <h2
-          className={`${newsreader.className} text-2xl text-primary uppercase tracking-tighter`}
-        >
-          Memoria del mes de {data.currentMonth}
+        <h2 className="font-[family-name:var(--font-newsreader)] text-2xl text-primary uppercase tracking-tighter font-bold">
+          Memorial del mes de {data.currentMonth}
         </h2>
-        {/* <span className="text-[10px] font-bold text-primary mb-1 uppercase tracking-widest">
-          Uruguay / Archivo
-        </span> */}
       </header>
-
-      {/* <div className="flex items-center justify-between border-b border-border py-4 mb-8">
-        <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-widest italic opacity-60">
-          Acciones terroristas llevadas a cabo por los movimientos subversivos
-          durante el período {data.initDate} — {data.endDate}
-        </span>
-        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">
-          Investigación Histórica Digital
-        </span>
-      </div> */}
 
       <figure className="mb-8 relative group">
         <div className="overflow-hidden bg-black grayscale group-hover:grayscale-0 transition-all duration-1000 flex items-center justify-center border border-border shadow-sm min-h-[300px]">
@@ -140,6 +120,8 @@ export default function IntroMemorial({ actions = [] }: Props) {
             key={data.currentMonth}
             className="w-full h-auto opacity-90 group-hover:opacity-100 transition-opacity"
             alt={`memorial de ${data.currentMonth}`}
+            loading="lazy"
+            decoding="async"
             onLoad={(e) => {
               (e.target as HTMLImageElement).parentElement?.classList.remove(
                 "animate-pulse",
@@ -147,10 +129,8 @@ export default function IntroMemorial({ actions = [] }: Props) {
             }}
           />
         </div>
-        <figcaption
-          className={`${newsreaderItalic.className} mt-4 text-sm text-muted-foreground border-l-2 border-primary pl-4`}
-        >
-          <p className="text-[10px] lg:text-[12px] font-black uppercase tracking-widest italic opacity-60">
+        <figcaption className="font-[family-name:var(--font-newsreader)] mt-4 text-sm text-muted-foreground border-l-2 border-primary pl-4 italic">
+          <p className="text-xs lg:text-[12px] font-black uppercase tracking-widest italic opacity-60">
             Acciones terroristas llevadas a cabo por los movimientos subversivos
             durante el período {data.initDate} — {data.endDate}
           </p>
@@ -158,13 +138,19 @@ export default function IntroMemorial({ actions = [] }: Props) {
       </figure>
 
       <div className="mt-auto">
-        <Link
-          href="/efemerides"
-          className="inline-flex items-center gap-4 border-2 border-foreground hover:bg-foreground hover:text-background transition-all px-8 py-4 rounded-sm font-black uppercase tracking-widest text-sm"
+        <Button
+          asChild
+          variant="outline"
+          className="border-2 border-foreground hover:bg-foreground hover:text-background font-black uppercase tracking-widest text-sm"
         >
-          <span>ir a efemérides</span>
-          <ArrowRight size={16} />
-        </Link>
+          <Link
+            href="/efemerides"
+            className="inline-flex items-center gap-4 px-8 py-4"
+          >
+            <span>ir a efemérides</span>
+            <ArrowRight size={16} />
+          </Link>
+        </Button>
       </div>
     </article>
   );

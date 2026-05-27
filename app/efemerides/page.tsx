@@ -50,18 +50,15 @@ export default function EfemeridesPage() {
   }
 
   return (
-    <main className="max-w-6xl mx-auto px-4 py-12">
+    <main className="max-w-7xl mx-auto px-4 py-12">
       <header className="mb-12 border-b-4 border-foreground pb-6">
         <div className="flex items-center gap-2 mb-4">
-          <span className="bg-primary text-white text-[10px] lg:text-[12px] px-2 lg:px-4 py-0.5 lg:py-1 font-black uppercase tracking-widest">
+          <span className="bg-primary text-white text-xs lg:text-[12px] px-2 lg:px-4 py-0.5 lg:py-1 font-black uppercase tracking-widest">
             Efemérides / Uruguay
           </span>
-          {/* <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-            Efemérides / Uruguay
-          </span> */}
         </div>
         <h1
-          className={`${newsreader.className} text-5xl md:text-7xl font-black leading-none tracking-tighter mb-6 capitalize`}
+          className={`${newsreader.className} text-5xl md:text-7xl font-black leading-none tracking-tighter mb-6 uppercase`}
         >
           Efemérides del mes de {currentMonthName}
         </h1>
@@ -70,14 +67,14 @@ export default function EfemeridesPage() {
             Memoria Histórica Documentada
           </span>
           <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
-            Archivo General
+            Archivo Efemérides
           </span>
         </div>
       </header>
 
       <Efemerides actions={memorialActions} />
 
-      <footer className="mt-20 pt-12 border-t-2 border-foreground flex justify-between items-center text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground">
+      <footer className="mt-20 pt-12 border-t-2 border-foreground flex justify-between items-center text-xs font-bold uppercase tracking-[0.3em] text-muted-foreground">
         <div>
           Pasado Reciente <br /> Hemeroteca Digital
         </div>

@@ -14554,7 +14554,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
   },
   {
     date: new Date("September 29, 1970"),
-    title: "Bombas en Club Bowling de carrasco. Funcionaria queda inválida",
+    title: "Bombas en Club Bowling de Carrasco. Funcionaria queda inválida",
     slug: "bombas-en-club-bowling-de-carrasco",
     type: "atentados",
     newsPapers: [

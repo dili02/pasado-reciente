@@ -3,6 +3,7 @@ import React from "react";
 import { Icons } from "./icons";
 import { TerroristActionDefinition } from "@/db/data";
 import {
+  ArrowRight,
   BookOpenCheck,
   Calendar,
   Image,
@@ -11,9 +12,6 @@ import {
   MonitorPlay,
   Newspaper,
 } from "lucide-react";
-import { Newsreader } from "next/font/google";
-
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
 
 type Props = {
   action: TerroristActionDefinition;
@@ -21,7 +19,7 @@ type Props = {
 
 export default function TerroristActionListItem({ action }: Props) {
   function getFormattedDateToString(date: Date): string {
-    return new Intl.DateTimeFormat("es-UY", { dateStyle: "long" }).format(
+    return new Intl.DateTimeFormat("es-UY", { dateStyle: "medium" }).format(
       new Date(date),
     );
   }
@@ -42,31 +40,29 @@ export default function TerroristActionListItem({ action }: Props) {
     >
       <Link
         href={`/${action.type}/${action.slug}`}
-        className="flex flex-col h-full p-6"
+        className="flex flex-col h-full p-3 xs:p-6 overflow-hidden"
       >
-        <header className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-            <Calendar className="w-4 h-4 lg:w-5 lg:h-5 text-primary" />
-            <time className="lg:text-sm">
+        <header className="flex items-center justify-between mb-2 xs:mb-4">
+          <div className="flex items-center gap-1 xs:gap-2 text-[10px] xs:text-xs md:text-sm font-black uppercase tracking-widest text-muted-foreground">
+            <Calendar className="w-3 h-3 xs:w-4 xs:h-4 md:w-5 md:h-5 text-primary" />
+            <time className="truncate max-w-[120px] xs:max-w-none">
               {getFormattedDateToString(action.date)}
             </time>
           </div>
 
           {action.moneyTheft?.usd && (
-            <span className="text-[10px] lg:text-[12px] font-black bg-foreground text-background px-2 py-0.5 rounded-sm">
+            <span className="text-[10px] xs:text-xs md:text-sm font-black bg-foreground text-background px-1 xs:px-2 py-0.5 rounded-sm whitespace-nowrap">
               {formatCurrency(action.moneyTheft?.usd)}
             </span>
           )}
         </header>
 
-        <h2
-          className={`${newsreader.className} text-2xl font-black leading-tight mb-4 group-hover:text-primary transition-colors line-clamp-2 min-h-[3.5rem] flex-1`}
-        >
+        <h2 className="font-[family-name:var(--font-newsreader)] text-base xs:text-xl md:text-2xl font-black leading-tight mb-2 xs:mb-4 group-hover:text-primary transition-colors line-clamp-2 min-h-[2.5rem] xs:min-h-[3.5rem] md:min-h-[3.5rem] flex-1">
           {action.title}
         </h2>
 
-        <footer className="flex items-center justify-between pt-4 border-t border-border/50">
-          <div className="flex gap-3">
+        <footer className="flex items-center justify-between pt-2 xs:pt-4 border-t border-border/50">
+          <div className="flex gap-1 xs:gap-2 md:gap-3">
             {[
               { icon: Info, shown: action.victims },
               { icon: Newspaper, shown: action.newsPapers },
@@ -79,40 +75,18 @@ export default function TerroristActionListItem({ action }: Props) {
               .map((item, idx) => (
                 <item.icon
                   key={idx}
-                  className="w-4 h-4 lg:w-6 lg:h-6 text-muted-foreground/60 group-hover:text-primary transition-colors"
+                  className="w-3 h-3 xs:w-4 xs:h-4 md:w-5 md:h-5 text-muted-foreground/60 group-hover:text-primary transition-colors flex-shrink-0"
                 />
               ))}
           </div>
-          <span className="text-[9px] lg:text-[12px] font-bold uppercase tracking-widest text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity">
-            Abrir documento{" "}
-            <ArrowRight className="inline w-3 h-3 ml-1 lg:w-6 lg:h-6" />
+          <span className="text-[10px] xs:text-xs md:text-sm font-bold uppercase tracking-widest text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity flex items-center whitespace-nowrap">
+            <span>
+              Abrir <span className="sr-only">{action.title}</span>
+            </span>
+            <ArrowRight className="inline w-2.5 h-2.5 xs:w-3 xs:h-3 ml-1 md:w-4 md:h-4 flex-shrink-0" />
           </span>
         </footer>
       </Link>
     </li>
   );
 }
-
-import { ArrowRight } from "lucide-react";
-
-/*
-
- <Link
-      href={`/${action.type}/${action.slug}`}
-      key={action.slug}
-      className={`border border-primary p-4 rounded-md transition duration-500 ease-in-out hover:-translate-y-1 bg-orange-100 flex flex-col items-center justify-center md:flex-row md:justify-start md:items-start text-primary-foreground xl:text-lg`}
-      className={`rounded-lg transition duration-500 ease-in-out hover:-translate-y-1 bg-orange-50 flex flex-col items-center justify-center md:flex-row md:justify-start md:items-start p-4`}
-    >
-      <div className="flex items-center gap-4 md:min-w-[200px] text-gray-500 h-full">
-        <Icons.calendar className="w-5 h-5" />
-        <time className="text-base">
-          {getFormattedDateToString(action.date)}
-        </time>
-      </div>
-      <p className="font-bold text-center md:text-left">
-        {/* <p className="font-bold text-textPrimary xl:text-lg 2xl:text-xl text-center md:text-left">
-        {action.title}
-      </p>
-    </Link>
-
-*/

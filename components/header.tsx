@@ -4,44 +4,41 @@ import Link from "next/link";
 import React, { useState } from "react";
 
 import { Icons } from "@/components/icons";
-import { AlertTriangle, Menu, X, Search } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { Newsreader } from "next/font/google";
 import SearchModal from "@/components/search-modal";
-
-const newsreader = Newsreader({ subsets: ["latin"] });
 
 type Props = {};
 
 const navItems = [
   {
     name: "Asesinatos",
-    icon: <Icons.shot className="w-7 h-7 lg:w-5 lg:h-5" />,
+    icon: <Icons.shot className="w-5 h-5 lg:w-7 lg:h-7" />,
     href: "/asesinatos",
   },
   {
     name: "Secuestros",
-    icon: <Icons.prisoner className="w-7 h-7 lg:w-5 lg:h-5" />,
+    icon: <Icons.prisoner className="w-5 h-5 lg:w-7 lg:h-7" />,
     href: "/secuestros",
   },
   {
     name: "Atentados",
-    icon: <Icons.timeDinamite className="w-7 h-7 lg:w-5 lg:h-5" />,
+    icon: <Icons.timeDinamite className="w-5 h-5 lg:w-7 lg:h-7" />,
     href: "/atentados",
   },
   {
     name: "Robo Dinero",
-    icon: <Icons.heist className="w-7 h-7 lg:w-5 lg:h-5" />,
+    icon: <Icons.heist className="w-5 h-5 lg:w-7 lg:h-7" />,
     href: "/robo-dinero",
   },
   {
     name: "Robo Armas/Explosivos",
-    icon: <Icons.gun className="w-6 h-6 lg:w-5 lg:h-5" />,
+    icon: <Icons.gun className="w-5 h-5 lg:w-6 lg:h-6" />,
     href: "/robo-armamento-explosivos",
   },
   {
     name: "Otras Acciones",
-    icon: <Icons.punch className="w-7 h-7 lg:w-5 lg:h-5" />,
+    icon: <Icons.punch className="w-5 h-5 lg:w-7 lg:h-7" />,
     href: "/otras-acciones",
   },
 ];
@@ -57,16 +54,12 @@ export default function Header({}: Props) {
         {/* Branding Section */}
         <div className="flex flex-col items-center justify-center py-6 border-b border-muted/50">
           <Link href="/" className="group text-center">
-            <h1
-              className={`${newsreader.className} text-3xl md:text-5xl font-black uppercase tracking-tighter text-foreground group-hover:text-primary transition-colors duration-500`}
-            >
+            <h1 className="font-[family-name:var(--font-newsreader)] text-3xl md:text-5xl font-black uppercase tracking-tighter text-foreground group-hover:text-primary transition-colors duration-500">
               Museo de la Memoria <br /> del Pasado Reciente
             </h1>
             <div className="flex items-center justify-center gap-4 mt-2">
               <div className="h-px w-10 md:w-20 bg-primary/40" />
-              <span
-                className={`${newsreader.className} text-lg md:text-xl font-medium italic text-muted-foreground uppercase tracking-[0.2em]`}
-              >
+              <span className="font-[family-name:var(--font-newsreader)] text-lg md:text-xl font-medium italic text-muted-foreground uppercase tracking-[0.2em]">
                 Uruguay
               </span>
               <div className="h-px w-10 md:w-20 bg-primary/40" />
@@ -88,7 +81,10 @@ export default function Header({}: Props) {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+          <nav
+            aria-label="Navegación principal"
+            className="hidden lg:flex items-center gap-6 xl:gap-8"
+          >
             {navItems.map((item, index) => {
               const isActive = pathname.startsWith(item.href);
               return (
@@ -121,7 +117,7 @@ export default function Header({}: Props) {
                   size={18}
                   className="group-hover:scale-110 transition-transform"
                 />
-                <span className="text-[10px] font-black uppercase tracking-widest hidden xl:block">
+                <span className="text-[12px] font-black uppercase tracking-widest hidden xl:block">
                   Buscar
                 </span>
               </button>
@@ -132,8 +128,10 @@ export default function Header({}: Props) {
           <div className="lg:hidden flex items-center">
             <button
               onClick={() => setIsNavOpen(!isNavOpen)}
-              className="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors"
-              aria-label="Menú"
+              aria-expanded={isNavOpen}
+              aria-controls="mobile-menu"
+              aria-label={isNavOpen ? "Cerrar menú" : "Abrir menú"}
+              className="p-3 min-w-[44px] min-h-[44px] text-primary hover:bg-primary/10 rounded-full transition-colors"
             >
               {isNavOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
@@ -143,9 +141,14 @@ export default function Header({}: Props) {
 
       {/* Mobile Menu Content */}
       <div
+        id="mobile-menu"
+        aria-hidden={!isNavOpen}
         className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out ${isNavOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"}`}
       >
-        <nav className="bg-card border-t border-border p-6 flex flex-col gap-4">
+        <nav
+          aria-label="Menú móvil"
+          className="bg-card border-t border-border p-6 flex flex-col gap-4"
+        >
           {navItems.map((item, index) => {
             const isActive = pathname.startsWith(item.href);
             return (
@@ -153,7 +156,7 @@ export default function Header({}: Props) {
                 key={index}
                 href={item.href}
                 onClick={() => setIsNavOpen(false)}
-                className={`text-lg font-black uppercase tracking-tighter py-2 border-b border-border/50
+                className={`text-sm md:text-lg font-black uppercase tracking-tighter py-2 border-b border-border/50
                   ${isActive ? "text-primary" : "text-foreground"}`}
               >
                 {item.name}
