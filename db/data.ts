@@ -16741,7 +16741,7 @@ export const TerroristActions: TerroristActionDefinition[] = [
     ],
   },
   {
-    date: new Date("June 06, 1970"),
+    date: new Date("June 16, 1970"),
     title: "Unión de Bancos del Uruguay sucursal Cordón",
     slug: "union-de-bancos-del-uruguay-sucursal-cordon",
     type: "robo-dinero",
@@ -25460,6 +25460,297 @@ export const TerroristActions: TerroristActionDefinition[] = [
         },
       ],
     },
+  },
+  {
+    date: new Date("June 21, 1972"),
+    title: "Exhumación cadáver de Pascasio Báez",
+    slug: "pascasio-baez-exhumacion-cadaver",
+    type: "otras-acciones",
+    victims: [
+      {
+        info: {
+          name: "Pascasio Báez",
+          age: 44,
+          marital: "concubino",
+          avatar: {
+            src: "/pascasio-baez/a_1.png",
+            alt: "imagen de Pascasio Baéz",
+          },
+        },
+      },
+    ],
+    newsPapers: [
+      {
+        name: "Diario “El Diario” (Página 20)",
+        date: new Date("June 21, 1972 03:24:00"),
+        title: "“CÁRCEL DEL PUEBLO, CUBA O SIMPLEMENTE ULTIMARLO”",
+        description:
+          "... exhumaron esta mañana el cadáver de un peón rural de 45 años, ejecutado a fines del pasado año por los Tupamaros en la estancia Spartacus, diez días después de sorprenderlo en las inmediaciones de una de las tatuceras.... Por decisión de la dirección nacional del movimiento sedicioso, el changador -Pascasio Ramón Báez Mena, que residía en Pan de Azúcar -fue asesinado el 21 de diciembre último, suministrándole una dosis de cuatro gramos de pentotal, según narraron los propios sediciosos.... El 21 de diciembre, en presencia del miembro de la Dirección Nacional del MLN y el jefe del grupo.... se cumplió el designio.... fue.... quien se encargó de la eliminación de Baéz Mena.... le inyectó 4 gramos de pentotal.... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/pascasio-baez/n_1.jpg",
+            alt: "portada publicada por el diario “El Diario”",
+          },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_2.jpg",
+            alt: "noticia publicada por el diario “El Diario”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El País” (en Portada)",
+        date: new Date("June 22, 1972 03:24:00"),
+        title: "“BRUTAL CRIMEN DEL PEÓN RURAL”",
+        description:
+          "Comando faccioso ordenó ejecutarlo. Aparece foto a cuyo pie dice.”... quien administró la droga fatal fue el aventajado estudiante de Medicina... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/pascasio-baez/n_3.jpg",
+            alt: "portada publicada por el diario “El País”",
+          },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_4.jpg",
+            alt: "noticia publicada por el diario “El País”",
+          },
+        ],
+      },
+      {
+        name: "Diario “El País” (Página 19)",
+        date: new Date("June 22, 1972 03:24:00"),
+        title: "“CABECILLAS FACCIOSOS PRESENCIAN EL CRIMEN”",
+        description:
+          "... fue el conspirador que inyectó los cuatro gramos de Pentotal, al peón rural, Pascasio Ramón Báez Mena... Presenciaron la trágica ejecución... y... Aparecen fotos y plano.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/pascasio-baez/n_5.jpg",
+            alt: "portada publicada por el diario “El País”",
+          },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_6.jpg",
+            alt: "noticia publicada por el diario “El País”",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (en Portada)',
+        date: new Date("June 22, 1972 03:24:00"),
+        title: "“FRÍAMENTE SE DECIDIÓ EL ASESINATO DEL PEÓN”",
+        description:
+          "Utilizaron una dosis mortal de pentotal. En uno de los potreros de la estancia “Spartacus”..., fueron exhumados ayer..., los restos del peón Pascasio Ramón Báez Mena... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/pascasio-baez/n_7.jpg",
+            alt: "portada publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_8.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 2)',
+        date: new Date("June 22, 1972 03:24:00"),
+        title:
+          "“UN MODESTO PEÓN, DIABÓLICAMENTE ASESINADO POR TUPAMAROS EN MALDONADO HACE 6 MESES”",
+        description:
+          "Otro espeluznante crimen de los tupamaros, planeado con una frialdad inconcebible y ejecutado por mentes evidentemente enfermas por su obsesión asesina… Desarrollo de los hechos... Aparecen fotos.",
+        title1: "“EL ASESINO,...”",
+        description1:
+          "... el sedicioso... admitió plenamente haber sido quien inyectó la dosis de pentotal al peón Pascasio Ramón Baéz Mena, ocasionándole la muerte...",
+        title2: "“LA HUMILDE Y TRÁGICA INTIMIDAD DE PASCASIO BÁEZ”",
+        description2:
+          "... La mujer de Báez venía sufriendo desde tiempo atrás diversas dolencias... Cuando el 11 de diciembre Báez salió... para hacer una changa y fue secuestrado por los sediciosos, los males de la Sra. Garrido se agravaron... Lamentablemente... Alejandrina Garrido dejó de existir en el Hospital de Pan de Azúcar el 23 de diciembre... Pascasio Báez... fue salvajemente asesinado por quienes pretextan luchar por la erradicación de las injusticias sociales.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/pascasio-baez/n_9.jpg",
+            alt: "noticia publicada publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_9.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Día" (Página 3)',
+        date: new Date("June 22, 1972 03:24:00"),
+        title: "“AQUÍ ULTIMARON AL INFELIZ TRABAJADOR”",
+        description: "Aparecen fotos y plano.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/pascasio-baez/n_10.jpg",
+            alt: "noticia publicada por el diario “El Día”",
+          },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_10.jpg",
+            alt: "página diario completa publicada por el diario “El Día”",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El Popular" (Página 2)',
+        date: new Date("June 22, 1972 03:24:00"),
+        title: "“EL CADÁVER DEL PEÓN BÁEZ MENA FUE EXHUMADO AYER”",
+        description:
+          "El cadáver de un trabajador rural, cuya muerte es atribuida a una ejecución resuelta por la Dirección del M.L.N., diez días después que aquel descubriera uno de los escondites rurales subterráneos,... Aparece foto.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/pascasio-baez/n_11.jpg",
+            alt: "noticia publicada por el diario “El Popular”",
+          },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_12.jpg",
+            alt: "página diario completa publicada por el diario “El Popular”",
+          },
+        ],
+      },
+      {
+        name: 'Diario "El País" (Página 6)',
+        date: new Date("August 14, 1972 03:24:00"),
+        title: "“CAPTURAN AL ASESINO DEL PEÓN RURAL”",
+        description:
+          "Es un conspirador que había fugado del Penal. Un peligroso terrorista que había fugado del Penal de Punta Carretas... fue recapturado... El sujeto-...-participó en el asesinato del peón rural que descubriera la “tatucera” de las cercanías de Pan de Azúcar... Aparecen fotos.",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/pascasio-baez/n_13.jpg",
+            alt: "noticia publicada publicada por el diario “El País”",
+          },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_14.jpg",
+            alt: "página diario completa publicada por el diario “El País”",
+          },
+        ],
+      },
+      {
+        name: "Diario “Acción” (Página 7)",
+        date: new Date("September 22, 1972 03:24:00"),
+        title:
+          "“PROCESARON A UNO DE LOS MATADORES DEL PEÓN RURAL PASCASIO MENA BÁEZ”",
+        description: "... se trata del ex funcionario bancario...",
+        images: [
+          {
+            type: "noticia publicada",
+            src: "/pascasio-baez/n_15.jpg",
+            alt: "portada publicada por el diario “Acción”",
+          },
+          {
+            type: "página diario completa",
+            src: "/pascasio-baez/n_16.jpg",
+            alt: "noticia publicada por el diario “Acción”",
+          },
+        ],
+      },
+    ],
+    apologyForCrimeInImages: [
+      {
+        title: "Peón rural asesinado y enterrado por sediciosos.",
+        description:
+          "Pascasio Baéz Mena, fue asesinado el 21 de diciembre de 1971 con una dosis de pentotal administrada por un estudiante de Medicina. Este humilde peón rural fue secuestrado en los días previos al haber avistado fortuitamente una “tatucera” en Maldonado. El comando sedicioso también evaluó la posibilidad de mantenerlo en una “Cárcel del Pueblo” o llevarlo a Cuba. Pascasio Báez, primer detenido desaparecido de la historia reciente, tenía 45 años. Su compañera Alejandra Garrido falleció el 23 de diciembre de 1971 en medio de la incertidumbre del paradero de Pascasio Baéz.",
+        images: [
+          {
+            src: "/pascasio-baez/i_1.jpg",
+            alt: "Pascasio Báez descubre accidentalmente una 'Tatucera'.",
+          },
+          {
+            src: "/pascasio-baez/i_2.jpg",
+            alt: "Es capturado y hecho prisionero en celda de 'Tatucera'.",
+          },
+          {
+            src: "/pascasio-baez/i_3.jpg",
+            alt: "Dirigentes sediciosos deciden “Pena de Muerte” de Pascasio Báez.",
+          },
+          {
+            src: "/pascasio-baez/i_4.jpg",
+            alt: "Sediciosos ejecuta “Pena de Muerte” con inyección de Pentotal.",
+          },
+          {
+            src: "/pascasio-baez/i_5.jpg",
+            alt: " Es enterrado.",
+          },
+        ],
+      },
+    ],
+    virtualMemorial: [
+      {
+        src: "/pascasio-baez/memorial.jpg",
+        alt: "Aquí, en plena democracia, 21/12/1971  fue ejecutado y sepultado por Terroristas, el peón rural Pascasio Baéz, casado, 45 años de edad.",
+      },
+    ],
+    vindicatedActions: {
+      books: [
+        {
+          fragment: `<p>““Observa Jorge Zabalza con relación a este tema: <em>“Cuando ocurrió lo del peón del Caraguatá hubo una gran discusión. Me encontré en un berretín con un compañero, quien venía de Pan de Azúcar espantado de lo que había pasado. Acerca de como (sic) se tomó esa decisión hay distintas versiones, lo real es que Píriz Budes fue con la orden de hacerlo. También es cierto que hubo compañeros que insistieron en la necesidad de tomar esa decisión. Creo que se optó por la vía más simple y menos humana, en lugar de elegir la otra posibilidad: sacarlo para el exterior. Se debía haber hecho ese esfuerzo, aun corriendo riesgo nosotros. En ese momento lo discutimos, no es cada una de esas cosas pasara desapercibida. Pienso que es esto hubo una trasgresión de los derechos humanos. Un delito...”</em>.”.</p>`,
+          year: new Date("2001-1-1"),
+          name: "La izquierda armada. Ideología, ética e identidad en el MLN-Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones Trilce",
+          pages: "págs. 158-159",
+          author: "Aldrighi",
+        },
+        {
+          fragment: `<p>“Hugo Wilkins</p>
+          <p>“... Incluso en el caso de la muerte del peón (Báez), muy mal muerto, se le inyectó pentotal justamente para que no sufriera. No hubo desprecio por el dolor del hombre...”.”.</p>`,
+          year: new Date("2009-1-1"),
+          name: "Memorias de insurgencia. Historias de vida y militancia en el MLN-Tupamaros. 1965-1975.",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Banda Oriental S.R.L.",
+          pages: "págs. 245,260-261",
+          author: "Aldrighi",
+        },
+        {
+          fragment: `<p>“... J .M. -¿Sobre el libro Sendic del periodista Blixen, que piensa?</p>
+          <p>H. A. P.... se pretende dejarlo fuera del asesinato de Pascasio Báez Mena, ocultando que la tatucera era de la columna que él dirigía...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "págs. 144-145",
+          author: "Marius",
+        },
+        {
+          fragment: `<p>“... J .M. –Otro nombre que estimo es, sin dudas, el más polémico: Mario Píriz Budes.</p>
+          <p>H. A. P. -... Su mayor enfrentamiento se produjo cuando la muerte de Pascasio Báez, propuesta desde el Caraguatá y aceptada por el Ejecutivo sin haber tenido en cuenta su oposición, a tal punto que fue Engler quien se desplazó a Maldonado para comunicar la ejecución...”.</p>`,
+          year: new Date("2015-1-1"),
+          name: "Palabra de Amodio. La otra historia de los Tupamaros",
+          place: "Montevideo - Uruguay",
+          edition: "Ediciones de la Plaza",
+          pages: "pág. 187",
+          author: "Marius",
+        },
+        {
+          fragment: `<p>“Aunque el tema no se trata en forma abierta, a Rosencof le pesa haber dado vía libre –al igual que el resto de la dirección – a que sus compañeros reunidos en la estancia Espartaco decidieran, a fines de 1971, la suerte de Pascasio Baéz. Se trataba de un peón que había descubierto una tatucera en aquel campo. Píriz Budes, responsable del interior desde la dirección, impulsó la decisión de dar muerte al peón. Engler, otro de los integrantes del Ejecutivo, pudo haberse negado pero no lo hizo, Wasen tampoco. El hombre fue asesinado con una inyección de pentotal...”.</p>`,
+          year: new Date("2013-1-1"),
+          name: "Comandante Facundo. El revolucionario Pepe Mujica",
+          place: "Montevideo - Uruguay",
+          edition: "Prisa Ediciones",
+          pages: "pág. 516",
+          author: "Pernas",
+        },
+      ],
+    },
+    // seeAlso: [
+    //   {
+    //     href: "ubican-carcel-del-pueblo-del-mln-t-donde-ejecutaron-al-peon-rural-pascasio-baez",
+    //     text: "Ubican cárcel del pueblo del MLN-T donde ejecutaron al peón rural Pascasio Báez",
+    //   },
+    // ],
   },
 ];
 

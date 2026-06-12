@@ -58,15 +58,25 @@ export default async function page({ params }: Props) {
   return (
     <section className="max-w-7xl mx-auto px-2 xs:px-4 py-6 xs:py-12 overflow-x-hidden">
       <header className="mb-6 xs:mb-12 border-b-4 border-foreground pb-2 xs:pb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <h1
-          className={`text-2xl xs:text-4xl md:text-6xl lg:text-8xl font-black uppercase tracking-tighter leading-none`}
-        >
-          {params.year}
-        </h1>
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="bg-primary text-white text-xs px-2 py-0.5 font-black uppercase tracking-widest">
+              Resumen Cronológico
+            </span>
+            <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
+              Uruguay / Hemeroteca
+            </span>
+          </div>
+          <h1
+            className={`text-3xl xs:text-4xl md:text-6xl lg:text-8xl font-black uppercase tracking-tighter leading-none`}
+          >
+            {params.year}
+          </h1>
+        </div>
       </header>
 
       <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 xs:gap-8">
-        {actions.map((action) => (
+        {sortedActions.map((action) => (
           <TerroristActionListItem action={action} key={action.slug} />
         ))}
       </ul>

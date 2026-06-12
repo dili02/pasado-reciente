@@ -7,7 +7,7 @@ type Props = {};
 const navItems = [
   {
     name: "Asesinatos",
-    icon: <Icons.shot className="w-7 h-7" />,
+    icon: <Icons.aim className="w-24 h-24" />,
     href: "/asesinatos",
   },
   {
