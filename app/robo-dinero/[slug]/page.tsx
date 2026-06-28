@@ -1,4 +1,3 @@
-import TableOfContet from "@/components/common/table-of-content";
 import NewspapersNotices from "@/components/newspapers-notices";
 import ActionVindicated from "@/components/action-vindicated";
 import JsonLdArticle from "@/components/json-ld-article";

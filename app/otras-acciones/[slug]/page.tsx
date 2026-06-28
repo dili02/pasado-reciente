@@ -4,7 +4,6 @@ import ApologyForCrimeInImages from "@/components/apology-for-crime-images";
 import Victim from "@/components/victim-info";
 import VirtualMemorial from "@/components/virtual-memorial";
 import NewspapersNotices from "@/components/newspapers-notices";
-import TableOfContet from "@/components/common/table-of-content";
 import Testimonies from "@/components/testimonies";
 import JsonLdArticle from "@/components/json-ld-article";
 import { Metadata } from "next/types";

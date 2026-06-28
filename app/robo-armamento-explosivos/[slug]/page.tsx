@@ -1,6 +1,5 @@
 import ActionVindicated from "@/components/action-vindicated";
 import ApologyForCrimeInImages from "@/components/apology-for-crime-images";
-import TableOfContet from "@/components/common/table-of-content";
 import NewspapersNotices from "@/components/newspapers-notices";
 import Testimonies from "@/components/testimonies";
 import Victim from "@/components/victim-info";
