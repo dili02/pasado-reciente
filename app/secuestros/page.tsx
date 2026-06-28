@@ -38,8 +38,7 @@ function getFormattedDateToString(date: Date): string {
   );
 }
 
-import { Newsreader } from "next/font/google";
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
+
 
 export default async function page({}: Props) {
   const terroristActionKidnapped = await api.getAllKidnappings();
@@ -76,7 +75,7 @@ export default async function page({}: Props) {
           </h1>
         </div> */}
         <h1
-          className={`${newsreader.className} text-2xl xs:text-4xl md:text-6xl lg:text-8xl font-black uppercase tracking-tighter leading-none`}
+          className="font-[family-name:var(--font-newsreader)] text-2xl xs:text-4xl md:text-6xl lg:text-8xl font-black uppercase tracking-tighter leading-none"
         >
           Secuestros
         </h1>

@@ -1,9 +1,6 @@
 import { ArrowLeft, Search } from "lucide-react";
 import Link from "next/link";
-import { Newsreader } from "next/font/google";
 import { Icons } from "@/components/icons";
-
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
 
 export default function NotFound() {
   const mainPages = [
@@ -23,7 +20,7 @@ export default function NotFound() {
     <div className="min-h-screen flex items-center justify-center px-4 py-12">
       <div className="max-w-2xl w-full text-center">
         <h1
-          className={`${newsreader.className} text-6xl md:text-8xl font-black uppercase tracking-tighter mb-4`}
+          className="font-[family-name:var(--font-newsreader)] text-6xl md:text-8xl font-black uppercase tracking-tighter mb-4"
         >
           404
         </h1>

@@ -37,16 +37,14 @@ const navItems = [
   },
 ];
 
-import { Newsreader } from "next/font/google";
 
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
 
 export default function IntroTerroristActions({}: Props) {
   return (
     <div className="flex flex-col h-full bg-background">
       <header className="mb-6 border-b-4 border-foreground pb-2 flex justify-between items-end">
         <h2
-          className={`${newsreader.className} text-2xl text-primary uppercase tracking-tighter`}
+          className="font-[family-name:var(--font-newsreader)] text-2xl text-primary uppercase tracking-tighter"
         >
           Acciones
         </h2>

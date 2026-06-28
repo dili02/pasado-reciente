@@ -2,11 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { api } from "@/db/data";
-import { Newsreader } from "next/font/google";
 import { TerroristActionDefinition } from "@/db/data";
 import Efemerides from "@/components/efemerides";
-
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
 
 export default function EfemeridesPage() {
   const [memorialActions, setMemorialActions] = useState<
@@ -58,7 +55,7 @@ export default function EfemeridesPage() {
           </span>
         </div>
         <h1
-          className={`${newsreader.className} text-5xl md:text-7xl font-black leading-none tracking-tighter mb-6 uppercase`}
+          className="font-[family-name:var(--font-newsreader)] text-5xl md:text-7xl font-black leading-none tracking-tighter mb-6 uppercase"
         >
           Efemérides del mes de {currentMonthName}
         </h1>

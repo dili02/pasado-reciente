@@ -3,12 +3,9 @@ import Link from "next/link";
 import React from "react";
 import { Icons } from "./icons";
 import { Newspaper } from "lucide-react";
-import { Newsreader } from "next/font/google";
 import SectionTitle from "./section-title";
 
 type Props = {};
-
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
 
 function getFormattedDateToString(date: Date): string {
   return new Intl.DateTimeFormat("es-UY", { dateStyle: "long" }).format(
@@ -37,7 +34,7 @@ export default function NewspapersNotices({
         <Newspaper className="w-8 h-8 text-primary hidden lg:block" />
         <h2
           id="notices"
-          className={`${newsreader.className} text-3xl font-black uppercase tracking-tighter`}
+          className="font-[family-name:var(--font-newsreader)] text-3xl font-black uppercase tracking-tighter"
         >
           noticias publicadas por diarios de la época
         </h2>

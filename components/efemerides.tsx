@@ -11,10 +11,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect, useMemo } from "react";
-import { Newsreader } from "next/font/google";
 import { Skeleton, CardSkeleton } from "./skeletons";
-
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
 
 type Props = {
   actions: TerroristActionDefinition[];
@@ -100,7 +97,7 @@ function TimelineItem({ action }: { action: TerroristActionDefinition }) {
           </header>
 
           <h3
-            className={`${newsreader.className} text-3xl font-black leading-tight tracking-tighter group-hover:text-primary transition-colors`}
+            className="font-[family-name:var(--font-newsreader)] text-3xl font-black leading-tight tracking-tighter group-hover:text-primary transition-colors"
           >
             {action.title}
           </h3>

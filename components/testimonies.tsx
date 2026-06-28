@@ -2,13 +2,9 @@ import { VideosTerroristActionDefinition } from "@/db/data";
 import { MonitorPlay } from "lucide-react";
 import React from "react";
 import SectionTitle from "./section-title";
-import { Newsreader } from "next/font/google";
-
 type Props = {
   videos: VideosTerroristActionDefinition[];
 };
-
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
 
 export default function Testimonies({ videos }: Props) {
   return (
@@ -17,7 +13,7 @@ export default function Testimonies({ videos }: Props) {
         <MonitorPlay className="w-8 h-8 text-primary hidden lg:block" />
         <h2
           id="testimonies"
-          className={`${newsreader.className} text-3xl font-black uppercase tracking-tighter`}
+          className="font-[family-name:var(--font-newsreader)] text-3xl font-black uppercase tracking-tighter"
         >
           Relatos de familiares de víctimas del terrorismo.
         </h2>

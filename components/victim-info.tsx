@@ -30,8 +30,7 @@ function getFormattedDateToString(date: Date): string {
   );
 }
 
-import { Newsreader } from "next/font/google";
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
+
 
 export function VictimInfo({
   info,
@@ -68,7 +67,7 @@ export function VictimInfo({
 
       <div className="flex-1">
         <h3
-          className={`${newsreader.className} text-3xl font-black mb-4 tracking-tighter`}
+          className="font-[family-name:var(--font-newsreader)] text-3xl font-black mb-4 tracking-tighter"
         >
           {info.name}
         </h3>

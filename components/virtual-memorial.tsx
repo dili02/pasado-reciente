@@ -1,14 +1,11 @@
 import { ImageDefinition } from "@/db/data";
 import { MapPin } from "lucide-react";
 import React from "react";
-import { Newsreader } from "next/font/google";
 import SectionTitle from "./section-title";
 
 type Props = {
   virtualMemorial: ImageDefinition[];
 };
-
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
 
 export default function VirtualMemorial({ virtualMemorial }: Props) {
   return (
@@ -28,7 +25,7 @@ export default function VirtualMemorial({ virtualMemorial }: Props) {
       <header className="flex items-center gap-4 border-b border-foreground pb-2 mb-8">
         <MapPin className="w-8 h-8 text-primary hidden lg:block" />
         <h2
-          className={`${newsreader.className} text-3xl font-black uppercase tracking-tighter`}
+          className="font-[family-name:var(--font-newsreader)] text-3xl font-black uppercase tracking-tighter"
         >
           Memoria Virtual
         </h2>

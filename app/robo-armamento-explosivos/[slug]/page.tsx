@@ -59,8 +59,7 @@ function getFormattedDateToString(date: Date): string {
   );
 }
 
-import { Newsreader } from "next/font/google";
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
+
 
 export default async function page({ params }: Props) {
   const action = await api.getActionBySlug(params.slug);
@@ -86,7 +85,7 @@ export default async function page({ params }: Props) {
           </span> */}
           </div>
           <h1
-            className={`${newsreader.className} text-5xl md:text-7xl font-black leading-none tracking-tighter mb-6`}
+            className="font-[family-name:var(--font-newsreader)] text-5xl md:text-7xl font-black leading-none tracking-tighter mb-6"
           >
             {action.title}
           </h1>
@@ -105,7 +104,7 @@ export default async function page({ params }: Props) {
           {action.victims && action.victims.length > 0 && (
             <section id="victims" className="scroll-mt-20">
               <h2
-                className={`${newsreader.className} text-3xl font-black uppercase border-b border-foreground mb-8 pb-2`}
+                className="font-[family-name:var(--font-newsreader)] text-3xl font-black uppercase border-b border-foreground mb-8 pb-2"
               >
                 Víctimas y Afectados
               </h2>

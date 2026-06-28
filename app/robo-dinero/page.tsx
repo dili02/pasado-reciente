@@ -47,8 +47,7 @@ function formatCurrency(amount: number) {
   }).format(amount);
 }
 
-import { Newsreader } from "next/font/google";
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
+
 
 export default async function page({}: Props) {
   const actions = await api.getAllMoneyTheft();
@@ -76,7 +75,7 @@ export default async function page({}: Props) {
             </span>
           </div> */}
           <h1
-            className={`${newsreader.className} text-2xl xs:text-4xl md:text-6xl lg:text-8xl font-black uppercase tracking-tighter leading-none`}
+            className="font-[family-name:var(--font-newsreader)] text-2xl xs:text-4xl md:text-6xl lg:text-8xl font-black uppercase tracking-tighter leading-none"
           >
             Robo de Dinero
           </h1>

@@ -1,7 +1,4 @@
-import { Newsreader } from "next/font/google";
 
-const newsreader = Newsreader({ subsets: ["latin"] });
-const newsreaderItalic = Newsreader({ subsets: ["latin"], style: "italic" });
 
 type Props = {};
 
@@ -24,7 +21,7 @@ export default function Intro({}: Props) {
           </div> */}
 
           <h2
-            className={`${newsreaderItalic.className} text-2xl md:text-3xl lg:text-4xl text-primary font-medium mb-4`}
+            className="font-[family-name:var(--font-newsreader)] text-2xl md:text-3xl lg:text-4xl text-primary font-medium mb-4 italic"
           >
             Bienvenidos al Museo Digital del Pasado Reciente
           </h2>
@@ -33,7 +30,7 @@ export default function Intro({}: Props) {
 
         <article className="max-w-4xl columns-1 md:columns-2 gap-12 text-left">
           <p
-            className={`${newsreader.className} text-lg md:text-xl leading-relaxed text-foreground/90 tracking-tight text-justify`}
+            className="font-[family-name:var(--font-newsreader)] text-lg md:text-xl leading-relaxed text-foreground/90 tracking-tight text-justify"
           >
             <span className="text-6xl md:text-8xl font-black float-left mr-4 mt-2 leading-[0.7] text-foreground">
               L
@@ -45,7 +42,7 @@ export default function Intro({}: Props) {
             el tiempo y contexto en que sucedieron los hechos.
           </p>
           <p
-            className={`${newsreader.className} text-lg md:text-xl leading-relaxed text-foreground/90 tracking-tight text-justify mt-6 md:mt-0`}
+            className="font-[family-name:var(--font-newsreader)] text-lg md:text-xl leading-relaxed text-foreground/90 tracking-tight text-justify mt-6 md:mt-0"
           >
             En virtud del tiempo transcurrido, es necesario precisar que el
             inicio de los hechos se dieron en el marco de un gobierno
@@ -65,7 +62,7 @@ export default function Intro({}: Props) {
               RECOPILACIÓN HISTÓRICA
             </p>
             <p
-              className={`${newsreaderItalic.className} text-xl md:text-3xl mt-4 text-primary font-bold`}
+              className="font-[family-name:var(--font-newsreader)] text-xl md:text-3xl mt-4 text-primary font-bold italic"
             >
               Más de 230 acciones terroristas documentadas (1963 - 1976)
             </p>
@@ -78,7 +75,7 @@ export default function Intro({}: Props) {
               &ldquo;
             </span>
             <p
-              className={`${newsreaderItalic.className} text-xl md:text-2xl text-foreground leading-snug`}
+              className="font-[family-name:var(--font-newsreader)] text-xl md:text-2xl text-foreground leading-snug italic"
             >
               El inicio de los hechos se dio en el marco de un gobierno
               democrático surgido de elecciones libres, sorprendiendo a la

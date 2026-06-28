@@ -5,10 +5,7 @@ import Link from "next/link";
 import { ArrowRight, AlertTriangle } from "lucide-react";
 import { Skeleton } from "./skeletons";
 import { TerroristActionDefinition } from "@/db/data";
-import { Newsreader } from "next/font/google";
 
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
-const newsreaderItalic = Newsreader({ subsets: ["latin"], style: "italic" });
 
 type Props = {
   actions: TerroristActionDefinition[];
@@ -79,7 +76,7 @@ export default function Memorial({ actions = [] }: Props) {
       <div className="mt-8 border border-border/50 p-12 rounded-sm text-center lg:text-left animate-in fade-in duration-700">
         <AlertTriangle className="w-12 h-12 text-muted-foreground/30 mb-6 mx-auto lg:mx-0" />
         <h3
-          className={`${newsreader.className} text-2xl font-bold uppercase mb-4`}
+          className="font-[family-name:var(--font-newsreader)] text-2xl font-bold uppercase mb-4"
         >
           Sin efemérides para {currentMonth}
         </h3>
@@ -102,13 +99,13 @@ export default function Memorial({ actions = [] }: Props) {
     <div className="mt-8 animate-in fade-in duration-700">
       <header className="mb-6 border-b-2 border-primary/20 pb-4">
         <h2
-          className={`${newsreader.className} text-3xl md:text-4xl font-black uppercase tracking-tighter text-center lg:text-left`}
+          className="font-[family-name:var(--font-newsreader)] text-3xl md:text-4xl font-black uppercase tracking-tighter text-center lg:text-left"
         >
           Memorial del Mes de{" "}
           <span className="text-primary italic">{currentMonth}</span>
         </h2>
         <p
-          className={`${newsreaderItalic.className} text-lg text-muted-foreground mt-2 text-center lg:text-left`}
+          className="font-[family-name:var(--font-newsreader)] text-lg text-muted-foreground mt-2 text-center lg:text-left italic"
         >
           Registro de acciones documentadas entre {initDate} y {endDate}
         </p>

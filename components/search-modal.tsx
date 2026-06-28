@@ -5,10 +5,7 @@ import { Search, X, Loader2, ArrowRight, FileText } from "lucide-react";
 import { TerroristActionDefinition } from "@/db/data";
 import { Icons } from "@/components/icons";
 import Link from "next/link";
-import { Newsreader } from "next/font/google";
 import { searchActions } from "@/lib/search-data";
-
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["400", "800"] });
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -134,7 +131,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       </span>
                     </div>
                     <h4
-                      className={`${newsreader.className} text-xl font-black leading-tight tracking-tight group-hover:text-primary transition-colors truncate`}
+                      className="font-[family-name:var(--font-newsreader)] text-xl font-black leading-tight tracking-tight group-hover:text-primary transition-colors truncate"
                     >
                       {action.title}
                     </h4>

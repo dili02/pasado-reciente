@@ -2,13 +2,9 @@ import { ApologyForCrimeInImagesDefinition } from "@/db/data";
 import React from "react";
 import { Image, ImageIcon } from "lucide-react";
 import SectionTitle from "./section-title";
-import { Newsreader } from "next/font/google";
-
 type Props = {
   crimeImages: ApologyForCrimeInImagesDefinition[];
 };
-
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
 
 export default function ApologyForCrimeInImages({ crimeImages }: Props) {
   return (
@@ -29,7 +25,7 @@ export default function ApologyForCrimeInImages({ crimeImages }: Props) {
         {/* <Image className="w-8 h-8 text-primary hidden lg:block" /> */}
         <ImageIcon className="w-8 h-8 text-primary hidden lg:block" />
         <h2
-          className={`${newsreader.className} text-3xl font-black uppercase tracking-tighter`}
+          className="font-[family-name:var(--font-newsreader)] text-3xl font-black uppercase tracking-tighter"
         >
           Delito en imágenes
         </h2>

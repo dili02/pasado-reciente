@@ -49,8 +49,7 @@ export async function generateStaticParams() {
   return actions.map((action) => ({ slug: action.slug }));
 }
 
-import { Newsreader } from "next/font/google";
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["800"] });
+
 
 function getFormattedDateToString(date: Date): string {
   return new Intl.DateTimeFormat("es-UY", { dateStyle: "long" }).format(
@@ -91,7 +90,7 @@ export default async function page({ params }: Props) {
           </span> */}
           </div>
           <h1
-            className={`${newsreader.className} text-5xl md:text-7xl font-black leading-none tracking-tighter mb-6`}
+            className="font-[family-name:var(--font-newsreader)] text-5xl md:text-7xl font-black leading-none tracking-tighter mb-6"
           >
             {action.title}
           </h1>
